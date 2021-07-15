@@ -63,6 +63,7 @@ public class journey_mode
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
