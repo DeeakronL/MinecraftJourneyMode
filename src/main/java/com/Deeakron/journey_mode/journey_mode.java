@@ -51,6 +51,9 @@ public class journey_mode
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        //ResearchList research = new ResearchList();
+        //int[] data = (research.get("minecraft:stone"));
+
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         if (UnobtainConfig.use_unobtainable.get()) {
             UnobtainBlockInit.BLOCKS.register(bus);
