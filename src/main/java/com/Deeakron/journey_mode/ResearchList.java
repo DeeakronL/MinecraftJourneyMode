@@ -10,7 +10,7 @@ public class ResearchList {
     private HashMap<String, int[]> research;
 
     public ResearchList() {
-        ResourceLocation data = new ResourceLocation(journey_mode.MODID, "duplication_menu/minecraft.json");
+        ResourceLocation data = new ResourceLocation(journey_mode.MODID, "duplication_menu/base_minecraft.json");
         this.research = new HashMap<String, int[]>();
         journey_mode.LOGGER.info("currently creating!");
         this.research.put("minecraft:stone", new int[]{0,128});
