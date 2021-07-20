@@ -52,6 +52,7 @@ public class journey_mode
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+
         ItemList list = new ItemList();
 
         //ResearchList research = new ResearchList();
