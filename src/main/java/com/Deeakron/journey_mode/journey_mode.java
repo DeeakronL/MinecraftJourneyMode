@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.capabilities.JMCapability;
 import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import net.minecraft.block.Block;
@@ -67,6 +68,7 @@ public class journey_mode
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
+        JMCapability.register();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
