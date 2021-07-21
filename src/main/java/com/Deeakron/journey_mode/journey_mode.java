@@ -23,6 +23,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -52,8 +53,12 @@ public class journey_mode
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        try {
+            ItemList list = new ItemList();
+        } catch (IOException e) {
 
-        ItemList list = new ItemList();
+        };
+
 
         //ResearchList research = new ResearchList();
         //int[] data = (research.get("minecraft:stone"));
