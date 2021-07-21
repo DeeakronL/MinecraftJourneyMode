@@ -17,8 +17,10 @@ import javax.annotation.Nullable;
 
 
 public class JMCapability {
+
     @CapabilityInject(IEntityJourneyMode.class)
-    public Capability<IEntityJourneyMode> JOURNEY_MODE_CAPABILITY = null;
+    public static Capability<? extends Object> JOURNEY_MODE_CAPABILITY = null;
+    //public Capability<IEntityJourneyMode> JOURNEY_MODE_CAPABILITY = null;
 
     public static void register() {
         journey_mode.LOGGER.info(IEntityJourneyMode.class);

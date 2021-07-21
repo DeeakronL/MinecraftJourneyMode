@@ -28,6 +28,7 @@ public class EventHandler {
         if (event.getObject() instanceof  ServerPlayerEntity){
             JMCapabilityProvider provider = new JMCapabilityProvider();
             event.addCapability(new ResourceLocation(journey_mode.MODID, "JM"), provider);
+            event.addListener(provider::invalidate);
         }
     }
 

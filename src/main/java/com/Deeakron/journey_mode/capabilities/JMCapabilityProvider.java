@@ -16,6 +16,11 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     private final EntityJourneyMode jm = new EntityJourneyMode();
     public static final ResourceLocation ID = new ResourceLocation(journey_mode.MODID, "JM Player");
     private final LazyOptional<EntityJourneyMode> implContainer;
+    private final LazyOptional<IEntityJourneyMode> jMOptional = LazyOptional.of(() -> jm);
+
+    public void invalidate() {
+        jMOptional.invalidate();
+    }
 
     public JMCapabilityProvider(ServerPlayerEntity object) {
         this.implContainer = LazyOptional.of(() -> new EntityJourneyMode());
@@ -39,6 +44,6 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return null;
+        return jMOptional.cast();
     }
 }
