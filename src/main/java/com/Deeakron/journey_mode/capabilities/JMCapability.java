@@ -15,6 +15,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
 
+//
+//
+// this whole file might be redundant, look into deleting later
+//
+//
 
 public class JMCapability {
 
@@ -33,13 +38,13 @@ public class JMCapability {
         @Nullable
         @Override
         public INBT writeNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side) {
-            journey_mode.LOGGER.info("ah, this is where the issue is");
+
             return null;
         }
 
         @Override
         public void readNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side, INBT nbt) {
-            journey_mode.LOGGER.info("oh, this is where the issue is");
+
         }
     }
 

@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.capabilities.JMCapability;
+import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import net.minecraft.block.Block;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -52,8 +54,12 @@ public class journey_mode
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        try {
+            ItemList list = new ItemList();
+        } catch (IOException e) {
 
-        ItemList list = new ItemList();
+        };
+
 
         //ResearchList research = new ResearchList();
         //int[] data = (research.get("minecraft:stone"));
@@ -71,7 +77,7 @@ public class journey_mode
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
-        JMCapability.register();
+        JMCapabilityProvider.register();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

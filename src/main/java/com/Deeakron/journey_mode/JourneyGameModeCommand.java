@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.IEntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapability;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
@@ -30,7 +31,9 @@ public class JourneyGameModeCommand {
         journey_mode.LOGGER.info("successful command");
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
             journey_mode.LOGGER.info("is player");
-            journey_mode.LOGGER.info(commandContext.getSource().getEntity().getCapability(JMCapability.JOURNEY_MODE_CAPABILITY, null));
+            //String line = commandContext.getSource().getEntity().getCapability(JMCapability.JOURNEY_MODE_CAPABILITY, null);
+            EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+            journey_mode.LOGGER.info("journey mode is: " + cap.getJourneyMode());
             //cap.get;
         }
 

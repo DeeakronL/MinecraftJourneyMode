@@ -6,7 +6,7 @@ public class EntityJourneyMode implements IEntityJourneyMode{
     private boolean mode;
 
     public EntityJourneyMode() {
-
+        this.mode = false;
     }
 
     @Override
