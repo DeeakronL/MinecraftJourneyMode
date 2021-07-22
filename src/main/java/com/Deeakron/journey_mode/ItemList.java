@@ -30,5 +30,11 @@ public class ItemList {
         JsonObject json = new JsonObject();//.addProperty("main", sb.toString());
         //json.addProperty("main", sb.toString());
         json = new JsonParser().parse(sb.toString()).getAsJsonObject();
+        JsonElement[] items = new JsonElement[json.getAsJsonArray("items").size()];
+        for (int i =0; i<json.getAsJsonArray("items").size(); i++){
+            items[i] = json.getAsJsonArray("items").get(i);
+        }
+        journey_mode.LOGGER.info(items[0].toString());
+        journey_mode.LOGGER.info("bookmark");
     }
 }
