@@ -1,6 +1,8 @@
 package com.Deeakron.journey_mode;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.minecraft.util.ResourceLocation;
 
@@ -9,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
 
@@ -25,6 +28,7 @@ public class ItemList {
             sb.append(line);
         }
         JsonObject json = new JsonObject();//.addProperty("main", sb.toString());
-        json.addProperty("main", sb.toString());
+        //json.addProperty("main", sb.toString());
+        json = new JsonParser().parse(sb.toString()).getAsJsonObject();
     }
 }
