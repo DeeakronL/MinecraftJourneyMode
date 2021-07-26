@@ -57,13 +57,15 @@ public class journey_mode
 
         try {
             ItemList list = new ItemList();
+            ResearchList research = new ResearchList(list.getItems(), list.getCaps());
+            int data = (research.get("\"minecraft:stone\"")[1]);
+            LOGGER.info("the data is: " + data);
         } catch (IOException e) {
 
         };
 
 
-        //ResearchList research = new ResearchList();
-        //int[] data = (research.get("minecraft:stone"));
+
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         if (UnobtainConfig.use_unobtainable.get()) {

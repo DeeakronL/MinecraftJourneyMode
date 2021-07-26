@@ -34,7 +34,21 @@ public class ItemList {
         for (int i =0; i<json.getAsJsonArray("items").size(); i++){
             items[i] = json.getAsJsonArray("items").get(i);
         }
-        journey_mode.LOGGER.info(items[0].toString());
+        journey_mode.LOGGER.info(items[0].getAsJsonObject().get("item"));
         journey_mode.LOGGER.info("bookmark");
+        this.items = new String[items.length];
+        this.caps = new int[items.length];
+        for (int i = 0; i < items.length; i++) {
+            this.items[i] = items[i].getAsJsonObject().get("item").toString();
+            this.caps[i] = items[i].getAsJsonObject().get("count").getAsInt();
+        }
+    }
+
+    public String[] getItems() {
+        return this.items;
+    }
+
+    public int[] getCaps() {
+        return this.caps;
     }
 }
