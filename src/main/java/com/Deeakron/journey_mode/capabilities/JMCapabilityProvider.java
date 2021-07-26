@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
     private final EntityJourneyMode jm = new EntityJourneyMode();
-    public static final ResourceLocation ID = new ResourceLocation(journey_mode.MODID, "jm_player");
+    //public static final ResourceLocation ID = new ResourceLocation(journey_mode.MODID, "jm");
     private final LazyOptional<EntityJourneyMode> implContainer;
     private final LazyOptional<IEntityJourneyMode> jMOptional = LazyOptional.of(() -> jm);
     public static final Capability<EntityJourneyMode> INSTANCE = null;
@@ -27,6 +27,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
 
     public JMCapabilityProvider(ServerPlayerEntity object) {
         this.implContainer = LazyOptional.of(() -> new EntityJourneyMode());
+        journey_mode.LOGGER.info("Attached?");
     }
 
     public JMCapabilityProvider() {
@@ -36,7 +37,13 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
 
     @Override
     public CompoundNBT serializeNBT() {
-        return null;
+        if(INSTANCE == null) {
+            return new CompoundNBT();
+        } else {
+            return (CompoundNBT) INSTANCE.writeNBT(jm, null);
+        }
+        //journey_mode.LOGGER.info("look at me the provider and serializeNBT");
+        //return null;
     }
 
     @Override
@@ -61,8 +68,10 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
         @Nullable
         @Override
         public INBT writeNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side) {
-
-            return null;
+            journey_mode.LOGGER.info("look at me the provider and writeNBT");
+            CompoundNBT tag = new CompoundNBT();
+            tag.putInt("mode", 0);
+            return tag;
         }
 
         @Override
