@@ -3,1223 +3,4408 @@
   "items" : [
     {
       "item" : "minecraft:stone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:granite",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_granite",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:diorite",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_diorite",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:andesite",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_andesite",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dirt",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:grass_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:coarse_dirt",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:podzol",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crimson_nylium",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_nylium",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cobblestone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:oak_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:spruce_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:birch_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:jungle_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:acacia_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_oak_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crimson_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_planks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:sand",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_sand",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gravel",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gold_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:iron_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:coal_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:nether_gold_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:oak_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:spruce_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:birch_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:jungle_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:acacia_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_oak_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crimson_stem",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_stem",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_oak_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_spruce_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_birch_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_jungle_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_acacia_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_dark_oak_log",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_crimson_stem",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_warped_stem",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_oak_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_spruce_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_birch_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_jungle_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_acacia_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_dark_oak_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_crimson_hyphae",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stripped_warped_hyphae",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:oak_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:spruce_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:birch_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:jungle_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:acacia_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_oak_wood",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crimson_hyphae",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_hyphae",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:sponge",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:wet_sponge",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lapis_lazuli_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lapis_lazuli_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:chiseled_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cut_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:white_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:orange_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:magenta_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_blue_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:yellow_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lime_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:pink_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gray_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_gray_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cyan_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purple_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blue_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brown_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:green_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:black_wool",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gold_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:iron_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:oak_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:spruce_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:birch_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:jungle_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:acacia_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_oak_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crimson_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_stone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:sandstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cut_sandstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cobblestone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stone_brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:nether_brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:quartz_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_sandstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cut_red_sandstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purpur_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:prismarine_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:prismarine_brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_prismarine_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_quartz",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_red_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_stone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:bookshelf",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mossy_cobblestone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:obsidian",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purpur_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purpur_pillar",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purpur_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:oak_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:diamond_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:diamond_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cobblestone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:redstone_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:ice",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:snow_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:clay",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:pumpkin",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:carved_pumpkin",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:netherrack",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:soul_sand",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:soul_soil",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:basalt",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_basalt",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:glowstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:jack_o_lantern",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mossy_stone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cracked_stone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:chiseled_stone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:melon",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stone_brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mycelium",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:nether_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cracked_nether_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:chiseled_nether_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:nether_brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:end_stone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:end_stone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:sandstone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:emerald_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:emerald_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:spruce_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:birch_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:jungle_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crimson_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:nether_quartz_ore",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:chiseled_quartz_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:quartz_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:quartz_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:quartz_pillar",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:quartz_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:white_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:orange_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:magenta_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_blue_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:yellow_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lime_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:pink_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gray_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_gray_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cyan_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purple_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blue_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brown_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:green_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:black_terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:hay_bale",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:terracotta",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:coal_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:packed_ice",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:acacia_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_oak_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:white_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:orange_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:magenta_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_blue_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:yellow_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lime_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:pink_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gray_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_gray_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cyan_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purple_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blue_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brown_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:green_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:black_stained_glass",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:prismarine",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:prismarine_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_prismarine",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:prismarine_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:prismarine_brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dark_prismarine_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:sea_lantern",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:chiseled_red_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cut_red_sandstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_sandstone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:magma_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:nether_wart_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:warped_wart_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_nether_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:bone_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:white_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:orange_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:magenta_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_blue_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:yellow_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lime_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:pink_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gray_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_gray_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cyan_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purple_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blue_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brown_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:green_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:black_concrete",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:white_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:orange_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:magenta_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_blue_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:yellow_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:lime_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:pink_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gray_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:light_gray_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cyan_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:purple_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blue_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brown_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:green_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:black_concrete_powder",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dead_tube_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dead_brain_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dead_bubble_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dead_fire_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dead_horn_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:tube_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:brain_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:bubble_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:fire_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:horn_coral_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blue_ice",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_granite_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_red_sandstone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mossy_stone_brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_diorite_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mossy_cobblestone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:end_stone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:stone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_sandstone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_quartz_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:granite_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:andesite_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_nether_brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_andesite_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:diorite_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_granite_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_red_sandstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mossy_stone_brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_diorite_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:mossy_cobblestone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:end_stone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_sandstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:smooth_quartz_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:granite_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:andesite_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:red_nether_brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_andesite_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:diorite_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:dried_kelp_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:netherite_block",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:ancient_debris",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:crying_obsidian",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blackstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blackstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:blackstone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:gilded_blackstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_blackstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_blackstone_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_blackstone_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:chiseled_polished_blackstone",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_blackstone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_blackstone_brick_slab",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:polished_blackstone_brick_stairs",
-      "count" : 256
+      "count" : 256,
+      "category": "Building Blocks"
     },
     {
       "item" : "minecraft:cracked_polished_blackstone_bricks",
-      "count" : 128
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:oak_sapling",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:spruce_sapling",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:birch_sapling",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:jungle_sapling",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:acacia_sapling",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dark_oak_sapling",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:oak_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:spruce_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:birch_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:jungle_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:acacia_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dark_oak_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cobweb",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:grass",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:fern",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_bush",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:seagrass",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:sea_pickle",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dandelion",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:poppy",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_orchid",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:allium",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:azure_bluet",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_tulip",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_tulip",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_tulip",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_tulip",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:oxeye_daisy",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cornflower",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lily_of_the_valley",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:wither_rose",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_mushroom",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_mushroom",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:crimson_fungus",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:warped_fungus",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:crimson_roots",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:warped_roots",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:nether_sprouts",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:weeping_vines",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:twisting_vines",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:sugar_cane",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:kelp",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:bamboo",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:torch",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:end_rod",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:chorus_flower",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:chest",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:crafting_table",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:furnace",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:ladder",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:snow",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cactus",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:juke_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:oak_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:spruce_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:birch_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:jungle_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:acacia_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dark_oak_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:crimson_fence",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:warped_fence",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:soul_torch",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_mushroom_block",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_mushroom_block",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:mushroom_stem",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:iron_bars",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:chain",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:vines",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lily_pad",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:nether_brick_fence",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:enchanting_table",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:ender_chest",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cobblestone_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:mossy_cobblestone_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:prismarine_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_sandstone_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:mossy_stone_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:granite_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:stone_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:nether_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:andesite_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_nether_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:sandstone_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:end_stone_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:diorite_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blackstone_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:polished_blackstone_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:polished_blackstone_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:anvil",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:chipped_anvil",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:damaged_anvil",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_carpet",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:slime_block",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:sunflower",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lilac",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:rose_bush",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:peony",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:tall_grass",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:large_fern",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_stained_glass_pane",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_shulker_box",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_glazed_terracotta",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:tube_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brain_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:bubble_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:fire_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:horn_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_brain_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_bubble_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_fire_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_horn_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_tube_coral",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:tube_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brain_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:bubble_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:fire_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:horn_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_tube_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_brain_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_bubble_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_fire_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dead_horn_coral_fan",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:scaffolding",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:painting",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:oak_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:spruce_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:birch_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:jungle_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:acacia_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dark_oak_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:crimson_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:warped_sign",
+      "count" : 3,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_bed",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:item_frame",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:flower_pot",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:skeleton_skull",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:wither_skeleton_skull",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:zombie_head",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:creeper_head",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dragon_head",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:armor_stand",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:end_crystal_banner",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:loom",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:composter",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:barrel",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:smoker",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blast_furnace",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cartography_table",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:fletching_table",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:grindstone",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:smithing_table",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:stonecutter",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:bell",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lantern",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:soul_lantern",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:campfire",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:soul_campfire",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:shroomlight",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:bee_nest",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:beehive",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:honey_block",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:honeycomb_block",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lodestone",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:respawn_anchor",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:dispenser",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:note_block",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:sticky_piston",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:piston",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:tnt",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:lever",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:stone_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:oak_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:spruce_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:birch_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:jungle_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:acacia_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:dark_oak_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:crimson_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:warped_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:blackstone_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:redstone_torch",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:oak_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:spruce_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:birch_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:jungle_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:acacia_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:dark_oak_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:crimson_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:warped_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:oak_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:spruce_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:birch_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:jungle_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:acacia_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:dark_oak_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:crimson_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:warped_fence_gate",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:redstone_lamp",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:tripwire_hook",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:stone_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:oak_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:spruce_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:birch_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:jungle_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:acacia_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:dark_oak_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:crimson_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:warped_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:trapped_chest",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:light_weighted_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:heavy_weighted_pressure_plate",
+      "count" : 256,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:daylight_detector",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:redstone_block",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:hopper",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:dropper",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:iron_trapdoor",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:observer",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:iron_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:oak_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:spruce_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:birch_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:jungle_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:acacia_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:dark_oak_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:crimson_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:warped_door",
+      "count" : 3,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:redstone_repeater",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:redstone_comparator",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:redstone_dust",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:lectern",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:target",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:powered_rail",
+      "count" : 256,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:detector_rail",
+      "count" : 256,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:rail",
+      "count" : 256,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:activator_rail",
+      "count" : 256,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:minecart",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:saddle",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:oak_boat",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:chest_minecart",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:furnace_minecart",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:carrot_on_a_stick",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:warped_fungus_on_a_stick",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:tnt_minecart",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:hopper_minecart",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:elytra",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:spruce_boat",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:birch_boat",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:jungle_boat",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:acacia_boat",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:dark_oak_boat",
+      "count" : 1,
+      "category": "Transportation"
+    },
+    {
+      "item" : "minecraft:beacon",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:turtle_egg",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:conduit",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:scute",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:coal",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:charcoal",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:diamond",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:iron_ingot",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:gold_ingot",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:netherite_ingot",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:netherite_scrap",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:stick",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:bowl",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:string",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:feather",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:gunpowder",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:wheat_seeds",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:wheat",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:flint",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:bucket",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:water_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:lava_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:snowball",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:leather",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:milk_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:pufferfish_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:salmon_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:cod_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:tropical_fish_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:brick",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:clay_ball",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:paper",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:book",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:slimeball",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:egg",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:glowstone_dust",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:ink_sac",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:cocoa_beans",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:lapis_lazuli",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:white_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:orange_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:magenta_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:light_blue_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:yellow_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:lime_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:pink_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:gray_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:light_gray_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:cyan_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:purple_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:blue_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:brown_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:green_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:red_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:black_dye",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:bone_meal",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:bone",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:sugar",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:pumpkin_seeds",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:melon_seeds",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:ender_pearl",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:blaze_rod",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:gold_nugget",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:nether_wart",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:ender_eye",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:experience_bottle",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:fire_charge",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:writable_book",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:emerald",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:map",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:nether_star",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:firework_rocket",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:firework_star",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:nether_brick",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:nether_quartz",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:prismarine_shard",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:prismarine_crystals",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:rabbit_hide",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:iron_horse_armor",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:gold_horse_armor",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:diamond_horse_armor",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:leather_horse_armor",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:chorus_fruit",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:popped_chorus_fruit",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:beetroot_seeds",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:shulker_shell",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:iron_nugget",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_13",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_cat",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_blocks",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_chirp",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_far",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_mall",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_mellohi",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_stal",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_strad",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_ward",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_11",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_wait",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:music_disc_pigstep",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:nautilus_shell",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:heart_of_the_sea",
+      "count" : 16,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:flower_banner_pattern",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:creeper_banner_pattern",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:skull_banner_pattern",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:mojang_banner_pattern",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:globe_banner_pattern",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:piglin_banner_pattern",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:honeycomb",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:apple",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:mushroom_stew",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:bread",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_porkchop",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cooked_porkchop",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:golden_apple",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:enchanted_golden_apple",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_cod",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_salmon",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:tropical_fish",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:pufferfish",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cooked_cod",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cooked_salmon",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cake",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cookie",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:melon_slice",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:dried_kelp",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_beef",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:steak",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_chicken",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cooked_chicken",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:rotten_flesh",
+      "count" : 64,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:spider_eye",
+      "count" : 64,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:carrot",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:potato",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:baked_potato",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:poisonous_potato",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:pumpkin_pie",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_rabbit",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cooked_rabbit",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:rabbit_stew",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:raw_mutton",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:cooked_mutton",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:beetroot",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:beetroot_soup",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:sweet_berries",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:honey_bottle",
+      "count" : 16,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:flint_and_steel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:wooden_shovel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:wooden_pickaxe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:wooden_axe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:wooden_hoe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:stone_shovel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:stone_pickaxe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:stone_axe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:stone_hoe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:golden_shovel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:golden_pickaxe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:golden_axe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:golden_hoe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:iron_shovel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:iron_pickaxe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:iron_axe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:iron_hoe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:diamond_shovel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:diamond_pickaxe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:diamond_axe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:diamond_hoe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:netherite_shovel",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:netherite_pickaxe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:netherite_axe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:netherite_hoe",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:compass",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:fishing_rod",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:clock",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:shears",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:enchanted_book",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:lead",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:name_tag",
+      "count" : 1,
+      "category": "Tools"
+    },
+    {
+      "item" : "minecraft:turtle_shell",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:bow",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:arrow",
+      "count" : 128,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:wooden_sword",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:stone_sword",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:gold_sword",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:iron_sword",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:diamond_sword",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:netherite_sword",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:leather_cap",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:leather_tunic",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:leather_pants",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:leather_boots",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:chainmail_helmet",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:chainmail_chestplate",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:chainmail_leggings",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:chainmail_boots",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:iron_helmet",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:iron_chestplate",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:iron_leggings",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:iron_boots",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:diamond_helmet",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:diamond_chestplate",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:diamond_leggings",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:diamond_boots",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:gold_helmet",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:gold_chestplate",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:gold_leggings",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:gold_boots",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:netherite_helmet",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:netherite_chestplate",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:netherite_leggings",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:netherite_boots",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:spectral_arrow",
+      "count" : 128,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:tipped_arrow",
+      "count" : 128,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:shield",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:totem_of_undying",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:trident",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:crossbow",
+      "count" : 1,
+      "category": "Combat"
+    },
+    {
+      "item" : "minecraft:ghast_tear",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:potion",
+      "count" : 16,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:glass_bottle",
+      "count" : 16,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:fermented_spider_eye",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:blaze_powder",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:magma_cream",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:brewing_stand",
+      "count" : 1,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:cauldron",
+      "count" : 1,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:glistering_melon_slice",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:golden_carrot",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:rabbit_foot",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:dragon_breath",
+      "count" : 64,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:splash_potion",
+      "count" : 16,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:lingering_potion",
+      "count" : 16,
+      "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:phantom_membrane",
+      "count" : 64,
+      "category": "Brewing"
     }
   ]
 }

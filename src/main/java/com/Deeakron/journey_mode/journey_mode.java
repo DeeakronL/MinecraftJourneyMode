@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.capabilities.JMCapability;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import net.minecraft.block.Block;
@@ -80,6 +81,7 @@ public class journey_mode
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
         JMCapabilityProvider.register();
+        //MinecraftForge.EVENT_BUS.addListener(EventHandler::onAttachCapabilitiesEvent);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
