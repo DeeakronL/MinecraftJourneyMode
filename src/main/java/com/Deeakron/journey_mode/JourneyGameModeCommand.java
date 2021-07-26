@@ -34,6 +34,8 @@ public class JourneyGameModeCommand {
             //String line = commandContext.getSource().getEntity().getCapability(JMCapability.JOURNEY_MODE_CAPABILITY, null);
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
             journey_mode.LOGGER.info("journey mode is: " + cap.getJourneyMode());
+            journey_mode.LOGGER.info(cap);
+            cap.setJourneyMode(true);
             //cap.get;
         }
 

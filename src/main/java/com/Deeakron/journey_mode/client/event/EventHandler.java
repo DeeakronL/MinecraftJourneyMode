@@ -24,11 +24,13 @@ public class EventHandler {
             PROTOCOL_VERSION::equals
     );
 
+    @SubscribeEvent
     public static void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof  ServerPlayerEntity){
             JMCapabilityProvider provider = new JMCapabilityProvider();
-            event.addCapability(new ResourceLocation(journey_mode.MODID, "JM"), provider);
+            event.addCapability(new ResourceLocation(journey_mode.MODID), provider);
             event.addListener(provider::invalidate);
+            journey_mode.LOGGER.info("attach capabilities event");
         }
     }
 
