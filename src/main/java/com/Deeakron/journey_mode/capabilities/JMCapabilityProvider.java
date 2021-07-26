@@ -48,7 +48,9 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-
+        if(INSTANCE != null) {
+            INSTANCE.readNBT(jm, null, nbt);
+        }
     }
 
     @Nonnull
@@ -70,13 +72,14 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
         public INBT writeNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side) {
             journey_mode.LOGGER.info("look at me the provider and writeNBT");
             CompoundNBT tag = new CompoundNBT();
-            tag.putInt("mode", 0);
+            tag.putBoolean("mode", instance.getJourneyMode());
             return tag;
         }
 
         @Override
         public void readNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side, INBT nbt) {
-
+            boolean mode = ((CompoundNBT) nbt).getBoolean("mode");
+            instance.setJourneyMode(mode);
         }
     }
 }
