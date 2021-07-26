@@ -24,6 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.system.CallbackI;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -35,6 +36,7 @@ public class journey_mode
     public static final String MODID = "journey_mode";
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
+    public static ResearchList research;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -54,16 +56,15 @@ public class journey_mode
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-
+        this.research = new ResearchList(new String[]{"nothing"}, new int[]{1});
         try {
             ItemList list = new ItemList();
-            ResearchList research = new ResearchList(list.getItems(), list.getCaps());
+            this.research = new ResearchList(list.getItems(), list.getCaps());
             int data = (research.get("\"minecraft:stone\"")[1]);
             LOGGER.info("the data is: " + data);
         } catch (IOException e) {
 
         };
-
 
 
 

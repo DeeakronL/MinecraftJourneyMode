@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -32,6 +33,14 @@ public class EventHandler {
             event.addListener(provider::invalidate);
             journey_mode.LOGGER.info("attach capabilities event");
         }
+    }
+
+    @SubscribeEvent
+    public static void pickupItem(EntityItemPickupEvent event) {
+        String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
+        int count = event.getItem().getItem().getCount();
+        //journey_mode.LOGGER.info("Item picked up: " + event.getItem().getItem().getItem().getRegistryName() + " with count " + event.getItem().getItem().getCount());
+        journey_mode.research.updateCount(new String[]{item}, new int[]{count});
     }
 
 }
