@@ -12,13 +12,10 @@ public class ResearchList {
     public ResearchList(String[] items, int[] caps) {
         ResourceLocation data = new ResourceLocation(journey_mode.MODID, "duplication_menu/base_minecraft.json");
         this.research = new HashMap<String, int[]>();
-        journey_mode.LOGGER.info("currently creating!");
+        //journey_mode.LOGGER.info("currently creating!");
         for (int i = 0; i < items.length; i++) {
-            journey_mode.LOGGER.info("the item is: " + items[i] + " with cap: " + caps[i]);
+            //journey_mode.LOGGER.info("the item is: " + items[i] + " with cap: " + caps[i]);
             this.research.put(items[i], new int[]{0, caps[i]});
-            if (items[i].equals("\"minecraft:stone\"")) {
-                journey_mode.LOGGER.info("getting item: " + this.research.get(items[i])[0]);
-            }
         }
         //journey_mode.LOGGER.info("testing i guess: " + this.research.get("minecraft:stone"));
     }
@@ -35,6 +32,7 @@ public class ResearchList {
                 }
                 this.research.remove(items[i]);
                 this.research.put(items[i], newData);
+                journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
             }
         }
     }
