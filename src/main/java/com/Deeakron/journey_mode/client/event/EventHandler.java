@@ -42,8 +42,10 @@ public class EventHandler {
     public static void pickupItem(EntityItemPickupEvent event) {
         String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
         int count = event.getItem().getItem().getCount();
+        EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
+        cap.updateResearch(new String[]{item}, new int[]{count});
         //journey_mode.LOGGER.info("Item picked up: " + event.getItem().getItem().getItem().getRegistryName() + " with count " + event.getItem().getItem().getCount());
-        journey_mode.research.updateCount(new String[]{item}, new int[]{count});
+        //journey_mode.research.updateCount(new String[]{item}, new int[]{count});
     }
 
     @SubscribeEvent
@@ -56,6 +58,7 @@ public class EventHandler {
                 EntityJourneyMode cap = original.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap2.setJourneyMode(cap.getJourneyMode());
+                cap2.setResearchList(cap.getResearchList());
             }
         }
     }

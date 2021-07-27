@@ -10,7 +10,7 @@ public class ResearchList {
     private HashMap<String, int[]> research;
 
     public ResearchList(String[] items, int[] caps) {
-        ResourceLocation data = new ResourceLocation(journey_mode.MODID, "duplication_menu/base_minecraft.json");
+        //ResourceLocation data = new ResourceLocation(journey_mode.MODID, "duplication_menu/base_minecraft.json");
         this.research = new HashMap<String, int[]>();
         //journey_mode.LOGGER.info("currently creating!");
         for (int i = 0; i < items.length; i++) {
@@ -32,7 +32,7 @@ public class ResearchList {
                 }
                 this.research.remove(items[i]);
                 this.research.put(items[i], newData);
-                journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
+                //journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
             }
         }
     }
@@ -48,5 +48,9 @@ public class ResearchList {
         int info = this.research.get(key)[0];
         int[] data = new int[]{this.research.get(key)[0],this.research.get(key)[1]};
         return data;
+    }
+
+    public HashMap<String, int[]> getList() {
+        return this.research;
     }
 }

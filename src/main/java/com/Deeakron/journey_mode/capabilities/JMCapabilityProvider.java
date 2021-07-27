@@ -78,6 +78,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
             journey_mode.LOGGER.info("look at me the provider and writeNBT");
             CompoundNBT tag = new CompoundNBT();
             tag.putBoolean("mode", instance.getJourneyMode());
+            instance.getResearchList().getList().forEach((k,v) -> tag.putInt(k, v[0]));
             return tag;
         }
 
@@ -85,6 +86,12 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
         public void readNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side, INBT nbt) {
             boolean mode = ((CompoundNBT) nbt).getBoolean("mode");
             instance.setJourneyMode(mode);
+            String[] items = journey_mode.list.getItems();
+            int[] counts = new int[items.length];
+            for (int i = 0; i < items.length; i++) {
+                counts[i] = ((CompoundNBT) nbt).getInt(items[i]);
+            }
+            instance.updateResearch(items, counts);
             journey_mode.LOGGER.info("readNBT done");
         }
     }
