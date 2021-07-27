@@ -7,6 +7,7 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -19,6 +20,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     //public static final ResourceLocation ID = new ResourceLocation(journey_mode.MODID, "jm");
     private final LazyOptional<EntityJourneyMode> implContainer;
     private final LazyOptional<IEntityJourneyMode> jMOptional = LazyOptional.of(() -> jm);
+    @CapabilityInject(IEntityJourneyMode.class)
     public static final Capability<EntityJourneyMode> INSTANCE = null;
 
     public void invalidate() {
@@ -38,8 +40,11 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     @Override
     public CompoundNBT serializeNBT() {
         if(INSTANCE == null) {
+            journey_mode.LOGGER.info("look at me the provider and serializeNBT for null");
             return new CompoundNBT();
+
         } else {
+            journey_mode.LOGGER.info("look at me the provider and serializeNBT");
             return (CompoundNBT) INSTANCE.writeNBT(jm, null);
         }
         //journey_mode.LOGGER.info("look at me the provider and serializeNBT");
@@ -80,6 +85,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
         public void readNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side, INBT nbt) {
             boolean mode = ((CompoundNBT) nbt).getBoolean("mode");
             instance.setJourneyMode(mode);
+            journey_mode.LOGGER.info("readNBT done");
         }
     }
 }
