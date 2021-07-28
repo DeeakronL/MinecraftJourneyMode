@@ -2,5 +2,6 @@
   "block.journey_mode.unobtainium_block" : "Block of Unobtainium",
   "item.journey_mode.unobtainium_ingot" : "Unobtainium Ingot",
   "item.journey_mode.unobtainium_raw" : "Raw Unobtainium",
-  "block.journey_mode.unobtainium_raw_block" : "Block of Raw Unobtainium"
+  "block.journey_mode.unobtainium_raw_block" : "Block of Raw Unobtainium",
+  "block.journey_mode.wooden_research_grinder" : "Wooden Research Grinder"
 }
