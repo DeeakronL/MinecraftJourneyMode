@@ -10,11 +10,12 @@ public class ResearchGrinderItem extends BlockItem {
 
     @Override
     protected boolean placeBlock(BlockItemUseContext context, BlockState state) {
-        if(context.getWorld().getBlockState(context.getPos().east()).isAir()  &&
-                context.getWorld().getBlockState(context.getPos().south()).isAir() &&
-                context.getWorld().getBlockState(context.getPos().east().south()).isAir()){
+        if(context.getWorld().getBlockState(context.getPos().east()).isReplaceable(context)  &&
+                context.getWorld().getBlockState(context.getPos().south()).isReplaceable(context) &&
+                context.getWorld().getBlockState(context.getPos().east().south()).isReplaceable(context)){
             return super.placeBlock(context, state);
         }
+
         return false;
     }
 }

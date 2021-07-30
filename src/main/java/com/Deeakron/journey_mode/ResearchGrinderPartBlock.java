@@ -3,7 +3,9 @@ package com.Deeakron.journey_mode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.DamageSource;
@@ -19,11 +21,17 @@ public class ResearchGrinderPartBlock extends Block {
         this.part = part;
     }
 
+
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+        if(entityIn instanceof LivingEntity) {
+            entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+        }
         super.onEntityWalk(worldIn, pos, entityIn);
     }
 
+    public PushReaction getPushReaction(BlockState state){
+        return PushReaction.BLOCK;
+    }
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;
     }
@@ -49,4 +57,6 @@ public class ResearchGrinderPartBlock extends Block {
 
 
     }
+
+
 }

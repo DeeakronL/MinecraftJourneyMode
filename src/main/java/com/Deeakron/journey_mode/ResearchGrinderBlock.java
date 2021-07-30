@@ -3,9 +3,11 @@ package com.Deeakron.journey_mode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.DamageSource;
@@ -21,9 +23,19 @@ public class ResearchGrinderBlock extends Block {
     protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(0.0D,0.0D,0.0D,32.0D,16.0D,32.0D);
     private final String type;
 
+    /*@Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        for (BlockPos pos : getV)
+    }*/
+
     public ResearchGrinderBlock(Properties properties, String type) {
         super(properties);
         this.type = type;
+    }
+
+    public PushReaction getPushReaction(BlockState state){
+        return PushReaction.BLOCK;
     }
 
     public void onBlockPlacedBy(World worldin, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack){
@@ -44,7 +56,10 @@ public class ResearchGrinderBlock extends Block {
     }
 
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+        if(entityIn instanceof LivingEntity) {
+            entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+        }
+
         super.onEntityWalk(worldIn, pos, entityIn);
     }
 
