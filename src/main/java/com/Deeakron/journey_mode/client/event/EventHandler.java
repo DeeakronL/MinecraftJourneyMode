@@ -2,12 +2,20 @@ package com.Deeakron.journey_mode.client.event;
 
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.client.CommandPacket;
+import com.Deeakron.journey_mode.client.JMCheckPacket;
+import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -44,6 +52,7 @@ public class EventHandler {
         int count = event.getItem().getItem().getCount();
         EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
         cap.updateResearch(new String[]{item}, new int[]{count});
+        journey_mode.LOGGER.info("the server side is: " + event.getEntity().getUniqueID());
         //journey_mode.LOGGER.info("Item picked up: " + event.getItem().getItem().getItem().getRegistryName() + " with count " + event.getItem().getItem().getCount());
         //journey_mode.research.updateCount(new String[]{item}, new int[]{count});
     }
@@ -63,4 +72,30 @@ public class EventHandler {
         }
     }
 
+    public static void registerPackets() {
+        INSTANCE.registerMessage(0, CommandPacket.class, CommandPacket::encode, CommandPacket::decode, CommandPacket::handle);
+        INSTANCE.registerMessage(1, JMCheckPacket.class, JMCheckPacket::encode, JMCheckPacket::decode, JMCheckPacket::handle);
+    }
+
+    @SubscribeEvent
+    public static void PowersCommandEvent(final PowersCommandEvent event) {
+        INSTANCE.sendToServer(new CommandPacket(event.command));
+    }
+
+    @SubscribeEvent
+    public static void openMenu(final InputEvent.KeyInputEvent event) {
+
+        if (journey_mode.keyBindings[0].isPressed()) {
+            PlayerEntity player = Minecraft.getInstance().player;
+            JMCheckPacket packet = new JMCheckPacket(player.getUniqueID().toString());
+            INSTANCE.sendToServer(packet);
+            journey_mode.LOGGER.info("Packet status is: " + packet.getResult() + packet);
+            if (true) {
+                journey_mode.LOGGER.info("key pressed!");
+                int window = Minecraft.getInstance().player.openContainer.windowId;
+                ITextComponent title = new StringTextComponent("Journey Mode Menu");
+                Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window));
+            }
+        }
+    }
 }

@@ -7,12 +7,16 @@ import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -24,6 +28,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.CallbackI;
 
 import java.io.IOException;
@@ -37,6 +42,7 @@ public class journey_mode
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
     public static ItemList list;
+    public static KeyBinding[] keyBindings;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -56,11 +62,20 @@ public class journey_mode
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        EventHandler.registerPackets();
+
         try{
             this.list = new ItemList();
         } catch (IOException e) {
 
         };
+
+        keyBindings = new KeyBinding[1];
+
+        keyBindings[0] = new KeyBinding("key.journey_mode.menu", GLFW.GLFW_KEY_O, "key.categories.journey_mode");
+
+        ClientRegistry.registerKeyBinding(keyBindings[0]);
 
 
 
@@ -69,6 +84,7 @@ public class journey_mode
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
         }
+        JMContainerTypes.CONTAINER_TYPES.register(bus);
     }
 
     private void setup(final FMLCommonSetupEvent event)
