@@ -10,6 +10,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.command.impl.GameModeCommand;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -22,12 +23,24 @@ public class JourneyGameModeCommand {
                 = Commands.literal("gamemode")
                 .requires((commandSource) -> commandSource.hasPermissionLevel(2))
                 .then(Commands.literal("journey")
-                    .executes(JourneyGameModeCommand::confirmMessage)
-                );
+                    .executes(JourneyGameModeCommand::addJM)
+                    )
+                .then(Commands.literal("journeyoff")
+                    .executes(JourneyGameModeCommand::removeJM)
+                    )
+                /*.then(Commands.literal("creative")
+                    .executes(JourneyGameModeCommand::removeJM)
+                    )
+                .then(Commands.literal("spectator")
+                    .executes(JourneyGameModeCommand::removeJM)
+                    )
+                .then(Commands.literal("survival")
+                    .executes((JourneyGameModeCommand::removeJM))
+                )*/;
         dispatcher.register(journeyGameModeCommand);
     }
 
-    static int confirmMessage(CommandContext<CommandSource> commandContext){
+    static int addJM(CommandContext<CommandSource> commandContext){
         journey_mode.LOGGER.info("successful command");
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
             journey_mode.LOGGER.info("is player");
@@ -39,6 +52,20 @@ public class JourneyGameModeCommand {
             //cap.get;
         }
 
+        return 1;
+    }
+
+    static int removeJM(CommandContext<CommandSource> commandContext){
+        journey_mode.LOGGER.info("successful command");
+        if(commandContext.getSource().getEntity() instanceof  ServerPlayerEntity){
+            EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+            if (cap.getJourneyMode()){
+                cap.setJourneyMode(false);
+            }
+            journey_mode.LOGGER.info(commandContext.getCommand().toString());
+
+
+        }
         return 1;
     }
 }

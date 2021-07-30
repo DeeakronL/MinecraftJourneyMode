@@ -10,6 +10,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -84,6 +86,8 @@ public class journey_mode
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
         }
+        BlockInit.BLOCKS.register(bus);
+        ItemInit.ITEMS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
     }
 
@@ -99,6 +103,7 @@ public class journey_mode
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER.get(), RenderType.getCutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
