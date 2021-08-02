@@ -3,6 +3,7 @@ package com.Deeakron.journey_mode.client.event;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.CommandPacket;
+import com.Deeakron.journey_mode.client.GameStatePacket;
 import com.Deeakron.journey_mode.client.JMCheckPacket;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
@@ -75,6 +76,7 @@ public class EventHandler {
     public static void registerPackets() {
         INSTANCE.registerMessage(0, CommandPacket.class, CommandPacket::encode, CommandPacket::decode, CommandPacket::handle);
         INSTANCE.registerMessage(1, JMCheckPacket.class, JMCheckPacket::encode, JMCheckPacket::decode, JMCheckPacket::handle);
+        INSTANCE.registerMessage(2, GameStatePacket.class, GameStatePacket::encode, GameStatePacket::decode,GameStatePacket::handle);
     }
 
     @SubscribeEvent
@@ -87,15 +89,9 @@ public class EventHandler {
 
         if (journey_mode.keyBindings[0].isPressed()) {
             PlayerEntity player = Minecraft.getInstance().player;
-            JMCheckPacket packet = new JMCheckPacket(player.getUniqueID().toString());
+            JMCheckPacket packet = new JMCheckPacket(player.getUniqueID().toString(), false);
             INSTANCE.sendToServer(packet);
             journey_mode.LOGGER.info("Packet status is: " + packet.getResult() + packet);
-            if (true) {
-                journey_mode.LOGGER.info("key pressed!");
-                int window = Minecraft.getInstance().player.openContainer.windowId;
-                ITextComponent title = new StringTextComponent("Journey Mode Menu");
-                Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window));
-            }
         }
     }
 }

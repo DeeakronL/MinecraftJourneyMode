@@ -30,9 +30,29 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
     public static final ITextComponent MIDNIGHT_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.midnight");
     public static final ITextComponent FREEZE_TIME_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.freeze");
     public static final ITextComponent UNFREEZE_TIME_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.unfreeze");
+    public static final ITextComponent CLEAR_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.clear");
+    public static final ITextComponent RAIN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.rain");
+    public static final ITextComponent STORM_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.storm");
+    public static final ITextComponent NORMAL_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.normal");
+    public static final ITextComponent DOUBLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.double");
+    public static final ITextComponent QUADRUPLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.quadruple");
+    public static final ITextComponent OCTUPLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.octuple");
 
-    public JourneyModePowersScreen(PlayerInventory inv, ITextComponent titleIn, int window) {
+    private static boolean freeze;
+    private int tickSpeed;
+    private static boolean mobSpawn;
+    private static boolean mobGrief;
+    private static boolean godMode;
+    private static boolean keepInv;
+
+    public JourneyModePowersScreen(PlayerInventory inv, ITextComponent titleIn, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
         super(new JourneyModePowersContainer(window, inv), inv, titleIn);
+        this.freeze = freeze;
+        this.tickSpeed = tickSpeed;
+        this.mobSpawn = mobSpawn;
+        this.mobGrief = mobGrief;
+        this.godMode = godMode;
+        this.keepInv = keepInv;
         this.guiLeft = 0;
         this.guiTop = 0;
         this.xSize = 175;
@@ -46,6 +66,14 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
         this.addButton(new JourneyModePowersScreen.NoonButton(this.guiLeft + 61, this.guiTop + 17, this));
         this.addButton(new JourneyModePowersScreen.DuskButton(this.guiLeft + 97, this.guiTop + 17, this));
         this.addButton(new JourneyModePowersScreen.MidnightButton(this.guiLeft + 133, this.guiTop + 17, this));
+        this.addButton(new JourneyModePowersScreen.FreezeButton(this.guiLeft + 7, this.guiTop + 35, this, this.freeze));
+        this.addButton(new JourneyModePowersScreen.ClearButton(this.guiLeft + 43, this.guiTop + 35, this));
+        this.addButton(new JourneyModePowersScreen.RainButton(this.guiLeft + 79, this.guiTop + 35, this));
+        this.addButton(new JourneyModePowersScreen.StormButton(this.guiLeft + 115, this.guiTop + 35, this));
+        this.addButton(new JourneyModePowersScreen.NormalButton(this.guiLeft + 25, this.guiTop + 53, this));
+        this.addButton(new JourneyModePowersScreen.DoubleButton(this.guiLeft + 61, this.guiTop + 53, this));
+        this.addButton(new JourneyModePowersScreen.QuadrupleButton(this.guiLeft + 97, this.guiTop + 53, this));
+        this.addButton(new JourneyModePowersScreen.OctupleButton(this.guiLeft + 133, this.guiTop + 53, this));
         //this.buttonsNotDrawn = true;
     }
 
@@ -85,7 +113,11 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
     @OnlyIn(Dist.CLIENT)
     abstract static class Button extends AbstractButton {
+        public JourneyModePowersScreen screen;
         private boolean selected;
+        public boolean pressed = false;
+        public boolean gameTick = false;
+        public int speed = 0;
 
         protected Button(int x, int y) {
             super(x, y, 18, 18, StringTextComponent.EMPTY);
@@ -96,7 +128,9 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 184;
             int j = 0;
-            if (!this.active) {
+            if (this.pressed) {
+                j += 18;
+            } else if (this.gameTick == true && this.speed == this.screen.tickSpeed) {
                 j += 18;
             } else if (this.selected) {
                 j += 0;
@@ -138,16 +172,12 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
     @OnlyIn(Dist.CLIENT)
     class DawnButton extends JourneyModePowersScreen.SpriteButton {
-        private JourneyModePowersScreen screen;
         public DawnButton(int x, int y, JourneyModePowersScreen screen) {
             super(x, y, 55, 185);
             this.screen = screen;
         }
 
         public void onPress() {
-            //UnobtainiumAntikytheraTileEntity tileEntity = this.screen.container.getATileEntity();
-            //ITextComponent message = new StringTextComponent("/time set day");
-            //playerInventory.player.sendMessage(message, playerInventory.player.getUniqueID());
             MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("dawn"));
         }
 
@@ -158,16 +188,12 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
     @OnlyIn(Dist.CLIENT)
     class NoonButton extends JourneyModePowersScreen.SpriteButton {
-        private JourneyModePowersScreen screen;
         public NoonButton(int x, int y, JourneyModePowersScreen screen) {
             super(x, y, 73, 185);
             this.screen = screen;
         }
 
         public void onPress() {
-            //UnobtainiumAntikytheraTileEntity tileEntity = this.screen.container.getATileEntity();
-            //ITextComponent message = new StringTextComponent("/time set day");
-            //playerInventory.player.sendMessage(message, playerInventory.player.getUniqueID());
             MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("noon"));
         }
 
@@ -178,16 +204,12 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
     @OnlyIn(Dist.CLIENT)
     class DuskButton extends JourneyModePowersScreen.SpriteButton {
-        private JourneyModePowersScreen screen;
         public DuskButton(int x, int y, JourneyModePowersScreen screen) {
             super(x, y, 91, 185);
             this.screen = screen;
         }
 
         public void onPress() {
-            //UnobtainiumAntikytheraTileEntity tileEntity = this.screen.container.getATileEntity();
-            //ITextComponent message = new StringTextComponent("/time set day");
-            //playerInventory.player.sendMessage(message, playerInventory.player.getUniqueID());
             MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("dusk"));
         }
 
@@ -198,21 +220,170 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
     @OnlyIn(Dist.CLIENT)
     class MidnightButton extends JourneyModePowersScreen.SpriteButton {
-        private JourneyModePowersScreen screen;
         public MidnightButton(int x, int y, JourneyModePowersScreen screen) {
             super(x, y, 109, 185);
             this.screen = screen;
         }
 
         public void onPress() {
-            //UnobtainiumAntikytheraTileEntity tileEntity = this.screen.container.getATileEntity();
-            //ITextComponent message = new StringTextComponent("/time set day");
-            //playerInventory.player.sendMessage(message, playerInventory.player.getUniqueID());
             MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("midnight"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModePowersScreen.this.renderTooltip(matrixStack, MIDNIGHT_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class FreezeButton extends JourneyModePowersScreen.SpriteButton {
+        public FreezeButton(int x, int y, JourneyModePowersScreen screen, Boolean activate) {
+            super(x, y, 127, 185);
+            this.screen = screen;
+            this.pressed = activate;
+        }
+
+        public void onPress() {
+            if (!this.pressed) {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("freeze"));
+                this.pressed = true;
+            } else {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("unfreeze"));
+                this.pressed = false;
+            }
+
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            if (!this.pressed) {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, FREEZE_TIME_BUTTON, mouseX, mouseY);
+            } else {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, UNFREEZE_TIME_BUTTON, mouseX, mouseY);
+            }
+
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class ClearButton extends JourneyModePowersScreen.SpriteButton {
+        public ClearButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 145, 185);
+            this.screen = screen;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("clear"));
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, CLEAR_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class RainButton extends JourneyModePowersScreen.SpriteButton {
+        public RainButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 163, 185);
+            this.screen = screen;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("rain"));
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, RAIN_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class StormButton extends JourneyModePowersScreen.SpriteButton {
+        public StormButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 181, 185);
+            this.screen = screen;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("storm"));
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, STORM_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class NormalButton extends JourneyModePowersScreen.SpriteButton {
+        public NormalButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 55, 203);
+            this.screen = screen;
+            this.gameTick = true;
+            this.speed = 1;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("normal_speed"));
+            this.screen.tickSpeed = 1;
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, NORMAL_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class DoubleButton extends JourneyModePowersScreen.SpriteButton {
+        public DoubleButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 73, 203);
+            this.screen = screen;
+            this.gameTick = true;
+            this.speed = 20;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("double_speed"));
+            this.screen.tickSpeed = 20;
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, DOUBLE_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class QuadrupleButton extends JourneyModePowersScreen.SpriteButton {
+        public QuadrupleButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 91, 203);
+            this.screen = screen;
+            this.gameTick = true;
+            this.speed = 40;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("quadruple_speed"));
+            this.screen.tickSpeed = 40;
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, QUADRUPLE_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class OctupleButton extends JourneyModePowersScreen.SpriteButton {
+        public OctupleButton(int x, int y, JourneyModePowersScreen screen) {
+            super(x, y, 109, 203);
+            this.screen = screen;
+            this.gameTick = true;
+            this.speed = 80;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("octuple_speed"));
+            this.screen.tickSpeed = 80;
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, OCTUPLE_BUTTON, mouseX, mouseY);
         }
     }
 }

@@ -6,10 +6,12 @@ import com.Deeakron.journey_mode.journey_mode;
 public class EntityJourneyMode implements IEntityJourneyMode{
     private boolean mode;
     private ResearchList research;
+    private boolean godMode;
 
     public EntityJourneyMode() {
         this.mode = false;
         this.research = new ResearchList(journey_mode.list.getItems(), journey_mode.list.getCaps());
+        this.godMode = false;
     }
 
     @Override
@@ -45,5 +47,13 @@ public class EntityJourneyMode implements IEntityJourneyMode{
 
     public void setResearchList(ResearchList research) {
         this.research = research;
+    }
+
+    public void setGodMode(boolean mode) {
+        this.godMode = mode;
+    }
+
+    public boolean getGodMode() {
+        return this.godMode;
     }
 }
