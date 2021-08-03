@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode.client;
 
+import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
+import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.entity.Entity;
@@ -61,6 +63,24 @@ public class CommandPacket {
             server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 120");
         } else if (command.equals("octuple_speed")) {
             server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 240");
+        } else if (command.equals("enable_spawn")) {
+            server.getCommandManager().handleCommand(source, "gamerule doMobSpawning true");
+        } else if (command.equals("disable_spawn")) {
+            server.getCommandManager().handleCommand(source, "gamerule doMobSpawning false");
+        } else if (command.equals("enable_grief")) {
+            server.getCommandManager().handleCommand(source, "gamerule mobGriefing true");
+        } else if (command.equals("disable_grief")) {
+            server.getCommandManager().handleCommand(source, "gamerule mobGriefing false");
+        } else if (command.equals("enable_god_mode")) {
+            //server.getCommandManager().handleCommand(source, "gamerule mobGriefing false");
+            context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(true);
+        } else if (command.equals("disable_god_mode")) {
+            //server.getCommandManager().handleCommand(source, "gamerule mobGriefing false");
+            context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(false);
+        } else if (command.equals("lose_inv")) {
+            server.getCommandManager().handleCommand(source, "gamerule keepInventory false");
+        } else if (command.equals("keep_inv")) {
+            server.getCommandManager().handleCommand(source, "gamerule keepInventory true");
         }
         context.get().setPacketHandled(true);
     }

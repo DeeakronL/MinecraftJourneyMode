@@ -37,6 +37,14 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
     public static final ITextComponent DOUBLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.double");
     public static final ITextComponent QUADRUPLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.quadruple");
     public static final ITextComponent OCTUPLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.octuple");
+    public static final ITextComponent ENABLE_MOB_SPAWN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.enable_spawn");
+    public static final ITextComponent DISABLE_MOB_SPAWN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_spawn");
+    public static final ITextComponent ENABLE_MOB_GRIEFING_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.enable_grief");
+    public static final ITextComponent DISABLE_MOB_GRIEFING_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_grief");
+    public static final ITextComponent ENABLE_GOD_MODE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.enable_god_mode");
+    public static final ITextComponent DISABLE_GOD_MODE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_god_mode");
+    public static final ITextComponent LOSE_INVENTORY_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.lose_inv");
+    public static final ITextComponent KEEP_INVENTORY_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.keep_inv");
 
     private static boolean freeze;
     private int tickSpeed;
@@ -74,6 +82,10 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
         this.addButton(new JourneyModePowersScreen.DoubleButton(this.guiLeft + 61, this.guiTop + 53, this));
         this.addButton(new JourneyModePowersScreen.QuadrupleButton(this.guiLeft + 97, this.guiTop + 53, this));
         this.addButton(new JourneyModePowersScreen.OctupleButton(this.guiLeft + 133, this.guiTop + 53, this));
+        this.addButton(new JourneyModePowersScreen.MobSpawnButton(this.guiLeft + 7, this.guiTop + 71, this, this.mobSpawn));
+        this.addButton(new JourneyModePowersScreen.MobGriefButton(this.guiLeft + 43, this.guiTop + 71, this, this.mobGrief));
+        this.addButton(new JourneyModePowersScreen.GodModeButton(this.guiLeft + 79, this.guiTop + 71, this, this.godMode));
+        this.addButton(new JourneyModePowersScreen.InventoryButton(this.guiLeft + 115, this.guiTop + 71, this, this.keepInv));
         //this.buttonsNotDrawn = true;
     }
 
@@ -384,6 +396,122 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModePowersScreen.this.renderTooltip(matrixStack, OCTUPLE_BUTTON, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class MobSpawnButton extends JourneyModePowersScreen.SpriteButton {
+        public MobSpawnButton(int x, int y, JourneyModePowersScreen screen, Boolean activate) {
+            super(x, y, 127, 203);
+            this.screen = screen;
+            this.pressed = activate;
+        }
+
+        public void onPress() {
+            if (!this.pressed) {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("disable_spawn"));
+                this.pressed = true;
+            } else {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("enable_spawn"));
+                this.pressed = false;
+            }
+
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            if (!this.pressed) {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, DISABLE_MOB_SPAWN_BUTTON, mouseX, mouseY);
+            } else {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, ENABLE_MOB_SPAWN_BUTTON, mouseX, mouseY);
+            }
+
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class MobGriefButton extends JourneyModePowersScreen.SpriteButton {
+        public MobGriefButton(int x, int y, JourneyModePowersScreen screen, Boolean activate) {
+            super(x, y, 145, 203);
+            this.screen = screen;
+            this.pressed = activate;
+        }
+
+        public void onPress() {
+            if (!this.pressed) {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("disable_grief"));
+                this.pressed = true;
+            } else {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("enable_grief"));
+                this.pressed = false;
+            }
+
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            if (!this.pressed) {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, DISABLE_MOB_GRIEFING_BUTTON, mouseX, mouseY);
+            } else {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, ENABLE_MOB_GRIEFING_BUTTON, mouseX, mouseY);
+            }
+
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class GodModeButton extends JourneyModePowersScreen.SpriteButton {
+        public GodModeButton(int x, int y, JourneyModePowersScreen screen, Boolean activate) {
+            super(x, y, 163, 203);
+            this.screen = screen;
+            this.pressed = activate;
+        }
+
+        public void onPress() {
+            if (this.pressed) {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("disable_god_mode"));
+                this.pressed = false;
+            } else {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("enable_god_mode"));
+                this.pressed = true;
+            }
+
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            if (this.pressed) {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, DISABLE_GOD_MODE_BUTTON, mouseX, mouseY);
+            } else {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, ENABLE_GOD_MODE_BUTTON, mouseX, mouseY);
+            }
+
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class InventoryButton extends JourneyModePowersScreen.SpriteButton {
+        public InventoryButton(int x, int y, JourneyModePowersScreen screen, Boolean activate) {
+            super(x, y, 181, 203);
+            this.screen = screen;
+            this.pressed = activate;
+        }
+
+        public void onPress() {
+            if (this.pressed) {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("lose_inv"));
+                this.pressed = false;
+            } else {
+                MinecraftForge.EVENT_BUS.post(new PowersCommandEvent("keep_inv"));
+                this.pressed = true;
+            }
+
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            if (this.pressed) {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, LOSE_INVENTORY_BUTTON, mouseX, mouseY);
+            } else {
+                JourneyModePowersScreen.this.renderTooltip(matrixStack, KEEP_INVENTORY_BUTTON, mouseX, mouseY);
+            }
+
         }
     }
 }

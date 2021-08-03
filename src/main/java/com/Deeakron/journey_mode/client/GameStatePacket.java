@@ -67,8 +67,8 @@ public class GameStatePacket {
         PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(info);
         this.freeze = !serverWorld.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE);
         this.tickSpeed = serverWorld.getGameRules().getInt(GameRules.RANDOM_TICK_SPEED)/3;
-        this.mobSpawn = serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING);
-        this.mobGrief = serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
+        this.mobSpawn = !serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING);
+        this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
         this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY);
         context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
