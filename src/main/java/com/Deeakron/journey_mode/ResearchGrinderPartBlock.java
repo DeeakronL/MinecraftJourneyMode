@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class ResearchGrinderPartBlock extends Block {
     private final int part;
-    protected static final VoxelShape BASE_SLAB = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,8.0D,16.0D);
+    protected static final VoxelShape BASE_SLAB = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,7.0D,16.0D);
     protected static final VoxelShape BASE_SLOPE_0 = Block.makeCuboidShape(0.0D,1.0D,1.0D,15.0D,12.0D,16.0D);
     protected static final VoxelShape BASE_SLOPE_1 = Block.makeCuboidShape(1.0D,1.0D,0.0D,16.0D,12.0D,15.0D);
     protected static final VoxelShape BASE_SLOPE_2 = Block.makeCuboidShape(0.0D,1.0D,0.0D,15.0D,12.0D,15.0D);

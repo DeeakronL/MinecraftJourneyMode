@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "O#O",
+    "___"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:wooden_sword"
+    },
+    "O": {
+      "tag": "minecraft:logs"
+    },
+    "_": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "result": {
+    "item": "journey_mode:wooden_research_grinder",
+    "count": 1
+  }
+}
