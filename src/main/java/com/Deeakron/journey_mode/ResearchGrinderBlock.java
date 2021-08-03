@@ -14,13 +14,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 public class ResearchGrinderBlock extends Block {
-    protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(0.0D,0.0D,0.0D,32.0D,16.0D,32.0D);
+    protected static final VoxelShape BASE_SLAB = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,8.0D,16.0D);
+    protected static final VoxelShape BASE_SLOPE = Block.makeCuboidShape(1.0D,1.0D,1.0D,16.0D,12.0D,16.0D);
+    protected static final VoxelShape BASE_SHAPE = VoxelShapes.or(BASE_SLAB, BASE_SLOPE);
+    //protected static final VoxelShape RENDER_SHAPE = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,8.0D,16.0D);
     private final String type;
 
     /*@Nullable
