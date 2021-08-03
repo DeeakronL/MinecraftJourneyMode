@@ -43,6 +43,24 @@ public class CommandPacket {
             server.getCommandManager().handleCommand(source, "time set night");
         } else if (command.equals("midnight")) {
             server.getCommandManager().handleCommand(source, "time set midnight");
+        } else if (command.equals("freeze")) {
+            server.getCommandManager().handleCommand(source, "gamerule doDaylightCycle false");
+        } else if (command.equals("unfreeze")) {
+            server.getCommandManager().handleCommand(source, "gamerule doDaylightCycle true");
+        } else if (command.equals("clear")) {
+            server.getCommandManager().handleCommand(source, "weather clear");
+        } else if (command.equals("rain")) {
+            server.getCommandManager().handleCommand(source, "weather rain");
+        } else if (command.equals("storm")) {
+            server.getCommandManager().handleCommand(source, "weather thunder");
+        } else if (command.equals("normal_speed")) {
+            server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 3");
+        } else if (command.equals("double_speed")) {
+            server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 60");
+        } else if (command.equals("quadruple_speed")) {
+            server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 120");
+        } else if (command.equals("octuple_speed")) {
+            server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 240");
         }
         context.get().setPacketHandled(true);
     }
