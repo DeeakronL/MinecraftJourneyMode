@@ -2817,6 +2817,16 @@
       "category": "Decoration Blocks"
     },
     {
+      "item": "minecraft:dragon_egg",
+      "count": 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "journey_mode:wooden_research_grinder",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
       "item" : "minecraft:dispenser",
       "count" : 1,
       "category": "Redstone"

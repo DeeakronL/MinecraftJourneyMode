@@ -65,10 +65,14 @@ public class journey_mode
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
-        EventHandler.registerPackets();
+
 
         try{
-            this.list = new ItemList();
+            this.list = new ItemList("data/journey_mode/duplication_menu/base_minecraft.json");
+            if (UnobtainConfig.use_unobtainable.get()) {
+                ItemList unobtainList = new ItemList("data/journey_mode/duplication_menu/unobtainable.json");
+                this.list.updateList(unobtainList);
+            }
         } catch (IOException e) {
 
         };
@@ -98,6 +102,7 @@ public class journey_mode
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
         JMCapabilityProvider.register();
+        EventHandler.registerPackets();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

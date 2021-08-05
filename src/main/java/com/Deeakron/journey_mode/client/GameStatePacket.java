@@ -76,6 +76,22 @@ public class GameStatePacket {
     }
 
     @OnlyIn(Dist.CLIENT)
+    /*public static DistExecutor.SafeRunnable handleOnClient(final GameStatePacket msg) {
+        Boolean freeze = msg.getFreeze();
+        int tickSpeed = msg.getTickSpeed();
+        Boolean mobSpawn = msg.getMobSpawn();
+        Boolean mobGrief = msg.getMobGrief();
+        Boolean godMode = msg.getGodMode();
+        Boolean keepInv = msg.getKeepInv();
+        return new DistExecutor.SafeRunnable() {
+            @Override
+            public void run() {
+                int window = Minecraft.getInstance().player.openContainer.windowId;
+                ITextComponent title = new StringTextComponent("Journey Mode Menu");
+                Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
+            }
+        };
+    }*/
     public void handleOnClient(final GameStatePacket msg) {
         Boolean freeze = msg.getFreeze();
         int tickSpeed = msg.getTickSpeed();
@@ -85,7 +101,9 @@ public class GameStatePacket {
         Boolean keepInv = msg.getKeepInv();
         int window = Minecraft.getInstance().player.openContainer.windowId;
         ITextComponent title = new StringTextComponent("Journey Mode Menu");
-        Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
+        if (Minecraft.getInstance().world.isRemote()) {
+            Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
+        }
     }
 
     public Boolean getFreeze() {

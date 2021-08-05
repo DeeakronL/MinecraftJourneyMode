@@ -53,9 +53,6 @@ public class EventHandler {
         int count = event.getItem().getItem().getCount();
         EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
         cap.updateResearch(new String[]{item}, new int[]{count});
-        journey_mode.LOGGER.info("the server side is: " + event.getEntity().getUniqueID());
-        //journey_mode.LOGGER.info("Item picked up: " + event.getItem().getItem().getItem().getRegistryName() + " with count " + event.getItem().getItem().getCount());
-        //journey_mode.research.updateCount(new String[]{item}, new int[]{count});
     }
 
     @SubscribeEvent
@@ -91,7 +88,6 @@ public class EventHandler {
             PlayerEntity player = Minecraft.getInstance().player;
             JMCheckPacket packet = new JMCheckPacket(player.getUniqueID().toString(), false);
             INSTANCE.sendToServer(packet);
-            journey_mode.LOGGER.info("Packet status is: " + packet.getResult() + packet);
         }
     }
 }

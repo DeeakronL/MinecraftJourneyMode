@@ -32,7 +32,7 @@ public class ResearchList {
                 }
                 this.research.remove(items[i]);
                 this.research.put(items[i], newData);
-                //journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
+                journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
             }
         }
     }
