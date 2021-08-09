@@ -3,11 +3,15 @@ package com.Deeakron.journey_mode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.pathfinding.PathType;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -16,20 +20,30 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-public class ResearchGrinderPartBlock extends Block {
+public class ResearchGrinderPartBlock extends HorizontalBlock {
     private final int part;
     protected static final VoxelShape BASE_SLAB = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,7.0D,16.0D);
-    protected static final VoxelShape BASE_SLOPE_0 = Block.makeCuboidShape(0.0D,1.0D,1.0D,15.0D,12.0D,16.0D);
-    protected static final VoxelShape BASE_SLOPE_1 = Block.makeCuboidShape(1.0D,1.0D,0.0D,16.0D,12.0D,15.0D);
-    protected static final VoxelShape BASE_SLOPE_2 = Block.makeCuboidShape(0.0D,1.0D,0.0D,15.0D,12.0D,15.0D);
-    protected static final VoxelShape BASE_SHAPE_0 = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_0);
-    protected static final VoxelShape BASE_SHAPE_1 = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_1);
-    protected static final VoxelShape BASE_SHAPE_2 = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_2);
+    protected static final VoxelShape BASE_SLOPE_WEST = Block.makeCuboidShape(1.0D,1.0D,1.0D,16.0D,12.0D,16.0D);
+    protected static final VoxelShape BASE_SLOPE_EAST = Block.makeCuboidShape(0.0D,1.0D,1.0D,15.0D,12.0D,16.0D);
+    protected static final VoxelShape BASE_SLOPE_SOUTHWEST = Block.makeCuboidShape(1.0D,1.0D,0.0D,16.0D,12.0D,15.0D);
+    protected static final VoxelShape BASE_SLOPE_SOUTHEAST = Block.makeCuboidShape(0.0D,1.0D,0.0D,15.0D,12.0D,15.0D);
+    protected static final VoxelShape BASE_SHAPE = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_WEST);
+    protected static final VoxelShape BASE_SHAPE_EAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_EAST);
+    protected static final VoxelShape BASE_SHAPE_SOUTHWEST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
+    protected static final VoxelShape BASE_SHAPE_SOUTHEAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
+    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    private BlockPos pos1;
+    private BlockPos pos2;
+    private BlockPos pos3;
 
 
     public ResearchGrinderPartBlock(Properties properties, int part){
         super(properties);
         this.part = part;
+    }
+
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
 
@@ -51,35 +65,102 @@ public class ResearchGrinderPartBlock extends Block {
     }
 
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        if(part == 0){
-            worldIn.setBlockState(pos.west(), Blocks.AIR.getDefaultState());
-            worldIn.setBlockState(pos.south(), Blocks.AIR.getDefaultState());
-            worldIn.setBlockState(pos.west().south(), Blocks.AIR.getDefaultState());
-            super.onBlockHarvested(worldIn, pos, state, player);}
-        else if (part == 1){
-            worldIn.setBlockState(pos.north(), Blocks.AIR.getDefaultState());
-            worldIn.setBlockState(pos.east(), Blocks.AIR.getDefaultState());
-            worldIn.setBlockState(pos.east().north(), Blocks.AIR.getDefaultState());
-            super.onBlockHarvested(worldIn, pos, state, player);}
-        else if (part == 2) {worldIn.setBlockState(pos.west(), Blocks.AIR.getDefaultState());
-            worldIn.setBlockState(pos.north(), Blocks.AIR.getDefaultState());
-            worldIn.setBlockState(pos.west().north(), Blocks.AIR.getDefaultState());
-            super.onBlockHarvested(worldIn, pos, state, player);}
-        else {
-            super.onBlockHarvested(worldIn, pos, state, player);
+        BlockPos pos1 = null;
+        BlockPos pos2 = null;
+        BlockPos pos3 = null;
+
+        switch (part) {
+            case 0:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.west();
+                        pos2 = pos.west().south();
+                        pos3 = pos.south();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.east();
+                        pos2 = pos.east().north();
+                        pos3 = pos.north();
+                        break;
+                    case WEST:
+                        pos1 = pos.south();
+                        pos2 = pos.south().east();
+                        pos3 = pos.east();
+                        break;
+                    case EAST:
+                        pos1 = pos.north();
+                        pos2 = pos.north().west();
+                        pos3 = pos.west();
+                        break;
+                }
+                break;
+            case 1:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.north();
+                        pos2 = pos.north().east();
+                        pos3 = pos.east();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.south();
+                        pos2 = pos.south().west();
+                        pos3 = pos.west();
+                        break;
+                    case WEST:
+                        pos1 = pos.west();
+                        pos2 = pos.west().north();
+                        pos3 = pos.north();
+                        break;
+                    case EAST:
+                        pos1 = pos.east();
+                        pos2 = pos.east().south();
+                        pos3 = pos.south();
+                        break;
+                }
+                break;
+            case 2:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.north().west();
+                        pos2 = pos.north();
+                        pos3 = pos.west();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.south().east();
+                        pos2 = pos.south();
+                        pos3 = pos.east();
+                        break;
+                    case WEST:
+                        pos1 = pos.west().south();
+                        pos2 = pos.west();
+                        pos3 = pos.south();
+                        break;
+                    case EAST:
+                        pos1 = pos.east().north();
+                        pos2 = pos.east();
+                        pos3 = pos.north();
+                        break;
+                }
+                break;
         }
-
-
+        worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+        worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+        worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        super.onBlockHarvested(worldIn, pos, state, player);
+        this.pos1 = pos1;
+        this.pos2 = pos2;
+        this.pos3 = pos3;
     }
+
 
     public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
         switch (part) {
             case 0:
-                return BASE_SHAPE_0;
+                return BASE_SHAPE_EAST;
             case 1:
-                return BASE_SHAPE_1;
+                return BASE_SHAPE_SOUTHWEST;
             case 2:
-                return BASE_SHAPE_2;
+                return BASE_SHAPE_SOUTHEAST;
         }
         return null;
     }
@@ -87,51 +168,54 @@ public class ResearchGrinderPartBlock extends Block {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                return BASE_SHAPE_0;
+                return BASE_SHAPE_EAST;
             case 1:
-                return BASE_SHAPE_1;
+                return BASE_SHAPE_SOUTHWEST;
             case 2:
-                return BASE_SHAPE_2;
+                return BASE_SHAPE_SOUTHEAST;
         }
         return null;
     }
 
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        switch (this.part) {
+        switch (part) {
             case 0:
-                return BASE_SHAPE_0;
+                return BASE_SHAPE_EAST;
             case 1:
-                return BASE_SHAPE_1;
+                return BASE_SHAPE_SOUTHWEST;
             case 2:
-                return BASE_SHAPE_2;
+                return BASE_SHAPE_SOUTHEAST;
         }
         return null;
     }
 
     @Override
     public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-        switch (this.part) {
+        switch (part) {
             case 0:
-                return BASE_SHAPE_0;
+                return BASE_SHAPE_EAST;
             case 1:
-                return BASE_SHAPE_1;
+                return BASE_SHAPE_SOUTHWEST;
             case 2:
-                return BASE_SHAPE_2;
+                return BASE_SHAPE_SOUTHEAST;
         }
         return null;
     }
 
     public VoxelShape getBaseShape() {
-        switch (this.part) {
+        switch (part) {
             case 0:
-                return BASE_SHAPE_0;
+                return BASE_SHAPE_EAST;
             case 1:
-                return BASE_SHAPE_1;
+                return BASE_SHAPE_SOUTHWEST;
             case 2:
-                return BASE_SHAPE_2;
+                return BASE_SHAPE_SOUTHEAST;
         }
         return null;
     }
 
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
+    }
 
 }

@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model":  "journey_mode:block/wooden_research_grinder_part_1"}
+    "facing=north": { "model":  "journey_mode:block/wooden_research_grinder_part_1"},
+    "facing=east": { "model":  "journey_mode:block/wooden_research_grinder_part_1", "y":  90},
+    "facing=south": { "model":  "journey_mode:block/wooden_research_grinder_part_1", "y":  180},
+    "facing=west": { "model":  "journey_mode:block/wooden_research_grinder_part_1", "y":  270}
   }
 }
