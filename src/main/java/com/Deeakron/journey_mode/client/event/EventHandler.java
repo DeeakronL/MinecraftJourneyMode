@@ -85,9 +85,11 @@ public class EventHandler {
     public static void openMenu(final InputEvent.KeyInputEvent event) {
 
         if (journey_mode.keyBindings[0].isPressed()) {
-            PlayerEntity player = Minecraft.getInstance().player;
+            /*PlayerEntity player = Minecraft.getInstance().player;
             JMCheckPacket packet = new JMCheckPacket(player.getUniqueID().toString(), false);
-            INSTANCE.sendToServer(packet);
+            INSTANCE.sendToServer(packet);*/
+            ITextComponent title = new StringTextComponent("Journey Mode Menu");
+            Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, 5, false, 1, false, false, false, false));
         }
     }
 }
