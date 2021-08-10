@@ -189,20 +189,64 @@ public class ResearchGrinderBlock extends HorizontalBlock {
     }
 
     public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return BASE_SHAPE;
+        switch (state.get(FACING)) {
+            case NORTH:
+                return BASE_SHAPE;
+            case SOUTH:
+                return BASE_SHAPE_SOUTHEAST;
+            case WEST:
+                return BASE_SHAPE_SOUTHWEST;
+            case EAST:
+                return BASE_SHAPE_EAST;
+
+        }
+        return null;
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return BASE_SHAPE;
+        switch (state.get(FACING)) {
+            case NORTH:
+                return BASE_SHAPE;
+            case SOUTH:
+                return BASE_SHAPE_SOUTHEAST;
+            case WEST:
+                return BASE_SHAPE_SOUTHWEST;
+            case EAST:
+                return BASE_SHAPE_EAST;
+
+        }
+        return null;
     }
 
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return BASE_SHAPE;
+        switch (state.get(FACING)) {
+            case NORTH:
+                return BASE_SHAPE;
+            case SOUTH:
+                return BASE_SHAPE_SOUTHEAST;
+            case WEST:
+                return BASE_SHAPE_SOUTHWEST;
+            case EAST:
+                return BASE_SHAPE_EAST;
+
+        }
+        return null;
     }
 
     @Override
     public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-        return BASE_SHAPE;
+        switch (state.get(FACING)) {
+            case NORTH:
+                return BASE_SHAPE;
+            case SOUTH:
+                return BASE_SHAPE_SOUTHEAST;
+            case WEST:
+                return BASE_SHAPE_SOUTHWEST;
+            case EAST:
+                return BASE_SHAPE_EAST;
+
+        }
+        return null;
     }
 
     public static VoxelShape getBaseShape() {

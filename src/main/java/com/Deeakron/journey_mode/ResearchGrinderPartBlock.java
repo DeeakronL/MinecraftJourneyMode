@@ -156,11 +156,27 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
         switch (part) {
             case 0:
-                return BASE_SHAPE_EAST;
+                switch (state.get(FACING)) {
+                    case NORTH: return BASE_SHAPE_EAST;
+                    case SOUTH: return BASE_SHAPE_SOUTHWEST;
+                    case WEST: return BASE_SHAPE;
+                    case EAST: return BASE_SHAPE_SOUTHEAST;
+                }
+
             case 1:
-                return BASE_SHAPE_SOUTHWEST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHWEST;
+                    case SOUTH: return BASE_SHAPE_EAST;
+                    case WEST: return BASE_SHAPE_SOUTHEAST;
+                    case EAST: return BASE_SHAPE;
+                }
             case 2:
-                return BASE_SHAPE_SOUTHEAST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHEAST;
+                    case SOUTH: return BASE_SHAPE;
+                    case WEST: return BASE_SHAPE_EAST;
+                    case EAST: return BASE_SHAPE_SOUTHWEST;
+                }
         }
         return null;
     }
@@ -168,11 +184,27 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                return BASE_SHAPE_EAST;
+                switch (state.get(FACING)) {
+                    case NORTH: return BASE_SHAPE_EAST;
+                    case SOUTH: return BASE_SHAPE_SOUTHWEST;
+                    case WEST: return BASE_SHAPE;
+                    case EAST: return BASE_SHAPE_SOUTHEAST;
+                }
+
             case 1:
-                return BASE_SHAPE_SOUTHWEST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHWEST;
+                    case SOUTH: return BASE_SHAPE_EAST;
+                    case WEST: return BASE_SHAPE_SOUTHEAST;
+                    case EAST: return BASE_SHAPE;
+                }
             case 2:
-                return BASE_SHAPE_SOUTHEAST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHEAST;
+                    case SOUTH: return BASE_SHAPE;
+                    case WEST: return BASE_SHAPE_EAST;
+                    case EAST: return BASE_SHAPE_SOUTHWEST;
+                }
         }
         return null;
     }
@@ -180,11 +212,27 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                return BASE_SHAPE_EAST;
+                switch (state.get(FACING)) {
+                    case NORTH: return BASE_SHAPE_EAST;
+                    case SOUTH: return BASE_SHAPE_SOUTHWEST;
+                    case WEST: return BASE_SHAPE;
+                    case EAST: return BASE_SHAPE_SOUTHEAST;
+                }
+
             case 1:
-                return BASE_SHAPE_SOUTHWEST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHWEST;
+                    case SOUTH: return BASE_SHAPE_EAST;
+                    case WEST: return BASE_SHAPE_SOUTHEAST;
+                    case EAST: return BASE_SHAPE;
+                }
             case 2:
-                return BASE_SHAPE_SOUTHEAST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHEAST;
+                    case SOUTH: return BASE_SHAPE;
+                    case WEST: return BASE_SHAPE_EAST;
+                    case EAST: return BASE_SHAPE_SOUTHWEST;
+                }
         }
         return null;
     }
@@ -193,11 +241,27 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                return BASE_SHAPE_EAST;
+                switch (state.get(FACING)) {
+                    case NORTH: return BASE_SHAPE_EAST;
+                    case SOUTH: return BASE_SHAPE_SOUTHWEST;
+                    case WEST: return BASE_SHAPE;
+                    case EAST: return BASE_SHAPE_SOUTHEAST;
+                }
+
             case 1:
-                return BASE_SHAPE_SOUTHWEST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHWEST;
+                    case SOUTH: return BASE_SHAPE_EAST;
+                    case WEST: return BASE_SHAPE_SOUTHEAST;
+                    case EAST: return BASE_SHAPE;
+                }
             case 2:
-                return BASE_SHAPE_SOUTHEAST;
+                switch (state.get(FACING)){
+                    case NORTH: return BASE_SHAPE_SOUTHEAST;
+                    case SOUTH: return BASE_SHAPE;
+                    case WEST: return BASE_SHAPE_EAST;
+                    case EAST: return BASE_SHAPE_SOUTHWEST;
+                }
         }
         return null;
     }
