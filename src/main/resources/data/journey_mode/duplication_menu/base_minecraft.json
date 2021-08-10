@@ -317,12 +317,17 @@
       "category": "Building Blocks"
     },
     {
-      "item" : "minecraft:lapis_lazuli_ore",
+      "item" : "minecraft:glass",
       "count" : 128,
       "category": "Building Blocks"
     },
     {
-      "item" : "minecraft:lapis_lazuli_block",
+      "item" : "minecraft:lapis_ore",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:lapis_block",
       "count" : 128,
       "category": "Building Blocks"
     },
@@ -907,7 +912,7 @@
       "category": "Building Blocks"
     },
     {
-      "item" : "minecraft:hay_bale",
+      "item" : "minecraft:hay_block",
       "count" : 128,
       "category": "Building Blocks"
     },
@@ -1337,7 +1342,7 @@
       "category": "Building Blocks"
     },
     {
-      "item" : "minecraft:end_stone_stairs",
+      "item" : "minecraft:end_stone_brick_stairs",
       "count" : 256,
       "category": "Building Blocks"
     },
@@ -1407,7 +1412,7 @@
       "category": "Building Blocks"
     },
     {
-      "item" : "minecraft:end_stone_slab",
+      "item" : "minecraft:end_stone_brick_slab",
       "count" : 256,
       "category": "Building Blocks"
     },
@@ -1787,7 +1792,7 @@
       "category": "Decoration Blocks"
     },
     {
-      "item" : "minecraft:juke_box",
+      "item" : "minecraft:jukebox",
       "count" : 1,
       "category": "Decoration Blocks"
     },
@@ -1867,7 +1872,7 @@
       "category": "Decoration Blocks"
     },
     {
-      "item" : "minecraft:vines",
+      "item" : "minecraft:vine",
       "count" : 64,
       "category": "Decoration Blocks"
     },
@@ -2702,7 +2707,7 @@
       "category": "Decoration Blocks"
     },
     {
-      "item" : "minecraft:end_crystal_banner",
+      "item" : "minecraft:end_crystal",
       "count" : 1,
       "category": "Decoration Blocks"
     },
@@ -2902,7 +2907,7 @@
       "category": "Redstone"
     },
     {
-      "item" : "minecraft:blackstone_pressure_plate",
+      "item" : "minecraft:polished_blackstone_pressure_plate",
       "count" : 256,
       "category": "Redstone"
     },
@@ -3047,6 +3052,11 @@
       "category": "Redstone"
     },
     {
+      "item" : "minecraft:polished_blackstone_button",
+      "count" : 128,
+      "category": "Redstone"
+    },
+    {
       "item" : "minecraft:trapped_chest",
       "count" : 1,
       "category": "Redstone"
@@ -3137,17 +3147,17 @@
       "category": "Redstone"
     },
     {
-      "item" : "minecraft:redstone_repeater",
+      "item" : "minecraft:repeater",
       "count" : 128,
       "category": "Redstone"
     },
     {
-      "item" : "minecraft:redstone_comparator",
+      "item" : "minecraft:comparator",
       "count" : 128,
       "category": "Redstone"
     },
     {
-      "item" : "minecraft:redstone_dust",
+      "item" : "minecraft:redstone",
       "count" : 128,
       "category": "Redstone"
     },
@@ -3422,7 +3432,7 @@
       "category": "Miscellaneous"
     },
     {
-      "item" : "minecraft:slimeball",
+      "item" : "minecraft:slime_ball",
       "count" : 64,
       "category": "Miscellaneous"
     },
@@ -3627,7 +3637,7 @@
       "category": "Miscellaneous"
     },
     {
-      "item" : "minecraft:nether_quartz",
+      "item" : "minecraft:quartz",
       "count" : 64,
       "category": "Miscellaneous"
     },
@@ -3652,7 +3662,7 @@
       "category": "Miscellaneous"
     },
     {
-      "item" : "minecraft:gold_horse_armor",
+      "item" : "minecraft:golden_horse_armor",
       "count" : 1,
       "category": "Miscellaneous"
     },
@@ -3817,7 +3827,7 @@
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_porkchop",
+      "item" : "minecraft:porkchop",
       "count" : 8,
       "category": "Foodstuffs"
     },
@@ -3837,12 +3847,12 @@
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_cod",
+      "item" : "minecraft:cod",
       "count" : 8,
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_salmon",
+      "item" : "minecraft:salmon",
       "count" : 8,
       "category": "Foodstuffs"
     },
@@ -3887,17 +3897,17 @@
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_beef",
+      "item" : "minecraft:beef",
       "count" : 8,
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:steak",
+      "item" : "minecraft:cooked_beef",
       "count" : 8,
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_chicken",
+      "item" : "minecraft:chicken",
       "count" : 8,
       "category": "Foodstuffs"
     },
@@ -3942,7 +3952,7 @@
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_rabbit",
+      "item" : "minecraft:rabbit",
       "count" : 8,
       "category": "Foodstuffs"
     },
@@ -3957,7 +3967,7 @@
       "category": "Foodstuffs"
     },
     {
-      "item" : "minecraft:raw_mutton",
+      "item" : "minecraft:mutton",
       "count" : 8,
       "category": "Foodstuffs"
     },
@@ -4147,7 +4157,7 @@
       "category": "Tools"
     },
     {
-      "item" : "minecraft:turtle_shell",
+      "item" : "minecraft:turtle_helmet",
       "count" : 1,
       "category": "Combat"
     },
@@ -4172,7 +4182,7 @@
       "category": "Combat"
     },
     {
-      "item" : "minecraft:gold_sword",
+      "item" : "minecraft:golden_sword",
       "count" : 1,
       "category": "Combat"
     },
@@ -4272,22 +4282,22 @@
       "category": "Combat"
     },
     {
-      "item" : "minecraft:gold_helmet",
+      "item" : "minecraft:golden_helmet",
       "count" : 1,
       "category": "Combat"
     },
     {
-      "item" : "minecraft:gold_chestplate",
+      "item" : "minecraft:golden_chestplate",
       "count" : 1,
       "category": "Combat"
     },
     {
-      "item" : "minecraft:gold_leggings",
+      "item" : "minecraft:golden_leggings",
       "count" : 1,
       "category": "Combat"
     },
     {
-      "item" : "minecraft:gold_boots",
+      "item" : "minecraft:golden_boots",
       "count" : 1,
       "category": "Combat"
     },

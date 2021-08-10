@@ -72,6 +72,9 @@ public class journey_mode
             if (UnobtainConfig.use_unobtainable.get()) {
                 ItemList unobtainList = new ItemList("data/journey_mode/duplication_menu/unobtainable.json");
                 this.list.updateList(unobtainList);
+                String[] test = new String[1];
+                test[0] = "\"minecraft:bedrock\"";
+                //this.list.removeItem(test);
             }
         } catch (IOException e) {
 

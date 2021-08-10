@@ -71,28 +71,28 @@ public class GameStatePacket {
         this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
         this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY);
-        context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
+        context.get().enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> handleOnClient(this)::run));
         context.get().setPacketHandled(true);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    /*public static DistExecutor.SafeRunnable handleOnClient(final GameStatePacket msg) {
+    //@OnlyIn(Dist.CLIENT)
+    public static DistExecutor.SafeRunnable handleOnClient(final GameStatePacket msg) {
         Boolean freeze = msg.getFreeze();
         int tickSpeed = msg.getTickSpeed();
         Boolean mobSpawn = msg.getMobSpawn();
         Boolean mobGrief = msg.getMobGrief();
         Boolean godMode = msg.getGodMode();
         Boolean keepInv = msg.getKeepInv();
+        int window = Minecraft.getInstance().player.openContainer.windowId;
         return new DistExecutor.SafeRunnable() {
             @Override
             public void run() {
-                int window = Minecraft.getInstance().player.openContainer.windowId;
                 ITextComponent title = new StringTextComponent("Journey Mode Menu");
                 Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
             }
         };
-    }*/
-    public void handleOnClient(final GameStatePacket msg) {
+    }
+    /*public void handleOnClient(final GameStatePacket msg) {
         Boolean freeze = msg.getFreeze();
         int tickSpeed = msg.getTickSpeed();
         Boolean mobSpawn = msg.getMobSpawn();
@@ -104,7 +104,7 @@ public class GameStatePacket {
         if (Minecraft.getInstance().world.isRemote()) {
             Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
         }
-    }
+    }*/
 
     public Boolean getFreeze() {
         return this.freeze;
