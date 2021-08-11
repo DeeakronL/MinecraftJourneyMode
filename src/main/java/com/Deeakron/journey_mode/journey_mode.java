@@ -4,6 +4,7 @@ import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.config.Config;
+import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -45,6 +46,8 @@ public class journey_mode
     public static final Logger LOGGER = LogManager.getLogger();
     public static ItemList list;
     public static KeyBinding[] keyBindings;
+    public static ReplacementList replacementList;
+    public static boolean doReplace = false;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -75,6 +78,18 @@ public class journey_mode
                 String[] test = new String[1];
                 test[0] = "\"minecraft:bedrock\"";
                 //this.list.removeItem(test);
+            }
+            if (NewFilesConfig.use_other_files.get()) {
+                ItemList changeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("changes.json").toString());
+                this.list.updateList(changeList);
+            }
+            if (NewFilesConfig.use_replacements.get()) {
+                this.replacementList = new ReplacementList(FMLPaths.CONFIGDIR.get().resolve("replacements.json").toString());
+                this.doReplace = true;
+            }
+            if (NewFilesConfig.use_removals.get()) {
+                ItemList removeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("removals.json").toString());
+                this.list.removeItem(removeList.getItems());
             }
         } catch (IOException e) {
 

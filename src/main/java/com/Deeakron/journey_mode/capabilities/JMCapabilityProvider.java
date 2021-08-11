@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.capabilities;
 
+import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -87,9 +88,28 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
             boolean mode = ((CompoundNBT) nbt).getBoolean("mode");
             instance.setJourneyMode(mode);
             String[] items = journey_mode.list.getItems();
+            String[][] replacements;
             int[] counts = new int[items.length];
             for (int i = 0; i < items.length; i++) {
-                counts[i] = ((CompoundNBT) nbt).getInt(items[i]);
+                if (journey_mode.doReplace) {
+                    boolean wasReplaced = false;
+                    for (int j = 0; j < journey_mode.replacementList.getReplacements().length; j++) {
+                        if (items[i].equals(journey_mode.replacementList.getReplacements()[j])) {
+                            wasReplaced = true;
+                            int newCount = ((CompoundNBT) nbt).getInt(journey_mode.replacementList.getOriginals()[j]);
+                            if (newCount == 0) {
+                                newCount = ((CompoundNBT) nbt).getInt(items[i]);
+                            }
+                            counts[i] = newCount;
+                            break;
+                        }
+                    }
+                    if (!wasReplaced) {
+                        counts[i] = ((CompoundNBT) nbt).getInt(items[i]);
+                    }
+                } else {
+                    counts[i] = ((CompoundNBT) nbt).getInt(items[i]);
+                }
             }
             instance.updateResearch(items, counts);
             journey_mode.LOGGER.info("readNBT done");

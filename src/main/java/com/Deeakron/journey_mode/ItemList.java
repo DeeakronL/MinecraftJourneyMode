@@ -58,6 +58,7 @@ public class ItemList {
                 this.catTypes[this.catTypes.length - 1] = items[i].getAsJsonObject().get("category").toString();
             }
         }
+
     }
 
     public String[] getItems() {
