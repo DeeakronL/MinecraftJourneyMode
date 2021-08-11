@@ -26,5 +26,6 @@
   "journey_mode.gui.powers.lose_inv" : "Turn off keeping Inventory after Death",
   "journey_mode.gui.powers.keep_inv" : "Turn on keeping Inventory after Death",
   "key.journey_mode.menu" : "Open Journey Mode menu",
-  "key.categories.journey_mode" : "Journey Mode controls"
+  "key.categories.journey_mode" : "Journey Mode controls",
+  "death.attack.journey_mode.research_grinder" : "%1$s contributed their body to science"
 }

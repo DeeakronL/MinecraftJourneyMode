@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.client;
 
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -88,7 +89,8 @@ public class GameStatePacket {
             @Override
             public void run() {
                 ITextComponent title = new StringTextComponent("Journey Mode Menu");
-                Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
+                //EventHandler.menuHandle(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv);
+                //Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
             }
         };
     }

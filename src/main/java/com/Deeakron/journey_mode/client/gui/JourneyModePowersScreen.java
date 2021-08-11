@@ -70,6 +70,7 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
 
     protected void init() {
         super.init();
+
         this.addButton(new JourneyModePowersScreen.DawnButton(this.guiLeft + 25, this.guiTop + 17, this));
         this.addButton(new JourneyModePowersScreen.NoonButton(this.guiLeft + 61, this.guiTop + 17, this));
         this.addButton(new JourneyModePowersScreen.DuskButton(this.guiLeft + 97, this.guiTop + 17, this));
@@ -86,6 +87,7 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
         this.addButton(new JourneyModePowersScreen.MobGriefButton(this.guiLeft + 43, this.guiTop + 71, this, this.mobGrief));
         this.addButton(new JourneyModePowersScreen.GodModeButton(this.guiLeft + 79, this.guiTop + 71, this, this.godMode));
         this.addButton(new JourneyModePowersScreen.InventoryButton(this.guiLeft + 115, this.guiTop + 71, this, this.keepInv));
+        journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
 

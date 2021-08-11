@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -49,7 +50,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
 
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
-            entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+            entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
         }
         super.onEntityWalk(worldIn, pos, entityIn);
     }

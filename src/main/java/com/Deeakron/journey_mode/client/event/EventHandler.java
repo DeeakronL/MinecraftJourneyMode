@@ -56,6 +56,14 @@ public class EventHandler {
     }
 
     @SubscribeEvent
+    public static void onResearchEvent(ResearchEvent event) {
+        String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
+        int count = event.getItem().getItem().getCount();
+        EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
+        cap.updateResearch(new String[]{item}, new int[]{count});
+    }
+
+    @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
         if (event.getEntity() instanceof  ServerPlayerEntity){
             if (true){
