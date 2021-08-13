@@ -13,6 +13,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.state.DirectionProperty;
@@ -41,14 +42,16 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     protected static final VoxelShape BASE_SHAPE_SOUTHWEST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
     protected static final VoxelShape BASE_SHAPE_SOUTHEAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    private final String type;
     private BlockPos pos1;
     private BlockPos pos2;
     private BlockPos pos3;
 
 
-    public ResearchGrinderPartBlock(Properties properties, int part){
+    public ResearchGrinderPartBlock(Properties properties, int part, String type){
         super(properties);
         this.part = part;
+        this.type = type;
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -168,6 +171,13 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.pos3 = pos3;
+    }
+
+    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+        if (type == "wood"){
+            return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
+        }
+        return null;
     }
 
 
