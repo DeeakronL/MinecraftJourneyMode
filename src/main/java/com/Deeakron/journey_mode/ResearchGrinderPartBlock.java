@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.client.event.ResearchEvent;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -8,9 +9,12 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.pathfinding.PathType;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.DamageSource;
@@ -20,6 +24,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
+import java.util.UUID;
 
 public class ResearchGrinderPartBlock extends HorizontalBlock {
     private final int part;
@@ -51,6 +59,15 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
+        }
+        if(entityIn instanceof ItemEntity){
+            UUID id = ((ItemEntity) entityIn).getThrowerId();
+            PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
+            ServerPlayerEntity player = players.getPlayerByUUID(id);
+            MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
+            ((ItemEntity) entityIn).remove();
+
+
         }
         super.onEntityWalk(worldIn, pos, entityIn);
     }

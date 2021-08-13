@@ -59,8 +59,11 @@ public class EventHandler {
     public static void onResearchEvent(ResearchEvent event) {
         String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
         int count = event.getItem().getItem().getCount();
-        EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
-        cap.updateResearch(new String[]{item}, new int[]{count});
+        if(event.getEntity() != null){
+            EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
+            cap.updateResearch(new String[]{item}, new int[]{count});
+        }
+
     }
 
     @SubscribeEvent

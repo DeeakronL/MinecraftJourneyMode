@@ -89,8 +89,7 @@ public class GameStatePacket {
             @Override
             public void run() {
                 ITextComponent title = new StringTextComponent("Journey Mode Menu");
-                //EventHandler.menuHandle(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv);
-                //Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
+                Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
             }
         };
     }
