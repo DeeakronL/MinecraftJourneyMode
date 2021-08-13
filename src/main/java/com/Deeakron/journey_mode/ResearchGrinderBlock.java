@@ -144,9 +144,16 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 journey_mode.LOGGER.info("EAST");
                 break;
         }
-        worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
-        worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
-        worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderPartBlock){
+            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos3).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        }
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
@@ -181,9 +188,16 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 journey_mode.LOGGER.info("EAST");
                 break;
         }
-        worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
-        worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
-        worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderPartBlock){
+            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos3).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 
