@@ -194,14 +194,10 @@ public class ResearchGrinderBlock extends HorizontalBlock {
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();
             PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
-            ServerPlayerEntity player = null;
-            try {
-                player = players.getPlayerByUUID(id);
-                MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
-                entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
-            } catch (NullPointerException e) {
-                entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
-            }
+            ServerPlayerEntity player = players.getPlayerByUUID(id);
+            MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
+            ((ItemEntity) entityIn).remove();
+
 
         }
 
