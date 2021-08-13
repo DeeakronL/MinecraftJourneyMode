@@ -103,4 +103,10 @@ public class EventHandler {
             Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, 5, false, 1, false, false, false, false));*/
         }
     }
+
+    @SubscribeEvent
+    public static void openMenuActual(final MenuOpenEvent event) {
+        ITextComponent title = new StringTextComponent("Journey Mode Menu");
+        Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, 5, event.freeze, event.tickSpeed, event.mobSpawn, event.mobGrief, event.godMode, event.keepInv));
+    }
 }

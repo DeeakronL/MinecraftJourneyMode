@@ -3,6 +3,7 @@ package com.Deeakron.journey_mode.client;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
+import com.Deeakron.journey_mode.client.event.MenuOpenEvent;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +14,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -88,8 +90,10 @@ public class GameStatePacket {
         return new DistExecutor.SafeRunnable() {
             @Override
             public void run() {
-                ITextComponent title = new StringTextComponent("Journey Mode Menu");
-                Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
+                MinecraftForge.EVENT_BUS.post(new MenuOpenEvent(freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv, UUID.fromString(msg.data)));
+                //ITextComponent title = new StringTextComponent("Journey Mode Menu");
+                //EventHandler.menuHandle(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv);
+                //Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
             }
         };
     }
