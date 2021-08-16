@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode.client;
 
+import com.Deeakron.journey_mode.JourneyModePowersContainer;
+import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
@@ -7,6 +9,7 @@ import com.Deeakron.journey_mode.client.event.MenuOpenEvent;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -17,6 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -74,7 +78,8 @@ public class GameStatePacket {
         this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
         this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY);
-        context.get().enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> handleOnClient(this)::run));
+        NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
+        //context.get().enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> handleOnClient(this)::run));
         context.get().setPacketHandled(true);
     }
 

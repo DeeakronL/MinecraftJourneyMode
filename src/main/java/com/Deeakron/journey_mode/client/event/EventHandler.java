@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.client.event;
 
+import com.Deeakron.journey_mode.JMContainerTypes;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.CommandPacket;
@@ -9,6 +10,7 @@ import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -23,8 +25,11 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+
+import java.util.Date;
 
 @Mod.EventBusSubscriber(modid = journey_mode.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -106,7 +111,20 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void openMenuActual(final MenuOpenEvent event) {
-        ITextComponent title = new StringTextComponent("Journey Mode Menu");
-        Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, 5, event.freeze, event.tickSpeed, event.mobSpawn, event.mobGrief, event.godMode, event.keepInv));
+        //journey_mode.lastMenuOpened = new Date();
+        //journey_mode.LOGGER.info("time compare: " + journey_mode.lastMenuOpened.getTime());
+        //journey_mode.LOGGER.info("new time: " + new Date().getTime());
+        //journey_mode.lastMenuOpened = new Date();
+        //if (journey_mode.lastMenuOpened.compareTo(new Date()))
+        if (new Date().getTime() - journey_mode.lastMenuOpened.getTime() >= 400) {
+            ITextComponent title = new StringTextComponent("Journey Mode Menu");
+            //Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, 5, event.freeze, event.tickSpeed, event.mobSpawn, event.mobGrief, event.godMode, event.keepInv));
+            journey_mode.lastMenuOpened = new Date();
+        }
+    }
+
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent event) {
+        //ScreenManager.registerFactory(JMContainerTypes.JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
     }
 }

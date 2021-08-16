@@ -35,6 +35,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.CallbackI;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -48,6 +49,7 @@ public class journey_mode
     public static KeyBinding[] keyBindings;
     public static ReplacementList replacementList;
     public static boolean doReplace = false;
+    public static Date lastMenuOpened;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -67,6 +69,8 @@ public class journey_mode
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        this.lastMenuOpened = new Date();
 
 
 

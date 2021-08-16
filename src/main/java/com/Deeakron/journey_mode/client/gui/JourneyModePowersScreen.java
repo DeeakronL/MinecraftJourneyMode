@@ -21,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 
 @OnlyIn(Dist.CLIENT)
-public class JourneyModePowersScreen extends ContainerScreen<Container> {
+public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_powers.png");
     public static final ITextComponent DAWN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.dawn");
@@ -53,8 +53,9 @@ public class JourneyModePowersScreen extends ContainerScreen<Container> {
     private static boolean godMode;
     private static boolean keepInv;
 
-    public JourneyModePowersScreen(PlayerInventory inv, ITextComponent titleIn, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
-        super(new JourneyModePowersContainer(window, inv), inv, titleIn);
+    public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
+        super(container, inv, titleIn);
+        journey_mode.LOGGER.info("reached screen");
         this.freeze = freeze;
         this.tickSpeed = tickSpeed;
         this.mobSpawn = mobSpawn;
