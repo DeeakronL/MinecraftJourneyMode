@@ -53,15 +53,15 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     private static boolean godMode;
     private static boolean keepInv;
 
-    public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
+    public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn) {//, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
         super(container, inv, titleIn);
         journey_mode.LOGGER.info("reached screen");
-        this.freeze = freeze;
-        this.tickSpeed = tickSpeed;
-        this.mobSpawn = mobSpawn;
-        this.mobGrief = mobGrief;
-        this.godMode = godMode;
-        this.keepInv = keepInv;
+        this.freeze = false;//freeze;
+        this.tickSpeed = 1;//tickSpeed;
+        this.mobSpawn = false;//mobSpawn;
+        this.mobGrief = false;//mobGrief;
+        this.godMode = false;//godMode;
+        this.keepInv = false;//keepInv;
         this.guiLeft = 0;
         this.guiTop = 0;
         this.xSize = 175;

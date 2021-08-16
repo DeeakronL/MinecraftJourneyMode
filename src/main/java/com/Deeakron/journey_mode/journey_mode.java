@@ -125,6 +125,7 @@ public class journey_mode
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
         JMCapabilityProvider.register();
         EventHandler.registerPackets();
+        JMContainerTypes.registerScreens();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
