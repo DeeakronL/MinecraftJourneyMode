@@ -13,6 +13,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.state.DirectionProperty;
@@ -41,14 +42,16 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     protected static final VoxelShape BASE_SHAPE_SOUTHWEST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
     protected static final VoxelShape BASE_SHAPE_SOUTHEAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    private final String type;
     private BlockPos pos1;
     private BlockPos pos2;
     private BlockPos pos3;
 
 
-    public ResearchGrinderPartBlock(Properties properties, int part){
+    public ResearchGrinderPartBlock(Properties properties, int part, String type){
         super(properties);
         this.part = part;
+        this.type = type;
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -161,13 +164,122 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
         }
-        worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
-        worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
-        worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
+            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos3).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        }
         super.onBlockHarvested(worldIn, pos, state, player);
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.pos3 = pos3;
+    }
+
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        BlockPos pos1 = null;
+        BlockPos pos2 = null;
+        BlockPos pos3 = null;
+
+        switch (part) {
+            case 0:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.west();
+                        pos2 = pos.west().south();
+                        pos3 = pos.south();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.east();
+                        pos2 = pos.east().north();
+                        pos3 = pos.north();
+                        break;
+                    case WEST:
+                        pos1 = pos.south();
+                        pos2 = pos.south().east();
+                        pos3 = pos.east();
+                        break;
+                    case EAST:
+                        pos1 = pos.north();
+                        pos2 = pos.north().west();
+                        pos3 = pos.west();
+                        break;
+                }
+                break;
+            case 1:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.north();
+                        pos2 = pos.north().east();
+                        pos3 = pos.east();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.south();
+                        pos2 = pos.south().west();
+                        pos3 = pos.west();
+                        break;
+                    case WEST:
+                        pos1 = pos.west();
+                        pos2 = pos.west().north();
+                        pos3 = pos.north();
+                        break;
+                    case EAST:
+                        pos1 = pos.east();
+                        pos2 = pos.east().south();
+                        pos3 = pos.south();
+                        break;
+                }
+                break;
+            case 2:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.north().west();
+                        pos2 = pos.north();
+                        pos3 = pos.west();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.south().east();
+                        pos2 = pos.south();
+                        pos3 = pos.east();
+                        break;
+                    case WEST:
+                        pos1 = pos.west().south();
+                        pos2 = pos.west();
+                        pos3 = pos.south();
+                        break;
+                    case EAST:
+                        pos1 = pos.east().north();
+                        pos2 = pos.east();
+                        pos3 = pos.north();
+                        break;
+                }
+                break;
+        }
+        if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
+            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+        }
+        if(worldIn.getBlockState(pos3).getBlock() instanceof ResearchGrinderPartBlock){
+            worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+        }
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        this.pos1 = pos1;
+        this.pos2 = pos2;
+        this.pos3 = pos3;
+    }
+
+    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+        if (type == "wood"){
+            return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
+        }
+        return null;
     }
 
 

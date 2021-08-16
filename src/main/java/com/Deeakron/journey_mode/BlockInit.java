@@ -27,19 +27,19 @@ public class BlockInit {
                             .hardnessAndResistance(2f, 2f)
                             .harvestTool(ToolType.AXE).harvestLevel(0)
                             .sound(SoundType.WOOD)
-                            .notSolid(), 0));
+                            .notSolid(), 0, "wood"));
     public static final RegistryObject<Block>WOODEN_RESEARCH_GRINDER_PART_1 = BLOCKS
             .register("wooden_research_grinder_part_1",
                     () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.WOOD)
                             .hardnessAndResistance(2f, 2f)
                             .harvestTool(ToolType.AXE).harvestLevel(0)
                             .sound(SoundType.WOOD)
-                            .notSolid(),1));
+                            .notSolid(),1, "wood"));
     public static final RegistryObject<Block>WOODEN_RESEARCH_GRINDER_PART_2 = BLOCKS
             .register("wooden_research_grinder_part_2",
                     () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.WOOD)
                             .hardnessAndResistance(2f, 2f)
                             .harvestTool(ToolType.AXE).harvestLevel(0)
                             .sound(SoundType.WOOD)
-                            .notSolid(),2));
+                            .notSolid(),2, "wood"));
 }
