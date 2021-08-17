@@ -50,6 +50,14 @@ public class journey_mode
     public static ReplacementList replacementList;
     public static boolean doReplace = false;
     public static Date lastMenuOpened;
+    public static DuplicationList dupeList;
+    //these variables are temporarily used for opening the menu
+    public static boolean freeze = false;
+    public static int tickSpeed = 1;
+    public static boolean mobSpawn = false;
+    public static boolean mobGrief = false;
+    public static boolean godMode = false;
+    public static boolean keepInv = false;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -112,6 +120,8 @@ public class journey_mode
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
         }
+
+        this.dupeList = new DuplicationList(list);
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);

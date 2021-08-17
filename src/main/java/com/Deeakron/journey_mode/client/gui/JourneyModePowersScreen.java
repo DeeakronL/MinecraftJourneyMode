@@ -1,6 +1,8 @@
 package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.JourneyModePowersContainer;
+import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
+import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.PowersCommandEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -55,13 +57,13 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
     public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn) {//, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
         super(container, inv, titleIn);
-        journey_mode.LOGGER.info("reached screen");
-        this.freeze = false;//freeze;
-        this.tickSpeed = 1;//tickSpeed;
-        this.mobSpawn = false;//mobSpawn;
-        this.mobGrief = false;//mobGrief;
-        this.godMode = false;//godMode;
-        this.keepInv = false;//keepInv;
+        //journey_mode.LOGGER.info("the world really is: " + inv.player.world.isRemote());
+        this.freeze = journey_mode.freeze;
+        this.tickSpeed = journey_mode.tickSpeed;
+        this.mobSpawn = journey_mode.mobSpawn;
+        this.mobGrief = journey_mode.mobGrief;
+        this.godMode = journey_mode.godMode;
+        this.keepInv = journey_mode.keepInv;
         this.guiLeft = 0;
         this.guiTop = 0;
         this.xSize = 175;
