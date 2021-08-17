@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -126,5 +127,10 @@ public class EventHandler {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         //ScreenManager.registerFactory(JMContainerTypes.JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void itemDroppedEvent(final ItemTossEvent event) {
+        event.getEntityItem().setThrowerId(event.getPlayer().getUniqueID());
     }
 }
