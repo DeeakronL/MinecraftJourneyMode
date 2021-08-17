@@ -48,6 +48,7 @@ public class EventHandler {
             JMCapabilityProvider provider = new JMCapabilityProvider();
             event.addCapability(new ResourceLocation(journey_mode.MODID), provider);
             event.addListener(provider::invalidate);
+            event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setPlayer(event.getObject().getUniqueID());
             journey_mode.LOGGER.info("attach capabilities event");
         }
     }
@@ -82,6 +83,7 @@ public class EventHandler {
                 EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap2.setJourneyMode(cap.getJourneyMode());
                 cap2.setResearchList(cap.getResearchList());
+                cap2.setPlayer(cap.getPlayer());
             }
         }
     }

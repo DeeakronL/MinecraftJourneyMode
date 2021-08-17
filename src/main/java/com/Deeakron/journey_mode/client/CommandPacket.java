@@ -73,9 +73,11 @@ public class CommandPacket {
             server.getCommandManager().handleCommand(source, "gamerule mobGriefing false");
         } else if (command.equals("enable_god_mode")) {
             //server.getCommandManager().handleCommand(source, "gamerule mobGriefing false");
+            context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setPlayer(context.get().getSender().getUniqueID());
             context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(true);
         } else if (command.equals("disable_god_mode")) {
             //server.getCommandManager().handleCommand(source, "gamerule mobGriefing false");
+            context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setPlayer(context.get().getSender().getUniqueID());
             context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(false);
         } else if (command.equals("lose_inv")) {
             server.getCommandManager().handleCommand(source, "gamerule keepInventory false");
