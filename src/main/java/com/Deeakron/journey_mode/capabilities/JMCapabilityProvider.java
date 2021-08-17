@@ -15,6 +15,7 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
     private final EntityJourneyMode jm = new EntityJourneyMode();
@@ -80,6 +81,11 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
             CompoundNBT tag = new CompoundNBT();
             tag.putBoolean("mode", instance.getJourneyMode());
             instance.getResearchList().getList().forEach((k,v) -> tag.putInt(k, v[0]));
+            tag.putBoolean("godMode", instance.getGodMode());
+            if(instance.getPlayer() != null){
+                tag.putUniqueId("player", instance.getPlayer());
+            }
+
             return tag;
         }
 
@@ -112,6 +118,18 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
                 }
             }
             instance.updateResearch(items, counts);
+            boolean godMode = ((CompoundNBT) nbt).getBoolean("godMode");
+            try {
+                UUID player = ((CompoundNBT) nbt).getUniqueId("player");
+                if(player != null){
+                    instance.setPlayer(player);
+                    instance.setGodMode(godMode);
+                }
+            } catch (NullPointerException e) {
+
+            }
+
+
             journey_mode.LOGGER.info("readNBT done");
         }
     }
