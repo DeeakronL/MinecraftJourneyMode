@@ -26,6 +26,7 @@ import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -52,9 +53,15 @@ public class EventHandler {
             JMCapabilityProvider provider = new JMCapabilityProvider();
             event.addCapability(new ResourceLocation(journey_mode.MODID), provider);
             event.addListener(provider::invalidate);
-            event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setPlayer(event.getObject().getUniqueID());
+            EntityJourneyMode cap = event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
+            cap.setPlayer(event.getObject().getUniqueID());
             journey_mode.LOGGER.info("attach capabilities event");
         }
+    }
+
+    @SubscribeEvent static void onPlayerLogInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
+        cap.setGodMode(cap.getGodMode());
     }
 
     @SubscribeEvent

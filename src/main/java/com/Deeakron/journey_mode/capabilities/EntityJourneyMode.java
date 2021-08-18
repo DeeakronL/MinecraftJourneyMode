@@ -57,7 +57,6 @@ public class EntityJourneyMode implements IEntityJourneyMode{
 
     public void setGodMode(boolean mode) {
         this.godMode = mode;
-        journey_mode.LOGGER.info(this.player);
         ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUUID(this.player).abilities.disableDamage = mode;
     }
 
