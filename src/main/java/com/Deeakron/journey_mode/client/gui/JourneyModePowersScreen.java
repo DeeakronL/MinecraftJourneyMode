@@ -47,6 +47,9 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     public static final ITextComponent DISABLE_GOD_MODE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_god_mode");
     public static final ITextComponent LOSE_INVENTORY_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.lose_inv");
     public static final ITextComponent KEEP_INVENTORY_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.keep_inv");
+    public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
+    public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
+    public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
 
     private static boolean freeze;
     private int tickSpeed;
@@ -90,6 +93,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.addButton(new JourneyModePowersScreen.MobGriefButton(this.guiLeft + 43, this.guiTop + 71, this, this.mobGrief));
         this.addButton(new JourneyModePowersScreen.GodModeButton(this.guiLeft + 79, this.guiTop + 71, this, this.godMode));
         this.addButton(new JourneyModePowersScreen.InventoryButton(this.guiLeft + 115, this.guiTop + 71, this, this.keepInv));
+        this.addButton(new JourneyModePowersScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
@@ -172,6 +176,28 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     }
 
     @OnlyIn(Dist.CLIENT)
+    abstract static class Tab extends AbstractButton {
+        public boolean currentTab = false;
+
+        protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
+
+        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModePowersScreen.BACKGROUND_TEXTURE);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            int i = 221;
+            int j = 0;
+            if (!this.currentTab) {
+                j += 32;
+            }
+
+            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
+            this.func_230454_a_(matrixStack);
+        }
+
+        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+    }
+
+    @OnlyIn(Dist.CLIENT)
     abstract static class SpriteButton extends JourneyModePowersScreen.Button {
         private final int u;
         private final int v;
@@ -184,6 +210,22 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         protected void func_230454_a_(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 1, this.y + 1, this.u, this.v, 18, 18);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    abstract static class SpriteTab extends JourneyModePowersScreen.Tab {
+        private final int u;
+        private final int v;
+
+        protected SpriteTab(int x, int y, int u, int v) {
+            super(x, y);
+            this.u = u;
+            this.v = v;
+        }
+
+        protected void func_230454_a_(MatrixStack p_230454_1_) {
+            this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
     }
 
@@ -517,6 +559,22 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
                 JourneyModePowersScreen.this.renderTooltip(matrixStack, KEEP_INVENTORY_BUTTON, mouseX, mouseY);
             }
 
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class PowersTab extends JourneyModePowersScreen.SpriteTab {
+        public PowersTab(int x, int y) {
+            super(x, y, 162, 202);
+            this.currentTab = true;
+        }
+
+        public void onPress() {
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
         }
     }
 }

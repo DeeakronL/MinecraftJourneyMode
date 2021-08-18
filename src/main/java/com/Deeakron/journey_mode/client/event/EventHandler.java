@@ -14,6 +14,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -29,8 +30,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = journey_mode.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -85,6 +88,7 @@ public class EventHandler {
                 cap2.setJourneyMode(cap.getJourneyMode());
                 cap2.setResearchList(cap.getResearchList());
                 cap2.setPlayer(cap.getPlayer());
+                cap2.setGodMode(cap.getGodMode());
             }
         }
     }

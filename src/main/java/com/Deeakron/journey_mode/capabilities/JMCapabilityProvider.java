@@ -1,12 +1,10 @@
 package com.Deeakron.journey_mode.capabilities;
 
-import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -122,6 +120,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
             try {
                 UUID player = ((CompoundNBT) nbt).getUniqueId("player");
                 if(player != null){
+                    //journey_mode.LOGGER.info("testing here i guess");
                     instance.setPlayer(player);
                     instance.setGodMode(godMode);
                 }
