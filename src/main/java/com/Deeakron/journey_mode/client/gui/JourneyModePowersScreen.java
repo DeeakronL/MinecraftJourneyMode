@@ -94,6 +94,8 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.addButton(new JourneyModePowersScreen.GodModeButton(this.guiLeft + 79, this.guiTop + 71, this, this.godMode));
         this.addButton(new JourneyModePowersScreen.InventoryButton(this.guiLeft + 115, this.guiTop + 71, this, this.keepInv));
         this.addButton(new JourneyModePowersScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
+        this.addButton(new JourneyModePowersScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
+        this.addButton(new JourneyModePowersScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
@@ -575,6 +577,38 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModePowersScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class ResearchTab extends JourneyModePowersScreen.SpriteTab {
+        public ResearchTab(int x, int y) {
+            super(x, y, 198, 184);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, RESEARCH_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class DuplicationTab extends JourneyModePowersScreen.SpriteTab {
+        public DuplicationTab(int x, int y) {
+            super(x, y, 198, 202);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
         }
     }
 }

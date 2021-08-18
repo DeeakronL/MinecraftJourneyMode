@@ -64,13 +64,15 @@ public class EventHandler {
         cap.setGodMode(cap.getGodMode());
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
+    //This event is just for easy testing purposes with research, uncomment to reuse
+
     public static void pickupItem(EntityItemPickupEvent event) {
         String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
         int count = event.getItem().getItem().getCount();
         EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
         cap.updateResearch(new String[]{item}, new int[]{count});
-    }
+    }*/
 
     @SubscribeEvent
     public static void onResearchEvent(ResearchEvent event) {
