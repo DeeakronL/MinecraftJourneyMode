@@ -14,6 +14,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -30,8 +31,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = journey_mode.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -61,13 +64,15 @@ public class EventHandler {
         cap.setGodMode(cap.getGodMode());
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
+    //This event is just for easy testing purposes with research, uncomment to reuse
+
     public static void pickupItem(EntityItemPickupEvent event) {
         String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
         int count = event.getItem().getItem().getCount();
         EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
         cap.updateResearch(new String[]{item}, new int[]{count});
-    }
+    }*/
 
     @SubscribeEvent
     public static void onResearchEvent(ResearchEvent event) {
