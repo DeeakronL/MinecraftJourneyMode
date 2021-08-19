@@ -91,9 +91,17 @@ public class EventHandler {
                 EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap2.setJourneyMode(cap.getJourneyMode());
                 cap2.setResearchList(cap.getResearchList());
-                cap2.setPlayer(cap.getPlayer());
+                cap2.setPlayer(newer.getUniqueID());
+                journey_mode.LOGGER.info(cap.getGodMode() + " " + cap2.getPlayer());
+                cap2.setGodMode(cap.getGodMode());
             }
         }
+    }
+
+    @SubscribeEvent
+    static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
+        EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
+        cap.setGodMode(cap.getGodMode());
     }
 
     public static void registerPackets() {
