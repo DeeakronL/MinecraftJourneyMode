@@ -6,6 +6,7 @@ import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.CommandPacket;
 import com.Deeakron.journey_mode.client.GameStatePacket;
 import com.Deeakron.journey_mode.client.JMCheckPacket;
+import com.Deeakron.journey_mode.client.MenuSwitchPacket;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
@@ -113,11 +114,17 @@ public class EventHandler {
         INSTANCE.registerMessage(0, CommandPacket.class, CommandPacket::encode, CommandPacket::decode, CommandPacket::handle);
         INSTANCE.registerMessage(1, JMCheckPacket.class, JMCheckPacket::encode, JMCheckPacket::decode, JMCheckPacket::handle);
         INSTANCE.registerMessage(2, GameStatePacket.class, GameStatePacket::encode, GameStatePacket::decode,GameStatePacket::handle);
+        INSTANCE.registerMessage(3, MenuSwitchPacket.class, MenuSwitchPacket::encode, MenuSwitchPacket::decode, MenuSwitchPacket::handle);
     }
 
     @SubscribeEvent
     public static void PowersCommandEvent(final PowersCommandEvent event) {
         INSTANCE.sendToServer(new CommandPacket(event.command));
+    }
+
+    @SubscribeEvent
+    public static void MenuSwitchEvent(final MenuSwitchEvent event) {
+        INSTANCE.sendToServer(new MenuSwitchPacket(event.player, event.menuType));
     }
 
     @SubscribeEvent

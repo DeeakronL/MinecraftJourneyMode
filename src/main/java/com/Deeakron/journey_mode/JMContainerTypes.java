@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
+import com.Deeakron.journey_mode.client.gui.JourneyModeResearchScreen;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
@@ -18,6 +19,9 @@ public class JMContainerTypes {
     public static final RegistryObject<ContainerType<JourneyModePowersContainer>> JOURNEY_MODE_POWERS = CONTAINER_TYPES
             .register("journey_mode_powers", () -> IForgeContainerType.create(JourneyModePowersContainer::new));
 
+    public static final RegistryObject<ContainerType<JourneyModeResearchContainer>> JOURNEY_MODE_RESEARCH = CONTAINER_TYPES
+            .register("journey_mode_research", () -> IForgeContainerType.create(JourneyModeResearchContainer::new));
+
     /*public static <T extends Container> RegistryObject<ContainerType<T>> registerContainer(String id, IContainerFactory<T> factory) {
         return CONTAINER_TYPES.register(id, () -> IForgeContainerType.create(factory));
     }*/
@@ -25,5 +29,6 @@ public class JMContainerTypes {
     @OnlyIn(Dist.CLIENT)
     public static void registerScreens() {
         ScreenManager.registerFactory(JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
+        ScreenManager.registerFactory(JOURNEY_MODE_RESEARCH.get(), JourneyModeResearchScreen::new);
     }
 }

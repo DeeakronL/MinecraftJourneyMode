@@ -1,8 +1,11 @@
 package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.JourneyModePowersContainer;
+import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
+import com.Deeakron.journey_mode.JourneyModeResearchContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.client.event.PowersCommandEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -12,6 +15,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -21,6 +25,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 @OnlyIn(Dist.CLIENT)
 public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersContainer> {
@@ -588,7 +593,8 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         }
 
         public void onPress() {
-            //current tab, so nothing happens
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
+            //NetworkHooks.openGui((ServerPlayerEntity) playerInventory.player, new JourneyModeResearchContainerProvider());
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -599,7 +605,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     @OnlyIn(Dist.CLIENT)
     class DuplicationTab extends JourneyModePowersScreen.SpriteTab {
         public DuplicationTab(int x, int y) {
-            super(x, y, 198, 202);
+            super(x, y, 199, 202);
             this.currentTab = false;
         }
 
