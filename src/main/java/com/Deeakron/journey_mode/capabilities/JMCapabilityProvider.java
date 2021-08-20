@@ -115,7 +115,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
                     counts[i] = ((CompoundNBT) nbt).getInt(items[i]);
                 }
             }
-            instance.updateResearch(items, counts, false, null);
+            instance.updateResearch(items, counts, true, null);
             boolean godMode = ((CompoundNBT) nbt).getBoolean("godMode");
             try {
                 UUID player = ((CompoundNBT) nbt).getUniqueId("player");
