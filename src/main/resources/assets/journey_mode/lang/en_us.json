@@ -30,5 +30,7 @@
   "death.attack.journey_mode.research_grinder" : "%1$s contributed their body to science",
   "journey_mode.gui.tabs.powers" : "Powers Menu",
   "journey_mode.gui.tabs.research" : "Research Menu",
-  "journey_mode.gui.tabs.duplication" : "Duplication Menu"
+  "journey_mode.gui.tabs.duplication" : "Duplication Menu",
+  "journey_mode.gui.name" : "Journey Mode Menu",
+  "journey_mode.gui.research" : "Research"
 }

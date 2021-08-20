@@ -25,9 +25,14 @@ public class ResearchList {
             if (this.research.get(items[i]) != null) {
                 int[] data = this.research.get(items[i]);
                 int[] newData = data.clone();
-                if (data[0] + counts[i] >= data[1]) {
+                if (data[0] >= data[1]) {
+                    //already hit the cap
+                    newData[0] = data[1];
+                } else if (data[0] + counts[i] >= data[1]) {
+                    //hit the cap
                     newData[0] = data[1];
                 } else {
+                    //haven't hit the cap
                     newData[0] = data[0] + counts[i];
                 }
                 this.research.remove(items[i]);

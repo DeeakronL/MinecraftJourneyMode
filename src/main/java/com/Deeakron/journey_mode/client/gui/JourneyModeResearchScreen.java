@@ -31,6 +31,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
+    public static final ITextComponent RESEARCH_DESC = new TranslationTextComponent("journey_mode.gui.research");
 
     public JourneyModeResearchScreen(JourneyModeResearchContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -46,6 +47,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         this.addButton(new JourneyModeResearchScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeResearchScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeResearchScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModeResearchScreen.ResearchButton(this.guiLeft + 58, this.guiTop + 67, this));
         journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
@@ -82,6 +84,40 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    abstract static class Button extends AbstractButton {
+        public JourneyModeResearchScreen screen;
+        private boolean selected;
+        public boolean pressed = false;
+
+        protected Button(int x, int y) {
+            super(x, y, 59, 21, StringTextComponent.EMPTY);
+        }
+
+        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeResearchScreen.BACKGROUND_TEXTURE);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            int i = 228;
+            int j = 77;
+            if (this.pressed) {
+                j += 59;
+            }
+
+            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
+            this.func_230454_a_(matrixStack);
+        }
+
+        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+
+        public boolean isSelected() {
+            return this.selected;
+        }
+
+        public void setSelected(boolean selectedIn) {
+            this.selected = selectedIn;
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -123,6 +159,17 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     }
 
     @OnlyIn(Dist.CLIENT)
+    abstract static class TextButton extends JourneyModeResearchScreen.Button {
+        protected TextButton(int x, int y) {
+            super(x, y);
+        }
+
+        protected void func_230454_a_(MatrixStack p_230454_1_) {
+            this.screen.font.drawString(p_230454_1_, this.screen.RESEARCH_DESC.getString(), this.screen.guiLeft + 64.0f, this.screen.guiTop + 72.0f, 4210752);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
     class PowersTab extends JourneyModeResearchScreen.SpriteTab {
         public PowersTab(int x, int y) {
             super(x, y, 162, 202);
@@ -135,6 +182,22 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModeResearchScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class ResearchButton extends JourneyModeResearchScreen.TextButton {
+        public ResearchButton(int x, int y, JourneyModeResearchScreen screen) {
+            super(x, y);
+            this.screen = screen;
+        }
+
+        public void onPress() {
+            //something
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            //JourneyModeResearchScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
         }
     }
 
