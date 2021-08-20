@@ -1,6 +1,9 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.advancements.JMTriggers;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,6 +35,11 @@ public class ResearchList {
                 } else if (data[0] + counts[i] >= data[1]) {
                     //hit the cap
                     newData[0] = data[1];
+                    if (!isGenerating) {
+                        journey_mode.LOGGER.info("Cap hit");
+                        ServerPlayerEntity serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUUID(player);
+                        JMTriggers.ITEM_RESEARCHED.trigger(serverPlayer);
+                    }
                 } else {
                     //haven't hit the cap
                     newData[0] = data[0] + counts[i];

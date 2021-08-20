@@ -1,0 +1,15 @@
+{
+  "parent": "journey_mode:research/root",
+  "display": {
+    "icon": {
+      "item": "journey_mode:wooden_research_grinder"
+    },
+    "title": "research",
+    "description": "you did a research"
+  },
+  "criteria": {
+    "item_researched": {
+      "trigger": "journey_mode:item_researched"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.advancements.JMTriggers;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -35,6 +37,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.CallbackI;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -107,6 +110,7 @@ public class journey_mode
 
         };
 
+
         keyBindings = new KeyBinding[1];
 
         keyBindings[0] = new KeyBinding("key.journey_mode.menu", GLFW.GLFW_KEY_O, "key.categories.journey_mode");
@@ -136,6 +140,7 @@ public class journey_mode
         JMCapabilityProvider.register();
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
+        JMTriggers.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
