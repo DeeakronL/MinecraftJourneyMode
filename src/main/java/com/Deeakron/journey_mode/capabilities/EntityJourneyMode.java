@@ -47,8 +47,8 @@ public class EntityJourneyMode implements IEntityJourneyMode{
     }
 
     @Override
-    public void updateResearch(String[] items, int[] counts) {
-        this.research.updateCount(items, counts);
+    public void updateResearch(String[] items, int[] counts, boolean isGenerating, UUID player) {
+        this.research.updateCount(items, counts, isGenerating, player);
     }
 
     public void setResearchList(ResearchList research) {

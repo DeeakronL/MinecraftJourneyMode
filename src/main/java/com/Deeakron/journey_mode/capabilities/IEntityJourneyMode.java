@@ -11,7 +11,7 @@ public interface IEntityJourneyMode {
 
     ResearchList getResearchList();
 
-    void updateResearch(String[] items, int[] counts);
+    void updateResearch(String[] items, int[] counts, boolean isGenerating, UUID player);
 
     void addNewResearch(String[] items, int[] caps);
 

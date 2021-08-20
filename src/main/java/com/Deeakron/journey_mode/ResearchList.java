@@ -4,6 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class ResearchList {
     //hash is stored with the key being the item name (i.e. "minecraft:stone") followed by an array with the player's current progress towards researching that item and the "cap" of how much is needed
@@ -20,7 +21,7 @@ public class ResearchList {
         //journey_mode.LOGGER.info("testing i guess: " + this.research.get("minecraft:stone"));
     }
 
-    public void updateCount(String[] items, int[] counts) {
+    public void updateCount(String[] items, int[] counts, boolean isGenerating, UUID player) {
         for (int i = 0; i < items.length; i++) {
             if (this.research.get(items[i]) != null) {
                 int[] data = this.research.get(items[i]);
