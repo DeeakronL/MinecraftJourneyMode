@@ -33,5 +33,6 @@
   "journey_mode.gui.tabs.duplication" : "Duplication Menu",
   "journey_mode.gui.name" : "Journey Mode Menu",
   "journey_mode.gui.research" : "Research",
-  "journey_mode.gui.researched" : "researched."
+  "journey_mode.gui.researched" : "researched.",
+  "advancement.journey_mode.research.item_researched" : "Item Researched"
 }
