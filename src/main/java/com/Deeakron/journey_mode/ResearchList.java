@@ -51,12 +51,33 @@ public class ResearchList {
         }
     }
     public int[] get(String key) {
-        int info = this.research.get(key)[0];
+        //int info = this.research.get(key)[0];
         int[] data = new int[]{this.research.get(key)[0],this.research.get(key)[1]};
         return data;
     }
 
     public HashMap<String, int[]> getList() {
         return this.research;
+    }
+
+    public boolean hasItem(String key) {
+        if (this.research.get(key) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean reachCap(String key) {
+        if (this.research.get(key)[0] == this.research.get(key)[1]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //debug, remove later
+    public void listItems() {
+        this.getList().forEach((k,v) -> journey_mode.LOGGER.info("item: " + k + " with count " + v[0] + "/" + v[1]));
     }
 }

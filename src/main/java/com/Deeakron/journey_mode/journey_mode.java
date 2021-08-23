@@ -58,6 +58,7 @@ public class journey_mode
     public static boolean mobGrief = false;
     public static boolean godMode = false;
     public static boolean keepInv = false;
+    public static ResearchList tempList;
 
     public journey_mode() {
         // Register the setup method for modloading

@@ -2,6 +2,9 @@ package com.Deeakron.journey_mode.client;
 
 import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
 import com.Deeakron.journey_mode.JourneyModeResearchContainerProvider;
+import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
+import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -42,6 +45,7 @@ public class MenuSwitchPacket {
         if (menuType.equals("powers")) {
             NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
         } else if (menuType.equals("research")) {
+            journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
             NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeResearchContainerProvider());
         }
     }

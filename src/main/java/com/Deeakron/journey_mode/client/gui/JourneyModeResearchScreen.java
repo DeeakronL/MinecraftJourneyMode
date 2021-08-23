@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.JourneyModePowersContainer;
 import com.Deeakron.journey_mode.JourneyModeResearchContainer;
+import com.Deeakron.journey_mode.ResearchList;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
@@ -18,6 +19,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,6 +34,8 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
     public static final ITextComponent RESEARCH_DESC = new TranslationTextComponent("journey_mode.gui.research");
+    public static final ITextComponent RESEARCH_INFO = new TranslationTextComponent("journey_mode.gui.researched");
+    private static ResearchList list;
 
     public JourneyModeResearchScreen(JourneyModeResearchContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -40,6 +44,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         this.xSize = 175;
         this.ySize = 183;
         this.playerInventoryTitleY = this.ySize - 92;
+        this.list = journey_mode.tempList;
     }
 
     protected void init() {
@@ -68,6 +73,20 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
             if (widget.isHovered()) {
                 widget.renderToolTip(matrixStack, mouseX - this.guiLeft, mouseY - this.guiTop);
                 break;
+            }
+        }
+        if (!this.container.getInventory().get(0).isEmpty()) {
+            String key = "\"" + this.container.getInventory().get(0).getItem().getRegistryName().toString() + "\"";
+            if (this.list.hasItem(key)) {
+                String info1 = this.container.getInventory().get(0).getItem().getName().getString();
+                String info2 = this.list.get(key)[0] + "/" + this.list.get(key)[1] + " " + this.RESEARCH_INFO.getString();
+                if (this.list.reachCap(key)) {
+                    this.font.drawString(matrixStack, info1, 8, 16, TextFormatting.DARK_RED.getColor());
+                    this.font.drawString(matrixStack, info2, 8, 26, TextFormatting.DARK_RED.getColor());
+                } else {
+                    this.font.drawString(matrixStack, info1, 8, 16, 4210752);
+                    this.font.drawString(matrixStack, info2, 8, 26, 4210752);
+                }
             }
         }
     }
