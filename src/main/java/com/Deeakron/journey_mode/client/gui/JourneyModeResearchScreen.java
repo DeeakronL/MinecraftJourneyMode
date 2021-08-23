@@ -5,8 +5,11 @@ import com.Deeakron.journey_mode.JourneyModeResearchContainer;
 import com.Deeakron.journey_mode.ResearchList;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.client.ResearchPacket;
+import com.Deeakron.journey_mode.client.event.MenuResearchEvent;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.client.event.PowersCommandEvent;
+import com.Deeakron.journey_mode.client.event.ResearchEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -14,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +40,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     public static final ITextComponent RESEARCH_DESC = new TranslationTextComponent("journey_mode.gui.research");
     public static final ITextComponent RESEARCH_INFO = new TranslationTextComponent("journey_mode.gui.researched");
     private static ResearchList list;
+    private static JourneyModeResearchContainer serverContain;
 
     public JourneyModeResearchScreen(JourneyModeResearchContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -45,6 +50,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         this.ySize = 183;
         this.playerInventoryTitleY = this.ySize - 92;
         this.list = journey_mode.tempList;
+        this.serverContain = journey_mode.tempContain;
     }
 
     protected void init() {
@@ -212,6 +218,22 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         }
 
         public void onPress() {
+            String key = "\"" + this.screen.container.getInventory().get(0).getItem().getRegistryName().toString() + "\"";
+            int count = this.screen.container.getInventory().get(0).getCount();
+            if (this.screen.list.hasItem(key)) {
+                if (this.screen.list.reachCap(key)) {
+
+                } else {
+                    int diff = this.screen.list.get(key)[1] - this.screen.list.get(key)[0];
+                    if (count > diff) {
+                        this.screen.serverContain.getInventory().get(0).setCount(count - diff);
+                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, diff, Minecraft.getInstance().player.getUniqueID()));
+                    } else {
+                        this.screen.serverContain.getInventory().get(0).setCount(0);
+                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, count, Minecraft.getInstance().player.getUniqueID()));
+                    }
+                }
+            }
             //something
         }
 

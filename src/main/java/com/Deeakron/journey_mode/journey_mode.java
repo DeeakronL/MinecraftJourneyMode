@@ -62,6 +62,7 @@ public class journey_mode
     public static boolean godMode = false;
     public static boolean keepInv = false;
     public static ResearchList tempList;
+    public static JourneyModeResearchContainer tempContain;
 
     public journey_mode() {
         // Register the setup method for modloading

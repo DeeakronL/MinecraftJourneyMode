@@ -20,6 +20,10 @@ public class JourneyModeResearchContainerProvider implements INamedContainerProv
     @Nullable
     @Override
     public Container createMenu(int p_createMenu_1_, PlayerInventory inv, PlayerEntity player) {
-        return new JourneyModeResearchContainer(p_createMenu_1_, inv);
+        JourneyModeResearchContainer container = new JourneyModeResearchContainer(p_createMenu_1_, inv);
+        if (!player.world.isRemote()) {
+            journey_mode.tempContain = container;
+        }
+        return container;
     }
 }

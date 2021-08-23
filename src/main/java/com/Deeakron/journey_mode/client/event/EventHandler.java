@@ -3,10 +3,7 @@ package com.Deeakron.journey_mode.client.event;
 import com.Deeakron.journey_mode.JMContainerTypes;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
-import com.Deeakron.journey_mode.client.CommandPacket;
-import com.Deeakron.journey_mode.client.GameStatePacket;
-import com.Deeakron.journey_mode.client.JMCheckPacket;
-import com.Deeakron.journey_mode.client.MenuSwitchPacket;
+import com.Deeakron.journey_mode.client.*;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
@@ -115,6 +112,7 @@ public class EventHandler {
         INSTANCE.registerMessage(1, JMCheckPacket.class, JMCheckPacket::encode, JMCheckPacket::decode, JMCheckPacket::handle);
         INSTANCE.registerMessage(2, GameStatePacket.class, GameStatePacket::encode, GameStatePacket::decode,GameStatePacket::handle);
         INSTANCE.registerMessage(3, MenuSwitchPacket.class, MenuSwitchPacket::encode, MenuSwitchPacket::decode, MenuSwitchPacket::handle);
+        INSTANCE.registerMessage(4, ResearchPacket.class, ResearchPacket::encode, ResearchPacket::decode, ResearchPacket::handle);
     }
 
     @SubscribeEvent
@@ -125,6 +123,11 @@ public class EventHandler {
     @SubscribeEvent
     public static void MenuSwitchEvent(final MenuSwitchEvent event) {
         INSTANCE.sendToServer(new MenuSwitchPacket(event.player, event.menuType));
+    }
+
+    @SubscribeEvent
+    public static void MenuResearchEvent(final MenuResearchEvent event) {
+        INSTANCE.sendToServer(new ResearchPacket(event.getItem(), event.getCount(), event.getPlayer().toString()));
     }
 
     @SubscribeEvent
