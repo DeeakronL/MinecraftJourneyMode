@@ -34,5 +34,8 @@
   "journey_mode.gui.name" : "Journey Mode Menu",
   "journey_mode.gui.research" : "Research",
   "journey_mode.gui.researched" : "researched.",
-  "advancement.journey_mode.research.item_researched" : "Item Researched"
+  "advancement.journey_mode.research.item_researched" : "Item Researched",
+  "block.journey_mode.research_grinder.grind" : "Research Grinder Sound",
+  "subtitles.journey_mode.block.research_grinder.grind_subtitle": "Research Grinder Grinding"
+
 }

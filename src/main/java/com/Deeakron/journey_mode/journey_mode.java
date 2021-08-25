@@ -127,6 +127,7 @@ public class journey_mode
             UnobtainItemInit.ITEMS.register(bus);
         }
 
+        JMSounds.SOUNDS.register(bus);
         this.dupeList = new DuplicationList(list);
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);

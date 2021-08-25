@@ -1,0 +1,12 @@
+{
+  "block.journey_mode.research_grinder.grind": {
+    "category": "block",
+    "subtitle":  "subtitles.journey_mode.block.research_grinder.grind_subtitle",
+    "sounds": [
+      {
+        "name": "journey_mode:saw_cut_sound",
+        "stream": true
+      }
+    ]
+  }
+}

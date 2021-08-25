@@ -5,7 +5,8 @@
       "item": "journey_mode:wooden_research_grinder"
     },
     "title": "research",
-    "description": "you did a research"
+    "description": "you did a research",
+    "announce_to_chat": false
   },
   "criteria": {
     "item_researched": {
