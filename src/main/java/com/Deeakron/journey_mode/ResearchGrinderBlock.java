@@ -27,7 +27,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import javax.annotation.Nullable;
@@ -205,7 +207,7 @@ public class ResearchGrinderBlock extends HorizontalBlock {
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
-            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
         }
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();
@@ -213,8 +215,7 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             ServerPlayerEntity player = players.getPlayerByUUID(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
             ((ItemEntity) entityIn).remove();
-            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
-
+            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
 
         }
 
