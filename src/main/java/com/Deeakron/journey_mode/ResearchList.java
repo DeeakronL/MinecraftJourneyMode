@@ -1,7 +1,11 @@
 package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.advancements.JMTriggers;
+import com.Deeakron.journey_mode.client.gui.ResearchToast;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -24,7 +28,7 @@ public class ResearchList {
         //journey_mode.LOGGER.info("testing i guess: " + this.research.get("minecraft:stone"));
     }
 
-    public void updateCount(String[] items, int[] counts, boolean isGenerating, UUID player) {
+    public void updateCount(String[] items, int[] counts, boolean isGenerating, UUID player, ItemEntity... itemObject) {
         for (int i = 0; i < items.length; i++) {
             if (this.research.get(items[i]) != null) {
                 int[] data = this.research.get(items[i]);
@@ -39,6 +43,10 @@ public class ResearchList {
                         journey_mode.LOGGER.info("Cap hit");
                         ServerPlayerEntity serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUUID(player);
                         JMTriggers.ITEM_RESEARCHED.trigger(serverPlayer);
+                        if(itemObject != null) {
+                            Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[0]));
+                        }
+
                     }
                 } else {
                     //haven't hit the cap

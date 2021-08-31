@@ -19,6 +19,7 @@ import net.minecraft.server.management.PlayerList;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -62,12 +63,14 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
+            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
         }
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();
             PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
             ServerPlayerEntity player = players.getPlayerByUUID(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
+            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
             ((ItemEntity) entityIn).remove();
 
 
