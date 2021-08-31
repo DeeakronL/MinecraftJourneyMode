@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.capabilities;
 
 import com.Deeakron.journey_mode.ResearchList;
+import net.minecraft.entity.item.ItemEntity;
 
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ public interface IEntityJourneyMode {
 
     ResearchList getResearchList();
 
-    void updateResearch(String[] items, int[] counts, boolean isGenerating, UUID player);
+    void updateResearch(String[] items, int[] counts, boolean isGenerating, UUID player, ItemEntity... itemObject);
 
     void addNewResearch(String[] items, int[] caps);
 
