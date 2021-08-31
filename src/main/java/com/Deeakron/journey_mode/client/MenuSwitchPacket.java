@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.client;
 
+import com.Deeakron.journey_mode.JourneyModeDuplicationContainerProvider;
 import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
 import com.Deeakron.journey_mode.JourneyModeResearchContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
@@ -47,6 +48,9 @@ public class MenuSwitchPacket {
         } else if (menuType.equals("research")) {
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
             NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeResearchContainerProvider());
+        } else if (menuType.equals("duplication")) {
+            journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
+            NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeDuplicationContainerProvider());
         }
     }
 }

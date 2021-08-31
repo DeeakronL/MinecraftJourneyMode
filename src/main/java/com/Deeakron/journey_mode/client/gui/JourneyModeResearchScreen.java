@@ -266,6 +266,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         }
 
         public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
             //current tab, so nothing happens
         }
 

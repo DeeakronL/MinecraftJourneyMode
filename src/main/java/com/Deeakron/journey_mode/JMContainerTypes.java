@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.client.gui.JourneyModeDuplicationScreen;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.client.gui.JourneyModeResearchScreen;
 import net.minecraft.client.gui.ScreenManager;
@@ -22,6 +23,9 @@ public class JMContainerTypes {
     public static final RegistryObject<ContainerType<JourneyModeResearchContainer>> JOURNEY_MODE_RESEARCH = CONTAINER_TYPES
             .register("journey_mode_research", () -> IForgeContainerType.create(JourneyModeResearchContainer::new));
 
+   /* public static final RegistryObject<ContainerType<JourneyModeDuplicationScreen.DuplicationContainer>> JOURNEY_MODE_DUPLICATION = CONTAINER_TYPES
+            .register("journey_mode_duplication", () -> IForgeContainerType.create(JourneyModeDuplicationScreen::new));*/
+
     /*public static <T extends Container> RegistryObject<ContainerType<T>> registerContainer(String id, IContainerFactory<T> factory) {
         return CONTAINER_TYPES.register(id, () -> IForgeContainerType.create(factory));
     }*/
@@ -30,5 +34,6 @@ public class JMContainerTypes {
     public static void registerScreens() {
         ScreenManager.registerFactory(JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
         ScreenManager.registerFactory(JOURNEY_MODE_RESEARCH.get(), JourneyModeResearchScreen::new);
+        //ScreenManager.registerFactory(JOURNEY_MODE_DUPLICATION.get(), JourneyModeDuplicationScreen::new);
     }
 }
