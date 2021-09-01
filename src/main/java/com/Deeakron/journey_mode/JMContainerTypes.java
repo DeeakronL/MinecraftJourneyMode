@@ -23,7 +23,7 @@ public class JMContainerTypes {
     public static final RegistryObject<ContainerType<JourneyModeResearchContainer>> JOURNEY_MODE_RESEARCH = CONTAINER_TYPES
             .register("journey_mode_research", () -> IForgeContainerType.create(JourneyModeResearchContainer::new));
 
-   /* public static final RegistryObject<ContainerType<JourneyModeDuplicationScreen.DuplicationContainer>> JOURNEY_MODE_DUPLICATION = CONTAINER_TYPES
+   /*public static final RegistryObject<ContainerType<JourneyModeDuplicationScreen.DuplicationContainer>> JOURNEY_MODE_DUPLICATION = CONTAINER_TYPES
             .register("journey_mode_duplication", () -> IForgeContainerType.create(JourneyModeDuplicationScreen::new));*/
 
     /*public static <T extends Container> RegistryObject<ContainerType<T>> registerContainer(String id, IContainerFactory<T> factory) {

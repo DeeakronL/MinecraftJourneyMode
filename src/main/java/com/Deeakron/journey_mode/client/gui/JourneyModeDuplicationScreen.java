@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode.client.gui;
 
+import com.Deeakron.journey_mode.JourneyModePowersContainer;
+import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -9,9 +11,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.DisplayEffectsScreen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.settings.CreativeSettings;
 import net.minecraft.client.settings.HotbarSnapshot;
 import net.minecraft.client.util.ISearchTree;
@@ -45,6 +49,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,8 +59,11 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 @OnlyIn(Dist.CLIENT)
-public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer> {
+public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
+    public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
+    public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
+    public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
     private static final Inventory TMP_INVENTORY = new Inventory(45);
     private static final ITextComponent field_243345_D = new TranslationTextComponent("inventory.binSlot");
 
@@ -80,7 +88,7 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
         super (new JourneyModeDuplicationScreen.DuplicationContainer(player), player.inventory, StringTextComponent.EMPTY);
         player.openContainer = this.container;
         this.passEvents = true;
-        this.xSize = 175;
+        this.xSize = 190;
         this.ySize = 183;
     }
 
@@ -218,6 +226,9 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
 
     protected void init() {
         super.init();
+        this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
+        this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
+        this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         int tabCount = ItemGroup.GROUPS.length;
         if (tabCount > 6) {
             //add new tab buttons
@@ -536,17 +547,17 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
     protected boolean func_195376_a(double p_195376_1_, double p_195376_3_) {
         int i = this.guiLeft;
         int j = this.guiTop;
-        int k = i + 175;
-        int l = j + 18;
+        int k = i + 171;//175;
+        int l = j + 22;//18;
         int i1 = k + 14;
-        int j1 = l + 112;
+        int j1 = l + 156;//112;
         return p_195376_1_ >= (double)k && p_195376_3_ >= (double)l && p_195376_1_ < (double)i1 && p_195376_3_ < (double)j1;
     }
 
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (this.isScrolling) {
             int i = this.guiTop + 18;
-            int j = i + 112;
+            int j = i + 156;//112;
             this.currentScroll = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
             this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
             this.container.scrollTo(this.currentScroll);
@@ -660,13 +671,14 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
             }
         }
 
-        this.minecraft.getTextureManager().bindTexture(itemgroup.getBackgroundImage());
+        this.minecraft.getTextureManager().bindTexture(this.BACKGROUND_TEXTURE);
         this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         this.searchField.render(matrixStack, x, y, partialTicks);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        int i = this.guiLeft + 175;
-        int j = this.guiTop + 18;
-        int k = j + 112;
+        int i = this.guiLeft + 171;//175;
+        int j = this.guiTop + 22;//18;
+        int k = j + 156;//112;
+        //looks like this is the current tab
         this.minecraft.getTextureManager().bindTexture(itemgroup.getTabsImage());
         if (itemgroup.hasScrollbar()) {
             this.blit(matrixStack, i, j + (int)((float)(k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
@@ -769,6 +781,126 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
         return selectedTabIndex;
     }
 
+    @OnlyIn(Dist.CLIENT)
+    abstract static class Button extends AbstractButton {
+        public JourneyModeDuplicationScreen screen;
+        private boolean selected;
+        public boolean pressed = false;
+
+        protected Button(int x, int y) {
+            super(x, y, 59, 21, StringTextComponent.EMPTY);
+        }
+
+        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            int i = 228;
+            int j = 77;
+            if (this.pressed) {
+                j += 59;
+            }
+
+            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
+            this.func_230454_a_(matrixStack);
+        }
+
+        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+
+        public boolean isSelected() {
+            return this.selected;
+        }
+
+        public void setSelected(boolean selectedIn) {
+            this.selected = selectedIn;
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    abstract static class Tab extends AbstractButton {
+        public boolean currentTab = false;
+
+        protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
+
+        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            int i = 221;
+            int j = 0;
+            if (!this.currentTab) {
+                j += 32;
+            }
+
+            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
+            this.func_230454_a_(matrixStack);
+        }
+
+        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    abstract static class SpriteTab extends JourneyModeDuplicationScreen.Tab {
+        private final int u;
+        private final int v;
+
+        protected SpriteTab(int x, int y, int u, int v) {
+            super(x, y);
+            this.u = u;
+            this.v = v;
+        }
+
+        protected void func_230454_a_(MatrixStack p_230454_1_) {
+            this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class PowersTab extends JourneyModeDuplicationScreen.SpriteTab {
+        public PowersTab(int x, int y) {
+            super(x, y, 162, 202);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "powers"));
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class ResearchTab extends JourneyModeDuplicationScreen.SpriteTab {
+        public ResearchTab(int x, int y) {
+            super(x, y, 198, 184);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RESEARCH_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class DuplicationTab extends JourneyModeDuplicationScreen.SpriteTab {
+        public DuplicationTab(int x, int y) {
+            super(x, y, 198, 202);
+            this.currentTab = true;
+        }
+
+        public void onPress() {
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        }
+    }
+
     //@OnlyIn(Dist.CLIENT)
     public static class DuplicationContainer extends Container {
         public final NonNullList<ItemStack> itemList = NonNullList.create();
@@ -781,9 +913,16 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
             int startY = 18;
             int slotSizePlus2 = 18;
 
+            int startDupeInvY = 22;
+            /*for (int row = 0; row < 3; ++row) {
+                for (int col = 0; col < 9; ++col) {
+                    this.addSlot(new Slot(playerInventory, 9 + (row * 9) + col, startX + (col * slotSizePlus2), startDupeInvY + (row * slotSizePlus2)));
+                }
+            }*/
+
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
-                    this.addSlot(new JourneyModeDuplicationScreen.LockedSlot(JourneyModeDuplicationScreen.TMP_INVENTORY, i * 9 + j, 9 + j * 18, 18 + i * 18));
+                    this.addSlot(new JourneyModeDuplicationScreen.LockedSlot(JourneyModeDuplicationScreen.TMP_INVENTORY, 9 + (i * 9) + j, startX + (j * slotSizePlus2), startDupeInvY + (i * slotSizePlus2)));
                 }
             }
 
@@ -805,13 +944,13 @@ public class JourneyModeDuplicationScreen extends DisplayEffectsScreen<JourneyMo
         public boolean canInteractWith(PlayerEntity playerIn) {return true;}
 
         public void scrollTo(float pos) {
-            int i = (this.itemList.size() + 9 - 1) / 9 - 4;
+            int i = (this.itemList.size() + 9 - 1) / 9 - 5;
             int j = (int)((double)(pos * (float)i) + 0.50);
             if (j < 0) {
                 j = 0;
             }
 
-            for(int k = 0; k < 4; k++) {
+            for(int k = 0; k < 5; k++) {
                 for(int l = 0; l < 9; l++) {
                     int i1 = l + (k + j) * 9;
                     if (i1 >= 9 && i1 < this.itemList.size()) {
