@@ -3,6 +3,8 @@ package com.Deeakron.journey_mode;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.ArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.block.Blocks;
@@ -30,6 +32,13 @@ public class JMResearchCommand {
                                         .executes(JMResearchCommand::revokeResearch)
                                 )
                         )
+                        .then(Commands.literal("change")
+                                .then(Commands.argument("item", ItemArgument.item())
+                                        .then(Commands.argument("count", IntegerArgumentType.integer())
+                                                .executes(JMResearchCommand::changeResearch)
+                                        )
+                                )
+                        )
 
                 );
         dispatcher.register(jMResearchCommand);
@@ -55,9 +64,35 @@ public class JMResearchCommand {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+            int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
+            int progress = values[0];
             String[] name = new String[1];
             name[0] = "\"" + item.getRegistryName().toString() + "\"";
-            cap.removeResearchProgress(name);
+            int[] num = new int[1];
+            num[0] = 0 - progress;
+            cap.updateResearch(name, num, false, cap.getPlayer(), null);
+        }
+        return 1;
+    }
+
+    static int changeResearch(CommandContext<CommandSource> commandContext){
+        Item item = ItemArgument.getItem(commandContext, "item").getItem();
+        int count = IntegerArgumentType.getInteger(commandContext, "count");
+        if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
+            EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+            //journey_mode.LOGGER.info(item.getRegistryName().toString());
+            int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
+            if (count < 0){
+                count = 0;
+            } else if (count > values[1]) {
+                count = values[1];
+            }
+            int change = count - values[0];
+            String[] name = new String[1];
+            name[0] = "\"" + item.getRegistryName().toString() + "\"";
+            int[] num = new int[1];
+            num[0] = change;
+            cap.updateResearch(name, num, false, cap.getPlayer(), null);
         }
         return 1;
     }

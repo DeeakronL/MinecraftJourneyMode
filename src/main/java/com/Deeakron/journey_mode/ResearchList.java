@@ -35,7 +35,11 @@ public class ResearchList {
                 int[] newData = data.clone();
                 if (data[0] >= data[1]) {
                     //already hit the cap
-                    newData[0] = data[1];
+                    if (counts[i] < 0) {
+                        newData[0] = data[0] + counts[i];
+                    } else {
+                        newData[0] = data[1];
+                    }
                 } else if (data[0] + counts[i] >= data[1]) {
                     //hit the cap
                     newData[0] = data[1];
