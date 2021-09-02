@@ -59,6 +59,18 @@ public class ResearchList {
         }
     }
 
+    public void removeResearchProgress(String[] items) {
+        for (int i = 0; i < items.length; i++) {
+            if (this.research.get(items[i]) != null) {
+                int[] data = this.research.get(items[i]);
+                int[] newData = data.clone();
+                newData[0] = 0;
+                this.research.remove(items[i]);
+                this.research.put(items[i], newData);
+            }
+        }
+    }
+
     public void addNewResearch(String[] items, int[] caps) {
         for (int i = 0; i < items.length; i++) {
             if (this.research.get(items[i]) == null) {

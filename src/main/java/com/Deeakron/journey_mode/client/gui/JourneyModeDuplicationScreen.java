@@ -15,6 +15,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.settings.CreativeSettings;
 import net.minecraft.client.settings.HotbarSnapshot;
@@ -90,6 +91,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.passEvents = true;
         this.xSize = 190;
         this.ySize = 183;
+        for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
+            journey_mode.LOGGER.info("current group " + i + " is: " + ItemGroup.GROUPS[i].getGroupName().getString());
+        }
     }
 
     protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
@@ -398,6 +402,13 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (itemgroup != null && itemgroup.drawInForegroundOfGroup()) {
             RenderSystem.disableBlend();
             this.font.drawText(matrixStack, itemgroup.getGroupName(), 8.0F, 6.0F, itemgroup.getLabelColor());
+        }
+
+        for(Widget widget : this.buttons) {
+            if (widget.isHovered()) {
+                widget.renderToolTip(matrixStack, x - this.guiLeft, y - this.guiTop);
+                break;
+            }
         }
 
     }
