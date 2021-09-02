@@ -41,8 +41,6 @@ public class ResearchList {
                     newData[0] = data[1];
                     if (!isGenerating) {
                         journey_mode.LOGGER.info("Cap hit");
-                        ServerPlayerEntity serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUUID(player);
-                        JMTriggers.ITEM_RESEARCHED.trigger(serverPlayer);
                         if(itemObject != null) {
                             Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[0]));
                         }

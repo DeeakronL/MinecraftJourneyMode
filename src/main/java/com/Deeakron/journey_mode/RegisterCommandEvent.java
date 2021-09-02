@@ -10,5 +10,6 @@ public class RegisterCommandEvent {
     public static void onRegisterCommandEvent(RegisterCommandsEvent event) {
         CommandDispatcher<CommandSource> commandDispatcher = event.getDispatcher();
         JourneyGameModeCommand.register(commandDispatcher);
+        JMResearchCommand.register(commandDispatcher);
     }
 }

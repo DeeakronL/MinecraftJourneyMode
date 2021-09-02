@@ -52,6 +52,11 @@ public class EntityJourneyMode implements IEntityJourneyMode{
         this.research.updateCount(items, counts, isGenerating, player, itemObject);
     }
 
+    @Override
+    public void removeResearchProgress(String[] items) {
+        this.research.removeResearchProgress(items);
+    }
+
     public void setResearchList(ResearchList research) {
         this.research = research;
     }

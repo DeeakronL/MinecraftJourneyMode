@@ -16,6 +16,8 @@ public interface IEntityJourneyMode {
 
     void addNewResearch(String[] items, int[] caps);
 
+    void removeResearchProgress(String[] items);
+
     int[] getResearch(String key);
 
     void setGodMode(boolean mode);
