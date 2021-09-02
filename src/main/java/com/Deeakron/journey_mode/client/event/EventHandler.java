@@ -78,7 +78,7 @@ public class EventHandler {
         int count = event.getItem().getItem().getCount();
         if(event.getEntity() != null){
             EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
-            cap.updateResearch(new String[]{item}, new int[]{count}, false, event.getEntity().getUniqueID(), event.getItem());
+            cap.updateResearch(new String[]{item}, new int[]{count}, false, event.getEntity().getUniqueID(), event.getItem().getItem());
         }
 
     }

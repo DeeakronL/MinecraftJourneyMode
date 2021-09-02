@@ -7,6 +7,7 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -44,7 +45,7 @@ public class JMResearchCommand {
         dispatcher.register(jMResearchCommand);
     }
 
-    static int grantResearch(CommandContext<CommandSource> commandContext){
+    static int grantResearch(CommandContext<CommandSource> commandContext) throws CommandSyntaxException {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -55,7 +56,7 @@ public class JMResearchCommand {
             name[0] = "\"" + item.getRegistryName().toString() + "\"";
             int[] num = new int[1];
             num[0] = remaining;
-            cap.updateResearch(name, num, false, cap.getPlayer(), null);
+            cap.updateResearch(name, num, false, cap.getPlayer(), ItemArgument.getItem(commandContext, "item").createStack(1,false));
         }
         return 1;
     }

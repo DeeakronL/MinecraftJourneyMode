@@ -8,6 +8,7 @@ import net.minecraft.client.gui.toasts.ToastGui;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -15,9 +16,9 @@ public class ResearchToast implements IToast {
 
     private final ITextComponent title;
     private final ITextComponent subtitle;
-    private final ItemEntity item;
+    private final ItemStack item;
 
-    public ResearchToast(ItemEntity item) {
+    public ResearchToast(ItemStack item) {
         this.title = new TranslationTextComponent("gui.journey_mode.research_toast.title");
         this.subtitle = new TranslationTextComponent("gui.journey_mode.research_toast.subtitle");
         this.item = item;
@@ -32,7 +33,7 @@ public class ResearchToast implements IToast {
         toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
         RenderSystem.color4f(1,1,1,1);
         toastGui.blit(matrixStack, 0, 0, 0, 0,220,32);
-        toastGui.getMinecraft().getItemRenderer().renderItemAndEffectIntoGuiWithoutEntity(this.item.getItem(), 5, 7);
+        toastGui.getMinecraft().getItemRenderer().renderItemAndEffectIntoGuiWithoutEntity(item, 5, 7);
         //toastGui.getMinecraft().getTextureManager().getTexture();
         toastGui.getMinecraft().fontRenderer.drawText(matrixStack, title, 25, 5, 0xFFFFFF);
         toastGui.getMinecraft().fontRenderer.drawText(matrixStack, subtitle, 25, 15, 0xFFFFFF);

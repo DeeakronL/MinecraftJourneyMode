@@ -4,6 +4,7 @@ import com.Deeakron.journey_mode.ResearchList;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.UUID;
@@ -48,7 +49,7 @@ public class EntityJourneyMode implements IEntityJourneyMode{
     }
 
     @Override
-    public void updateResearch(String[] items, int[] counts, boolean isGenerating, UUID player, ItemEntity... itemObject) {
+    public void updateResearch(String[] items, int[] counts, boolean isGenerating, UUID player, ItemStack... itemObject) {
         this.research.updateCount(items, counts, isGenerating, player, itemObject);
     }
 

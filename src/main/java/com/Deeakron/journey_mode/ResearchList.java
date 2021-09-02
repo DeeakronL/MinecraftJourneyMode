@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -28,7 +29,7 @@ public class ResearchList {
         //journey_mode.LOGGER.info("testing i guess: " + this.research.get("minecraft:stone"));
     }
 
-    public void updateCount(String[] items, int[] counts, boolean isGenerating, UUID player, ItemEntity... itemObject) {
+    public void updateCount(String[] items, int[] counts, boolean isGenerating, UUID player, ItemStack... itemObject) {
         for (int i = 0; i < items.length; i++) {
             if (this.research.get(items[i]) != null) {
                 int[] data = this.research.get(items[i]);
@@ -46,7 +47,7 @@ public class ResearchList {
                     if (!isGenerating) {
                         journey_mode.LOGGER.info("Cap hit");
                         if(itemObject != null) {
-                            Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[0]));
+                            Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[i]));
                         }
 
                     }
