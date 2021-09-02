@@ -47,6 +47,6 @@ public class ResearchPacket {
         ServerWorld serverWorld = context.get().getSender().getServerWorld();
         PlayerEntity playerEntity = (PlayerEntity) serverWorld.getEntityByUuid(info);
         EntityJourneyMode cap = playerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
-        cap.updateResearch(new String[]{item}, new int[]{count}, false, info);
+        cap.updateResearch(new String[]{item}, new int[]{count}, false, info, null);
     }
 }
