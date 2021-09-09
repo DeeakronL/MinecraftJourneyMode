@@ -6,6 +6,7 @@ import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundEngine;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -27,6 +28,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
@@ -51,6 +54,9 @@ public class ResearchGrinderBlock extends HorizontalBlock {
     private BlockPos pos1;
     private BlockPos pos2;
     private BlockPos pos3;
+
+    private ResearchGrinderSound grinderSound = null;
+    private int isGrinding = 0;
 
     /*@Nullable
     @Override
@@ -204,10 +210,29 @@ public class ResearchGrinderBlock extends HorizontalBlock {
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+        if(grinderSound == null) {
+            grinderSound = new ResearchGrinderSound(this, pos);
+        }
+
         if(entityIn instanceof LivingEntity) {
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
-            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
+            /*if (isGrinding % 5 == 0) {
+                worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
+                isGrinding += 1;
+            } else {
+                isGrinding += 1;
+            }*/
+
+
+            /*if (Minecraft.getInstance().getSoundHandler().isPlaying(grinderSound)){
+
+            } else {
+                Minecraft.getInstance().getSoundHandler().play(grinderSound);
+                Minecraft.getInstance().getSoundHandler().stop(grinderSound);
+            }*/
+
         }
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();
@@ -215,6 +240,8 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             ServerPlayerEntity player = players.getPlayerByUUID(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
             ((ItemEntity) entityIn).remove();
+            /*Minecraft.getInstance().getSoundHandler().playOnNextTick(grinderSound);
+            Minecraft.getInstance().getSoundHandler().stop(grinderSound);*/
             worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
 
         }
