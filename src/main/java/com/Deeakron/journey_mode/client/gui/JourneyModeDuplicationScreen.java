@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.JourneyModePowersContainer;
+import com.Deeakron.journey_mode.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.ImmutableList;
@@ -11,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.DisplayEffectsScreen;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
@@ -84,13 +86,15 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private int maxPages = 0;
     private boolean field_199506_G;
     private final Map<ResourceLocation, ITag<Item>> tagSearchResults = Maps.newTreeMap();
+    private final ResearchList playerList;
 
     public JourneyModeDuplicationScreen(PlayerEntity player) {
-        super (new JourneyModeDuplicationScreen.DuplicationContainer(player), player.inventory, StringTextComponent.EMPTY);
+        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList, ItemGroup.GROUPS[selectedTabIndex]), player.inventory, StringTextComponent.EMPTY);
         player.openContainer = this.container;
         this.passEvents = true;
         this.xSize = 190;
         this.ySize = 183;
+        this.playerList = journey_mode.tempList;
         for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
             journey_mode.LOGGER.info("current group " + i + " is: " + ItemGroup.GROUPS[i].getGroupName().getString());
         }
@@ -399,6 +403,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
         ItemGroup itemgroup = ItemGroup.GROUPS[selectedTabIndex];
+        this.container.render(matrixStack, this.guiTop, this.guiLeft, this.font);
         if (itemgroup != null && itemgroup.drawInForegroundOfGroup()) {
             RenderSystem.disableBlend();
             this.font.drawText(matrixStack, itemgroup.getGroupName(), 8.0F, 6.0F, itemgroup.getLabelColor());
@@ -651,6 +656,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();
         } else {
             super.renderTooltip(matrixStack, itemStack, mouseX, mouseY);
+            //journey_mode.LOGGER.info("current item is: " + itemStack.getItem().getRegistryName());
         }
 
     }
@@ -785,6 +791,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         ItemStack itemstack = p_238808_2_.getIcon();
         this.itemRenderer.renderItemAndEffectIntoGUI(itemstack, l, i1);
         this.itemRenderer.renderItemOverlays(this.font, itemstack, l, i1);
+        //this.font.drawString(p_238808_1_, "000", l, i1, TextFormatting.DARK_RED.getColor());
         this.itemRenderer.zLevel = 0.0F;
     }
 
@@ -915,10 +922,13 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     //@OnlyIn(Dist.CLIENT)
     public static class DuplicationContainer extends Container {
         public final NonNullList<ItemStack> itemList = NonNullList.create();
+        public ResearchList research;
 
-        public DuplicationContainer(PlayerEntity player) {
+        public DuplicationContainer(PlayerEntity player, ResearchList research, ItemGroup itemGroup) {
             super((ContainerType<?>) null, 0);
             PlayerInventory playerInventory = player.inventory;
+            this.research = research;
+            //itemGroup.fill(itemList);
 
             int startX = 8;
             int startY = 18;
@@ -933,7 +943,19 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
-                    this.addSlot(new JourneyModeDuplicationScreen.LockedSlot(JourneyModeDuplicationScreen.TMP_INVENTORY, 9 + (i * 9) + j, startX + (j * slotSizePlus2), startDupeInvY + (i * slotSizePlus2)));
+                    /*String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
+                    int[] result = research.get(item);*/
+                    boolean wasResearched = false;
+                    int count = 0;
+                    /*if (result[0] < result[1]) {
+                        wasResearched = true;
+                        count = 0;
+                    } else {
+                        wasResearched = false;
+                        count = result[1] - result[0];
+                    }*/
+                    this.addSlot(new JourneyModeDuplicationScreen.LockedSlot(JourneyModeDuplicationScreen.TMP_INVENTORY, 9 + (i * 9) + j, startX + (j * slotSizePlus2), startDupeInvY + (i * slotSizePlus2), wasResearched, count));
+                    //journey_mode.LOGGER.info("The item added was: " + item);
                 }
             }
 
@@ -966,6 +988,29 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     int i1 = l + (k + j) * 9;
                     if (i1 >= 9 && i1 < this.itemList.size()) {
                         JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, this.itemList.get(i1));
+                        boolean success = false;
+                        try {
+                            LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
+                            success = true;
+                        } catch (ClassCastException e) {
+                            success = false;
+                        }
+                        if (success) {
+                            LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
+                            String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
+                            int[] result = this.research.get(item);
+                            boolean wasResearched = false;
+                            int count = 0;
+                            if (result[0] < result[1]) {
+                                wasResearched = true;
+                                count = 0;
+                            } else {
+                                wasResearched = false;
+                                count = result[1] - result[0];
+                            }
+                            slot.changeResearch(wasResearched, count);
+                            //journey_mode.LOGGER.info("item adjusted: " + item);
+                        }
                     } else {
                         JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, ItemStack.EMPTY);
                     }
@@ -990,6 +1035,18 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
 
         public boolean canDragIntoSlot(Slot slotIn) {return slotIn.inventory != JourneyModeDuplicationScreen.TMP_INVENTORY;}
+
+        public void render(MatrixStack matrix, int topX, int topY, FontRenderer font) {
+            int baseX = topX + 22;
+            int baseY = topY + 8;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 9; j++) {
+                    String string = "x" + i + j;
+                    font.drawString(matrix, string, baseY + (j * 18), baseX + (i * 18), TextFormatting.DARK_RED.getColor());
+                }
+            }
+        }
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -1043,8 +1100,13 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     static class LockedSlot extends Slot {
-        public LockedSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+        public boolean researched;
+        public int remaining;
+
+        public LockedSlot(IInventory inventoryIn, int index, int xPosition, int yPosition, boolean research, int count) {
             super(inventoryIn, index, xPosition, yPosition);
+            this.researched = research;
+            this.remaining = count;
         }
 
         public boolean canTakeStack(PlayerEntity playerIn) {
@@ -1053,6 +1115,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             } else {
                 return !this.getHasStack();
             }
+        }
+
+        public void changeResearch(boolean research, int remaining) {
+            this.researched = research;
+            this.remaining = remaining;
+            //journey_mode.LOGGER.info("slot updated!");
         }
     }
 }
