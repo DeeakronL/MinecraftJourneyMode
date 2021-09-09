@@ -63,7 +63,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
-            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
+            //worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
         }
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();

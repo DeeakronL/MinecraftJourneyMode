@@ -21,7 +21,7 @@ public class JourneyGameModeCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> journeyGameModeCommand
                 = Commands.literal("gamemode")
-                .requires((commandSource) -> commandSource.hasPermissionLevel(2))
+                .requires((commandSource) -> commandSource.hasPermissionLevel(0))
                 .then(Commands.literal("journey")
                     .executes(JourneyGameModeCommand::addJM)
                     )
@@ -55,7 +55,7 @@ public class JourneyGameModeCommand {
         return 1;
     }
 
-    static int removeJM(CommandContext<CommandSource> commandContext){
+    static int removeJM(CommandContext<CommandSource> commandContext) throws CommandSyntaxException {
         journey_mode.LOGGER.info("successful command");
         if(commandContext.getSource().getEntity() instanceof  ServerPlayerEntity){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -63,6 +63,11 @@ public class JourneyGameModeCommand {
                 cap.setJourneyMode(false);
             }
             journey_mode.LOGGER.info(commandContext.getCommand().toString());
+            if (commandContext.getSource().asPlayer().isCreative() || commandContext.getSource().asPlayer().isSpectator()) {
+                cap.setGodMode(true);
+            } else {
+                cap.setGodMode(false);
+            }
 
 
         }

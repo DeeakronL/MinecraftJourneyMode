@@ -1,26 +1,33 @@
 package com.Deeakron.journey_mode.client.event;
 
 import com.Deeakron.journey_mode.JMContainerTypes;
+import com.Deeakron.journey_mode.JMSounds;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.*;
 import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
+import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -164,5 +171,22 @@ public class EventHandler {
     @SubscribeEvent
     public static void itemDroppedEvent(final ItemTossEvent event) {
         event.getEntityItem().setThrowerId(event.getPlayer().getUniqueID());
+    }
+
+
+    /*@SubscribeEvent
+    public static void onSoundEvent(PlaySoundEvent event) {
+        if (event.getSound().getSound(). == JMSounds.RESEARCH_GRIND.)
+    }*/
+
+    @SubscribeEvent
+    public static void onLivingDamageEvent(LivingDamageEvent event) {
+        if (event.getEntity() instanceof LivingEntity) {
+            if (event.getSource() == JMDamageSources.RESEARCH_GRINDER) {
+                journey_mode.LOGGER.info("insert sound here");
+                BlockPos pos = event.getEntity().getPosition();
+                event.getEntity().getEntityWorld().playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
+            }
+        }
     }
 }
