@@ -238,9 +238,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         int tabCount = ItemGroup.GROUPS.length;
-        if (tabCount > 6) {
+        if (tabCount > 12) {
             //add new tab buttons
-            maxPages = (int) Math.ceil((tabCount - 6) / 10D);
+            maxPages = (int) Math.ceil((tabCount - 12) / 10D);
         }
         this.minecraft.keyboardListener.enableRepeatEvents(true);
         this.searchField = new TextFieldWidget(this.font, this.guiLeft + 81, this.guiTop + 9, 80, 9, new TranslationTextComponent("itemGroup.search"));
@@ -403,7 +403,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
         ItemGroup itemgroup = ItemGroup.GROUPS[selectedTabIndex];
-        this.container.render(matrixStack, this.guiTop, this.guiLeft, this.font);
         if (itemgroup != null && itemgroup.drawInForegroundOfGroup()) {
             RenderSystem.disableBlend();
             this.font.drawText(matrixStack, itemgroup.getGroupName(), 8.0F, 6.0F, itemgroup.getLabelColor());
@@ -586,6 +585,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
+
+        this.container.render(matrixStack, this.guiTop, this.guiLeft, this.font);
 
         int start = tabPage * 10;
         int end = Math.min(ItemGroup.GROUPS.length, ((tabPage + 1) * 10) + 2);
@@ -986,7 +987,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             for(int k = 0; k < 5; k++) {
                 for(int l = 0; l < 9; l++) {
                     int i1 = l + (k + j) * 9;
-                    if (i1 >= 9 && i1 < this.itemList.size()) {
+                    if (i1 >= 0 && i1 < this.itemList.size()) {
                         JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, this.itemList.get(i1));
                         boolean success = false;
                         try {
@@ -1037,12 +1038,21 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         public boolean canDragIntoSlot(Slot slotIn) {return slotIn.inventory != JourneyModeDuplicationScreen.TMP_INVENTORY;}
 
         public void render(MatrixStack matrix, int topX, int topY, FontRenderer font) {
-            int baseX = topX + 22;
+            int baseX = topX + 20;
             int baseY = topY + 8;
+            matrix.translate(0, 0, 400);
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
-                    String string = "x" + i + j;
-                    font.drawString(matrix, string, baseY + (j * 18), baseX + (i * 18), TextFormatting.DARK_RED.getColor());
+                    try {
+                        String item = "\"" + this.inventorySlots.get(i * 9 + j).getStack().getItem().getRegistryName() + "\"";
+                        int[] result = this.research.get(item);
+                        int diff = result[1] - result[0];
+                        String string = Integer.toString(diff);
+                        font.drawStringWithShadow(matrix, string, baseY + (j * 18), baseX + (i * 18), TextFormatting.DARK_RED.getColor());
+                    } catch (NullPointerException e) {
+
+                    }
+
                 }
             }
         }
