@@ -22,6 +22,6 @@ public class JourneyModeDuplicationContainerProvider implements INamedContainerP
     @Nullable
     @Override
     public Container createMenu(int p_createMenu_1_, PlayerInventory inv, PlayerEntity player) {
-        return new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList, ItemGroup.GROUPS[0]);
+        return new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList);
     }
 }

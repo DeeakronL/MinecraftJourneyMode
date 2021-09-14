@@ -89,7 +89,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private final ResearchList playerList;
 
     public JourneyModeDuplicationScreen(PlayerEntity player) {
-        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList, ItemGroup.GROUPS[selectedTabIndex]), player.inventory, StringTextComponent.EMPTY);
+        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.inventory, StringTextComponent.EMPTY);
         player.openContainer = this.container;
         this.passEvents = true;
         this.xSize = 190;
@@ -150,6 +150,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     this.minecraft.player.container.detectAndSendChanges();
                 }
             } else if (type != ClickType.QUICK_CRAFT && slotIn.inventory == TMP_INVENTORY) {
+                journey_mode.LOGGER.info("testing");
                 PlayerInventory playerInventory = this.minecraft.player.inventory;
                 ItemStack itemStack5 = playerInventory.getItemStack();
                 ItemStack itemStack7 = slotIn.getStack();
@@ -271,7 +272,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (this.minecraft.player != null && this.minecraft.player.inventory != null) {
             this.minecraft.player.container.removeListener(this.listener);
         }
-
+        journey_mode.LOGGER.info("testing closing here");
         this.minecraft.keyboardListener.enableRepeatEvents(false);
     }
 
@@ -920,12 +921,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
     }
 
-    //@OnlyIn(Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static class DuplicationContainer extends Container {
         public final NonNullList<ItemStack> itemList = NonNullList.create();
         public ResearchList research;
 
-        public DuplicationContainer(PlayerEntity player, ResearchList research, ItemGroup itemGroup) {
+        public DuplicationContainer(PlayerEntity player, ResearchList research) {
             super((ContainerType<?>) null, 0);
             PlayerInventory playerInventory = player.inventory;
             this.research = research;
@@ -978,7 +979,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         public boolean canInteractWith(PlayerEntity playerIn) {return true;}
 
         public void scrollTo(float pos) {
-            int i = (this.itemList.size() + 9 - 1) / 9 - 5;
+            int i = (this.itemList.size() + 18 - 1) / 9 - 5;
             int j = (int)((double)(pos * (float)i) + 0.50);
             if (j < 0) {
                 j = 0;
@@ -986,14 +987,19 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
             for(int k = 0; k < 5; k++) {
                 for(int l = 0; l < 9; l++) {
-                    int i1 = l + (k + j) * 9;
+                    int i1 = (l + (k + j) * 9) - 9;
                     if (i1 >= 0 && i1 < this.itemList.size()) {
                         JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, this.itemList.get(i1));
                         boolean success = false;
                         try {
                             LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
+                            String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
                             success = true;
                         } catch (ClassCastException e) {
+                            success = false;
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            success = false;
+                        } catch (IndexOutOfBoundsException e) {
                             success = false;
                         }
                         if (success) {
@@ -1022,7 +1028,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         public boolean canScroll() {return this.itemList.size() > 36;}
 
         public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-            if (index >= this.inventorySlots.size() - 36 && index < this.inventorySlots.size()) {
+            if (index >= this.inventorySlots.size() - 45 && index < this.inventorySlots.size()) {
                 Slot slot = this.inventorySlots.get(index);
                 if (slot != null && slot.getHasStack()) {
                     slot.putStack(ItemStack.EMPTY);
@@ -1038,9 +1044,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         public boolean canDragIntoSlot(Slot slotIn) {return slotIn.inventory != JourneyModeDuplicationScreen.TMP_INVENTORY;}
 
         public void render(MatrixStack matrix, int topX, int topY, FontRenderer font) {
-            int baseX = topX + 20;
+            int baseX = topX + 32;
             int baseY = topY + 8;
-            matrix.translate(0, 0, 400);
+            matrix.translate(0, 0, 300);
+            matrix.scale((float)0.75, (float)0.75, 1);
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
                     try {
@@ -1048,13 +1055,16 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         int[] result = this.research.get(item);
                         int diff = result[1] - result[0];
                         String string = Integer.toString(diff);
-                        font.drawStringWithShadow(matrix, string, baseY + (j * 18), baseX + (i * 18), TextFormatting.DARK_RED.getColor());
+                        if (diff > 0) {
+                            font.drawStringWithShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
+                        }
                     } catch (NullPointerException e) {
 
                     }
 
                 }
             }
+            matrix.scale((float) (1/0.75), (float) (1/0.75), 1);
         }
 
     }
@@ -1121,7 +1131,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public boolean canTakeStack(PlayerEntity playerIn) {
             if (super.canTakeStack(playerIn) && this.getHasStack()) {
-                return this.getStack().getChildTag("DuplicationLock") == null;
+                return true;//this.getStack().getChildTag("DuplicationLock") == null;
             } else {
                 return !this.getHasStack();
             }
