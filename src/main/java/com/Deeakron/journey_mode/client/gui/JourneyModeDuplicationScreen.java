@@ -235,28 +235,25 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     playerInventory.getItemStack().shrink(1);
                 }
             } else if (this.container != null) {
-                journey_mode.LOGGER.info("testing huh?");
                 ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.container.getSlot(slotIn.slotNumber).getStack();
                 this.container.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, this.minecraft.player);
                 if (Container.getDragEvent(mouseButton) == 2) {
-                    for (int k = 0; k < 9; k++) {
-                        journey_mode.LOGGER.info("testing here");
-                        this.minecraft.playerController.sendSlotPacket(this.container.getSlot(36 + k).getStack(), 27 + k);
+                    for(int k = 0; k < 9; k++) {
+                        //this.minecraft.playerController.sendSlotPacket(this.container.getSlot(54 + k).getStack(), 45 + k);
                     }
                 } else if (slotIn != null) {
-                    journey_mode.LOGGER.info("slot number: " + slotIn.slotNumber);
                     ItemStack itemStack4 = this.container.getSlot(slotIn.slotNumber).getStack();
-                    this.minecraft.playerController.sendSlotPacket(itemStack4, slotIn.slotNumber - 36/*(this.container).inventorySlots.size() + 9 + 0*/);
-                    ItemStack item = this.minecraft.player.inventory.getStackInSlot(slotIn.slotNumber - 36);
-                    journey_mode.LOGGER.info("item is " + item.getItem().getRegistryName());
-                } else if (type == ClickType.THROW && !itemStack3.isEmpty()) {
-                    journey_mode.LOGGER.info("testing here?!?");
-                    ItemStack itemStack2 = itemStack3.copy();
-                    itemStack2.setCount(mouseButton == 0 ? 1 : itemStack2.getMaxStackSize());
-                    this.minecraft.player.dropItem(itemStack2, true);
-                    this.minecraft.playerController.sendPacketDropItem(itemStack2);
+                    this.minecraft.playerController.sendSlotPacket(itemStack4, slotIn.slotNumber - (this.container).inventorySlots.size() + 9 + 36);
+                    int i = 45 + mouseButton;
+                    if (type == ClickType.SWAP) {
+                        //this.minecraft.playerController.sendSlotPacket(itemStack3, i - (this.container).inventorySlots.size() + 9 + 36);
+                    } else if (type == ClickType.THROW && !itemStack3.isEmpty()) {
+                        ItemStack itemStack2 = itemStack3.copy();
+                        itemStack2.setCount(mouseButton == 0 ? 1 : itemStack2.getMaxStackSize());
+                        this.minecraft.player.dropItem(itemStack2, true);
+                        this.minecraft.playerController.sendPacketDropItem(itemStack2);
+                    }
                 }
-
                 this.minecraft.player.container.detectAndSendChanges();
             }
         }
