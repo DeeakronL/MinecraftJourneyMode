@@ -100,6 +100,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
     }
 
+    public void tick() {
+        this.container.scrollTo(currentScroll);
+    }
+
     protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
         if (this.hasTmpInventory(slotIn)) {
             this.searchField.setCursorPositionEnd();
@@ -239,7 +243,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 this.container.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, this.minecraft.player);
                 if (Container.getDragEvent(mouseButton) == 2) {
                     for(int k = 0; k < 9; k++) {
-                        //this.minecraft.playerController.sendSlotPacket(this.container.getSlot(54 + k).getStack(), 45 + k);
+                        //this.minecraft.playerController.sendSlotPacket(this.container.getSlot(45 + k).getStack(), 36 + k);
                     }
                 } else if (slotIn != null) {
                     ItemStack itemStack4 = this.container.getSlot(slotIn.slotNumber).getStack();
@@ -464,7 +468,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 return true;
             }
         }
-
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -481,7 +484,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
             }
         }
-
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
