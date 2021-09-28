@@ -100,10 +100,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
     }
 
-    public void tick() {
-        this.container.scrollTo(currentScroll);
-    }
-
     protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
         if (this.hasTmpInventory(slotIn)) {
             this.searchField.setCursorPositionEnd();
@@ -213,6 +209,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         if (result[0] == result[1]) {
                             success = true;
                         }
+                    } catch (NullPointerException e) {
+
                     } catch (Error e) {
 
                     }
@@ -1091,7 +1089,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                             font.drawStringWithShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
                         }
                     } catch (NullPointerException e) {
-
+                        if (this.inventorySlots.get(i * 9 + j).getHasStack()) {
+                            String string = "  X  ";
+                            font.drawStringWithShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
+                        }
                     }
 
                 }
@@ -1168,6 +1169,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 return !this.getHasStack();
             }
         }
+
+        public void putStack(ItemStack stack) {}
 
         public void changeResearch(boolean research, int remaining) {
             this.researched = research;
