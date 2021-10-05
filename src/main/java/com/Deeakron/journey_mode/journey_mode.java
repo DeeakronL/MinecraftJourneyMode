@@ -144,7 +144,6 @@ public class journey_mode
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
         JMTriggers.init();
-        DuplicationInit.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
