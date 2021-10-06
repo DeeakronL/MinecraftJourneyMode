@@ -63,6 +63,7 @@ public class journey_mode
     public static boolean keepInv = false;
     public static ResearchList tempList;
     public static JourneyModeResearchContainer tempContain;
+    //public static UnobtainableItemGroup SPECIAL_ITEM_GROUP = new UnobtainableItemGroup("unobtainable");
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -132,6 +133,8 @@ public class journey_mode
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
+        DuplicationInit.init();
+        DuplicationInit.ITEMS.register(bus);
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -144,7 +147,7 @@ public class journey_mode
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
         JMTriggers.init();
-        DuplicationInit.init();
+
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

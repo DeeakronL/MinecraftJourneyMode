@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.client.gui;
 
+import com.Deeakron.journey_mode.DuplicationInit;
 import com.Deeakron.journey_mode.JourneyModePowersContainer;
 import com.Deeakron.journey_mode.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;

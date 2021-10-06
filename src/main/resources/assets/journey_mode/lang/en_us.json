@@ -38,6 +38,6 @@
   "block.journey_mode.research_grinder.grind" : "Research Grinder Sound",
   "subtitles.journey_mode.block.research_grinder.grind_subtitle": "Research Grinder grinding",
   "gui.journey_mode.research_toast.title" : "Research Complete!",
-  "gui.journey_mode.research_toast.subtitle" : "New Item in Dupl. Menu"
-
+  "gui.journey_mode.research_toast.subtitle" : "New Item in Dupl. Menu",
+  "itemGroup.journey_mode.unobtainable" : "Unobtainable Items"
 }
