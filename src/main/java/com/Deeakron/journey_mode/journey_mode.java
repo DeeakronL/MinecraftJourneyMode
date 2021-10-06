@@ -63,7 +63,6 @@ public class journey_mode
     public static boolean keepInv = false;
     public static ResearchList tempList;
     public static JourneyModeResearchContainer tempContain;
-    //public static UnobtainableItemGroup SPECIAL_ITEM_GROUP = new UnobtainableItemGroup("unobtainable");
 
     public journey_mode() {
         // Register the setup method for modloading
