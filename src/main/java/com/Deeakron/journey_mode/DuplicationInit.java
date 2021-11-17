@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import net.minecraft.entity.item.minecart.CommandBlockMinecartEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -7,6 +8,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -37,9 +39,26 @@ public class DuplicationInit {
                 if(!check.equals("journey_mode")) {
                     journey_mode.LOGGER.info(item.getItem().getClass());
                     journey_mode.LOGGER.info(new OperatorOnlyItem(null, new OperatorOnlyItem.Properties()).getClass());
-                    if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass()) {
+                    if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass() || item.getItem().getClass() == new OperatorOnlyItem(null, new Item.Properties()).getClass()) {
                         DuplicationInit.ITEMS.register(substring, () -> new BlockItem(((BlockItem) (item.getItem())).getBlock(), new BlockItem.Properties().group(unobtainableGroup)));
+                    } else {
+                        if(item.getItem().getClass() == new DebugStickItem(new Item.Properties()).getClass()){
+                            DuplicationInit.ITEMS.register(substring, () -> new DebugStickItem(new Item.Properties().group(unobtainableGroup)));
+                        } else if (item.getItem().getClass() == new EnchantedBookItem(new Item.Properties()).getClass()){
+                            DuplicationInit.ITEMS.register(substring, () -> new EnchantedBookItem(new Item.Properties().group(unobtainableGroup)));
+                        } else if (item.getItem().getClass() == new KnowledgeBookItem(new Item.Properties()).getClass()){
+                            DuplicationInit.ITEMS.register(substring, () -> new KnowledgeBookItem(new Item.Properties().group(unobtainableGroup)));
+                        } else if (item.getItem().getClass() == new SuspiciousStewItem(new Item.Properties()).getClass()){
+                            DuplicationInit.ITEMS.register(substring, () -> new SuspiciousStewItem(new Item.Properties().group(unobtainableGroup)));
+                        } /*else if (item.getItem().getClass() == new MinecartItem(new CommandBlockMinecartEntity()).getClass()){
+                            DuplicationInit.ITEMS.register(substring, () -> new DebugStickItem(new Item.Properties().group(unobtainableGroup)));
+                        }*/ else {
+                            DuplicationInit.ITEMS.register(substring, () -> new Item(new Item.Properties().group(unobtainableGroup)));
+                        }
+
+                        //DuplicationInit.ITEMS.register(substring, () -> new Item(new Item.Properties().group(unobtainableGroup)));
                     }
+
                     items.add(item);
                 }
             }

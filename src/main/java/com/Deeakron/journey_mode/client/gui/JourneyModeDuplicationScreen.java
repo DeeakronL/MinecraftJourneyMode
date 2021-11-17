@@ -298,10 +298,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         int tabCount = this.itemGroupSmall.length;
-        if (tabCount > 12) {
+        if (tabCount > 10) {
+            //add new tab buttons
+            maxPages = (int) Math.ceil((tabCount - 10) / 10D);
             addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft,              guiTop - 50, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
             addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft + xSize - 20, guiTop - 50, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
-            maxPages = (int) Math.ceil((tabCount - 12) / 10D);
+
         }
         this.minecraft.keyboardListener.enableRepeatEvents(true);
         this.searchField = new TextFieldWidget(this.font, this.guiLeft + 81, this.guiTop + 9, 80, 9, new TranslationTextComponent("itemGroup.search"));
