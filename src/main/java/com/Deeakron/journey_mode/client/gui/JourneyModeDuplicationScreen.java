@@ -64,6 +64,7 @@ import java.util.function.Predicate;
 
 @OnlyIn(Dist.CLIENT)
 public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
+    private static final ResourceLocation DUPLICATION_INVENTORY_TABS = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_duplication_tabs.png");
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
@@ -298,7 +299,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 12) {
-            //add new tab buttons
+            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft,              guiTop - 50, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft + xSize - 20, guiTop - 50, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
             maxPages = (int) Math.ceil((tabCount - 12) / 10D);
         }
         this.minecraft.keyboardListener.enableRepeatEvents(true);
@@ -464,7 +466,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         ItemGroup itemgroup = itemGroupSmall[selectedTabIndex];
         if (itemgroup != null && itemgroup.drawInForegroundOfGroup()) {
             RenderSystem.disableBlend();
-            this.font.drawText(matrixStack, itemgroup.getGroupName(), 8.0F, 6.0F, itemgroup.getLabelColor());
+            this.font.drawText(matrixStack, itemgroup.getGroupName(), 8.0F, 10.0F, itemgroup.getLabelColor());
         }
 
         for(Widget widget : this.buttons) {
@@ -750,14 +752,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 index = itemgroup1.getIndex();
             }
             if (itemgroup1 != null && index != selectedTabIndex && itemgroup1 != ItemGroup.HOTBAR && itemgroup1 != ItemGroup.INVENTORY) {
-                this.minecraft.getTextureManager().bindTexture(itemgroup1.getTabsImage());
+                this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
                 this.func_238808_a_(matrixStack, itemgroup1);
             }
         }
 
         if (tabPage != 0) {
             if (itemgroup != ItemGroup.SEARCH  && itemgroup != ItemGroup.HOTBAR && itemgroup != ItemGroup.INVENTORY) {
-                this.minecraft.getTextureManager().bindTexture(ItemGroup.SEARCH.getTabsImage());
+                this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
                 func_238808_a_(matrixStack, ItemGroup.SEARCH);
             }
             if (itemgroup != ItemGroup.INVENTORY && itemgroup != ItemGroup.HOTBAR) {
@@ -774,7 +776,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         int j = this.guiTop + 22;//18;
         int k = j + 156;//112;
         //looks like this is the current tab
-        this.minecraft.getTextureManager().bindTexture(itemgroup.getTabsImage());
+        this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
         if (itemgroup.hasScrollbar()) {
             this.blit(matrixStack, i, j + (int)((float)(k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
         }
