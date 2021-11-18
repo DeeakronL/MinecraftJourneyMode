@@ -669,8 +669,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         this.container.render(matrixStack, this.guiTop, this.guiLeft, this.font);
 
-        int start = tabPage * 10;
-        int end = Math.min(itemGroupSmall.length, ((tabPage + 1) * 10) + 2);
+        int start = tabPage * 8;
+        int end = Math.min(itemGroupSmall.length, ((tabPage + 1) * 8) + 2);
         if (tabPage != 0) start += 2;
         boolean rendered = false;
 
@@ -747,8 +747,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         ItemGroup itemgroup = itemGroupSmall[selectedTabIndex];
 
-        int start = tabPage * 10;
-        int end = Math.min(itemGroupSmall.length, ((tabPage + 1) * 10 + 2));
+        int start = tabPage * 8;
+        int end = Math.min(itemGroupSmall.length, ((tabPage + 1) * 8 + 2));
         if (tabPage != 0) start += 2;
 
         for (int idx = start; idx < end; idx++) {
