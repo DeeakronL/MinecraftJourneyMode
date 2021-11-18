@@ -66,6 +66,7 @@ import java.util.function.Predicate;
 public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
     private static final ResourceLocation DUPLICATION_INVENTORY_TABS = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_duplication_tabs.png");
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
+    private static final ResourceLocation BACKGROUND_SEARCH_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication_search.png");
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
@@ -123,6 +124,13 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             } else {
                 itemGroupSmall[index] = ItemGroup.GROUPS[i];
             }
+        }
+
+    }
+
+    public void tick() {
+        if (this.searchField != null) {
+            this.searchField.tick();
         }
 
     }
@@ -769,8 +777,11 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 //func_238808_a_(matrixStack, ItemGroup.INVENTORY);
             }
         }
-
-        this.minecraft.getTextureManager().bindTexture(this.BACKGROUND_TEXTURE);
+        if (itemgroup != ItemGroup.SEARCH) {
+            this.minecraft.getTextureManager().bindTexture(this.BACKGROUND_TEXTURE);
+        } else {
+            this.minecraft.getTextureManager().bindTexture(this.BACKGROUND_SEARCH_TEXTURE);
+        }
         this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         this.searchField.render(matrixStack, x, y, partialTicks);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
