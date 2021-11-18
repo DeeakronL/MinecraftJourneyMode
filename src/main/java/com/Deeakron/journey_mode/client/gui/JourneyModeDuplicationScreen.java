@@ -309,8 +309,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft,              guiTop - 50, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft + xSize - 20, guiTop - 50, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft -25,              guiTop, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft + xSize +5, guiTop, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
         this.minecraft.keyboardListener.enableRepeatEvents(true);
@@ -693,7 +693,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             RenderSystem.disableLighting();
             this.setBlitOffset(300);
             this.itemRenderer.zLevel = 300.0F;
-            font.drawTextWithShadow(matrixStack, page.func_241878_f(), guiLeft + (xSize / 2) - (font.getStringPropertyWidth(page) / 2), guiTop - 44, -1);
+            font.drawTextWithShadow(matrixStack, page.func_241878_f(), guiLeft + (xSize + 45) - (font.getStringPropertyWidth(page) / 2), guiTop +7, -1);
             this.setBlitOffset(0);
             this.itemRenderer.zLevel = 0.0F;
         }
