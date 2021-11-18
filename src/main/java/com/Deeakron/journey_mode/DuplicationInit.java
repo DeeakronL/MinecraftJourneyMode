@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.item.minecart.CommandBlockMinecartEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
@@ -50,9 +51,9 @@ public class DuplicationInit {
                             DuplicationInit.ITEMS.register(substring, () -> new KnowledgeBookItem(new Item.Properties().group(unobtainableGroup)));
                         } else if (item.getItem().getClass() == new SuspiciousStewItem(new Item.Properties()).getClass()){
                             DuplicationInit.ITEMS.register(substring, () -> new SuspiciousStewItem(new Item.Properties().group(unobtainableGroup)));
-                        } /*else if (item.getItem().getClass() == new MinecartItem(new CommandBlockMinecartEntity()).getClass()){
-                            DuplicationInit.ITEMS.register(substring, () -> new DebugStickItem(new Item.Properties().group(unobtainableGroup)));
-                        }*/ else {
+                        } else if (item.getItem().getClass() == new MinecartItem(null, new Item.Properties()).getClass()){
+                            DuplicationInit.ITEMS.register(substring, () -> new MinecartItem(new CommandBlockMinecartEntity(null, 0, 0, 0).getMinecartType(), new Item.Properties().group(unobtainableGroup)));
+                        } else {
                             DuplicationInit.ITEMS.register(substring, () -> new Item(new Item.Properties().group(unobtainableGroup)));
                         }
 
