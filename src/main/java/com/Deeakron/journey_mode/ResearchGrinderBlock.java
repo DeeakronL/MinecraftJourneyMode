@@ -116,6 +116,12 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             worldin.setBlockState(pos3, BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
             journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
+        } else if (this.type == "iron"){
+            worldin.setBlockState(pos1, BlockInit.IRON_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
+            worldin.setBlockState(pos2, BlockInit.IRON_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
+            worldin.setBlockState(pos3, BlockInit.IRON_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
+            journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
+            super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         }}
         /*this.pos1 = pos1;
         this.pos2 = pos2;

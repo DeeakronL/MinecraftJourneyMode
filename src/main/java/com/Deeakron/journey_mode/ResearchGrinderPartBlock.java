@@ -281,6 +281,8 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
         if (type == "wood"){
             return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
+        } else if (type == "iron"){
+            return new ItemStack(ItemInit.IRON_RESEARCH_GRINDER.get());
         }
         return null;
     }
