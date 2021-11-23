@@ -17,4 +17,7 @@ public class ItemInit {
 
     public static final RegistryObject<BlockItem> IRON_RESEARCH_GRINDER = ITEMS.register("iron_research_grinder",
             () -> new ResearchGrinderItem(BlockInit.IRON_RESEARCH_GRINDER.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+
+    public static final RegistryObject<BlockItem> DIAMOND_RESEARCH_GRINDER = ITEMS.register("diamond_research_grinder",
+            () -> new ResearchGrinderItem(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 }

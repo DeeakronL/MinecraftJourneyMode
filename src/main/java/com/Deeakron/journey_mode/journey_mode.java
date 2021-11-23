@@ -160,6 +160,10 @@ public class journey_mode
         RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_2.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.getCutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

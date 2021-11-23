@@ -283,6 +283,8 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
             return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
         } else if (type == "iron"){
             return new ItemStack(ItemInit.IRON_RESEARCH_GRINDER.get());
+        } else if (type == "diamond"){
+            return new ItemStack(ItemInit.DIAMOND_RESEARCH_GRINDER.get());
         }
         return null;
     }
