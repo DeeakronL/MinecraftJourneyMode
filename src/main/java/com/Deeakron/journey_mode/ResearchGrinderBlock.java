@@ -128,7 +128,9 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             worldin.setBlockState(pos3, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
             journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
-        }}
+        }
+        }
+
         /*this.pos1 = pos1;
         this.pos2 = pos2;
         this.pos3 = pos3;*/
@@ -229,7 +231,15 @@ public class ResearchGrinderBlock extends HorizontalBlock {
         }
 
         if(entityIn instanceof LivingEntity) {
-            entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
+            float damage = 1.0F;
+            if (type == "wood") {
+                damage = 1.0F;
+            } else if (type == "iron") {
+                damage = 1.5F;
+            } else if (type == "diamond") {
+                damage = 1.75F;
+            }
+            entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, damage);
             /*if (isGrinding % 5 == 0) {
                 worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
                 isGrinding += 1;
