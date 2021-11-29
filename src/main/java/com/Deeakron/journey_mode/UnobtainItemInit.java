@@ -20,4 +20,7 @@ public class UnobtainItemInit {
 
     public static final RegistryObject<BlockItem> UNOBTAINIUM_RAW_BLOCK = ITEMS.register("unobtainium_raw_block",
             () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_RAW_BLOCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
+
+    public static final RegistryObject<BlockItem> UNOBTAINIUM_ANTIKYTHERA = ITEMS.register("unobtainium_antikythera",
+            () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_ANTIKYTHERA.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 }

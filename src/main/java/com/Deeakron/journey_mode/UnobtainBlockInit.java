@@ -30,4 +30,12 @@ public class UnobtainBlockInit {
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.ANCIENT_DEBRIS)
                             .setRequiresTool()));
+
+    public static final RegistryObject<Block> UNOBTAINIUM_ANTIKYTHERA = BLOCKS
+            .register("unobtainium_antikythera",
+                    () -> new UnobtainiumAntikytheraBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.LODESTONE)
+                            .setRequiresTool()));
 }

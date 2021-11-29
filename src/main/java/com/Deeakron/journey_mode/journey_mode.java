@@ -14,6 +14,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.world.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -132,8 +133,11 @@ public class journey_mode
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
-        DuplicationInit.init();
-        DuplicationInit.ITEMS.register(bus);
+        if (UnobtainConfig.use_unobtainable.get()) {
+            DuplicationInit.init();
+            DuplicationInit.ITEMS.register(bus);
+        }
+
     }
 
     private void setup(final FMLCommonSetupEvent event)

@@ -470,6 +470,11 @@
       "item": "journey_mode:unobtainium_ingot",
       "count": 128,
       "category": "Unobtainable"
+    },
+    {
+      "item": "journey_mode:unobtainium_antikythera",
+      "count": 1,
+      "category": "Unobtainable"
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "journey_mode:block/unobtainium_antikythera",
+    "north": "journey_mode:block/unobtainium_antikythera",
+    "south": "journey_mode:block/unobtainium_antikythera",
+    "east": "journey_mode:block/unobtainium_antikythera",
+    "west": "journey_mode:block/unobtainium_antikythera",
+    "up": "journey_mode:block/unobtainium_antikythera_surface",
+    "down": "journey_mode:block/unobtainium_antikythera_base"
+  }
+}
