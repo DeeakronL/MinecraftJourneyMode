@@ -42,4 +42,62 @@ public class BlockInit {
                             .harvestTool(ToolType.AXE).harvestLevel(0)
                             .sound(SoundType.WOOD)
                             .notSolid(),2, "wood"));
+
+    public static final RegistryObject<Block>IRON_RESEARCH_GRINDER = BLOCKS
+            .register("iron_research_grinder",
+                    () -> new ResearchGrinderBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(5f, 6f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .sound(SoundType.METAL)
+                            .notSolid(), "iron"));
+    public static final RegistryObject<Block>IRON_RESEARCH_GRINDER_PART_0 = BLOCKS
+            .register("iron_research_grinder_part_0",
+                    () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(5f, 6f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .sound(SoundType.METAL)
+                            .notSolid(),0, "iron"));
+    public static final RegistryObject<Block>IRON_RESEARCH_GRINDER_PART_1 = BLOCKS
+            .register("iron_research_grinder_part_1",
+                    () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(5f, 6f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .sound(SoundType.METAL)
+                            .notSolid(),1, "iron"));
+    public static final RegistryObject<Block>IRON_RESEARCH_GRINDER_PART_2 = BLOCKS
+            .register("iron_research_grinder_part_2",
+                    () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(5f, 6f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .sound(SoundType.METAL)
+                            .notSolid(),2, "iron"));
+
+    public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER = BLOCKS
+            .register("diamond_research_grinder",
+                    () -> new ResearchGrinderBlock(AbstractBlock.Properties.create(Material.ROCK)
+                            .hardnessAndResistance(5f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .sound(SoundType.STONE)
+                            .notSolid(), "diamond"));
+    public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER_PART_0 = BLOCKS
+            .register("diamond_research_grinder_part_0",
+                    () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.ROCK)
+                            .hardnessAndResistance(5f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .sound(SoundType.STONE)
+                            .notSolid(),0, "diamond"));
+    public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER_PART_1 = BLOCKS
+            .register("diamond_research_grinder_part_1",
+                    () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.ROCK)
+                            .hardnessAndResistance(5f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .sound(SoundType.STONE)
+                            .notSolid(),1, "diamond"));
+    public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER_PART_2 = BLOCKS
+            .register("diamond_research_grinder_part_2",
+                    () -> new ResearchGrinderPartBlock(AbstractBlock.Properties.create(Material.ROCK)
+                            .hardnessAndResistance(5f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .sound(SoundType.STONE)
+                            .notSolid(),2, "diamond"));
 }

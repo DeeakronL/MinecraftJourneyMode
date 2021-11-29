@@ -62,7 +62,15 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
 
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
-            entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, 1.0F);
+            float damage = 1.0F;
+            if (type == "wood") {
+                damage = 1.0F;
+            } else if (type == "iron") {
+                damage = 1.5F;
+            } else if (type == "diamond") {
+                damage = 1.75F;
+            }
+            entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, damage);
             //worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
         }
         if(entityIn instanceof ItemEntity){
@@ -281,6 +289,10 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
         if (type == "wood"){
             return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
+        } else if (type == "iron"){
+            return new ItemStack(ItemInit.IRON_RESEARCH_GRINDER.get());
+        } else if (type == "diamond"){
+            return new ItemStack(ItemInit.DIAMOND_RESEARCH_GRINDER.get());
         }
         return null;
     }
@@ -409,6 +421,64 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 return BASE_SHAPE_SOUTHEAST;
         }
         return null;
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        BlockPos pos1 = null;
+
+        switch (part) {
+            case 0:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.west();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.east();
+                        break;
+                    case WEST:
+                        pos1 = pos.south();
+                        break;
+                    case EAST:
+                        pos1 = pos.north();
+                        break;
+                }
+                break;
+            case 1:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.north();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.south();
+                        break;
+                    case WEST:
+                        pos1 = pos.west();
+                        break;
+                    case EAST:
+                        pos1 = pos.east();
+                        break;
+                }
+                break;
+            case 2:
+                switch (state.get(FACING)){
+                    case NORTH:
+                        pos1 = pos.north().west();
+                        break;
+                    case SOUTH:
+                        pos1 = pos.south().east();
+                        break;
+                    case WEST:
+                        pos1 = pos.west().south();
+                        break;
+                    case EAST:
+                        pos1 = pos.east().north();
+                        break;
+                }
+                break;
+        }
+        return world.getBlockState(pos1).getLightValue(world, pos1);
+        //return super.getLightValue(state, world, pos);
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {

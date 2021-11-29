@@ -4,6 +4,8 @@
   "item.journey_mode.unobtainium_raw" : "Raw Unobtainium",
   "block.journey_mode.unobtainium_raw_block" : "Block of Raw Unobtainium",
   "block.journey_mode.wooden_research_grinder" : "Wooden Research Grinder",
+  "block.journey_mode.iron_research_grinder" : "Iron Research Grinder",
+  "block.journey_mode.diamond_research_grinder" : "Diamond Research Grinder",
   "block.journey_mode.unobtainium_antikythera" : "Unobtainium Antikythera",
   "container.journey_mode.unobtainium_antikythera" : "Unobtainium Antikythera",
   "journey_mode.gui.powers.dawn" : "Set time to Dawn",

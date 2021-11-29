@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "O#O",
+    "___"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond_sword"
+    },
+    "O": {
+      "item": "minecraft:diamond_block"
+    },
+    "_": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "journey_mode:diamond_research_grinder",
+    "count": 1
+  }
+}
