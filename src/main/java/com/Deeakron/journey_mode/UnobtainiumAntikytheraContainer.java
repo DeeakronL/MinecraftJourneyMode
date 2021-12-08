@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.data.AntikytheraRecipe;
+import com.Deeakron.journey_mode.data.IJMRecipes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -131,7 +133,11 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer<Craftin
             journey_mode.LOGGER.info("part 4");
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<ICraftingRecipe> optional = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, inventory, world);
+            //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA.);
+            //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipes(IJMRecipes.CRAFTING_ANTIKYTHERA.matches(), inventory, world));
+            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipe(IJMRecipes.Types.CRAFTING_ANTIKYTHERA, inventory, world);
+            journey_mode.LOGGER.info(optional);
+            //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipe());
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
