@@ -26,20 +26,21 @@ public class UnobtainiumAntikytheraBlock extends Block {
         super(properties);
     }
 
+    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
         } else {
-            //player.openContainer(state.getContainer(worldIn, pos));
-            player.addStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+            player.openContainer(state.getContainer(worldIn, pos));
+            //player.addStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
             NetworkHooks.openGui((ServerPlayerEntity) player, new UnobtainiumAntikytheraContainerProvider());
             return ActionResultType.CONSUME;
         }
     }
 
+    @Override
     public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
-        return new SimpleNamedContainerProvider((id, inventory, player) -> {
-            return new WorkbenchContainer(id, inventory, IWorldPosCallable.of(worldIn, pos));
-        }, CONTAINER_NAME);
+        return new SimpleNamedContainerProvider((id, inventory, player) ->
+                new UnobtainiumAntikytheraContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)), CONTAINER_NAME);
     }
 }

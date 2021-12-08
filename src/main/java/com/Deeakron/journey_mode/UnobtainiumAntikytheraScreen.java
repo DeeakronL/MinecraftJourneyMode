@@ -16,13 +16,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class UnobtainiumAntikytheraScreen extends ContainerScreen<WorkbenchContainer> implements IRecipeShownListener {
+public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAntikytheraContainer> implements IRecipeShownListener {
     private static final ResourceLocation ANTIKYTHERA_GUI_TEXTURES = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_antikythera.png");
     private static final ResourceLocation RECIPE_BUTTON_TEXTURE = new ResourceLocation("textures/gui/recipe_button.png");
     private final RecipeBookGui recipeBookGui = new RecipeBookGui();
     private boolean widthTooNarrow;
 
-    public UnobtainiumAntikytheraScreen(WorkbenchContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public UnobtainiumAntikytheraScreen(UnobtainiumAntikytheraContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
 
@@ -95,6 +95,7 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<WorkbenchConta
     protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
         this.recipeBookGui.slotClicked(slotIn);
+        journey_mode.LOGGER.info(slotId);
     }
 
     public void recipesUpdated() {
