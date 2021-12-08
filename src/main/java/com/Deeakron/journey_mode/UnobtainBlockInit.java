@@ -38,4 +38,12 @@ public class UnobtainBlockInit {
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.LODESTONE)
                             .setRequiresTool()));
+
+    public static final RegistryObject<Block> UNOBTAINIUM_STARFORGE = BLOCKS
+            .register("unobtainium_starforge",
+                    () -> new UnobtainiumStarforgeBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.LODESTONE)
+                            .setRequiresTool()));
 }

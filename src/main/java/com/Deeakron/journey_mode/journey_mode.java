@@ -126,6 +126,7 @@ public class journey_mode
         if (UnobtainConfig.use_unobtainable.get()) {
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
+            JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
         }
 
         JMSounds.SOUNDS.register(bus);

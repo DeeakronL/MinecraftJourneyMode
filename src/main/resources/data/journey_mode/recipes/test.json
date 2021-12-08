@@ -1,0 +1,12 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "minecraft:bedrock"
+  },
+  "input": {
+    "item": "minecraft:cobblestone"
+  },
+  "fuel": {
+    "item": "minecraft:nether_star"
+  }
+}
