@@ -135,7 +135,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer<Craftin
             ItemStack itemstack = ItemStack.EMPTY;
             //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA.);
             //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipes(IJMRecipes.CRAFTING_ANTIKYTHERA.matches(), inventory, world));
-            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipe(IJMRecipes.Types.CRAFTING_ANTIKYTHERA, inventory, world);
+            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipe(IJMRecipes.CRAFTING_ANTIKYTHERA, inventory, world);
             journey_mode.LOGGER.info(optional);
             //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipe());
             if (optional.isPresent()) {
