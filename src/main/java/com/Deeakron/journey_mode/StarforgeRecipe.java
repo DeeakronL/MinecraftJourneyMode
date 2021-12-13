@@ -14,20 +14,19 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 public class StarforgeRecipe implements IStarforgeRecipe {
 
     private final ResourceLocation id;
-    private Ingredient fuel;
     private Ingredient input;
     private final ItemStack output;
 
-    public StarforgeRecipe(ResourceLocation id, Ingredient fuel, Ingredient input, ItemStack output) {
+    public StarforgeRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+        journey_mode.LOGGER.info("checking for bad problem");
         this.id = id;
         this.output = output;
-        this.fuel = fuel;
         this.input = input;
     }
 
     @Override
     public boolean matches(RecipeWrapper inv, World worldIn) {
-        if(this.input.test(inv.getStackInSlot(0)) && this.fuel.test(inv.getStackInSlot(1))) {
+        if(this.input.test(inv.getStackInSlot(0))) {
             return true;
         }
         return false;
@@ -60,18 +59,15 @@ public class StarforgeRecipe implements IStarforgeRecipe {
 
     @Override
     public IRecipeType<?> getType() {
-        return null;
+        return JMRecipeSerializerInit.RECIPE_TYPE;
     }
 
     public Ingredient getInput() {
         return this.input;
     }
 
-    public Ingredient getFuel() {
-        return this.fuel;
-    }
 
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(null, this.input, this.fuel);
+        return NonNullList.from(null, this.input);
     }
 }

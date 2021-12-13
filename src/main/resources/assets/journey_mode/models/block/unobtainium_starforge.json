@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "journey_mode:block/unobtainium_starforge",
+    "north": "journey_mode:block/unobtainium_starforge",
+    "south": "journey_mode:block/unobtainium_starforge",
+    "east": "journey_mode:block/unobtainium_starforge",
+    "west": "journey_mode:block/unobtainium_starforge",
+    "up": "journey_mode:block/unobtainium_starforge",
+    "down": "journey_mode:block/unobtainium_starforge"
+  }
+}

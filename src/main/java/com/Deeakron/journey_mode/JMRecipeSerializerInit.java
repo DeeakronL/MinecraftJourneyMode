@@ -18,7 +18,7 @@ public class JMRecipeSerializerInit {
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS,
             journey_mode.MODID);
 
-    public static final RegistryObject<StarforgeRecipeSerializer> STARFORGE_SERIALIZER = RECIPE_SERIALIZERS.register("starforge_serializer", () -> STARFORGE_RECIPE_SERIALIZER);
+    public static final RegistryObject<StarforgeRecipeSerializer> STARFORGE_SERIALIZER = RECIPE_SERIALIZERS.register("starforge", () -> STARFORGE_RECIPE_SERIALIZER);
 
     private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {
         @Override

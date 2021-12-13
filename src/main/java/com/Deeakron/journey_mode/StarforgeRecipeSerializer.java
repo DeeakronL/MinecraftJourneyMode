@@ -16,26 +16,22 @@ public class StarforgeRecipeSerializer extends ForgeRegistryEntry<IRecipeSeriali
     public StarforgeRecipe read(ResourceLocation recipeId, JsonObject json) {
         ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
         Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "input"));
-        Ingredient fuel = Ingredient.deserialize(JSONUtils.getJsonObject(json, "fuel"));
-
-        return new StarforgeRecipe(recipeId, fuel, input, output);
+        journey_mode.LOGGER.info("checking for other bad problem");
+        return new StarforgeRecipe(recipeId, input, output);
     }
 
     @Override
     public StarforgeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
         ItemStack output = buffer.readItemStack();
         Ingredient input = Ingredient.read(buffer);
-        Ingredient fuel = Ingredient.read(buffer);
 
-        return new StarforgeRecipe(recipeId, fuel, input, output);
+        return new StarforgeRecipe(recipeId, input, output);
     }
 
     @Override
     public void write(PacketBuffer buffer, StarforgeRecipe recipe) {
         Ingredient input = recipe.getIngredients().get(0);
         input.write(buffer);
-        Ingredient fuel = recipe.getIngredients().get(1);
-        fuel.write(buffer);
 
         buffer.writeItemStack(recipe.getRecipeOutput(), false);
     }
