@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model":  "journey_mode:block/unobtainium_starforge_lit"},
+    "lit=false": { "model":  "journey_mode:block/unobtainium_starforge"}
+  }
+}

@@ -5,8 +5,5 @@
   },
   "input": {
     "item": "minecraft:cobblestone"
-  },
-  "fuel": {
-    "item": "minecraft:nether_star"
   }
 }

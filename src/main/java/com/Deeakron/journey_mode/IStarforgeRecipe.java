@@ -14,6 +14,7 @@ public interface IStarforgeRecipe extends IRecipe<RecipeWrapper> {
     @Nonnull
     @Override
     default IRecipeType<?> getType() {
+        journey_mode.LOGGER.info("error here...?");
         return Registry.RECIPE_TYPE.getOrDefault(RECIPE_TYPE_ID);
     }
 }
