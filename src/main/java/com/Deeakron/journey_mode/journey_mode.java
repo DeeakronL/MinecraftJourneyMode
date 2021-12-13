@@ -7,6 +7,7 @@ import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
+import com.Deeakron.journey_mode.data.IJMRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.settings.KeyBinding;
@@ -140,6 +141,8 @@ public class journey_mode
             DuplicationInit.init();
             DuplicationInit.ITEMS.register(bus);
         }
+        IJMRecipes.RECIPE_SERIALIZERS.register(bus);
+        journey_mode.LOGGER.info(IJMRecipes.Types.CRAFTING_ANTIKYTHERA);
 
     }
 
