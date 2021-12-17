@@ -8,7 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class IJMRecipes {
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, journey_mode.MODID);
-    public static final RegistryObject<AntikytheraRecipeSerializer<AntikytheraRecipe>> ANTIKYTHERA_RECIPES = RECIPE_SERIALIZERS.register("crafting_antikythera", AntikytheraRecipeSerializer::new);
+    //public static final RegistryObject<AntikytheraRecipeSerializer<AntikytheraRecipe>> ANTIKYTHERA_RECIPES = RECIPE_SERIALIZERS.register("crafting_antikythera", AntikytheraRecipeSerializer::new);
     //public static AntikytheraRecipeSerializer<A> serializer = null;
     public static AntikytheraRecipeType type = null;
 

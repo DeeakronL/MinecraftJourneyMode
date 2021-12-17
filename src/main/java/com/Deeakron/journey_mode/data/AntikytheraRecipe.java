@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.data;
 
+import com.Deeakron.journey_mode.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
@@ -129,7 +130,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
     @Nonnull
     @Override
     public IRecipeType<?> getType() {
-        return Registry.RECIPE_TYPE.getOrDefault(id);
+        return JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA;
     }
 
 
@@ -176,7 +177,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return IJMRecipes.ANTIKYTHERA_RECIPES.get();
+        return JMRecipeSerializerInit.ANTIKYTHERA_SERIALIZER.get();
     }
 
     public static Map<String, Ingredient> deserializeKey(JsonObject json) {

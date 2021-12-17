@@ -2,8 +2,6 @@ package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
 import com.Deeakron.journey_mode.data.IJMRecipes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -16,14 +14,11 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Optional;
 
-public class UnobtainiumAntikytheraContainer extends RecipeBookContainer<CraftingInventory> {
+public class UnobtainiumAntikytheraContainer extends Container {
     private final CraftingInventory craftMatrix = new CraftingInventory(this, 3, 3){
         public void markDirty() {
             UnobtainiumAntikytheraContainer.this.onCraftMatrixChanged(this);
@@ -71,18 +66,18 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer<Craftin
         return isWithinUsableDistance(this.worldPosCallable, playerIn, UnobtainBlockInit.UNOBTAINIUM_ANTIKYTHERA.get());
     }
 
-    @Override
+
     public void fillStackedContents(RecipeItemHelper itemHelperIn) {
         this.craftMatrix.fillStackedContents(itemHelperIn);
     }
 
-    @Override
+
     public void clear() {
         this.craftMatrix.clear();
         this.craftResult.clear();
     }
 
-    @Override
+
     public boolean matches(IRecipe<? super CraftingInventory> recipeIn) {
         return recipeIn.matches(this.craftMatrix, this.player.world);
     }
@@ -94,51 +89,54 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer<Craftin
         //});*/
     }
 
-    @Override
+
     public int getOutputSlot() {
         return 0;
     }
 
-    @Override
+
     public int getWidth() {
         return this.craftMatrix.getWidth();
     }
 
-    @Override
+
     public int getHeight() {
         return this.craftMatrix.getHeight();
     }
 
-    @Override
+
     public int getSize() {
         return 10;
     }
 
-    @Override
+
     public RecipeBookCategory func_241850_m() {
         return RecipeBookCategory.CRAFTING;
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
-        journey_mode.LOGGER.info("part 1");
+        //journey_mode.LOGGER.info("part 1");
         //this.worldPosCallable.consume((p_217069_1_, p_217069_2_) -> {
-            journey_mode.LOGGER.info("part 2");
+            //journey_mode.LOGGER.info("part 2");
             this.updateCraftingResult(this.windowId, this.player.world, this.player, this.craftMatrix, this.craftResult);
         //});
     }
 
     protected void updateCraftingResult(int id, World world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
-        journey_mode.LOGGER.info("part 3");
+        //journey_mode.LOGGER.info("part 3");
         if (!world.isRemote) {
-            journey_mode.LOGGER.info("part 4");
+            //journey_mode.LOGGER.info("part 4");
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
             ItemStack itemstack = ItemStack.EMPTY;
             //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA.);
             //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipes(IJMRecipes.CRAFTING_ANTIKYTHERA.matches(), inventory, world));
-            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipe(IJMRecipes.CRAFTING_ANTIKYTHERA, inventory, world);
-            journey_mode.LOGGER.info(optional);
+            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipe(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA, inventory, world);
+
+            //optional.get().
+            //journey_mode.LOGGER.info(optional);
             //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipe());
             if (optional.isPresent()) {
+                journey_mode.LOGGER.info(optional.get().group + " is the group");
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
                     itemstack = icraftingrecipe.getCraftingResult(inventory);

@@ -8,17 +8,16 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.RegistryObject;
 
 import java.util.Map;
 
-public class AntikytheraRecipeSerializer<A> extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<AntikytheraRecipe> {
+public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<AntikytheraRecipe> {
     /*public static final RegistryObject<IRecipeSerializer<?>> CRAFTING_ANTIKYTHERA = IJMRecipes.RECIPE_SERIALIZERS.register(
             "crafting_antikythera", AntikytheraRecipeSerializer::new
     );*/
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera");
     public AntikytheraRecipe read(ResourceLocation recipeId, JsonObject json) {
-        String s = JSONUtils.getString(json, "group", "");
+        String s = JSONUtils.getString(json, "group", "CRAFTING");
         Map<String, Ingredient> map = AntikytheraRecipe.deserializeKey(JSONUtils.getJsonObject(json, "key"));
         String[] astring = AntikytheraRecipe.shrink(AntikytheraRecipe.patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
         int i = astring[0].length();
