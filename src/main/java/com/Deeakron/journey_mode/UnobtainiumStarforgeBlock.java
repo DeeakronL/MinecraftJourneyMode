@@ -99,16 +99,15 @@ public class UnobtainiumStarforgeBlock extends Block {
         return ActionResultType.SUCCESS;
     }
 
-    /*@Override
-    public void onReplace(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 
 
         TileEntity tile = worldIn.getTileEntity(pos);
         if (tile instanceof UnobtainiumStarforgeTileEntity) {
             UnobtainiumStarforgeTileEntity starforge = (UnobtainiumStarforgeTileEntity) tile;
-            ItemEntity itemEntity;
-            starforge.getInventory().toNonNullList().forEach(item -> {
-                itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), item);
+            ((StarforgeItemHandler) starforge.getInventory()).toNonNullList().forEach(item -> {
+                ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), item);
                 worldIn.addEntity(itemEntity);
             });
         }
@@ -116,5 +115,5 @@ public class UnobtainiumStarforgeBlock extends Block {
         if (state.hasTileEntity() && state.getBlock() != newState.getBlock()) {
             worldIn.removeTileEntity(pos);
         }
-    }*/
+    }
 }
