@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_sword",
+      "has_logs",
+      "has_slabs",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:wooden_sword"
+          }
+        ]
+      }
+    },
+    "has_logs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:logs"
+          }
+        ]
+      }
+    },
+    "has_slabs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:wooden_slabs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:wooden_materials_to_wooden_research_grinder"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:wooden_materials_to_wooden_research_grinder"
+    ]
+  }
+}
