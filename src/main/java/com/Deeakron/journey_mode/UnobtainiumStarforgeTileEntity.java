@@ -58,7 +58,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     @Nullable
     @Override
     public Container createMenu(final int windowId, final PlayerInventory playerInv, final PlayerEntity playerIn) {
-        return null; //new UnobtainiumStarforgeContainer(windowId, playerInv, this);
+        return new UnobtainiumStarforgeContainer(windowId, playerInv, this);
     }
 
     @Override
@@ -69,9 +69,11 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
             if (this.world.isBlockPowered(this.getPos())) {
                 if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
                     if (this.currentSmeltTime != this.maxSmeltTime) {
+                        this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, true));
                         this.currentSmeltTime++;
                         dirty = true;
                     } else {
+                        this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
                         this.currentSmeltTime = 0;
                         ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
                         this.inventory.insertItem(1, output.copy(), false);
@@ -84,6 +86,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
 
         if (dirty) {
             this.markDirty();
+            this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
         }
     }
 

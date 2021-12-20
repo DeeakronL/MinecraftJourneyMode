@@ -26,6 +26,9 @@ public class JMContainerTypes {
     public static final RegistryObject<ContainerType<UnobtainiumAntikytheraContainer>> UNOBTAINIUM_ANTIKYTHERA = CONTAINER_TYPES
             .register("unobtainium_antikythera", () -> IForgeContainerType.create(UnobtainiumAntikytheraContainer::new));
 
+    public static final RegistryObject<ContainerType<StarforgeContainer>> UNOBTAINIUM_STARFORGE = CONTAINER_TYPES
+            .register("starforge", () -> IForgeContainerType.create(StarforgeContainer::new));
+
    /*public static final RegistryObject<ContainerType<JourneyModeDuplicationScreen.DuplicationContainer>> JOURNEY_MODE_DUPLICATION = CONTAINER_TYPES
             .register("journey_mode_duplication", () -> IForgeContainerType.create(JourneyModeDuplicationScreen::new));*/
 
