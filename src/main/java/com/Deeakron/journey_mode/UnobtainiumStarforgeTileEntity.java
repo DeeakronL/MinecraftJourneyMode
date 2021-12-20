@@ -58,7 +58,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     @Nullable
     @Override
     public Container createMenu(final int windowId, final PlayerInventory playerInv, final PlayerEntity playerIn) {
-        return new UnobtainiumStarforgeContainer(windowId, playerInv, this);
+        return new StarforgeContainer(windowId, playerInv, this);
     }
 
     @Override
