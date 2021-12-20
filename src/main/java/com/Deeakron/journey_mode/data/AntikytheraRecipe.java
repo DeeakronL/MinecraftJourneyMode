@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode.data;
 
+import com.Deeakron.journey_mode.JMRecipeSerializerInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -8,24 +10,24 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Set;
 
 public class AntikytheraRecipe implements ICraftingRecipe {
 
-    private final int recipeWidth;
-    private final int recipeHeight;
-    private final NonNullList<Ingredient> recipeItems;
-    private final ItemStack recipeOutput;
-    private final ResourceLocation id;
-    private final String group;
+    public final int recipeWidth;
+    public final int recipeHeight;
+    public final NonNullList<Ingredient> recipeItems;
+    public final ItemStack recipeOutput;
+    public final ResourceLocation id;
+    public final String group;
 
     static int MAX_WIDTH = 3;
     static int MAX_HEIGHT = 3;
@@ -125,6 +127,13 @@ public class AntikytheraRecipe implements ICraftingRecipe {
         return this.getRecipeOutput().copy();
     }
 
+    @Nonnull
+    @Override
+    public IRecipeType<?> getType() {
+        return JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA;
+    }
+
+
     public int getWidth() {
         return this.recipeWidth;
     }
@@ -141,7 +150,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
         return getHeight();
     }
 
-    private static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int patternWidth, int patternHeight) {
+    public static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int patternWidth, int patternHeight) {
         NonNullList<Ingredient> nonnulllist = NonNullList.withSize(patternWidth * patternHeight, Ingredient.EMPTY);
         Set<String> set = Sets.newHashSet(keys.keySet());
         set.remove(" ");
@@ -168,11 +177,12 @@ public class AntikytheraRecipe implements ICraftingRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return IJMRecipes.Serializers.CRAFTING_ANTIKYTHERA.get();
+        return JMRecipeSerializerInit.ANTIKYTHERA_SERIALIZER.get();
     }
 
-    private static Map<String, Ingredient> deserializeKey(JsonObject json) {
+    public static Map<String, Ingredient> deserializeKey(JsonObject json) {
         Map<String, Ingredient> map = Maps.newHashMap();
+        journey_mode.LOGGER.info("ouch");
 
         for(Map.Entry<String, JsonElement> entry : json.entrySet()) {
             if (entry.getKey().length() != 1) {
@@ -255,7 +265,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
         return i;
     }
 
-    private static String[] patternFromJson(JsonArray jsonArr) {
+    public static String[] patternFromJson(JsonArray jsonArr) {
         String[] astring = new String[jsonArr.size()];
         if (astring.length > MAX_HEIGHT) {
             throw new JsonSyntaxException("Invalid pattern: too many rows, " + MAX_HEIGHT + " is maximum");
@@ -279,7 +289,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
         }
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<AntikytheraRecipe> {
+    /*public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<AntikytheraRecipe> {
         private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera");
         public AntikytheraRecipe read(ResourceLocation recipeId, JsonObject json) {
             String s = JSONUtils.getString(json, "group", "");
@@ -317,5 +327,5 @@ public class AntikytheraRecipe implements ICraftingRecipe {
 
             buffer.writeItemStack(recipe.recipeOutput);
         }
-    }
+    }*/
 }

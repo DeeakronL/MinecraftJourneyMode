@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_sword",
+      "has_block",
+      "has_obsidian",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:diamond_sword"
+          }
+        ]
+      }
+    },
+    "has_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:diamond_block"
+          }
+        ]
+      }
+    },
+    "has_obsidian": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:obsidian"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:diamond_materials_to_diamond_research_grinder"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:diamond_materials_to_diamond_research_grinder"
+    ]
+  }
+}

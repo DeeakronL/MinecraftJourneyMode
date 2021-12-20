@@ -28,6 +28,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -188,5 +189,10 @@ public class EventHandler {
                 event.getEntity().getEntityWorld().playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onAdvancementEvent(AdvancementEvent event) {
+        journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
     }
 }

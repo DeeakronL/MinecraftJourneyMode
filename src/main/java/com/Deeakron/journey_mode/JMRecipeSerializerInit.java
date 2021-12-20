@@ -1,6 +1,8 @@
 package com.Deeakron.journey_mode;
 
-import net.minecraft.item.Item;
+import com.Deeakron.journey_mode.data.AntikytheraRecipe;
+import com.Deeakron.journey_mode.data.AntikytheraRecipeSerializer;
+import com.Deeakron.journey_mode.data.IAntikytheraRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -14,11 +16,15 @@ public class JMRecipeSerializerInit {
 
     public static final StarforgeRecipeSerializer STARFORGE_RECIPE_SERIALIZER = new StarforgeRecipeSerializer();
     public static final IRecipeType<IStarforgeRecipe> RECIPE_TYPE = registerType(IStarforgeRecipe.RECIPE_TYPE_ID);
+    public static final AntikytheraRecipeSerializer ANTIKYTHERA_RECIPE_SERIALIZER = new AntikytheraRecipeSerializer();
+    public static final IRecipeType<AntikytheraRecipe> RECIPE_TYPE_ANTIKYTHERA = registerType(IAntikytheraRecipe.RECIPE_TYPE_ID);
 
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS,
             journey_mode.MODID);
 
     public static final RegistryObject<StarforgeRecipeSerializer> STARFORGE_SERIALIZER = RECIPE_SERIALIZERS.register("starforge", () -> STARFORGE_RECIPE_SERIALIZER);
+
+    public static final RegistryObject<AntikytheraRecipeSerializer> ANTIKYTHERA_SERIALIZER = RECIPE_SERIALIZERS.register("crafting_antikythera", () -> ANTIKYTHERA_RECIPE_SERIALIZER);
 
     private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {
         @Override

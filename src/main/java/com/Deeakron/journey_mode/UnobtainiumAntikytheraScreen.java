@@ -19,8 +19,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAntikytheraContainer> implements IRecipeShownListener {
     private static final ResourceLocation ANTIKYTHERA_GUI_TEXTURES = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_antikythera.png");
     private static final ResourceLocation RECIPE_BUTTON_TEXTURE = new ResourceLocation("textures/gui/recipe_button.png");
-    private final RecipeBookGui recipeBookGui = new RecipeBookGui();
-    private boolean widthTooNarrow;
+    //private final RecipeBookGui recipeBookGui = new RecipeBookGui();
+    //private boolean widthTooNarrow;
 
     public UnobtainiumAntikytheraScreen(UnobtainiumAntikytheraContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
@@ -29,38 +29,38 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
     protected void init() {
         super.init();
         journey_mode.LOGGER.info("reached this menu");
-        this.widthTooNarrow = this.width < 379;
-        this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.container);
-        this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
-        this.children.add(this.recipeBookGui);
-        this.setFocusedDefault(this.recipeBookGui);
-        this.addButton(new ImageButton(this.guiLeft + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
+        //this.widthTooNarrow = this.width < 379;
+        //this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.container);
+        //this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
+        //this.children.add(this.recipeBookGui);
+        //this.setFocusedDefault(this.recipeBookGui);
+        /*this.addButton(new ImageButton(this.guiLeft + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
             this.recipeBookGui.initSearchBar(this.widthTooNarrow);
             this.recipeBookGui.toggleVisibility();
             this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
             ((ImageButton)button).setPosition(this.guiLeft + 5, this.height / 2 - 49);
-        }));
+        }));*/
         this.titleX = 29;
     }
 
     public void tick() {
         super.tick();
-        this.recipeBookGui.tick();
+        //this.recipeBookGui.tick();
     }
 
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
-        if (this.recipeBookGui.isVisible() && this.widthTooNarrow) {
+        /*if (this.recipeBookGui.isVisible() && this.widthTooNarrow) {
             this.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, mouseX, mouseY);
             this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);
         } else {
-            this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);*/
             super.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.recipeBookGui.func_230477_a_(matrixStack, this.guiLeft, this.guiTop, true, partialTicks);
-        }
+            //this.recipeBookGui.func_230477_a_(matrixStack, this.guiLeft, this.guiTop, true, partialTicks);
+        //}
 
         this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
-        this.recipeBookGui.func_238924_c_(matrixStack, this.guiLeft, this.guiTop, mouseX, mouseY);
+        //this.recipeBookGui.func_238924_c_(matrixStack, this.guiLeft, this.guiTop, mouseX, mouseY);
     }
 
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
@@ -72,21 +72,21 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
     }
 
     protected boolean isPointInRegion(int x, int y, int width, int height, double mouseX, double mouseY) {
-        return (!this.widthTooNarrow || !this.recipeBookGui.isVisible()) && super.isPointInRegion(x, y, width, height, mouseX, mouseY);
+        return super.isPointInRegion(x, y, width, height, mouseX, mouseY);
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.recipeBookGui.mouseClicked(mouseX, mouseY, button)) {
+        /*if (this.recipeBookGui.mouseClicked(mouseX, mouseY, button)) {
             this.setListener(this.recipeBookGui);
             return true;
-        } else {
-            return this.widthTooNarrow && this.recipeBookGui.isVisible() ? true : super.mouseClicked(mouseX, mouseY, button);
-        }
+        } else {*/
+            return  super.mouseClicked(mouseX, mouseY, button);
+        //}
     }
 
     protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeftIn, int guiTopIn, int mouseButton) {
         boolean flag = mouseX < (double)guiLeftIn || mouseY < (double)guiTopIn || mouseX >= (double)(guiLeftIn + this.xSize) || mouseY >= (double)(guiTopIn + this.ySize);
-        return this.recipeBookGui.func_195604_a(mouseX, mouseY, this.guiLeft, this.guiTop, this.xSize, this.ySize, mouseButton) && flag;
+        return /*this.recipeBookGui.func_195604_a(mouseX, mouseY, this.guiLeft, this.guiTop, this.xSize, this.ySize, mouseButton) &&*/ flag;
     }
 
     /**
@@ -94,20 +94,20 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
      */
     protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
-        this.recipeBookGui.slotClicked(slotIn);
+        //this.recipeBookGui.slotClicked(slotIn);
         journey_mode.LOGGER.info(slotId);
     }
 
     public void recipesUpdated() {
-        this.recipeBookGui.recipesUpdated();
+        //this.recipeBookGui.recipesUpdated();
     }
 
     public void onClose() {
-        this.recipeBookGui.removed();
+        //this.recipeBookGui.removed();
         super.onClose();
     }
 
     public RecipeBookGui getRecipeGui() {
-        return this.recipeBookGui;
+        return null;
     }
 }

@@ -1,21 +1,18 @@
 package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.advancements.JMTriggers;
-import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
+import com.Deeakron.journey_mode.data.AntikytheraRecipeSerializer;
 import com.Deeakron.journey_mode.data.IJMRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.world.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,7 +21,6 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -36,10 +32,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.CallbackI;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -142,7 +136,7 @@ public class journey_mode
             DuplicationInit.ITEMS.register(bus);
         }
         IJMRecipes.RECIPE_SERIALIZERS.register(bus);
-        journey_mode.LOGGER.info(IJMRecipes.Types.CRAFTING_ANTIKYTHERA);
+        journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA);
 
     }
 
@@ -156,7 +150,6 @@ public class journey_mode
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
         JMTriggers.init();
-
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
