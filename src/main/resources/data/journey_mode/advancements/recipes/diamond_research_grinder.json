@@ -42,13 +42,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "journey_mode:diamond_materials_to_diamond_research_grinder"
+        "recipe": "journey_mode:shaped_crafting_diamond_research_grinder"
       }
     }
   },
   "rewards": {
     "recipes": [
-      "journey_mode:diamond_materials_to_diamond_research_grinder"
+      "journey_mode:shaped_crafting_diamond_research_grinder"
     ]
   }
 }
