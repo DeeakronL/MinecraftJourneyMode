@@ -64,13 +64,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "journey_mode:unobtainium_antikythera"
+        "recipe": "journey_mode:shaped_crafting_unobtainium_antikythera"
       }
     }
   },
   "rewards": {
     "recipes": [
-      "journey_mode:unobtainium_antikythera"
+      "journey_mode:shaped_crafting_unobtainium_antikythera"
     ]
   }
 }

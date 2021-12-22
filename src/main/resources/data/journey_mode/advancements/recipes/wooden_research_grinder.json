@@ -42,13 +42,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "journey_mode:wooden_materials_to_wooden_research_grinder"
+        "recipe": "journey_mode:shaped_crafting_wooden_research_grinder"
       }
     }
   },
   "rewards": {
     "recipes": [
-      "journey_mode:wooden_materials_to_wooden_research_grinder"
+      "journey_mode:shaped_crafting_wooden_research_grinder"
     ]
   }
 }
