@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -23,7 +25,7 @@ public class StarforgeContainer extends Container {
     public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
         super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
         this.canInteractWithCallable = IWorldPosCallable.of(tile.getWorld(), tile.getPos());
-
+        this.tileEntity = tile;
         final int slotSizePlus2 = 18;
         final int startX = 8;
 
@@ -44,7 +46,7 @@ public class StarforgeContainer extends Container {
         // Starforge Output
         this.addSlot(new SlotItemHandler(tile.getInventory(), 1, 116, 35));
         // Starforge Fuel
-        this.addSlot(new SlotItemHandler(tile.getInventory(),2, 56, 53));
+        //this.addSlot(new SlotItemHandler(tile.getInventory(),2, 56, 53));
 
         this.trackInt(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentSmeltTime, value -> this.tileEntity.currentSmeltTime = value));
     }
@@ -96,5 +98,10 @@ public class StarforgeContainer extends Container {
             slot.onTake(player, slotStack);
         }
         return returnStack;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getSmeltProgressionScaled() {
+        return this.currentSmeltTime.get() != 0 && this.tileEntity.maxSmeltTime != 0 ? this.currentSmeltTime.get() * 24 / this.tileEntity.maxSmeltTime : 0;
     }
 }

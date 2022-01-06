@@ -104,7 +104,7 @@ public class UnobtainiumStarforgeBlock extends Block {
 
 
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof UnobtainiumStarforgeTileEntity) {
+        if (tile instanceof UnobtainiumStarforgeTileEntity && state.getBlock() != newState.getBlock()) {
             UnobtainiumStarforgeTileEntity starforge = (UnobtainiumStarforgeTileEntity) tile;
             ((StarforgeItemHandler) starforge.getInventory()).toNonNullList().forEach(item -> {
                 ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), item);
