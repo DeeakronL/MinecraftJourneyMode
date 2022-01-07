@@ -116,4 +116,14 @@ public class UnobtainiumStarforgeBlock extends Block {
             worldIn.removeTileEntity(pos);
         }
     }
+
+
+
+    public static int getLightValue(BlockState state) {
+        if (LIT.equals(1)) {
+            return 1000;
+        } else {
+            return 0;
+        }
+    }
 }
