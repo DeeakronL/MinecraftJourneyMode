@@ -41,6 +41,7 @@ public class JMContainerTypes {
         ScreenManager.registerFactory(JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
         ScreenManager.registerFactory(JOURNEY_MODE_RESEARCH.get(), JourneyModeResearchScreen::new);
         ScreenManager.registerFactory(UNOBTAINIUM_ANTIKYTHERA.get(), UnobtainiumAntikytheraScreen::new);
+        ScreenManager.registerFactory(UNOBTAINIUM_STARFORGE.get(), StarforgeScreen::new);
         //ScreenManager.registerFactory(JOURNEY_MODE_DUPLICATION.get(), JourneyModeDuplicationScreen::new);
     }
 }

@@ -41,8 +41,8 @@ import java.util.stream.Collectors;
 public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
     private ITextComponent customName;
-    public int currentSmeltTime;
-    private final int maxSmeltTime = 100;
+    public int currentSmeltTime = 0;
+    public final int maxSmeltTime = 100;
     private StarforgeItemHandler inventory;
 
     public UnobtainiumStarforgeTileEntity(TileEntityType<?> tileEntityTypeIn) {
