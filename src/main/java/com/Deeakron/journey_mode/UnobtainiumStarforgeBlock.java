@@ -21,9 +21,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class UnobtainiumStarforgeBlock extends Block {
 
@@ -115,5 +117,12 @@ public class UnobtainiumStarforgeBlock extends Block {
         if (state.hasTileEntity() && state.getBlock() != newState.getBlock()) {
             worldIn.removeTileEntity(pos);
         }
+    }
+
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+        if (state.get(LIT)) {
+            worldIn.setBlockState(pos, state.cycleValue(LIT), 2);
+        }
+
     }
 }

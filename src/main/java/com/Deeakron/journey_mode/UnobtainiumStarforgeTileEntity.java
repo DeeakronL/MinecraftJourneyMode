@@ -73,13 +73,24 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
                         this.currentSmeltTime++;
                         dirty = true;
                     } else {
-                        this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
+
                         this.currentSmeltTime = 0;
                         ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
                         this.inventory.insertItem(1, output.copy(), false);
                         this.inventory.decrStackSize(0, 1);
+                        if (this.inventory.isEmpty()) {
+                            this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
+                        }
                         dirty = true;
                     }
+                } else {
+                    if (this.currentSmeltTime > 0) {
+                        this.currentSmeltTime = 0;
+                    }
+                    if (this.getBlockState().get(UnobtainiumStarforgeBlock.LIT)) {
+                        this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
+                    }
+                    dirty = true;
                 }
             }
         }
