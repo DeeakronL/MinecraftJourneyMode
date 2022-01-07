@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode;
 
+import com.Deeakron.journey_mode.item.VoidDustBoneMealItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -14,6 +15,9 @@ public class UnobtainItemInit {
     public static final RegistryObject<Item> UNOBTAINIUM_INGOT = ITEMS.register("unobtainium_ingot", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
     public static final RegistryObject<Item> UNOBTAINIUM_RAW = ITEMS.register("unobtainium_raw", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 
+    public static final RegistryObject<Item> VOID_DUST_BONE_MEAL = ITEMS.register("void_dust_bone_meal",
+            () -> new VoidDustBoneMealItem(new Item.Properties().group(ItemGroup.MATERIALS)));
+
     //Block Items
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",
             () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
@@ -26,4 +30,9 @@ public class UnobtainItemInit {
 
     public static final RegistryObject<BlockItem> UNOBTAINIUM_STARFORGE = ITEMS.register("unobtainium_starforge",
             () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_STARFORGE.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+
+    public static final RegistryObject<BlockItem> CRACKED_BEDROCK = ITEMS.register("cracked_bedrock",
+            () -> new BlockItem(UnobtainBlockInit.CRACKED_BEDROCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
+
+
 }

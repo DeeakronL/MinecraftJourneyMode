@@ -1,0 +1,17 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "   ",
+    " D ",
+    "   "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "item": "minecraft:grass_block",
+    "count": 1
+  }
+}

@@ -46,4 +46,12 @@ public class UnobtainBlockInit {
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.LODESTONE)
                             .setRequiresTool()));
+
+    public static final RegistryObject<Block> CRACKED_BEDROCK = BLOCKS
+            .register("cracked_bedrock",
+                    () -> new Block(AbstractBlock.Properties.create(Material.ROCK)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.STONE)
+                            .setRequiresTool()));
 }

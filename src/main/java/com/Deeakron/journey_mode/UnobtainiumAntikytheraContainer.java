@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode;
 
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
 import com.Deeakron.journey_mode.data.IJMRecipes;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -14,6 +15,8 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 import java.util.Optional;
@@ -28,18 +31,43 @@ public class UnobtainiumAntikytheraContainer extends Container {
     private final CraftResultInventory craftResult = new CraftResultInventory();
     private final IWorldPosCallable worldPosCallable;
     private final PlayerEntity player;
+    private long lastOnTake;
 
     public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory) {
         this(id, playerInventory, IWorldPosCallable.DUMMY);
         journey_mode.LOGGER.info("this was the culprit");
     }
 
-    public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, IWorldPosCallable p_i50090_3_) {
+    public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, final IWorldPosCallable p_i50090_3_) {
         super(JMContainerTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
         this.worldPosCallable = p_i50090_3_;
         this.player = playerInventory.player;
 
-        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35) {
+            public boolean isItemValid(ItemStack stack) {
+                return false;
+            }
+
+            public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
+
+                journey_mode.LOGGER.info(worldPosCallable);
+                //player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1.0F, 1.0F);
+                player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                worldPosCallable.consume((p_216954_1_, p_216954_2_) -> {
+                    long l = p_216954_1_.getGameTime();
+                    if (UnobtainiumAntikytheraContainer.this.lastOnTake != l) {
+                        p_216954_1_.playSound((PlayerEntity) null, p_216954_2_, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        journey_mode.LOGGER.info("insert sound here");
+                        UnobtainiumAntikytheraContainer.this.lastOnTake = l;
+                    }
+
+
+                });
+                journey_mode.LOGGER.info("taken");
+                //p_234633_1_.playEvent(1029, p_234633_2_, 0);
+                return super.onTake(thePlayer, stack);
+            }
+        });
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 3; ++j) {
