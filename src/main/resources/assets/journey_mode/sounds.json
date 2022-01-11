@@ -8,5 +8,16 @@
         "stream": true
       }
     ]
+  },
+  "block.journey_mode.unobtainium_antikythera.craft": {
+    "category": "block",
+    "subtitle":  "subtitles.journey_mode.block.unobtainium_antikythera.craft_subtitle",
+    "sounds": [
+      {
+        "name": "minecraft:block.respawn_anchor.charge",
+        "stream": true,
+        "type": "event"
+      }
+    ]
   }
 }
