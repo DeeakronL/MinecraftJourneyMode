@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -28,6 +29,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -87,6 +89,31 @@ public class EventHandler {
         if(event.getEntity() != null){
             EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
             cap.updateResearch(new String[]{item}, new int[]{count}, false, event.getEntity().getUniqueID(), event.getItem().getItem());
+        }
+
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeathEvent(LivingDeathEvent event) {
+        //journey_mode.LOGGER.info(event.getSource());
+        //journey_mode.LOGGER.info(SpawnEggItem.getEgg(event.getEntity().getType()).getItem().toString());
+        Entity source = event.getSource().getImmediateSource();
+        PlayerEntity player = null;
+        if (source instanceof  PlayerEntity) {
+            //journey_mode.LOGGER.info("How dare you?");
+            player = (PlayerEntity) source;
+        }
+        if (player instanceof PlayerEntity){
+            if (SpawnEggItem.getEgg(event.getEntity().getType()) != null) {
+                String item = "\"" + SpawnEggItem.getEgg(event.getEntity().getType()).getItem().getRegistryName() + "\"";
+                EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                //journey_mode.LOGGER.info("made it here");
+                cap.updateResearch(new String[]{item},
+                        new int[]{1},
+                        false,
+                        player.getUniqueID(),
+                        SpawnEggItem.getEgg(event.getEntity().getType()).getItem().getDefaultInstance());
+            }
         }
 
     }
