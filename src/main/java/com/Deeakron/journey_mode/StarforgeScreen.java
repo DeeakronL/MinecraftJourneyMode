@@ -29,6 +29,8 @@ public class StarforgeScreen  extends ContainerScreen<StarforgeContainer> {
         this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
         this.blit(matrixStack, this.guiLeft + 79, this.guiTop + 35, 176, 14, this.container.getSmeltProgressionScaled(), 17);
+
+        this.blit(matrixStack, this.guiLeft + 57, this.guiTop + 36 + (12 - this.container.getFuelUsageScaled()), 176, (12 - this.container.getFuelUsageScaled()), 14, this.container.getFuelUsageScaled());
     }
 
     @Override

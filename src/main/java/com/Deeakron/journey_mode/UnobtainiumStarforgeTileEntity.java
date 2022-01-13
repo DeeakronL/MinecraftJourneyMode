@@ -44,11 +44,13 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     public int currentSmeltTime = 0;
     public final int maxSmeltTime = 100;
     private StarforgeItemHandler inventory;
+    public int currentFuelTime = 0;
+    public final int maxFuelTime = 801;
 
     public UnobtainiumStarforgeTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
 
-        this.inventory = new StarforgeItemHandler(2);
+        this.inventory = new StarforgeItemHandler(3);
     }
 
     public UnobtainiumStarforgeTileEntity() {
@@ -64,32 +66,39 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     @Override
     public void tick() {
         boolean dirty = false;
-
+        journey_mode.LOGGER.info("current actual fuel usage is: " + (this.currentFuelTime));
         if (this.world != null && !this.world.isRemote) {
-            if (this.world.isBlockPowered(this.getPos())) {
+            if (this.currentFuelTime <= 0) {
+                if (!this.getInventory().getStackInSlot(2).isEmpty() && this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
+                    this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, true));
+                    this.inventory.decrStackSize(2, 1);
+                    this.currentFuelTime = maxFuelTime;
+                } else {
+                    this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
+                    if(this.currentSmeltTime > 0) {
+                        this.currentSmeltTime--;
+                    }
+                }
+                dirty = true;
+            } else {
                 if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
-                    if (this.currentSmeltTime != this.maxSmeltTime) {
-                        this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, true));
+                    if (this.currentSmeltTime < this.maxSmeltTime) {
                         this.currentSmeltTime++;
+                        this.currentFuelTime--;
                         dirty = true;
                     } else {
-
-                        this.currentSmeltTime = 0;
+                        this.currentSmeltTime = 1;
+                        this.currentFuelTime--;
                         ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
                         this.inventory.insertItem(1, output.copy(), false);
                         this.inventory.decrStackSize(0, 1);
-                        if (this.inventory.isEmpty()) {
-                            this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
-                        }
                         dirty = true;
                     }
                 } else {
                     if (this.currentSmeltTime > 0) {
                         this.currentSmeltTime = 0;
                     }
-                    if (this.getBlockState().get(UnobtainiumStarforgeBlock.LIT)) {
-                        this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
-                    }
+                    this.currentFuelTime--;
                     dirty = true;
                 }
             }

@@ -21,6 +21,7 @@ public class StarforgeContainer extends Container {
     private UnobtainiumStarforgeTileEntity tileEntity;
     private IWorldPosCallable canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
+    public FunctionalIntReferenceHolder currentFuelTime;
 
     public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
         super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
@@ -44,11 +45,12 @@ public class StarforgeContainer extends Container {
         // Starforge Input
         this.addSlot(new SlotItemHandler(tile.getInventory(), 0, 56, 17));
         // Starforge Output
-        this.addSlot(new SlotItemHandler(tile.getInventory(), 1, 116, 35));
+        this.addSlot(new StarforgeResultSlot(tile.getInventory(), 1, 116, 35));
         // Starforge Fuel
-        //this.addSlot(new SlotItemHandler(tile.getInventory(),2, 56, 53));
+        this.addSlot(new StarforgeFuelSlot(tile.getInventory(),2, 56, 53));
 
         this.trackInt(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentSmeltTime, value -> this.tileEntity.currentSmeltTime = value));
+        this.trackInt(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentFuelTime, value -> this.tileEntity.currentFuelTime = value));
     }
 
     public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final PacketBuffer data) {
@@ -103,5 +105,11 @@ public class StarforgeContainer extends Container {
     @OnlyIn(Dist.CLIENT)
     public int getSmeltProgressionScaled() {
         return this.currentSmeltTime.get() != 0 && this.tileEntity.maxSmeltTime != 0 ? this.currentSmeltTime.get() * 24 / this.tileEntity.maxSmeltTime : 0;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getFuelUsageScaled() {
+        journey_mode.LOGGER.info("current fuel usage is: " + (this.tileEntity.currentFuelTime));
+        return this.currentFuelTime.get() != 0 && this.tileEntity.maxFuelTime != 0 ? this.currentFuelTime.get() * 12 / this.tileEntity.maxFuelTime : 0;
     }
 }
