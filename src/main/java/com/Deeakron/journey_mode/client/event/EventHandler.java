@@ -13,8 +13,11 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.ResourceLocation;
@@ -103,6 +106,19 @@ public class EventHandler {
             //journey_mode.LOGGER.info("How dare you?");
             player = (PlayerEntity) source;
         }
+
+        if (source instanceof ProjectileEntity) {
+            if (((ProjectileEntity) source).getShooter().getEntity() instanceof PlayerEntity) {
+                player = (PlayerEntity) ((ProjectileEntity) source).getShooter().getEntity();
+            }
+        }
+
+        if (source instanceof WolfEntity) {
+            if (((WolfEntity) source).getOwner() instanceof PlayerEntity) {
+                player = (PlayerEntity) ((WolfEntity) source).getOwner();
+            }
+        }
+
         if (player instanceof PlayerEntity){
             if (SpawnEggItem.getEgg(event.getEntity().getType()) != null) {
                 String item = "\"" + SpawnEggItem.getEgg(event.getEntity().getType()).getItem().getRegistryName() + "\"";
