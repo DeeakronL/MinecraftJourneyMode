@@ -66,6 +66,13 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     @Override
     public void tick() {
         boolean dirty = false;
+        boolean itemCheck = false;
+        try {
+            itemCheck = (this.inventory.getStackInSlot(1).isEmpty() || this.inventory.getStackInSlot(1).getItem().getRegistryName().equals(this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput().getItem().getRegistryName()));
+        } catch (NullPointerException e) {
+
+        }
+
         if (this.world != null && !this.world.isRemote) {
             if (this.currentFuelTime <= 0) {
                 if (!this.getInventory().getStackInSlot(2).isEmpty() && this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
@@ -80,7 +87,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
                 }
                 dirty = true;
             } else {
-                if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
+                if (this.getRecipe(this.inventory.getStackInSlot(0)) != null && itemCheck) {
                     if (this.currentSmeltTime < this.maxSmeltTime) {
                         this.currentSmeltTime++;
                         this.currentFuelTime--;

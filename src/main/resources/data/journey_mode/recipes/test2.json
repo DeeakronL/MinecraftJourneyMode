@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "minecraft:polished_diorite"
+  },
+  "input": {
+    "item": "minecraft:polished_granite"
+  }
+}
