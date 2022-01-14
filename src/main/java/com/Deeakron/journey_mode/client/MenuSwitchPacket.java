@@ -1,8 +1,7 @@
 package com.Deeakron.journey_mode.client;
 
-import com.Deeakron.journey_mode.JourneyModeDuplicationContainerProvider;
-import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
-import com.Deeakron.journey_mode.JourneyModeResearchContainerProvider;
+import com.Deeakron.journey_mode.container.JourneyModePowersContainerProvider;
+import com.Deeakron.journey_mode.container.JourneyModeResearchContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.gui.JourneyModeDuplicationScreen;

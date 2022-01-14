@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.data;
 
-import com.Deeakron.journey_mode.JMRecipeSerializerInit;
+import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;

@@ -1,8 +1,7 @@
 package com.Deeakron.journey_mode.item;
 
-import com.Deeakron.journey_mode.UnobtainBlockInit;
+import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;

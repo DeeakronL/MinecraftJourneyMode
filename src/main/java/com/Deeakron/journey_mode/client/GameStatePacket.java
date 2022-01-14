@@ -1,23 +1,16 @@
 package com.Deeakron.journey_mode.client;
 
-import com.Deeakron.journey_mode.JourneyModePowersContainer;
-import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
+import com.Deeakron.journey_mode.container.JourneyModePowersContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
-import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.client.event.MenuOpenEvent;
-import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;

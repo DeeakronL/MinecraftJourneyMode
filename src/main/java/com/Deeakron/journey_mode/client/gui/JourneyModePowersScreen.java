@@ -1,10 +1,6 @@
 package com.Deeakron.journey_mode.client.gui;
 
-import com.Deeakron.journey_mode.JourneyModePowersContainer;
-import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
-import com.Deeakron.journey_mode.JourneyModeResearchContainerProvider;
-import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
-import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.container.JourneyModePowersContainer;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.client.event.PowersCommandEvent;
 import com.Deeakron.journey_mode.journey_mode;
@@ -15,17 +11,13 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 @OnlyIn(Dist.CLIENT)
 public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersContainer> {

@@ -1,9 +1,7 @@
 package com.Deeakron.journey_mode.capabilities;
 
-import com.Deeakron.journey_mode.ResearchList;
+import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 

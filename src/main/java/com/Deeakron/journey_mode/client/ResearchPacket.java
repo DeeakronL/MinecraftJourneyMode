@@ -1,16 +1,11 @@
 package com.Deeakron.journey_mode.client;
 
-import com.Deeakron.journey_mode.JourneyModePowersContainerProvider;
-import com.Deeakron.journey_mode.JourneyModeResearchContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.UUID;
 import java.util.function.Supplier;

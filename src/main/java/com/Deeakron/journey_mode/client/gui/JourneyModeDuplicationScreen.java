@@ -1,8 +1,6 @@
 package com.Deeakron.journey_mode.client.gui;
 
-import com.Deeakron.journey_mode.DuplicationInit;
-import com.Deeakron.journey_mode.JourneyModePowersContainer;
-import com.Deeakron.journey_mode.ResearchList;
+import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.ImmutableList;
@@ -12,16 +10,12 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.client.settings.CreativeSettings;
-import net.minecraft.client.settings.HotbarSnapshot;
 import net.minecraft.client.util.ISearchTree;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
