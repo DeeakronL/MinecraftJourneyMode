@@ -109,7 +109,6 @@ public class StarforgeContainer extends Container {
 
     @OnlyIn(Dist.CLIENT)
     public int getFuelUsageScaled() {
-        journey_mode.LOGGER.info("current fuel usage is: " + (this.tileEntity.currentFuelTime));
         return this.currentFuelTime.get() != 0 && this.tileEntity.maxFuelTime != 0 ? this.currentFuelTime.get() * 12 / this.tileEntity.maxFuelTime : 0;
     }
 }

@@ -66,7 +66,6 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     @Override
     public void tick() {
         boolean dirty = false;
-        journey_mode.LOGGER.info("current actual fuel usage is: " + (this.currentFuelTime));
         if (this.world != null && !this.world.isRemote) {
             if (this.currentFuelTime <= 0) {
                 if (!this.getInventory().getStackInSlot(2).isEmpty() && this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
@@ -144,6 +143,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
         this.inventory.setNonNullList(inv);
 
         this.currentSmeltTime = compound.getInt("CurrentSmeltTime");
+        this.currentFuelTime = compound.getInt("CurrentFuelTime");
     }
 
     @Override
@@ -155,6 +155,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
 
         ItemStackHelper.saveAllItems(compound, this.inventory.toNonNullList());
         compound.putInt("CurrentSmeltTime", this.currentSmeltTime);
+        compound.putInt("CurrentFuelTime", this.currentFuelTime);
 
         return compound;
     }
