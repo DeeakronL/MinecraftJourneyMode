@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.init;
 
-import com.Deeakron.journey_mode.item.VoidDustBoneMealItem;
+import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -16,8 +16,8 @@ public class UnobtainItemInit {
     public static final RegistryObject<Item> UNOBTAINIUM_INGOT = ITEMS.register("unobtainium_ingot", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
     public static final RegistryObject<Item> UNOBTAINIUM_RAW = ITEMS.register("unobtainium_raw", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 
-    public static final RegistryObject<Item> VOID_DUST_BONE_MEAL = ITEMS.register("void_dust_bone_meal",
-            () -> new VoidDustBoneMealItem(new Item.Properties().group(ItemGroup.MATERIALS)));
+    public static final RegistryObject<Item> PRIMORDIAL_VOID_DUST = ITEMS.register("primordial_void_dust",
+            () -> new PrimordialVoidDustItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 
     //Block Items
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",

@@ -8,8 +8,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class VoidDustBoneMealItem extends Item {
-    public VoidDustBoneMealItem(Properties properties) {
+public class PrimordialVoidDustItem extends Item {
+    public PrimordialVoidDustItem(Properties properties) {
         super(properties);
     }
 

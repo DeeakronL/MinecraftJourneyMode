@@ -4,6 +4,6 @@
     "item": "minecraft:bedrock"
   },
   "input": {
-    "item": "minecraft:cobblestone"
+    "item": "journey_mode:cracked_bedrock"
   }
 }
