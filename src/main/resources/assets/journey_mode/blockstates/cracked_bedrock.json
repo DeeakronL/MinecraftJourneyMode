@@ -1,5 +1,20 @@
 {
   "variants": {
-    "": { "model":  "journey_mode:block/cracked_bedrock"}
+    "": [
+      {
+        "model": "journey_mode:block/cracked_bedrock"
+      },
+      {
+        "model": "journey_mode:block/cracked_bedrock_mirrored"
+      },
+      {
+        "model": "journey_mode:block/cracked_bedrock",
+        "y": 180
+      },
+      {
+        "model": "journey_mode:block/cracked_bedrock_mirrored",
+        "y": 180
+      }
+    ]
   }
 }
