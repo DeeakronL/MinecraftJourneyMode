@@ -4,6 +4,8 @@ import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.*;
+import com.Deeakron.journey_mode.init.UnobtainItemInit;
+import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.client.Minecraft;
@@ -13,6 +15,8 @@ import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -108,7 +112,8 @@ public class EventHandler {
         }
 
         if (player instanceof PlayerEntity){
-            if (SpawnEggItem.getEgg(event.getEntity().getType()) != null) {
+            ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            if (SpawnEggItem.getEgg(event.getEntity().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
                 String item = "\"" + SpawnEggItem.getEgg(event.getEntity().getType()).getItem().getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 //journey_mode.LOGGER.info("made it here");

@@ -1,7 +1,10 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
+import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -34,6 +37,9 @@ public class UnobtainItemInit {
 
     public static final RegistryObject<BlockItem> CRACKED_BEDROCK = ITEMS.register("cracked_bedrock",
             () -> new BlockItem(UnobtainBlockInit.CRACKED_BEDROCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
+
+    public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
+            () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT)));
 
 
 }
