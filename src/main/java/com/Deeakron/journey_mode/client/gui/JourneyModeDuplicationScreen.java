@@ -119,7 +119,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 itemGroupSmall[index] = ItemGroup.GROUPS[i];
             }
         }
-
     }
 
     public void tick() {
@@ -1090,6 +1089,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         try {
                             LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
                             String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
+                            int[] result = this.research.get(item);
                             success = true;
                         } catch (ClassCastException e) {
                             success = false;
@@ -1097,10 +1097,13 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                             success = false;
                         } catch (IndexOutOfBoundsException e) {
                             success = false;
+                        } catch (NullPointerException e) {
+                            success = false;
                         }
                         if (success) {
                             LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
                             String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
+
                             int[] result = this.research.get(item);
                             boolean wasResearched = false;
                             int count = 0;

@@ -83,7 +83,6 @@ public class ResearchList {
         }
     }
     public int[] get(String key) {
-        //int info = this.research.get(key)[0];
         int[] data = new int[]{this.research.get(key)[0],this.research.get(key)[1]};
         return data;
     }
