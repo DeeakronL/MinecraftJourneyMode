@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import com.Deeakron.journey_mode.util.FunctionalIntReferenceHolder;
 import net.minecraft.entity.player.PlayerEntity;
@@ -78,31 +79,50 @@ public class StarforgeContainer extends Container {
     @Nonnull
     @Override
     public ItemStack transferStackInSlot(final PlayerEntity player, final int index) {
-        ItemStack returnStack = ItemStack.EMPTY;
-        final Slot slot = this.inventorySlots.get(index);
+        ItemStack itemstack = ItemStack.EMPTY;
+        journey_mode.LOGGER.info("index is: " + index);
+        Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
-            final ItemStack slotStack = slot.getStack();
-            returnStack = slotStack.copy();
-
-            final int containerSlots = this.inventorySlots.size() - player.inventory.mainInventory.size();
-            if (index < containerSlots) {
-                if (!mergeItemStack(slotStack, containerSlots, this.inventorySlots.size(), true)) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index == 37) {
+                if (!this.mergeItemStack(itemstack1, 0, 36, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!mergeItemStack(slotStack, 0, containerSlots, false)) {
+            } else if (index != 38 && index != 36) {
+                if (this.tileEntity.getRecipe(itemstack1) != null) {
+                    if (!this.mergeItemStack(itemstack1, 36, 37, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (this.tileEntity.getInventory().isItemValid(38, itemstack1)) {
+                    if (!this.mergeItemStack(itemstack1, 38, 39, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 9 && index < 36) {
+                    if (!this.mergeItemStack(itemstack1, 0, 9, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 0 && index < 9 && !this.mergeItemStack(itemstack1, 9, 36, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 0, 36, false)) {
                 return ItemStack.EMPTY;
             }
-            if (slotStack.getCount() == 0) {
+
+            if (itemstack1.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
-            if (slotStack.getCount() == returnStack.getCount()) {
+
+            if (itemstack1.getCount() == itemstack.getCount()) {
                 return ItemStack.EMPTY;
             }
-            slot.onTake(player, slotStack);
+
+            slot.onTake(player, itemstack1);
         }
-        return returnStack;
+
+        return itemstack;
     }
 
     @OnlyIn(Dist.CLIENT)

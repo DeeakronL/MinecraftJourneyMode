@@ -175,15 +175,22 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     }
 
     @Nullable
-    private StarforgeRecipe getRecipe(ItemStack stack) {
+    public StarforgeRecipe getRecipe(ItemStack stack) {
+
         if (stack == null) {
+
             return null;
+        }
+
+        if (stack.getItem().getRegistryName().toString().equals("journey_mode:unobtainium_raw_block")) {
+            journey_mode.LOGGER.info("well it is unobtainium");
         }
 
         Set<IRecipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.world);
         for (IRecipe<?> iRecipe : recipes) {
             StarforgeRecipe recipe = (StarforgeRecipe) iRecipe;
             if (recipe.matches(new RecipeWrapper(this.inventory), this.world)) {
+                journey_mode.LOGGER.info("recipe successful!" + stack.getItem().getRegistryName().toString());
                 return recipe;
             }
         }
