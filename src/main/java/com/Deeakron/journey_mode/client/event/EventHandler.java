@@ -9,6 +9,7 @@ import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.client.Minecraft;
+import net.minecraft.command.impl.GameModeCommand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.WolfEntity;
@@ -230,5 +231,19 @@ public class EventHandler {
     @SubscribeEvent
     public static void onAdvancementEvent(AdvancementEvent event) {
         journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
+    }
+
+    @SubscribeEvent
+    public static void onGameModeChangeEvent(PlayerEvent.PlayerChangeGameModeEvent event) {
+        EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+        if (cap.getJourneyMode()){
+            cap.setJourneyMode(false);
+        }
+        journey_mode.LOGGER.info(event.getNewGameMode().getName());
+        if (event.getNewGameMode().isCreative() || event.getNewGameMode().getName() == "spectator") {
+            cap.setGodMode(true);
+        } else {
+            cap.setGodMode(false);
+        }
     }
 }
