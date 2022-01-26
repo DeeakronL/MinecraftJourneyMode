@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "minecraft:chorus_fruit"
+  },
+  "input": {
+    "item": "minecraft:popped_chorus_fruit"
+  }
+}
