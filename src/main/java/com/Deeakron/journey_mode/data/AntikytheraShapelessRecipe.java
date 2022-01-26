@@ -42,6 +42,13 @@ public class AntikytheraShapelessRecipe implements ICraftingRecipe {
         return this.id;
     }
 
+    @Nonnull
+    @Override
+    public IRecipeType<?> getType() {
+        return JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS;
+    }
+
+    @Override
     public IRecipeSerializer<?> getSerializer() {
         return JMRecipeSerializerInit.ANTIKYTHERA_SHAPELESS_SERIALIZER.get();
     }

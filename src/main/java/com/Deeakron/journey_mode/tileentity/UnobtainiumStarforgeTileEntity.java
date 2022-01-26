@@ -190,7 +190,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
         for (IRecipe<?> iRecipe : recipes) {
             StarforgeRecipe recipe = (StarforgeRecipe) iRecipe;
             if (recipe.matches(new RecipeWrapper(this.inventory), this.world)) {
-                journey_mode.LOGGER.info("recipe successful!" + stack.getItem().getRegistryName().toString());
+                //journey_mode.LOGGER.info("recipe successful!" + stack.getItem().getRegistryName().toString());
                 return recipe;
             }
         }
