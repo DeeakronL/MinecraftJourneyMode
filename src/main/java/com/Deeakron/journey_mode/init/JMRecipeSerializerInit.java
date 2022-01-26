@@ -17,6 +17,8 @@ public class JMRecipeSerializerInit {
     public static final IRecipeType<IStarforgeRecipe> RECIPE_TYPE = registerType(IStarforgeRecipe.RECIPE_TYPE_ID);
     public static final AntikytheraRecipeSerializer ANTIKYTHERA_RECIPE_SERIALIZER = new AntikytheraRecipeSerializer();
     public static final IRecipeType<AntikytheraRecipe> RECIPE_TYPE_ANTIKYTHERA = registerType(IAntikytheraRecipe.RECIPE_TYPE_ID);
+    public static final AntikytheraShapelessRecipeSerializer ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER = new AntikytheraShapelessRecipeSerializer();
+    public static final IRecipeType<AntikytheraShapelessRecipe> RECIPE_TYPE_ANTIKYTHERA_SHAPELESS = registerType(IAntikytheraShapelessRecipe.RECIPE_TYPE_ID);
 
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS,
             journey_mode.MODID);
@@ -24,6 +26,8 @@ public class JMRecipeSerializerInit {
     public static final RegistryObject<StarforgeRecipeSerializer> STARFORGE_SERIALIZER = RECIPE_SERIALIZERS.register("starforge", () -> STARFORGE_RECIPE_SERIALIZER);
 
     public static final RegistryObject<AntikytheraRecipeSerializer> ANTIKYTHERA_SERIALIZER = RECIPE_SERIALIZERS.register("crafting_antikythera", () -> ANTIKYTHERA_RECIPE_SERIALIZER);
+
+    public static final RegistryObject<AntikytheraShapelessRecipeSerializer> ANTIKYTHERA_SHAPELESS_SERIALIZER = RECIPE_SERIALIZERS.register("crafting_antikythera_shapeless", () -> ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER);
 
     private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {
         @Override

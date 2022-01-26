@@ -137,8 +137,9 @@ public class journey_mode
             DuplicationInit.init();
             DuplicationInit.ITEMS.register(bus);
         }
-        IJMRecipes.RECIPE_SERIALIZERS.register(bus);
-        journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA);
+        //IJMRecipes.RECIPE_SERIALIZERS.register(bus);
+        //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA);
+        //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA_SHAPELESS);
 
     }
 

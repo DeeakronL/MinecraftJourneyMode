@@ -17,6 +17,10 @@ public final class IJMRecipes {
                 journey_mode.MODID + ":crafting_antikythera"
         );
 
+        public static final IRecipeType<AntikytheraShapelessRecipe> CRAFTING_ANTIKYTHERA_SHAPELESS = IRecipeType.register(
+            journey_mode.MODID + ":crafting_antikythera_shapeless"
+        );
+
 
         //private Types() {
     //journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA);

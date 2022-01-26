@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.*;
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
+import com.Deeakron.journey_mode.data.AntikytheraShapelessRecipe;
 import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
@@ -171,6 +172,15 @@ public class UnobtainiumAntikytheraContainer extends Container {
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
                     itemstack = icraftingrecipe.getCraftingResult(inventory);
+                }
+            } else {
+                Optional<AntikytheraShapelessRecipe> optional2 = world.getServer().getRecipeManager().getRecipe(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS, inventory, world);
+                if (optional2.isPresent()) {
+                    journey_mode.LOGGER.info(optional2.get().group + " is the group");
+                    ICraftingRecipe icraftingrecipe = optional2.get();
+                    if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
+                        itemstack = icraftingrecipe.getCraftingResult(inventory);
+                    }
                 }
             }
 
