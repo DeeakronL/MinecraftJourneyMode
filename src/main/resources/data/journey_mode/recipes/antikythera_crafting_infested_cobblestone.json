@@ -1,0 +1,15 @@
+{
+  "type": "journey_mode:crafting_antikythera_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "item": "minecraft:silverfish_spawn_egg"
+    }
+  ],
+  "result": {
+    "item": "minecraft:infested_cobblestone",
+    "count": 1
+  }
+}

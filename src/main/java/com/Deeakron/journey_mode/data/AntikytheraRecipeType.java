@@ -7,14 +7,14 @@ public class AntikytheraRecipeType implements IRecipeType {
     public static final IRecipeType<AntikytheraRecipe> CRAFTING_ANTIKYTHERA = IRecipeType.register(
             journey_mode.MODID + ":crafting_antikythera"
     );
-    public static final IRecipeType<AntikytheraRecipe> CRAFTING_ANTIKYTHERA_SHAPELESS = IRecipeType.register(
+    /*public static final IRecipeType<AntikytheraShapelessRecipe> CRAFTING_ANTIKYTHERA_SHAPELESS = IRecipeType.register(
             journey_mode.MODID + ":crafting_antikythera_shapeless"
-    );
+    );*/
 
 
     public AntikytheraRecipeType() {
         journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA);
-        journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA_SHAPELESS);
+        //journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA_SHAPELESS);
     }
 
     public void init() {
