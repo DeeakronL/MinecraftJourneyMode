@@ -174,6 +174,7 @@ public class UnobtainiumAntikytheraContainer extends Container {
                     itemstack = icraftingrecipe.getCraftingResult(inventory);
                 }
             } else {
+                journey_mode.LOGGER.info("antikythera testing...?");
                 Optional<AntikytheraShapelessRecipe> optional2 = world.getServer().getRecipeManager().getRecipe(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS, inventory, world);
                 if (optional2.isPresent()) {
                     journey_mode.LOGGER.info(optional2.get().group + " is the group");

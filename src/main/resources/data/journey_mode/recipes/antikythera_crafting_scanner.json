@@ -1,0 +1,26 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "#D#",
+    "#N#",
+    "Y Y"
+  ],
+  "key": {
+    "#": {
+      "item": "journey_mode:unobtainium_raw"
+    },
+    "D": {
+      "item": "minecraft:dragon_head"
+    },
+    "N": {
+      "item": "minecraft:netherite_helmet"
+    },
+    "Y": {
+      "item": "minecraft:yellow_stained_glass_pane"
+    }
+  },
+  "result": {
+    "item": "journey_mode:scanner",
+    "count": 1
+  }
+}
