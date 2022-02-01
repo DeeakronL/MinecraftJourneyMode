@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
+import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -731,7 +732,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();
         } else {
             super.renderTooltip(matrixStack, itemStack, mouseX, mouseY);
-            //journey_mode.LOGGER.info("current item is: " + itemStack.getItem().getRegistryName());
         }
 
     }
