@@ -1,12 +1,8 @@
 {
-  "parent": "block/cube",
+  "parent": "block/template_command_block",
   "textures": {
-    "particle": "journey_mode:block/inert_command_block_front",
-    "up": "journey_mode:block/inert_command_block_front",
-    "down": "journey_mode:block/inert_command_block_back",
-    "north": "journey_mode:block/inert_command_block_side",
-    "south": "journey_mode:block/inert_command_block_side",
-    "east": "journey_mode:block/inert_command_block_side",
-    "west": "journey_mode:block/inert_command_block_side"
+    "front": "journey_mode:block/inert_command_block_front",
+    "back": "journey_mode:block/inert_command_block_back",
+    "side": "journey_mode:block/inert_command_block_side"
   }
 }

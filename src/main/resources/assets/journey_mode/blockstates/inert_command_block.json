@@ -1,11 +1,50 @@
 {
   "variants": {
-    "": {
-      "model": "journey_mode:block/inert_command_block"
-    },
-    "facing=down": {
+    "facing=down,conditional=false": {
       "model": "journey_mode:block/inert_command_block",
       "x": 90
+    },
+    "facing=east,conditional=false": {
+      "model": "journey_mode:block/inert_command_block",
+      "y": 90
+    },
+    "facing=north,conditional=false": {
+      "model": "journey_mode:block/inert_command_block"
+    },
+    "facing=south,conditional=false": {
+      "model": "journey_mode:block/inert_command_block",
+      "y": 180
+    },
+    "facing=up,conditional=false": {
+      "model": "journey_mode:block/inert_command_block",
+      "x": 270
+    },
+    "facing=west,conditional=false": {
+      "model": "journey_mode:block/inert_command_block",
+      "y": 270
+    },
+    "facing=down,conditional=true": {
+      "model": "journey_mode:block/inert_command_block_conditional",
+      "x": 90
+    },
+    "facing=east,conditional=true": {
+      "model": "journey_mode:block/inert_command_block_conditional",
+      "y": 90
+    },
+    "facing=north,conditional=true": {
+      "model": "journey_mode:block/inert_command_block_conditional"
+    },
+    "facing=south,conditional=true": {
+      "model": "journey_mode:block/inert_command_block_conditional",
+      "y": 180
+    },
+    "facing=up,conditional=true": {
+      "model": "journey_mode:block/inert_command_block_conditional",
+      "x": 270
+    },
+    "facing=west,conditional=true": {
+      "model": "journey_mode:block/inert_command_block_conditional",
+      "y": 270
     }
   }
 }

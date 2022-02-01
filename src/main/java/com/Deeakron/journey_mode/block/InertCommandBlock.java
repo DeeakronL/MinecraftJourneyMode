@@ -15,13 +15,13 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 public class InertCommandBlock extends Block {
-    //public static final BooleanProperty CONDITIONAL = BlockStateProperties.CONDITIONAL;
+    public static final BooleanProperty CONDITIONAL = BlockStateProperties.CONDITIONAL;
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
 
     public InertCommandBlock(AbstractBlock.Properties properties) {
         super(properties);
-        this.getDefaultState().with(FACING, Direction.NORTH);//.with(CONDITIONAL, false);
+        this.getDefaultState().with(FACING, Direction.NORTH).with(CONDITIONAL, false);
     }
 
     public BlockRenderType getRenderType(BlockState state) {
@@ -41,6 +41,6 @@ public class InertCommandBlock extends Block {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());//.with(CONDITIONAL, false);
+        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite()).with(CONDITIONAL, false);
     }
 }
