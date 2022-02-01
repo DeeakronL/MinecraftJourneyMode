@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "journey_mode:block/inert_repeating_command_block_front",
+    "up": "journey_mode:block/inert_repeating_command_block_front",
+    "down": "journey_mode:block/inert_repeating_command_block_back",
+    "north": "journey_mode:block/inert_repeating_command_block_conditional",
+    "south": "journey_mode:block/inert_repeating_command_block_conditional",
+    "east": "journey_mode:block/inert_repeating_command_block_conditional",
+    "west": "journey_mode:block/inert_repeating_command_block_conditional"
+  }
+}

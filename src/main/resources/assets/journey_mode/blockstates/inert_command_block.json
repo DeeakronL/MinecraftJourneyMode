@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "": {
+      "model": "journey_mode:block/inert_command_block"
+    },
+    "facing=down": {
+      "model": "journey_mode:block/inert_command_block",
+      "x": 90
+    }
+  }
+}

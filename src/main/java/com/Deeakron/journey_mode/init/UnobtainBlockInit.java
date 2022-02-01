@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.init;
 
+import com.Deeakron.journey_mode.block.InertCommandBlock;
 import com.Deeakron.journey_mode.block.UnobtainiumAntikytheraBlock;
 import com.Deeakron.journey_mode.block.UnobtainiumStarforgeBlock;
 import net.minecraft.block.AbstractBlock;
@@ -66,5 +67,29 @@ public class UnobtainBlockInit {
                             .hardnessAndResistance(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.STONE)
+                            .setRequiresTool()));
+
+    public static final RegistryObject<Block> INERT_COMMAND_BLOCK = BLOCKS
+            .register("inert_command_block",
+                    () -> new InertCommandBlock(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.METAL)
+                            .setRequiresTool()));
+
+    public static final RegistryObject<Block> INERT_CHAIN_COMMAND_BLOCK = BLOCKS
+            .register("inert_chain_command_block",
+                    () -> new Block(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.METAL)
+                            .setRequiresTool()));
+
+    public static final RegistryObject<Block> INERT_REPEATING_COMMAND_BLOCK = BLOCKS
+            .register("inert_repeating_command_block",
+                    () -> new Block(AbstractBlock.Properties.create(Material.IRON)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.METAL)
                             .setRequiresTool()));
 }

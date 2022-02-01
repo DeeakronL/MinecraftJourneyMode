@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "journey_mode:aetherial_void_dust"
+  },
+  "input": {
+    "item": "journey_mode:unobtainium_antikythera"
+  }
+}
