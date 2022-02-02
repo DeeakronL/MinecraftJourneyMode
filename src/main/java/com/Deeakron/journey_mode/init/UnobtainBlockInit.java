@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.block.InertCommandBlock;
+import com.Deeakron.journey_mode.block.InertStructureBlock;
 import com.Deeakron.journey_mode.block.UnobtainiumAntikytheraBlock;
 import com.Deeakron.journey_mode.block.UnobtainiumStarforgeBlock;
 import net.minecraft.block.AbstractBlock;
@@ -91,5 +92,13 @@ public class UnobtainBlockInit {
                             .hardnessAndResistance(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.METAL)
+                            .setRequiresTool()));
+
+    public static final RegistryObject<Block> INERT_STRUCTURE_BLOCK = BLOCKS
+            .register("inert_structure_block",
+                    () -> new InertStructureBlock(AbstractBlock.Properties.create(Material.ROCK)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.STONE)
                             .setRequiresTool()));
 }
