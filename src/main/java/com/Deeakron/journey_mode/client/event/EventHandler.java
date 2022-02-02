@@ -4,10 +4,12 @@ import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.*;
+import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.impl.GameModeCommand;
 import net.minecraft.entity.Entity;
@@ -19,6 +21,7 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -32,6 +35,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -39,6 +43,7 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 import java.util.Date;
+import java.util.Properties;
 
 @Mod.EventBusSubscriber(modid = journey_mode.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -244,6 +249,16 @@ public class EventHandler {
             cap.setGodMode(true);
         } else {
             cap.setGodMode(false);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBlockPlacedEvent(BlockEvent.EntityPlaceEvent event){
+        if (event.getPlacedBlock().getBlock().matchesBlock(Blocks.COMMAND_BLOCK)){
+            journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
+        }
+        if (event.getPlacedBlock().getBlock().matchesBlock(UnobtainBlockInit.INERT_COMMAND_BLOCK.get())){
+            journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
         }
     }
 }

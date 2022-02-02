@@ -1,0 +1,23 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "#J#",
+    "JEJ",
+    "#J#"
+  ],
+  "key": {
+    "#": {
+      "item": "journey_mode:unobtainium_block"
+    },
+    "J": {
+      "item": "minecraft:chain"
+    },
+    "E": {
+      "item": "minecraft:pig_spawn_egg"
+    }
+  },
+  "result": {
+    "item": "minecraft:spawner",
+    "count": 1
+  }
+}

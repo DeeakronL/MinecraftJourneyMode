@@ -16,6 +16,7 @@
   "block.journey_mode.inert_command_block" : "Inert Command Block",
   "block.journey_mode.inert_chain_command_block" : "Inert Chain Command Block",
   "block.journey_mode.inert_repeating_command_block" : "Inert Repeating Command Block",
+  "block.journey_mode.inert_structure_block" : "Inert Structure Block",
   "container.journey_mode.unobtainium_starforge" : "Unobtainium Starforge",
   "journey_mode.gui.powers.dawn" : "Set time to Dawn",
   "journey_mode.gui.powers.noon" : "Set time to Noon",
