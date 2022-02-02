@@ -13,6 +13,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static com.Deeakron.journey_mode.init.DuplicationInit.unobtainableGroup;
+
 public class UnobtainItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
             journey_mode.MODID);
@@ -43,13 +45,13 @@ public class UnobtainItemInit {
             () -> new BlockItem(UnobtainBlockInit.CRACKED_BEDROCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
 
     public static final RegistryObject<BlockItem> INERT_COMMAND_BLOCK = ITEMS.register("inert_command_block",
-            () -> new BlockItem(UnobtainBlockInit.INERT_COMMAND_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(UnobtainBlockInit.INERT_COMMAND_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
 
     public static final RegistryObject<BlockItem> INERT_CHAIN_COMMAND_BLOCK = ITEMS.register("inert_chain_command_block",
-            () -> new BlockItem(UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
 
     public static final RegistryObject<BlockItem> INERT_REPEATING_COMMAND_BLOCK = ITEMS.register("inert_repeating_command_block",
-            () -> new BlockItem(UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
 
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
             () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT)));
