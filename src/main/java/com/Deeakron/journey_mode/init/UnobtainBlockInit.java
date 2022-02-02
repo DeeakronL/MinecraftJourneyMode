@@ -79,7 +79,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_CHAIN_COMMAND_BLOCK = BLOCKS
             .register("inert_chain_command_block",
-                    () -> new Block(AbstractBlock.Properties.create(Material.IRON)
+                    () -> new InertCommandBlock(AbstractBlock.Properties.create(Material.IRON)
                             .hardnessAndResistance(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.METAL)
@@ -87,7 +87,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_REPEATING_COMMAND_BLOCK = BLOCKS
             .register("inert_repeating_command_block",
-                    () -> new Block(AbstractBlock.Properties.create(Material.IRON)
+                    () -> new InertCommandBlock(AbstractBlock.Properties.create(Material.IRON)
                             .hardnessAndResistance(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.METAL)

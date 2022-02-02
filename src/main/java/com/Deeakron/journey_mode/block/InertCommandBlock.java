@@ -37,7 +37,7 @@ public class InertCommandBlock extends Block {
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING).add(CONDITIONAL);
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {

@@ -1,51 +1,48 @@
 {
   "variants": {
-    "": {
-      "model": "journey_mode:block/inert_repeating_command_block"
-    },
-    "conditional=false,facing=down": {
+    "facing=down,conditional=false": {
       "model": "journey_mode:block/inert_repeating_command_block",
       "x": 90
     },
-    "conditional=false,facing=east": {
+    "facing=east,conditional=false": {
       "model": "journey_mode:block/inert_repeating_command_block",
       "y": 90
     },
-    "conditional=false,facing=north": {
+    "facing=north,conditional=false": {
       "model": "journey_mode:block/inert_repeating_command_block"
     },
-    "conditional=false,facing=south": {
+    "facing=south,conditional=false": {
       "model": "journey_mode:block/inert_repeating_command_block",
       "y": 180
     },
-    "conditional=false,facing=up": {
+    "facing=up,conditional=false": {
       "model": "journey_mode:block/inert_repeating_command_block",
       "x": 270
     },
-    "conditional=false,facing=west": {
+    "facing=west,conditional=false": {
       "model": "journey_mode:block/inert_repeating_command_block",
       "y": 270
     },
-    "conditional=true,facing=down": {
+    "facing=down,conditional=true": {
       "model": "journey_mode:block/inert_repeating_command_block_conditional",
       "x": 90
     },
-    "conditional=true,facing=east": {
+    "facing=east,conditional=true": {
       "model": "journey_mode:block/inert_repeating_command_block_conditional",
       "y": 90
     },
-    "conditional=true,facing=north": {
+    "facing=north,conditional=true": {
       "model": "journey_mode:block/inert_repeating_command_block_conditional"
     },
-    "conditional=true,facing=south": {
+    "facing=south,conditional=true": {
       "model": "journey_mode:block/inert_repeating_command_block_conditional",
       "y": 180
     },
-    "conditional=true,facing=up": {
+    "facing=up,conditional=true": {
       "model": "journey_mode:block/inert_repeating_command_block_conditional",
       "x": 270
     },
-    "conditional=true,facing=west": {
+    "facing=west,conditional=true": {
       "model": "journey_mode:block/inert_repeating_command_block_conditional",
       "y": 270
     }
