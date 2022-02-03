@@ -59,6 +59,9 @@ public class UnobtainItemInit {
     public static final RegistryObject<BlockItem> INERT_JIGSAW_BLOCK = ITEMS.register("inert_jigsaw_block",
             () -> new BlockItem(UnobtainBlockInit.INERT_JIGSAW_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
 
+    public static final RegistryObject<BlockItem> PAINTED_BARRIER = ITEMS.register("painted_barrier",
+            () -> new BlockItem(UnobtainBlockInit.PAINTED_BARRIER.get(), new Item.Properties().group(unobtainableGroup)));
+
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
             () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT)));
 

@@ -106,4 +106,12 @@ public class UnobtainBlockInit {
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.STONE)
                             .setRequiresTool()));
+
+    public static final RegistryObject<Block> PAINTED_BARRIER = BLOCKS
+            .register("painted_barrier",
+                    () -> new Block(AbstractBlock.Properties.create(Material.BARRIER)
+                            .hardnessAndResistance(50f, 1200f)
+                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .sound(SoundType.LODESTONE)
+                            .setRequiresTool()));
 }

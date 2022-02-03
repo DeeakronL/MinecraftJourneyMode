@@ -18,6 +18,7 @@
   "block.journey_mode.inert_repeating_command_block" : "Inert Repeating Command Block",
   "block.journey_mode.inert_structure_block" : "Inert Structure Block",
   "block.journey_mode.inert_jigsaw_block" : "Inert Jigsaw Block",
+  "block.journey_mode.painted_barrier" : "Painted Barrier",
   "container.journey_mode.unobtainium_starforge" : "Unobtainium Starforge",
   "journey_mode.gui.powers.dawn" : "Set time to Dawn",
   "journey_mode.gui.powers.noon" : "Set time to Noon",
