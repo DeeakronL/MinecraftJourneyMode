@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "minecraft:command_block"
+  },
+  "input": {
+    "item": "journey_mode:inert_command_block"
+  }
+}

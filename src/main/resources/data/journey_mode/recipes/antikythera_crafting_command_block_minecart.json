@@ -1,0 +1,15 @@
+{
+  "type": "journey_mode:crafting_antikythera_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:minecart"
+    },
+    {
+      "item": "minecraft:command_block"
+    }
+  ],
+  "result": {
+    "item": "minecraft:command_block_minecart",
+    "count": 1
+  }
+}
