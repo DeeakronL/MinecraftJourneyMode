@@ -54,7 +54,10 @@ public class UnobtainItemInit {
             () -> new BlockItem(UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
 
     public static final RegistryObject<BlockItem> INERT_STRUCTURE_BLOCK = ITEMS.register("inert_structure_block",
-            () -> new BlockItem(UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get(), new Item.Properties()));
+            () -> new BlockItem(UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
+
+    public static final RegistryObject<BlockItem> INERT_JIGSAW_BLOCK = ITEMS.register("inert_jigsaw_block",
+            () -> new BlockItem(UnobtainBlockInit.INERT_JIGSAW_BLOCK.get(), new Item.Properties().group(unobtainableGroup)));
 
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
             () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT)));

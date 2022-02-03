@@ -1,0 +1,57 @@
+{
+  "variants": {
+    "orientation=down_east": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 90,
+      "y": 90
+    },
+    "orientation=down_north": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 90
+    },
+    "orientation=down_south": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 90,
+      "y": 180
+    },
+    "orientation=down_west": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 90,
+      "y": 270
+    },
+    "orientation=east_up": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "y": 90
+    },
+    "orientation=north_up": {
+      "model": "journey_mode:block/inert_jigsaw_block"
+    },
+    "orientation=south_up": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "y": 180
+    },
+    "orientation=up_east": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 270,
+      "y": 270
+    },
+    "orientation=up_north": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 270,
+      "y": 180
+    },
+    "orientation=up_south": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 270
+    },
+    "orientation=up_west": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "x": 270,
+      "y": 90
+    },
+    "orientation=west_up": {
+      "model": "journey_mode:block/inert_jigsaw_block",
+      "y": 270
+    }
+  }
+}
