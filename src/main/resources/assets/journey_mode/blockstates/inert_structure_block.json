@@ -1,5 +1,16 @@
 {
   "variants": {
-    "": { "model":  "journey_mode:block/inert_structure_block"}
+    "mode=corner": {
+      "model": "journey_mode:block/inert_structure_block_corner"
+    },
+    "mode=data": {
+      "model": "journey_mode:block/inert_structure_block_data"
+    },
+    "mode=load": {
+      "model": "journey_mode:block/inert_structure_block_load"
+    },
+    "mode=save": {
+      "model": "journey_mode:block/inert_structure_block_save"
+    }
   }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "journey_mode:block/inert_structure_block_save"
+  }
+}
