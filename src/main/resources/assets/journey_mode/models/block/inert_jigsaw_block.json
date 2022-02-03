@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube_directional",
+  "textures": {
+    "particle": "journey_mode:block/inert_jigsaw_top",
+    "north": "journey_mode:block/inert_jigsaw_top",
+    "south": "journey_mode:block/inert_jigsaw_bottom",
+    "east": "journey_mode:block/inert_jigsaw_side",
+    "west": "journey_mode:block/inert_jigsaw_side",
+    "up": "journey_mode:block/inert_jigsaw_lock",
+    "down": "journey_mode:block/inert_jigsaw_side"
+  }
+}
