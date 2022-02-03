@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "minecraft:structure_block"
+  },
+  "input": {
+    "item": "journey_mode:inert_structure_block"
+  }
+}

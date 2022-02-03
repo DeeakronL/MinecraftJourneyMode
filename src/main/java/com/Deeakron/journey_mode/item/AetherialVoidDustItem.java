@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.item;
 
 import com.Deeakron.journey_mode.block.InertCommandBlock;
 import com.Deeakron.journey_mode.block.InertJigsawBlock;
+import com.Deeakron.journey_mode.block.InertStructureBlock;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CommandBlockBlock;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.StructureMode;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -43,6 +45,10 @@ public class AetherialVoidDustItem extends Item {
         } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.JIGSAW)) {
             JigsawOrientation orientation = world.getBlockState(pos).get(BlockStateProperties.ORIENTATION);
             world.setBlockState(pos, UnobtainBlockInit.INERT_JIGSAW_BLOCK.get().getDefaultState().with(InertJigsawBlock.ORIENTATION, orientation));
+            return ActionResultType.func_233537_a_(world.isRemote);
+        } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.STRUCTURE_BLOCK)) {
+            StructureMode mode = world.getBlockState(pos).get(BlockStateProperties.STRUCTURE_BLOCK_MODE);
+            world.setBlockState(pos, UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get().getDefaultState().with(InertStructureBlock.MODE, mode));
             return ActionResultType.func_233537_a_(world.isRemote);
         }
         return ActionResultType.PASS;
