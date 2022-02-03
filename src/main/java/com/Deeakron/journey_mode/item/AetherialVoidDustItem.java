@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.item;
 
 import com.Deeakron.journey_mode.block.InertCommandBlock;
+import com.Deeakron.journey_mode.block.InertJigsawBlock;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CommandBlockBlock;
@@ -14,6 +15,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.jigsaw.JigsawOrientation;
 
 public class AetherialVoidDustItem extends Item {
     public AetherialVoidDustItem(Properties properties) {
@@ -37,6 +39,10 @@ public class AetherialVoidDustItem extends Item {
             Direction facing = world.getBlockState(pos).get(DirectionalBlock.FACING);
             Boolean conditional = world.getBlockState(pos).get(BlockStateProperties.CONDITIONAL);
             world.setBlockState(pos, UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get().getDefaultState().with(InertCommandBlock.FACING, facing).with(InertCommandBlock.CONDITIONAL, conditional));
+            return ActionResultType.func_233537_a_(world.isRemote);
+        } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.JIGSAW)) {
+            JigsawOrientation orientation = world.getBlockState(pos).get(BlockStateProperties.ORIENTATION);
+            world.setBlockState(pos, UnobtainBlockInit.INERT_JIGSAW_BLOCK.get().getDefaultState().with(InertJigsawBlock.ORIENTATION, orientation));
             return ActionResultType.func_233537_a_(world.isRemote);
         }
         return ActionResultType.PASS;
