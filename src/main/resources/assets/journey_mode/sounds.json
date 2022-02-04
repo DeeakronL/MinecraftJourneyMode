@@ -19,5 +19,16 @@
         "type": "event"
       }
     ]
+  },
+  "item.journey_mode.aetherial_void_dust.deactivate": {
+    "category": "item",
+    "subtitle":  "subtitles.journey_mode.item.aetherial_void_dust.deactivate_subtitle",
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.deactivate",
+        "stream": true,
+        "type": "event"
+      }
+    ]
   }
 }

@@ -55,6 +55,7 @@
   "subtitles.journey_mode.block.research_grinder.grind_subtitle": "Research Grinder grinding",
   "block.journey_mode.unobtainium_antikythera.craft" : "Unobtainium Antikythera Craft Sound",
   "subtitles.journey_mode.block.unobtainium_antikythera.craft_subtitle": "Antikythera Item Crafted",
+  "subtitles.journey_mode.item.aetherial_void_dust.deactivate_subtitle": "Block Deactivated",
   "gui.journey_mode.research_toast.title" : "Research Complete!",
   "gui.journey_mode.research_toast.subtitle" : "New Item in Dupl. Menu",
   "itemGroup.journey_mode.unobtainable" : "Unobtainable Items"

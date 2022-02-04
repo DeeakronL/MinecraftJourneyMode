@@ -113,5 +113,6 @@ public class UnobtainBlockInit {
                             .hardnessAndResistance(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.LODESTONE)
-                            .setRequiresTool()));
+                            .setRequiresTool()
+                            .notSolid()));
 }

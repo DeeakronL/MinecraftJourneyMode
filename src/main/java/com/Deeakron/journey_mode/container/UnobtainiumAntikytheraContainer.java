@@ -54,7 +54,8 @@ public class UnobtainiumAntikytheraContainer extends Container {
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
                     journey_mode.LOGGER.info(worldPosCallable);
                     //player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1.0F, 1.0F);
-                    player.playSound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    if(!player.world.isRemote){player.playSound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+
                     //journey_mode.LOGGER.info(Sound);
                 /*worldPosCallable.consume((p_216954_1_, p_216954_2_) -> {
                     long l = p_216954_1_.getGameTime();
