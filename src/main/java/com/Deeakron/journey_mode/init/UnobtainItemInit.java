@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.item.AetherialVoidDustItem;
+import com.Deeakron.journey_mode.item.PaintItem;
 import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
@@ -27,6 +28,9 @@ public class UnobtainItemInit {
 
     public static final RegistryObject<Item> AETHERIAL_VOID_DUST = ITEMS.register("aetherial_void_dust",
             () -> new AetherialVoidDustItem(new Item.Properties().group(ItemGroup.MATERIALS)));
+
+    public static final RegistryObject<Item> PAINT = ITEMS.register("paint",
+            () -> new PaintItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 
     //Block Items
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",
