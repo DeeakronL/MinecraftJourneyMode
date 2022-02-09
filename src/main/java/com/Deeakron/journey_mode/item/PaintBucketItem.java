@@ -12,8 +12,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class PaintItem extends Item {
-    public PaintItem(Properties properties) {
+public class PaintBucketItem extends Item {
+    public PaintBucketItem(Properties properties) {
         super(properties);
     }
 
@@ -22,7 +22,7 @@ public class PaintItem extends Item {
         BlockPos pos = context.getPos();
         if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.BARRIER)) {
             world.setBlockState(pos, UnobtainBlockInit.PAINTED_BARRIER.get().getDefaultState());
-            if(!world.isRemote){context.getPlayer().playSound(JMSounds.BEDROCK_CRACK.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+            if(!world.isRemote){context.getPlayer().playSound(JMSounds.BARRIER_PAINT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
             for (int i = 0; i < 50; i++) {
                 double d0 = 3.0D;
                 double d1 = 1.0D;

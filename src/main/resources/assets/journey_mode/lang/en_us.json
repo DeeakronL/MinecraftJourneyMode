@@ -4,7 +4,7 @@
   "item.journey_mode.unobtainium_raw" : "Raw Unobtainium",
   "item.journey_mode.primordial_void_dust" :  "Primordial Void Dust",
   "item.journey_mode.aetherial_void_dust" :  "Aetherial Void Dust",
-  "item.journey_mode.paint" :  "Paint",
+  "item.journey_mode.paint_bucket" :  "Paint Bucket",
   "item.journey_mode.scanner" : "Scanner",
   "block.journey_mode.unobtainium_raw_block" : "Block of Raw Unobtainium",
   "block.journey_mode.wooden_research_grinder" : "Wooden Research Grinder",
@@ -58,6 +58,7 @@
   "subtitles.journey_mode.block.unobtainium_antikythera.craft_subtitle": "Antikythera Item Crafted",
   "subtitles.journey_mode.item.aetherial_void_dust.deactivate_subtitle": "Block Deactivated",
   "subtitles.journey_mode.item.primordial_void_dust.crack_subtitle": "Bedrock Cracked",
+  "subtitles.journey_mode.item.paint_bucket.paint_subtitle": "Barrier Painted",
   "gui.journey_mode.research_toast.title" : "Research Complete!",
   "gui.journey_mode.research_toast.subtitle" : "New Item in Dupl. Menu",
   "itemGroup.journey_mode.unobtainable" : "Unobtainable Items"

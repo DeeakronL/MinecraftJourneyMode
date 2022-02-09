@@ -1,12 +1,11 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.item.AetherialVoidDustItem;
-import com.Deeakron.journey_mode.item.PaintItem;
+import com.Deeakron.journey_mode.item.PaintBucketItem;
 import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -29,8 +28,8 @@ public class UnobtainItemInit {
     public static final RegistryObject<Item> AETHERIAL_VOID_DUST = ITEMS.register("aetherial_void_dust",
             () -> new AetherialVoidDustItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 
-    public static final RegistryObject<Item> PAINT = ITEMS.register("paint",
-            () -> new PaintItem(new Item.Properties().group(ItemGroup.MATERIALS)));
+    public static final RegistryObject<Item> PAINT_BUCKET = ITEMS.register("paint_bucket",
+            () -> new PaintBucketItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 
     //Block Items
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",

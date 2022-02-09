@@ -19,4 +19,6 @@ public class JMSounds {
     public static final RegistryObject<SoundEvent> AETHERIAL_DEACTIVATE = SOUNDS.register("item.journey_mode.aetherial_void_dust.deactivate", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.aetherial_void_dust.deactivate")));
 
     public static final RegistryObject<SoundEvent> BEDROCK_CRACK = SOUNDS.register("item.journey_mode.primordial_void_dust.crack", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.primordial_void_dust.crack")));
+
+    public static final RegistryObject<SoundEvent> BARRIER_PAINT = SOUNDS.register("item.journey_mode.paint_bucket.paint", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.paint_bucket.paint")));
 }

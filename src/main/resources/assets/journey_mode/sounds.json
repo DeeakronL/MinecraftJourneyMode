@@ -41,5 +41,16 @@
         "type": "event"
       }
     ]
+  },
+  "item.journey_mode.paint_bucket.paint": {
+    "category": "item",
+    "subtitle":  "subtitles.journey_mode.item.paint_bucket.paint_subtitle",
+    "sounds": [
+      {
+        "name": "minecraft:item.bucket.empty",
+        "stream": true,
+        "type": "event"
+      }
+    ]
   }
 }
