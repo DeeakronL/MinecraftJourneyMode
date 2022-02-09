@@ -17,4 +17,6 @@ public class JMSounds {
     public static final RegistryObject<SoundEvent> ANTIKYTHERA_CRAFT = SOUNDS.register("block.journey_mode.unobtainium_antikythera.craft", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "block.journey_mode.unobtainium_antikythera.craft")));
 
     public static final RegistryObject<SoundEvent> AETHERIAL_DEACTIVATE = SOUNDS.register("item.journey_mode.aetherial_void_dust.deactivate", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.aetherial_void_dust.deactivate")));
+
+    public static final RegistryObject<SoundEvent> BEDROCK_CRACK = SOUNDS.register("item.journey_mode.primordial_void_dust.crack", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.primordial_void_dust.crack")));
 }

@@ -30,5 +30,16 @@
         "type": "event"
       }
     ]
+  },
+  "item.journey_mode.primordial_void_dust.crack": {
+    "category": "item",
+    "subtitle":  "subtitles.journey_mode.item.primordial_void_dust.crack_subtitle",
+    "sounds": [
+      {
+        "name": "minecraft:block.stone.break",
+        "stream": true,
+        "type": "event"
+      }
+    ]
   }
 }
