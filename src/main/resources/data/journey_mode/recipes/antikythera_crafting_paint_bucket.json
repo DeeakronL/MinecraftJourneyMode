@@ -1,0 +1,24 @@
+{
+  "type": "journey_mode:crafting_antikythera_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "minecraft:red_mushroom_block"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:red_glazed_terracotta"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "item": "journey_mode:paint_bucket",
+    "count": 1
+  }
+}
