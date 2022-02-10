@@ -74,7 +74,7 @@ public class AetherialVoidDustItem extends Item {
                 double d8 = (double)pos.getZ() + random.nextDouble();// * d0 - 0.5D;
                 world.addParticle(ParticleTypes.SMOKE, d6, d7, d8, d2, d3, d4);
             }
-
+            context.getItem().shrink(1);
             return ActionResultType.func_233537_a_(world.isRemote);
         } else {
             return ActionResultType.PASS;

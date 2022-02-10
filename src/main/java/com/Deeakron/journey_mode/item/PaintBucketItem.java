@@ -35,6 +35,7 @@ public class PaintBucketItem extends Item {
                 double d8 = (double)pos.getZ() + random.nextDouble();// * d0 - 0.5D;
                 world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, UnobtainBlockInit.PAINTED_BARRIER.get().getDefaultState()), d6, d7, d8, d2, d3, d4);
             }
+            context.getItem().shrink(1);
             return ActionResultType.func_233537_a_(world.isRemote);
         }
         return ActionResultType.PASS;
