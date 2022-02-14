@@ -1,0 +1,41 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "#CS",
+    "FWB",
+    "ORE"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stonecutter"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "S": {
+      "item": "minecraft:smithing_table"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "W": {
+      "item": "minecraft:writable_book"
+    },
+    "B": {
+      "item": "minecraft:blast_furnace"
+    },
+    "O": {
+      "item": "minecraft:brewing_stand"
+    },
+    "R": {
+      "item": "minecraft:smoker"
+    },
+    "E": {
+      "item": "minecraft:enchanting_table"
+    }
+  },
+  "result": {
+    "item": "minecraft:knowledge_book",
+    "count": 1
+  }
+}

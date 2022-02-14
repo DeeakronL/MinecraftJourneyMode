@@ -4,6 +4,8 @@ import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.WrittenBookItem;
+import net.minecraft.util.NonNullList;
 
 public class UnobtainableItemGroup extends ItemGroup {
     //public static final ItemGroup UNOBTAINABLES = new UnobtainableItemGroup("unobtainable");
