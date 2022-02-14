@@ -9,6 +9,8 @@ import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.impl.GameModeCommand;
@@ -21,18 +23,22 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.ITickList;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -261,4 +267,25 @@ public class EventHandler {
             journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
         }
     }
+
+    @SubscribeEvent
+    public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
+        if (event.player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()) {
+            World world = event.player.world;
+            BlockPos pos = event.player.getPosition();
+            for (int i = -5; i < 6; i++) {
+                for (int j = -5; j < 6; j++) {
+                    for (int k = -5; k < 6; k++) {
+                        if (world.getBlockState(new BlockPos(pos.getX() + i, pos.getY() + j, pos.getZ() + k)).matchesBlock(Blocks.BARRIER)) {
+                            journey_mode.LOGGER.info("particle spawned?");
+                            world.addParticle(ParticleTypes.BARRIER, pos.getX() + (double)i + 0.5D, pos.getY() + (double)j + 0.5D, pos.getZ() + (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
 }
