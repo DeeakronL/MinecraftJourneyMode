@@ -515,6 +515,26 @@
       "item": "journey_mode:inert_repeating_command_block",
       "count": 1,
       "category": "Unobtainable"
+    },
+    {
+      "item": "journey_mode:inert_structure_block",
+      "count": 1,
+      "category": "Unobtainable"
+    },
+    {
+      "item": "journey_mode:inert_jigsaw_block",
+      "count": 1,
+      "category": "Unobtainable"
+    },
+    {
+      "item": "journey_mode:painted_barrier",
+      "count": 1,
+      "category": "Unobtainable"
+    },
+    {
+      "item": "journey_mode:paint_bucket",
+      "count": 64,
+      "category": "Unobtainable"
     }
   ]
 }

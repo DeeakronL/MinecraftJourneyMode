@@ -2832,6 +2832,16 @@
       "category": "Decoration Blocks"
     },
     {
+      "item": "journey_mode:iron_research_grinder",
+      "count": 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item": "journey_mode:diamond_research_grinder",
+      "count": 1,
+      "category": "Decoration Blocks"
+    },
+    {
       "item" : "minecraft:dispenser",
       "count" : 1,
       "category": "Redstone"

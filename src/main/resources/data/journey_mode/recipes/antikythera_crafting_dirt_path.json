@@ -2,14 +2,14 @@
   "type": "journey_mode:crafting_antikythera_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:netherite_hoe"
+      "item": "minecraft:netherite_shovel"
     },
     {
       "item": "minecraft:dirt"
     }
   ],
   "result": {
-    "item": "minecraft:farmland",
+    "item": "minecraft:grass_path",
     "count": 1
   }
 }

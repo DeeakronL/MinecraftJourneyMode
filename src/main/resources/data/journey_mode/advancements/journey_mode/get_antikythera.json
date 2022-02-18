@@ -1,0 +1,35 @@
+{
+  "parent": "journey_mode:journey_mode/get_unobtainium",
+  "display": {
+    "icon": {
+      "item": "journey_mode:unobtainium_antikythera"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_antikythera.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_antikythera.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "antikythera": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:unobtainium_antikythera"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "antikythera"
+    ]
+  ]
+}
