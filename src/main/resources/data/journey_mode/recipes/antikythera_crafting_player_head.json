@@ -2,14 +2,14 @@
   "type": "journey_mode:crafting_antikythera_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:netherite_hoe"
+      "item": "minecraft:zombie_head"
     },
     {
-      "item": "minecraft:dirt"
+      "item": "minecraft:golden_apple"
     }
   ],
   "result": {
-    "item": "minecraft:farmland",
+    "item": "minecraft:player_head",
     "count": 1
   }
 }

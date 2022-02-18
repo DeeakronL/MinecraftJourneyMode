@@ -1,0 +1,35 @@
+{
+  "parent": "journey_mode:journey_mode/get_starforge",
+  "display": {
+    "icon": {
+      "item": "journey_mode:primordial_void_dust"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_primordial_dust.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_primordial_dust.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "primordial_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:primordial_void_dust"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "primordial_dust"
+    ]
+  ]
+}
