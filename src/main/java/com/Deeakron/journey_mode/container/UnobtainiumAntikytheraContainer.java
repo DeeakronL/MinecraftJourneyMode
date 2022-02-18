@@ -2,9 +2,9 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.*;
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
-import com.Deeakron.journey_mode.data.AntikytheraRecipeType;
 import com.Deeakron.journey_mode.data.AntikytheraShapelessRecipe;
-import com.Deeakron.journey_mode.data.AntikytheraShapelessRecipeType;
+import com.Deeakron.journey_mode.data.recipebook.JMRecipeBookCategory;
+import com.Deeakron.journey_mode.data.recipebook.JMRecipeBookContainer;
 import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class UnobtainiumAntikytheraContainer extends Container {
+public class UnobtainiumAntikytheraContainer extends JMRecipeBookContainer {
     private final CraftingInventory craftMatrix = new CraftingInventory(this, 3, 3);
     private final CraftResultInventory craftResult = new CraftResultInventory();
     private final IWorldPosCallable worldPosCallable;
@@ -141,7 +141,7 @@ public class UnobtainiumAntikytheraContainer extends Container {
     }
 
 
-    public boolean matches(IRecipe<? super CraftingInventory> recipeIn) {
+    public boolean matches(IRecipe recipeIn) {
         return recipeIn.matches(this.craftMatrix, this.player.world);
     }
 
@@ -175,6 +175,10 @@ public class UnobtainiumAntikytheraContainer extends Container {
 
     public RecipeBookCategory func_241850_m() {
         return RecipeBookCategory.CRAFTING;
+    }
+    @Override
+    public JMRecipeBookCategory func_241850_m_2() {
+        return JMRecipeBookCategory.ANTIKYTHERA;
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
@@ -280,4 +284,6 @@ public class UnobtainiumAntikytheraContainer extends Container {
         journey_mode.LOGGER.info("what is here?");
         return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
     }
+
+
 }

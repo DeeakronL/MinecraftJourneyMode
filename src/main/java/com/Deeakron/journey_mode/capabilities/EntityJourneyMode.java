@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.capabilities;
 
+import com.Deeakron.journey_mode.data.recipebook.JMRecipeBook;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.item.ItemStack;
@@ -12,12 +13,14 @@ public class EntityJourneyMode implements IEntityJourneyMode{
     private ResearchList research;
     private boolean godMode;
     private UUID player;
+    private JMRecipeBook recipeBook;
 
     public EntityJourneyMode() {
         this.mode = false;
         this.research = new ResearchList(journey_mode.list.getItems(), journey_mode.list.getCaps());
         this.godMode = false;
         this.player = null;
+        this.recipeBook = new JMRecipeBook();
     }
 
     @Override
@@ -79,5 +82,13 @@ public class EntityJourneyMode implements IEntityJourneyMode{
 
     public UUID getPlayer() {
         return this.player;
+    }
+
+    public JMRecipeBook getRecipeBook() {
+        return this.recipeBook;
+    }
+
+    public void setRecipeBook(JMRecipeBook recipeBook) {
+        this.recipeBook = recipeBook;
     }
 }
