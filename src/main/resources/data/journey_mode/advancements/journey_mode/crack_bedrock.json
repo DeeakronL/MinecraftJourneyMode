@@ -17,13 +17,16 @@
   },
   "criteria": {
     "cracked_bedrock": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:item_used_on_block",
       "conditions": {
-        "items": [
-          {
-            "item": "journey_mode:cracked_bedrock"
+        "location": {
+          "block": {
+            "blocks": ["minecraft:bedrock"]
           }
-        ]
+        },
+        "item": {
+          "items": ["journey_mode:primordial_void_dust"]
+        }
       }
     }
   },
