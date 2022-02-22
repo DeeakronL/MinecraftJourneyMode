@@ -172,7 +172,7 @@ public class JMRecipeBookGui extends RecipeBookGui {
             JMRecipeBookCategory recipebookcategory = this.field_201522_g.func_241850_m_2();
             boolean flag = this.recipeBook.func_242139_a_2().func_242151_a_2(recipebookcategory);
             boolean flag1 = this.recipeBook.func_242139_a_2().func_242158_b_2(recipebookcategory);
-            this.mc.getConnection().sendPacket(new JMCUpdateRecipeBookStatusPacket(recipebookcategory, flag, flag1));
+            this.mc.getConnection().sendPacket(new JMCUpdateRecipeBookStatusPacket(recipebookcategory, flag, flag1, this.mc.player.getEntity().toString()));
         }
 
     }

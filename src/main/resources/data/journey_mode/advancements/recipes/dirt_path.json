@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_shovel",
+      "has_dirt",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_shovel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:netherite_shovel"
+          }
+        ]
+      }
+    },
+    "has_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:dirt"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_dirt_path"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_dirt_path"
+    ]
+  }
+}
