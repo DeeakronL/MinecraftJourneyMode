@@ -242,6 +242,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void onAdvancementEvent(AdvancementEvent event) {
         journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
+        journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement().getCriteria());
     }
 
     @SubscribeEvent

@@ -21,11 +21,11 @@
       "conditions": {
         "location": {
           "block": {
-            "blocks": ["minecraft:bedrock"]
+            "block": "journey_mode:cracked_bedrock"
           }
         },
         "item": {
-          "items": ["journey_mode:primordial_void_dust"]
+          "item": "journey_mode:primordial_void_dust"
         }
       }
     }
