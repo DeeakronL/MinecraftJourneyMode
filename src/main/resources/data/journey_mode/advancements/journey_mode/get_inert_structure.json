@@ -17,13 +17,16 @@
   },
   "criteria": {
     "inert_structure": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:item_used_on_block",
       "conditions": {
-        "items": [
-          {
-            "item": "journey_mode:inert_structure_block"
+        "location": {
+          "block": {
+            "block": "journey_mode:inert_structure_block"
           }
-        ]
+        },
+        "item": {
+          "item": "journey_mode:aetherial_void_dust"
+        }
       }
     }
   },

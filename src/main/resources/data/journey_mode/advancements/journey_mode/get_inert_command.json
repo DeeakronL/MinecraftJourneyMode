@@ -17,33 +17,42 @@
   },
   "criteria": {
     "inert_command": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:item_used_on_block",
       "conditions": {
-        "items": [
-          {
-            "item": "journey_mode:inert_command_block"
+        "location": {
+          "block": {
+            "block": "journey_mode:inert_command_block"
           }
-        ]
+        },
+        "item": {
+          "item": "journey_mode:aetherial_void_dust"
+        }
       }
     },
     "inert_chain": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:item_used_on_block",
       "conditions": {
-        "items": [
-          {
-            "item": "journey_mode:inert_chain_command_block"
+        "location": {
+          "block": {
+            "block": "journey_mode:inert_chain_command_block"
           }
-        ]
+        },
+        "item": {
+          "item": "journey_mode:aetherial_void_dust"
+        }
       }
     },
     "inert_repeating": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:item_used_on_block",
       "conditions": {
-        "items": [
-          {
-            "item": "journey_mode:inert_repeating_command_block"
+        "location": {
+          "block": {
+            "block": "journey_mode:inert_repeating_command_block"
           }
-        ]
+        },
+        "item": {
+          "item": "journey_mode:aetherial_void_dust"
+        }
       }
     }
   },

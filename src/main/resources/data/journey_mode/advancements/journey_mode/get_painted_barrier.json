@@ -17,13 +17,16 @@
   },
   "criteria": {
     "painted_barrier": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:item_used_on_block",
       "conditions": {
-        "items": [
-          {
-            "item": "journey_mode:painted_barrier"
+        "location": {
+          "block": {
+            "block": "journey_mode:painted_barrier"
           }
-        ]
+        },
+        "item": {
+          "item": "journey_mode:paint_bucket"
+        }
       }
     }
   },
