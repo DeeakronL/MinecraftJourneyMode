@@ -6,6 +6,7 @@ import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
+import net.minecraft.client.gui.recipebook.RecipeBookGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
@@ -20,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAntikytheraContainer> implements IRecipeShownListener {
     private static final ResourceLocation ANTIKYTHERA_GUI_TEXTURES = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_antikythera.png");
     private static final ResourceLocation RECIPE_BUTTON_TEXTURE = new ResourceLocation("textures/gui/recipe_button.png");
-    private final JMRecipeBookGui recipeBookGui = new JMRecipeBookGui();
+    private final RecipeBookGui recipeBookGui = new RecipeBookGui();
     private boolean widthTooNarrow;
 
     public UnobtainiumAntikytheraScreen(UnobtainiumAntikytheraContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -35,12 +36,15 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
         this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
         this.children.add(this.recipeBookGui);
         this.setFocusedDefault(this.recipeBookGui);
-        this.addButton(new ImageButton(this.guiLeft + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
+        /*this.addButton(new ImageButton(this.guiLeft + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
             this.recipeBookGui.initSearchBar(this.widthTooNarrow);
             this.recipeBookGui.toggleVisibility();
             this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
             ((ImageButton)button).setPosition(this.guiLeft + 5, this.height / 2 - 49);
-        }));
+        }));*/
+        if(this.recipeBookGui.isVisible()) {
+            this.recipeBookGui.toggleVisibility();
+        }
         this.titleX = 29;
     }
 
@@ -108,7 +112,7 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
         super.onClose();
     }
 
-    public JMRecipeBookGui getRecipeGui() {
+    public RecipeBookGui getRecipeGui() {
         return this.recipeBookGui;
     }
 }

@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class UnobtainiumAntikytheraContainer extends JMRecipeBookContainer {
+public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
     private final CraftingInventory craftMatrix = new CraftingInventory(this, 3, 3);
     private final CraftResultInventory craftResult = new CraftResultInventory();
     private final IWorldPosCallable worldPosCallable;
@@ -175,10 +175,6 @@ public class UnobtainiumAntikytheraContainer extends JMRecipeBookContainer {
 
     public RecipeBookCategory func_241850_m() {
         return RecipeBookCategory.CRAFTING;
-    }
-    @Override
-    public JMRecipeBookCategory func_241850_m_2() {
-        return JMRecipeBookCategory.ANTIKYTHERA;
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
