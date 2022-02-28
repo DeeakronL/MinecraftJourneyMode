@@ -123,7 +123,7 @@ public class journey_mode
         if (UnobtainConfig.use_unobtainable.get()) {
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
-            LOGGER.info("problem...?");
+            //LOGGER.info("problem...?");
             JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
             JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
         }

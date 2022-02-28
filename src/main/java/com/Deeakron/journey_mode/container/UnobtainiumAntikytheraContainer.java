@@ -37,7 +37,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
 
     public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory) {
         this(id, playerInventory, IWorldPosCallable.DUMMY);
-        journey_mode.LOGGER.info("this was the culprit");
+        //journey_mode.LOGGER.info("this was the culprit");
     }
 
     public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, final IWorldPosCallable p_i50090_3_) {
@@ -52,7 +52,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
             }
 
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-                    journey_mode.LOGGER.info(worldPosCallable);
+                    //journey_mode.LOGGER.info(worldPosCallable);
                     //player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1.0F, 1.0F);
                     if(!player.world.isRemote){player.playSound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
 
@@ -67,7 +67,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
 
 
                 });*/
-                    journey_mode.LOGGER.info("taken");
+                    //journey_mode.LOGGER.info("taken");
                     //p_234633_1_.playEvent(1029, p_234633_2_, 0);
                 
                 this.onCrafting(stack);
@@ -227,7 +227,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
     }
 
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        journey_mode.LOGGER.info("problem?");
+        //journey_mode.LOGGER.info("problem?");
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
@@ -277,7 +277,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
     }
 
     public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-        journey_mode.LOGGER.info("what is here?");
+        //journey_mode.LOGGER.info("what is here?");
         return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
     }
 

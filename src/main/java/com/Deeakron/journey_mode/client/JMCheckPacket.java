@@ -49,7 +49,7 @@ public class JMCheckPacket {
         this.result = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode();
         context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
         context.get().setPacketHandled(true);
-        journey_mode.LOGGER.info("packet sent!");
+        //journey_mode.LOGGER.info("packet sent!");
     }
 
     @OnlyIn(Dist.CLIENT)

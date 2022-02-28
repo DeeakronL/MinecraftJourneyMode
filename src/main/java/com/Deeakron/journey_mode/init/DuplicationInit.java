@@ -31,10 +31,10 @@ public class DuplicationInit {
             } catch (NullPointerException e) {
                 String check = string.substring(1, 13);
                 substring = string.substring(11, string.length() - 1);
-                journey_mode.LOGGER.info("substring is: " + substring);
+                //journey_mode.LOGGER.info("substring is: " + substring);
                 if(!check.equals("journey_mode")) {
-                    journey_mode.LOGGER.info(item.getItem().getClass());
-                    journey_mode.LOGGER.info(new OperatorOnlyItem(null, new OperatorOnlyItem.Properties()).getClass());
+                    //journey_mode.LOGGER.info(item.getItem().getClass());
+                    //journey_mode.LOGGER.info(new OperatorOnlyItem(null, new OperatorOnlyItem.Properties()).getClass());
                     if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass() || item.getItem().getClass() == new OperatorOnlyItem(null, new Item.Properties()).getClass()) {
                         DuplicationInit.ITEMS.register(substring, () -> new BlockItem(((BlockItem) (item.getItem())).getBlock(), new BlockItem.Properties().group(unobtainableGroup)));
                     } else {

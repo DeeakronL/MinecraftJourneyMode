@@ -71,7 +71,7 @@ public class EventHandler {
             event.addListener(provider::invalidate);
             EntityJourneyMode cap = event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
             cap.setPlayer(event.getObject().getUniqueID());
-            journey_mode.LOGGER.info("attach capabilities event");
+            //journey_mode.LOGGER.info("attach capabilities event");
         }
     }
 
@@ -144,7 +144,7 @@ public class EventHandler {
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
         if (event.getEntity() instanceof  ServerPlayerEntity){
             if (true){
-                journey_mode.LOGGER.info("ouch");
+                //journey_mode.LOGGER.info("ouch");
                 PlayerEntity original = event.getOriginal();
                 PlayerEntity newer = event.getPlayer();
                 EntityJourneyMode cap = original.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -152,7 +152,7 @@ public class EventHandler {
                 cap2.setJourneyMode(cap.getJourneyMode());
                 cap2.setResearchList(cap.getResearchList());
                 cap2.setPlayer(newer.getUniqueID());
-                journey_mode.LOGGER.info(cap.getGodMode() + " " + cap2.getPlayer());
+                //journey_mode.LOGGER.info(cap.getGodMode() + " " + cap2.getPlayer());
                 cap2.setGodMode(cap.getGodMode());
             }
         }
@@ -233,7 +233,7 @@ public class EventHandler {
     public static void onLivingDamageEvent(LivingDamageEvent event) {
         if (event.getEntity() instanceof LivingEntity) {
             if (event.getSource() == JMDamageSources.RESEARCH_GRINDER) {
-                journey_mode.LOGGER.info("insert sound here");
+                //journey_mode.LOGGER.info("insert sound here");
                 BlockPos pos = event.getEntity().getPosition();
                 event.getEntity().getEntityWorld().playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
             }
@@ -242,11 +242,12 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onAdvancementEvent(AdvancementEvent event) {
-        journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
-        journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement().getCriteria());
+        //journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
+        //journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement().getCriteria());
     }
 
-    @SubscribeEvent
+    // Didn't feel as good in testing to do
+    /*@SubscribeEvent
     public static void onGameModeChangeEvent(PlayerEvent.PlayerChangeGameModeEvent event) {
         EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
         if (cap.getJourneyMode()){
@@ -258,15 +259,15 @@ public class EventHandler {
         } else {
             cap.setGodMode(false);
         }
-    }
+    }*/
 
     @SubscribeEvent
     public static void onBlockPlacedEvent(BlockEvent.EntityPlaceEvent event){
         if (event.getPlacedBlock().getBlock().matchesBlock(Blocks.COMMAND_BLOCK)){
-            journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
+            //journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
         }
         if (event.getPlacedBlock().getBlock().matchesBlock(UnobtainBlockInit.INERT_COMMAND_BLOCK.get())){
-            journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
+            //journey_mode.LOGGER.info(event.getPlacedBlock().getBlockState().get(BlockStateProperties.FACING));
         }
     }
 
@@ -281,7 +282,7 @@ public class EventHandler {
                     for (int j = -5; j < 6; j++) {
                         for (int k = -5; k < 6; k++) {
                             if (world.getBlockState(new BlockPos(pos.getX() + i, pos.getY() + j, pos.getZ() + k)).matchesBlock(Blocks.BARRIER)) {
-                                journey_mode.LOGGER.info("particle spawned?");
+                                //journey_mode.LOGGER.info("particle spawned?");
                                 world.addParticle(ParticleTypes.BARRIER, pos.getX() + (double) i + 0.5D, pos.getY() + (double) j + 0.5D, pos.getZ() + (double) k + 0.5D, 0.0D, 0.0D, 0.0D);
                             }
                         }

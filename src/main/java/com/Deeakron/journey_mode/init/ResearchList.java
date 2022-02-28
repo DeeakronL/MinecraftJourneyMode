@@ -46,7 +46,7 @@ public class ResearchList {
                     //hit the cap
                     newData[0] = data[1];
                     if (!isGenerating) {
-                        journey_mode.LOGGER.info("Cap hit");
+                        //journey_mode.LOGGER.info("Cap hit");
                         if(itemObject != null) {
                             Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[i]));
                         }
@@ -58,7 +58,7 @@ public class ResearchList {
                 }
                 this.research.remove(items[i]);
                 this.research.put(items[i], newData);
-                journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
+                //journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
             }
         }
     }

@@ -72,7 +72,7 @@ public class GameStatePacket {
         this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
         this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY);
-        journey_mode.LOGGER.info("the world is: " + player.world.isRemote());
+        //journey_mode.LOGGER.info("the world is: " + player.world.isRemote());
         //player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setVariables(freeze, tickSpeed, mobSpawn, mobGrief, keepInv);
         journey_mode.freeze = this.freeze;
         journey_mode.tickSpeed = this.tickSpeed;

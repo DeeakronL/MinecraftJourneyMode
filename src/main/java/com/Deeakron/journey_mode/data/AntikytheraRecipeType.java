@@ -13,7 +13,7 @@ public class AntikytheraRecipeType implements IRecipeType {
 
 
     public AntikytheraRecipeType() {
-        journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA);
+        //journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA);
         //journey_mode.LOGGER.info(CRAFTING_ANTIKYTHERA_SHAPELESS);
     }
 

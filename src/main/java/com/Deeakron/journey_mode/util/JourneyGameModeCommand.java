@@ -36,13 +36,13 @@ public class JourneyGameModeCommand {
     }
 
     static int addJM(CommandContext<CommandSource> commandContext){
-        journey_mode.LOGGER.info("successful command");
+        //journey_mode.LOGGER.info("successful command");
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
-            journey_mode.LOGGER.info("is player");
+            //journey_mode.LOGGER.info("is player");
             //String line = commandContext.getSource().getEntity().getCapability(JMCapability.JOURNEY_MODE_CAPABILITY, null);
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            journey_mode.LOGGER.info("journey mode is: " + cap.getJourneyMode());
-            journey_mode.LOGGER.info(cap);
+            //journey_mode.LOGGER.info("journey mode is: " + cap.getJourneyMode());
+            //journey_mode.LOGGER.info(cap);
             cap.setJourneyMode(true);
             //cap.get;
         }
@@ -51,13 +51,13 @@ public class JourneyGameModeCommand {
     }
 
     static int removeJM(CommandContext<CommandSource> commandContext) throws CommandSyntaxException {
-        journey_mode.LOGGER.info("successful command");
+        //journey_mode.LOGGER.info("successful command");
         if(commandContext.getSource().getEntity() instanceof  ServerPlayerEntity){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
             if (cap.getJourneyMode()){
                 cap.setJourneyMode(false);
             }
-            journey_mode.LOGGER.info(commandContext.getCommand().toString());
+            //journey_mode.LOGGER.info(commandContext.getCommand().toString());
             if (commandContext.getSource().asPlayer().isCreative() || commandContext.getSource().asPlayer().isSpectator()) {
                 cap.setGodMode(true);
             } else {

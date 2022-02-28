@@ -85,25 +85,25 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 pos1 = pos.east();
                 pos2 = pos.south();
                 pos3 = pos.east().south();
-                journey_mode.LOGGER.info("NORTH");
+                //journey_mode.LOGGER.info("NORTH");
                 break;
             case SOUTH:
                 pos1 = pos.west();
                 pos2 = pos.north();
                 pos3 = pos.west().north();
-                journey_mode.LOGGER.info("SOUTH");
+                //journey_mode.LOGGER.info("SOUTH");
                 break;
             case WEST:
                 pos1 = pos.north();
                 pos2 = pos.east();
                 pos3 = pos.north().east();
-                journey_mode.LOGGER.info("WEST");
+                //journey_mode.LOGGER.info("WEST");
                 break;
             case EAST:
                 pos1 = pos.south();
                 pos2 = pos.west();
                 pos3 = pos.south().west();
-                journey_mode.LOGGER.info("EAST");
+                //journey_mode.LOGGER.info("EAST");
                 break;
         }
 
@@ -111,19 +111,19 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             worldin.setBlockState(pos1, BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos2, BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos3, BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
-            journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
+            //journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         } else if (this.type == "iron"){
             worldin.setBlockState(pos1, BlockInit.IRON_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos2, BlockInit.IRON_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos3, BlockInit.IRON_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
-            journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
+            //journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         } else if (this.type == "diamond"){
             worldin.setBlockState(pos1, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos2, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos3, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
-            journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
+            //journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         }
         }
@@ -143,29 +143,29 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 pos1 = pos.east();
                 pos2 = pos.south();
                 pos3 = pos.east().south();
-                journey_mode.LOGGER.info("NORTH");
+                //journey_mode.LOGGER.info("NORTH");
                 break;
             case SOUTH:
                 pos1 = pos.west();
                 pos2 = pos.north();
                 pos3 = pos.west().north();
-                journey_mode.LOGGER.info("SOUTH");
+                //journey_mode.LOGGER.info("SOUTH");
                 break;
             case WEST:
                 pos1 = pos.north();
                 pos2 = pos.east();
                 pos3 = pos.north().east();
-                journey_mode.LOGGER.info("WEST");
+                //journey_mode.LOGGER.info("WEST");
                 break;
             case EAST:
                 pos1 = pos.south();
                 pos2 = pos.west();
                 pos3 = pos.south().west();
-                journey_mode.LOGGER.info("EAST");
+                //journey_mode.LOGGER.info("EAST");
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderPartBlock){
-            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
@@ -187,29 +187,29 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 pos1 = pos.east();
                 pos2 = pos.south();
                 pos3 = pos.east().south();
-                journey_mode.LOGGER.info("NORTH");
+                //journey_mode.LOGGER.info("NORTH");
                 break;
             case SOUTH:
                 pos1 = pos.west();
                 pos2 = pos.north();
                 pos3 = pos.west().north();
-                journey_mode.LOGGER.info("SOUTH");
+                //journey_mode.LOGGER.info("SOUTH");
                 break;
             case WEST:
                 pos1 = pos.north();
                 pos2 = pos.east();
                 pos3 = pos.north().east();
-                journey_mode.LOGGER.info("WEST");
+                //journey_mode.LOGGER.info("WEST");
                 break;
             case EAST:
                 pos1 = pos.south();
                 pos2 = pos.west();
                 pos3 = pos.south().west();
-                journey_mode.LOGGER.info("EAST");
+                //journey_mode.LOGGER.info("EAST");
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderPartBlock){
-            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){

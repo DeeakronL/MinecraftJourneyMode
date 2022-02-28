@@ -98,7 +98,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.playerList = journey_mode.tempList;
         this.itemGroupSmall = new ItemGroup[ItemGroup.GROUPS.length - 2];
         for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
-            journey_mode.LOGGER.info("current group " + i + " is: " + ItemGroup.GROUPS[i].getGroupName().getString());
+            //journey_mode.LOGGER.info("current group " + i + " is: " + ItemGroup.GROUPS[i].getGroupName().getString());
         }
         boolean hotbarPresent = false;
         boolean survivalInventoryPresent = false;
@@ -179,12 +179,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     this.minecraft.player.container.detectAndSendChanges();
                 }
             }*/ else if (type != ClickType.QUICK_CRAFT && slotIn.inventory == TMP_INVENTORY) {
-                journey_mode.LOGGER.info("testing");
+                //journey_mode.LOGGER.info("testing");
                 PlayerInventory playerInventory = this.minecraft.player.inventory;
                 ItemStack itemStack5 = playerInventory.getItemStack();
                 ItemStack itemStack7 = slotIn.getStack();
                 if (type == ClickType.SWAP) {
-                    journey_mode.LOGGER.info("testing swap");
+                    //journey_mode.LOGGER.info("testing swap");
                     if (!itemStack7.isEmpty()) {
                         ItemStack itemStack10 = itemStack7.copy();
                         itemStack10.setCount(itemStack10.getMaxStackSize());
@@ -196,7 +196,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
 
                 if (type == ClickType.CLONE) {
-                    journey_mode.LOGGER.info("testing clone");
+                    //journey_mode.LOGGER.info("testing clone");
                     if (playerInventory.getItemStack().isEmpty() && slotIn.getHasStack()) {
                         ItemStack itemStack9 = slotIn.getStack().copy();
                         itemStack9.setCount(itemStack9.getMaxStackSize());
@@ -207,7 +207,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
 
                 if (type == ClickType.THROW) {
-                    journey_mode.LOGGER.info("testing throw");
+                    //journey_mode.LOGGER.info("testing throw");
                     if (!itemStack7.isEmpty()) {
                         ItemStack itemStack8 = itemStack7.copy();
                         itemStack8.setCount(mouseButton == 0 ? 1 : itemStack8.getMaxStackSize());
@@ -219,7 +219,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
 
                 if (!itemStack5.isEmpty() && !itemStack7.isEmpty() && itemStack5.isItemEqual(itemStack7) && ItemStack.areItemStackTagsEqual(itemStack5, itemStack7)) {
-                    journey_mode.LOGGER.info("testing idk");
+                    //journey_mode.LOGGER.info("testing idk");
                     if (mouseButton == 0) {
                         if (flag) {
                             itemStack5.setCount(itemStack5.getMaxStackSize());
@@ -230,7 +230,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         itemStack5.shrink(1);
                     }
                 } else if (!itemStack7.isEmpty() && itemStack5.isEmpty()) {
-                    journey_mode.LOGGER.info("testing idk?");
+                    //journey_mode.LOGGER.info("testing idk?");
                     boolean success = false;
                     try {
                         String item = "\"" +slotIn.getStack().getItem().getRegistryName() + "\"";
@@ -244,7 +244,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
                     }
                     if (success) {
-                        journey_mode.LOGGER.info("amount remaining: " + ((LockedSlot) slotIn).remaining);
+                        //journey_mode.LOGGER.info("amount remaining: " + ((LockedSlot) slotIn).remaining);
                         if (((LockedSlot) slotIn).remaining <= 0) {
                             playerInventory.setItemStack(itemStack7.copy());
                             itemStack5 = playerInventory.getItemStack();
@@ -259,10 +259,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         itemStack5.setCount(itemStack5.getMaxStackSize());
                     }*/
                 } else if (mouseButton == 0) {
-                    journey_mode.LOGGER.info("testing idk??");
+                    //journey_mode.LOGGER.info("testing idk??");
                     playerInventory.setItemStack(ItemStack.EMPTY);
                 } else {
-                    journey_mode.LOGGER.info("testing idk???");
+                    //journey_mode.LOGGER.info("testing idk???");
                     playerInventory.getItemStack().shrink(1);
                 }
             } else if (this.container != null) {
@@ -336,7 +336,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (this.minecraft.player != null && this.minecraft.player.inventory != null) {
             this.minecraft.player.container.removeListener(this.listener);
         }
-        journey_mode.LOGGER.info("testing closing here");
+        //journey_mode.LOGGER.info("testing closing here");
         this.minecraft.keyboardListener.enableRepeatEvents(false);
     }
 
@@ -536,7 +536,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         //if (tab == ItemGroup.HOTBAR) return;
         //if (tab == ItemGroup.INVENTORY) return;
         int i = selectedTabIndex;
-        journey_mode.LOGGER.info("THE INDEX WAS " + index + " FOR " + tab);
+        //journey_mode.LOGGER.info("THE INDEX WAS " + index + " FOR " + tab);
         selectedTabIndex = index;
         slotColor = tab.getSlotColor();
         this.dragSplittingSlots.clear();
