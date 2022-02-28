@@ -273,7 +273,6 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
-        journey_mode.LOGGER.info("config is: " + UnobtainConfig.use_unobtainable.get().toString());
         try{
             if (event.player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()) {
                 World world = event.player.world;
