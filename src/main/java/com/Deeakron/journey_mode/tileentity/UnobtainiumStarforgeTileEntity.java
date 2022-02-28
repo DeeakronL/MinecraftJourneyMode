@@ -183,7 +183,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
         }
 
         if (stack.getItem().getRegistryName().toString().equals("journey_mode:unobtainium_raw_block")) {
-            journey_mode.LOGGER.info("well it is unobtainium");
+            //journey_mode.LOGGER.info("well it is unobtainium");
         }
 
         Set<IRecipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.world);

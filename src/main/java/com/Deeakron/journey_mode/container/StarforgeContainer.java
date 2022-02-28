@@ -80,7 +80,7 @@ public class StarforgeContainer extends Container {
     @Override
     public ItemStack transferStackInSlot(final PlayerEntity player, final int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        journey_mode.LOGGER.info("index is: " + index);
+        //journey_mode.LOGGER.info("index is: " + index);
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();

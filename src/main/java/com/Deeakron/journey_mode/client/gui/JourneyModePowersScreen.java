@@ -93,7 +93,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.addButton(new JourneyModePowersScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModePowersScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModePowersScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        journey_mode.LOGGER.info(getNarrationMessage());
+        //journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
 

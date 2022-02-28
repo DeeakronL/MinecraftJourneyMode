@@ -32,8 +32,8 @@ public class ItemList {
         for (int i =0; i<json.getAsJsonArray("items").size(); i++){
             items[i] = json.getAsJsonArray("items").get(i);
         }
-        journey_mode.LOGGER.info(items[0].getAsJsonObject().get("item"));
-        journey_mode.LOGGER.info("bookmark");
+        //journey_mode.LOGGER.info(items[0].getAsJsonObject().get("item"));
+        //journey_mode.LOGGER.info("bookmark");
         this.items = new String[items.length];
         this.caps = new int[items.length];
         this.categories = new String[items.length];
@@ -76,14 +76,14 @@ public class ItemList {
         String[] newCategories = list.getCategories();
         String[] newCatTypes = list.getCatTypes();
         for (int i = 0; i < newItems.length; i++) {
-            journey_mode.LOGGER.info("adding new item: " + newItems[i]);
+            //journey_mode.LOGGER.info("adding new item: " + newItems[i]);
             boolean alreadyUsed = false;
             for (int j = 0; j < this.items.length; j++) {
                 if (newItems[i].equals(this.items[j])) {
                     this.caps[j] = newCaps[i];
                     this.categories[j] = newCategories[i];
                     alreadyUsed = true;
-                    journey_mode.LOGGER.info(newItems[i] + " was already used! Updated.");
+                    //journey_mode.LOGGER.info(newItems[i] + " was already used! Updated.");
                     break;
                 }
             }

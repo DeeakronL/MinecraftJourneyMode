@@ -178,7 +178,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
-            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
@@ -273,7 +273,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
-            journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
+            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){

@@ -25,7 +25,7 @@ public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.F
         int j = astring.length;
         NonNullList<Ingredient> nonnulllist = AntikytheraRecipe.deserializeIngredients(astring, map, i, j);
         ItemStack itemstack = AntikytheraRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
-        journey_mode.LOGGER.info("String is: " + s);
+        //journey_mode.LOGGER.info("String is: " + s);
         return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
     }
 

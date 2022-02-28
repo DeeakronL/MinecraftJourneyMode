@@ -28,9 +28,9 @@ public class JMCapability {
     //public Capability<IEntityJourneyMode> JOURNEY_MODE_CAPABILITY = null;
 
     public static void register() {
-        journey_mode.LOGGER.info(IEntityJourneyMode.class);
-        journey_mode.LOGGER.info(new Storage());
-        journey_mode.LOGGER.info(EntityJourneyMode::new);
+        //journey_mode.LOGGER.info(IEntityJourneyMode.class);
+        //journey_mode.LOGGER.info(new Storage());
+        //journey_mode.LOGGER.info(EntityJourneyMode::new);
         CapabilityManager.INSTANCE.register(IEntityJourneyMode.class, new Storage(), EntityJourneyMode::new);
     }
     public static class Storage implements  Capability.IStorage<IEntityJourneyMode> {

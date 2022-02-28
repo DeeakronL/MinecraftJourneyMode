@@ -30,7 +30,7 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
 
     protected void init() {
         super.init();
-        journey_mode.LOGGER.info("reached this menu");
+        //journey_mode.LOGGER.info("reached this menu");
         this.widthTooNarrow = this.width < 379;
         this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.container);
         this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
@@ -100,7 +100,7 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
     protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
         this.recipeBookGui.slotClicked(slotIn);
-        journey_mode.LOGGER.info(slotId);
+        //journey_mode.LOGGER.info(slotId);
     }
 
     public void recipesUpdated() {

@@ -77,7 +77,7 @@ public class EntityJourneyMode implements IEntityJourneyMode{
 
     public void setPlayer(UUID player) {
         this.player = player;
-        journey_mode.LOGGER.info("UUID set: " + this.player);
+        //journey_mode.LOGGER.info("UUID set: " + this.player);
     }
 
     public UUID getPlayer() {

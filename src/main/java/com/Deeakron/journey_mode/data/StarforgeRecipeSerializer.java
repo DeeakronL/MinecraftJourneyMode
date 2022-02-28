@@ -17,7 +17,7 @@ public class StarforgeRecipeSerializer extends ForgeRegistryEntry<IRecipeSeriali
     public StarforgeRecipe read(ResourceLocation recipeId, JsonObject json) {
         ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
         Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "input"));
-        journey_mode.LOGGER.info("checking for other bad problem");
+        //journey_mode.LOGGER.info("checking for other bad problem");
         return new StarforgeRecipe(recipeId, input, output);
     }
 

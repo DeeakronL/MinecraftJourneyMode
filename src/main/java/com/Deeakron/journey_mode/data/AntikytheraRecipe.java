@@ -182,7 +182,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
 
     public static Map<String, Ingredient> deserializeKey(JsonObject json) {
         Map<String, Ingredient> map = Maps.newHashMap();
-        journey_mode.LOGGER.info("ouch");
+        //journey_mode.LOGGER.info("ouch");
 
         for(Map.Entry<String, JsonElement> entry : json.entrySet()) {
             if (entry.getKey().length() != 1) {
