@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.client.event;
 
+import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
@@ -271,21 +272,25 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
-        if (event.player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()) {
-            World world = event.player.world;
-            BlockPos pos = event.player.getPosition();
-            for (int i = -5; i < 6; i++) {
-                for (int j = -5; j < 6; j++) {
-                    for (int k = -5; k < 6; k++) {
-                        if (world.getBlockState(new BlockPos(pos.getX() + i, pos.getY() + j, pos.getZ() + k)).matchesBlock(Blocks.BARRIER)) {
-                            journey_mode.LOGGER.info("particle spawned?");
-                            world.addParticle(ParticleTypes.BARRIER, pos.getX() + (double)i + 0.5D, pos.getY() + (double)j + 0.5D, pos.getZ() + (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
+        journey_mode.LOGGER.info("config is: " + UnobtainConfig.use_unobtainable.get().toString());
+        try{
+            if (event.player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()) {
+                World world = event.player.world;
+                BlockPos pos = event.player.getPosition();
+                for (int i = -5; i < 6; i++) {
+                    for (int j = -5; j < 6; j++) {
+                        for (int k = -5; k < 6; k++) {
+                            if (world.getBlockState(new BlockPos(pos.getX() + i, pos.getY() + j, pos.getZ() + k)).matchesBlock(Blocks.BARRIER)) {
+                                journey_mode.LOGGER.info("particle spawned?");
+                                world.addParticle(ParticleTypes.BARRIER, pos.getX() + (double) i + 0.5D, pos.getY() + (double) j + 0.5D, pos.getZ() + (double) k + 0.5D, 0.0D, 0.0D, 0.0D);
+                            }
                         }
                     }
                 }
             }
-        }
+        } catch (NullPointerException e) {
 
+        }
     }
 
 
