@@ -15,12 +15,12 @@ public class JourneyGameModeCommand {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> journeyGameModeCommand
-                = Commands.literal("gamemode")
-                .requires((commandSource) -> commandSource.hasPermissionLevel(0))
-                .then(Commands.literal("journey")
+                = Commands.literal("journeymode")
+                //.requires((commandSource) -> commandSource.hasPermissionLevel(0))
+                .then(Commands.literal("on")
                     .executes(JourneyGameModeCommand::addJM)
                     )
-                .then(Commands.literal("journeyoff")
+                .then(Commands.literal("off")
                     .executes(JourneyGameModeCommand::removeJM)
                     )
                 /*.then(Commands.literal("creative")

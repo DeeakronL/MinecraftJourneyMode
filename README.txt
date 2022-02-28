@@ -2,7 +2,7 @@ Welcome to the Minecraft Journey Mode mod!
 
 The mod is inspired by the Journey Mode present in Terraria, where the basic idea is to "research" a certain amount of an item, after which you will unlock the ability to duplicate the item as much as you want. In other words, it functions as a variant of creative mode where you have to actually get the things you want to use.
 
-In order to enter into the mode, have cheats enabled when starting a world, and then type "/gamemode journey". (to turn it off, just type "/gamemode journeyoff".
+In order to enter into the mode, type "/journeymode on" in game. (to turn it off, just type "/journeymode off")
 
 To open up the journey mode menu, press the "o" key (this can be changed in the in game settings). The first tab will feature the powers menu, which will allow you to toggle all sorts of settings to help make collecting items less difficult if you choose to do so.
 
