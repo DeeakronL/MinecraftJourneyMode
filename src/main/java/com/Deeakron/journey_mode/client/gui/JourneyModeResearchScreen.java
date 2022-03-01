@@ -218,10 +218,10 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
                     int diff = this.screen.list.get(key)[1] - this.screen.list.get(key)[0];
                     if (count > diff) {
                         this.screen.serverContain.getInventory().get(0).setCount(count - diff);
-                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, diff, Minecraft.getInstance().player.getUniqueID()));
+                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, diff, Minecraft.getInstance().player.getUniqueID(), this.screen.container.getInventory().get(0).getItem().getDefaultInstance()));
                     } else {
                         this.screen.serverContain.getInventory().get(0).setCount(0);
-                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, count, Minecraft.getInstance().player.getUniqueID()));
+                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, count, Minecraft.getInstance().player.getUniqueID(), this.screen.container.getInventory().get(0).getItem().getDefaultInstance()));
                     }
                 }
             }

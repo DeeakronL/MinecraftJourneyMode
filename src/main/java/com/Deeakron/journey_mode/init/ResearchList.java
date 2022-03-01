@@ -46,8 +46,9 @@ public class ResearchList {
                     //hit the cap
                     newData[0] = data[1];
                     if (!isGenerating) {
-                        //journey_mode.LOGGER.info("Cap hit");
+                        journey_mode.LOGGER.info("Cap hit");
                         if(itemObject != null) {
+                            journey_mode.LOGGER.info("Cap hit 2?");
                             Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[i]));
                         }
 

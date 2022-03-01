@@ -184,7 +184,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void MenuResearchEvent(final MenuResearchEvent event) {
-        INSTANCE.sendToServer(new ResearchPacket(event.getItem(), event.getCount(), event.getPlayer().toString()));
+        INSTANCE.sendToServer(new ResearchPacket(event.getItem(), event.getCount(), event.getPlayer().toString(), event.getItemStack()));
     }
 
     @SubscribeEvent
