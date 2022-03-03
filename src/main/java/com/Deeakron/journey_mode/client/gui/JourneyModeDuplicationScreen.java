@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode.client.gui;
 
+import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
+import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
@@ -25,6 +27,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ClickType;
@@ -46,6 +49,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,7 +61,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-@OnlyIn(Dist.CLIENT)
+//@OnlyIn(Dist.CLIENT)
 public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
     private static final ResourceLocation DUPLICATION_INVENTORY_TABS = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_duplication_tabs.png");
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
@@ -67,6 +71,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
     private static final Inventory TMP_INVENTORY = new Inventory(45);
     private static final ITextComponent field_243345_D = new TranslationTextComponent("inventory.binSlot");
+    private boolean wasCreative;
+    private boolean wasGodMode;
 
     private static int selectedTabIndex; // need to put something
 
@@ -88,10 +94,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private ItemGroup[] itemGroupSmall = null;
     private int hotbarIndex;
     private int survivalInventoryIndex;
+    private ServerPlayerEntity serverPlayerEntity;
 
-    public JourneyModeDuplicationScreen(PlayerEntity player) {
+    public JourneyModeDuplicationScreen(PlayerEntity player, boolean wasCreative, boolean wasGodMode, ServerPlayerEntity serverPlayerEntity) {
         super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.inventory, StringTextComponent.EMPTY);
         player.openContainer = this.container;
+        this.wasCreative = wasCreative;
+        this.wasGodMode = wasGodMode;
+        this.serverPlayerEntity = serverPlayerEntity;
         this.passEvents = true;
         this.xSize = 190;
         this.ySize = 183;
@@ -138,6 +148,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         boolean flag = type == ClickType.QUICK_MOVE;
         type = slotId == -999 && type == ClickType.PICKUP ? ClickType.THROW : type;
         if (slotIn == null && /*selectedTabIndex != ItemGroup.INVENTORY.getIndex() &&*/ type != ClickType.QUICK_CRAFT) {
+            journey_mode.LOGGER.info("hfewh");
             PlayerInventory playerInventory1 = this.minecraft.player.inventory;
             if (!playerInventory1.getItemStack().isEmpty() && this.field_199506_G) {
                 if (mouseButton == 0) {
@@ -184,7 +195,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 ItemStack itemStack5 = playerInventory.getItemStack();
                 ItemStack itemStack7 = slotIn.getStack();
                 if (type == ClickType.SWAP) {
-                    //journey_mode.LOGGER.info("testing swap");
+                    journey_mode.LOGGER.info("testing swap");
                     if (!itemStack7.isEmpty()) {
                         ItemStack itemStack10 = itemStack7.copy();
                         itemStack10.setCount(itemStack10.getMaxStackSize());
@@ -196,7 +207,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
 
                 if (type == ClickType.CLONE) {
-                    //journey_mode.LOGGER.info("testing clone");
+                    journey_mode.LOGGER.info("testing clone");
                     if (playerInventory.getItemStack().isEmpty() && slotIn.getHasStack()) {
                         ItemStack itemStack9 = slotIn.getStack().copy();
                         itemStack9.setCount(itemStack9.getMaxStackSize());
@@ -230,7 +241,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         itemStack5.shrink(1);
                     }
                 } else if (!itemStack7.isEmpty() && itemStack5.isEmpty()) {
-                    //journey_mode.LOGGER.info("testing idk?");
+                    journey_mode.LOGGER.info("testing idk?");
                     boolean success = false;
                     try {
                         String item = "\"" +slotIn.getStack().getItem().getRegistryName() + "\"";
@@ -251,6 +262,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                             if (flag) {
                                 itemStack5.setCount(itemStack5.getMaxStackSize());
                             }
+
                         }
                     }
                     /*playerInventory.setItemStack(itemStack7.copy());
@@ -259,6 +271,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         itemStack5.setCount(itemStack5.getMaxStackSize());
                     }*/
                 } else if (mouseButton == 0) {
+
                     //journey_mode.LOGGER.info("testing idk??");
                     playerInventory.setItemStack(ItemStack.EMPTY);
                 } else {
@@ -287,7 +300,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
                 this.minecraft.player.container.detectAndSendChanges();
             }
+
         }
+
     }
 
     private boolean hasTmpInventory(@Nullable Slot slotIn) {
@@ -336,8 +351,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (this.minecraft.player != null && this.minecraft.player.inventory != null) {
             this.minecraft.player.container.removeListener(this.listener);
         }
-        //journey_mode.LOGGER.info("testing closing here");
+        journey_mode.LOGGER.info("testing closing here " + this.wasCreative);
         this.minecraft.keyboardListener.enableRepeatEvents(false);
+        if (!this.wasCreative) {
+            this.serverPlayerEntity.setGameType(GameType.SURVIVAL);
+        }
+        if (this.wasGodMode) {
+            this.serverPlayerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(true);
+        }
     }
 
     public boolean charTyped(char codePoint, int modifiers) {
@@ -1016,7 +1037,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class DuplicationContainer extends Container {
         public final NonNullList<ItemStack> itemList = NonNullList.create();
         public ResearchList research;

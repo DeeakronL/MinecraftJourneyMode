@@ -10,6 +10,7 @@ import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -292,6 +293,4 @@ public class EventHandler {
 
         }
     }
-
-
 }

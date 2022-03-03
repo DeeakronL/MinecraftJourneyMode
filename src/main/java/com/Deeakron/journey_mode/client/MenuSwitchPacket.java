@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -53,12 +54,24 @@ public class MenuSwitchPacket {
             NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeResearchContainerProvider());
         } else if (menuType.equals("duplication")) {
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
-            context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
+            boolean wasCreative;
+            if (player.abilities.isCreativeMode) {
+                wasCreative = true;
+            } else {
+                wasCreative = false;
+            }
+            player.setGameType(GameType.CREATIVE);
+            boolean wasGodMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
+            if (wasGodMode == false) {
+                player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(false);
+            }
+            context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this, wasCreative, wasGodMode, player)));
             //NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeDuplicationContainerProvider());
         }
     }
 
-    public void handleOnClient(final MenuSwitchPacket msg) {
-        Minecraft.getInstance().displayGuiScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player));
+    public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, PlayerEntity player) {
+
+        Minecraft.getInstance().displayGuiScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayerEntity) player));
     }
 }
