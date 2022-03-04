@@ -314,6 +314,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModeDuplicationScreen.FilterTab(this.guiLeft +205, this.guiTop + 79));
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons
@@ -1081,6 +1082,22 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class FilterTab extends JourneyModeDuplicationScreen.SpriteTab {
+        public FilterTab(int x, int y) {
+            super(x, y, 198, 184);
+            this.currentTab = true;
+        }
+
+        public void onPress() {
+            // place code here
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            //JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RESEARCH_TAB, mouseX, mouseY);
         }
     }
 

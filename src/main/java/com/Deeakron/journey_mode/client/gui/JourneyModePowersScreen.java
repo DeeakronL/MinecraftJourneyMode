@@ -66,8 +66,8 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.keepInv = journey_mode.keepInv;
         this.guiLeft = 0;
         this.guiTop = 0;
-        this.xSize = 175;
-        this.ySize = 183;
+        this.xSize = 176;
+        this.ySize = 184;
         this.playerInventoryTitleY = this.ySize - 92;
     }
 

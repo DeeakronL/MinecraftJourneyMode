@@ -39,8 +39,8 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         super(container, inv, titleIn);
         this.guiLeft = 0;
         this.guiTop = 0;
-        this.xSize = 175;
-        this.ySize = 183;
+        this.xSize = 176;
+        this.ySize = 184;
         this.playerInventoryTitleY = this.ySize - 92;
         this.list = journey_mode.tempList;
         this.serverContain = journey_mode.tempContain;
