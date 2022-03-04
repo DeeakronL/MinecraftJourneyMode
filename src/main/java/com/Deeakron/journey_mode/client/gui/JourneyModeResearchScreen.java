@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
+import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuResearchEvent;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
@@ -13,6 +14,7 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -215,6 +217,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
                 if (this.screen.list.reachCap(key)) {
 
                 } else {
+                    if(!minecraft.player.world.isRemote){minecraft.player.playSound(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
                     int diff = this.screen.list.get(key)[1] - this.screen.list.get(key)[0];
                     if (count > diff) {
                         this.screen.serverContain.getInventory().get(0).setCount(count - diff);

@@ -356,9 +356,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (!this.wasCreative) {
             this.serverPlayerEntity.setGameType(GameType.SURVIVAL);
         }
-        if (this.wasGodMode) {
-            this.serverPlayerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(true);
-        }
+        this.serverPlayerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(wasGodMode);
     }
 
     public boolean charTyped(char codePoint, int modifiers) {
@@ -461,6 +459,55 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
             (this.container).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
         }
+
+        this.currentScroll = 0.0F;
+        this.container.scrollTo(0.0F);
+    }
+
+    private void updateLockedFilter(boolean filter) {
+        (this.container).itemList.clear();
+        this.tagSearchResults.clear();
+
+        ItemGroup tab = itemGroupSmall[selectedTabIndex];
+        if (tab.hasSearchBar() && tab != ItemGroup.SEARCH) {
+            tab.fill(container.itemList);
+            if (!this.searchField.getText().isEmpty()) {
+                //String search = this.searchField.getText().toLowerCase(Locale.ROOT);
+                java.util.Iterator<ItemStack> itr = container.itemList.iterator();
+                while (itr.hasNext()) {
+                    ItemStack stack = itr.next();
+                    boolean matches = false;
+                    if (this.container.research.reachCap(stack.getItem().toString())) {
+                        if (filter) {
+                            itr.remove();
+                        }
+
+                    }
+
+                }
+            }
+            this.currentScroll = 0.0F;
+            container.scrollTo(0.0F);
+            return;
+        }
+
+        /*String s = this.searchField.getText();
+        if (s.isEmpty()) {
+            for(Item item : Registry.ITEM) {
+                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
+            }
+        } else {
+            ISearchTree<ItemStack> isearchtree;
+            if (s.startsWith("#")) {
+                s = s.substring(1);
+                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
+                this.searchTags(s);
+            } else {
+                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
+            }
+
+            (this.container).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
+        }*/
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
