@@ -73,6 +73,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private static final ITextComponent field_243345_D = new TranslationTextComponent("inventory.binSlot");
     private boolean wasCreative;
     private boolean wasGodMode;
+    private boolean filter = false;
 
     private static int selectedTabIndex; // need to put something
 
@@ -465,28 +466,46 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.container.scrollTo(0.0F);
     }
 
-    private void updateLockedFilter(boolean filter) {
+    private void updateLockedFilter(int filter) {
         (this.container).itemList.clear();
         this.tagSearchResults.clear();
 
         ItemGroup tab = itemGroupSmall[selectedTabIndex];
-        if (tab.hasSearchBar() && tab != ItemGroup.SEARCH) {
+        if (/*tab.hasSearchBar() &&*/ tab != ItemGroup.SEARCH) {
             tab.fill(container.itemList);
-            if (!this.searchField.getText().isEmpty()) {
+            //if (!this.searchField.getText().isEmpty()) {
                 //String search = this.searchField.getText().toLowerCase(Locale.ROOT);
                 java.util.Iterator<ItemStack> itr = container.itemList.iterator();
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
-                    boolean matches = false;
-                    if (this.container.research.reachCap(stack.getItem().toString())) {
-                        if (filter) {
-                            itr.remove();
+
+                    boolean success = false;
+                    try {
+                        String item = "\"" + stack.getItem().getRegistryName() + "\"";
+                        if (filter == 1) {
+                            if (this.container.research.reachCap(item)) {
+                                    itr.remove();
+                            }
+
+                        } else if (filter == 2) {
+                            if (!this.container.research.reachCap(item)) {
+                                itr.remove();
+                            }
                         }
 
+                        success = true;
+                    } catch (ClassCastException e) {
+                        success = false;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        success = false;
+                    } catch (IndexOutOfBoundsException e) {
+                        success = false;
+                    } catch (NullPointerException e) {
+                        success = false;
                     }
 
                 }
-            }
+            //}
             this.currentScroll = 0.0F;
             container.scrollTo(0.0F);
             return;
@@ -1087,6 +1106,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     class FilterTab extends JourneyModeDuplicationScreen.SpriteTab {
+        private int filter = 0;
         public FilterTab(int x, int y) {
             super(x, y, 198, 184);
             this.currentTab = true;
@@ -1094,6 +1114,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public void onPress() {
             // place code here
+            if (filter == 0) {
+                filter = 1;
+            } else if (filter == 1) {
+                filter = 2;
+            } else if (filter == 2) {
+                filter = 0;
+            }
+            updateLockedFilter(this.filter);
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
