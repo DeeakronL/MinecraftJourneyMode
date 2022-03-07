@@ -55,10 +55,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 //@OnlyIn(Dist.CLIENT)
@@ -511,6 +508,80 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             return;
         }
 
+        //Functionality for filtering search, doesn't work right now
+        /*if(tab == ItemGroup.SEARCH) {
+            journey_mode.LOGGER.info("searching?");
+            String s = this.searchField.getText();
+            if (s.isEmpty()) {
+                for(Item item : Registry.ITEM) {
+                    item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
+                    try {
+                        String item2 = "\"" + item.getRegistryName() + "\"";
+                        if (filter == 1) {
+                            if (!this.container.research.reachCap(item2)) {
+                                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
+                            }
+
+                        } else if (filter == 2) {
+                            if (this.container.research.reachCap(item2)) {
+                                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
+                            }
+                        }
+                    } catch (ClassCastException e) {
+
+                    } catch (ArrayIndexOutOfBoundsException e) {
+
+                    } catch (IndexOutOfBoundsException e) {
+
+                    } catch (NullPointerException e) {
+
+                    }
+
+                    if (filter == 0) {
+                        item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
+                    }
+
+                }
+            } else {
+                ISearchTree<ItemStack> isearchtree;
+                if (s.startsWith("#")) {
+                    s = s.substring(1);
+                    isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
+                    this.searchTags(s);
+                } else {
+                    isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
+                }
+
+                (this.container).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
+                journey_mode.LOGGER.info(this.container.itemList.get(0));
+                for(ItemStack item : this.container.itemList) {
+                    try {
+                        String item2 = "\"" + item.getItem().getRegistryName() + "\"";
+                        if (filter == 1) {
+                            if (this.container.research.reachCap(item2)) {
+                                this.container.itemList.remove(item);
+                            }
+
+                        } else if (filter == 2) {
+                            if (!this.container.research.reachCap(item2)) {
+                                this.container.itemList.remove(item);
+                            }
+                        }
+                    } catch (ClassCastException e) {
+
+                    } catch (ArrayIndexOutOfBoundsException e) {
+
+                    } catch (IndexOutOfBoundsException e) {
+
+                    } catch (NullPointerException e) {
+
+                    } catch (NoSuchElementException e) {
+
+                    }
+
+                }
+            }
+        }*/
         /*String s = this.searchField.getText();
         if (s.isEmpty()) {
             for(Item item : Registry.ITEM) {
