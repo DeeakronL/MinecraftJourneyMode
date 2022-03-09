@@ -312,7 +312,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModeDuplicationScreen.FilterTab(this.guiLeft +205, this.guiTop + 79));
+        this.addButton(new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize, this.guiTop + 79));
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons

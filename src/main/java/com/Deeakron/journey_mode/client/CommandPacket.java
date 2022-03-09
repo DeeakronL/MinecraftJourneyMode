@@ -50,11 +50,11 @@ public class CommandPacket {
         } else if (command.equals("unfreeze")) {
             server.getCommandManager().handleCommand(source, "gamerule doDaylightCycle true");
         } else if (command.equals("clear")) {
-            server.getCommandManager().handleCommand(source, "weather clear");
+            server.getCommandManager().handleCommand(source, "weather clear 1800");
         } else if (command.equals("rain")) {
-            server.getCommandManager().handleCommand(source, "weather rain");
+            server.getCommandManager().handleCommand(source, "weather rain 1800");
         } else if (command.equals("storm")) {
-            server.getCommandManager().handleCommand(source, "weather thunder");
+            server.getCommandManager().handleCommand(source, "weather thunder 1800");
         } else if (command.equals("normal_speed")) {
             server.getCommandManager().handleCommand(source, "gamerule randomTickSpeed 3");
         } else if (command.equals("double_speed")) {

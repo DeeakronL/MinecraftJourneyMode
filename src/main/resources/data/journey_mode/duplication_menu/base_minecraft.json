@@ -588,7 +588,7 @@
     },
     {
       "item" : "minecraft:obsidian",
-      "count" : 128,
+      "count" : 64,
       "category": "Building Blocks"
     },
     {
@@ -2358,52 +2358,52 @@
     },
     {
       "item" : "minecraft:tube_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:brain_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:bubble_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:fire_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:horn_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:dead_brain_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:dead_bubble_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:dead_fire_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:dead_horn_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:dead_tube_coral",
-      "count" : 64,
+      "count" : 32,
       "category": "Decoration Blocks"
     },
     {
@@ -2793,7 +2793,7 @@
     },
     {
       "item" : "minecraft:bee_nest",
-      "count" : 64,
+      "count" : 1,
       "category": "Decoration Blocks"
     },
     {
