@@ -217,7 +217,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
                 if (this.screen.list.reachCap(key)) {
 
                 } else {
-                    if(!minecraft.player.world.isRemote){minecraft.player.playSound(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+                    /*if(!minecraft.player.world.isRemote){*/minecraft.player.playSound(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.1F, 1.0F);//}
                     int diff = this.screen.list.get(key)[1] - this.screen.list.get(key)[0];
                     if (count > diff) {
                         this.screen.serverContain.getInventory().get(0).setCount(count - diff);
