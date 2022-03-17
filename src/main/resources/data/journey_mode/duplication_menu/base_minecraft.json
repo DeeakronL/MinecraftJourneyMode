@@ -1828,12 +1828,12 @@
     },
     {
       "item" : "minecraft:crimson_fence",
-      "count" : 64,
+      "count" : 256,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:warped_fence",
-      "count" : 64,
+      "count" : 256,
       "category": "Decoration Blocks"
     },
     {
