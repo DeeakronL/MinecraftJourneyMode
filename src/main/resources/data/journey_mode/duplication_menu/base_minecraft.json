@@ -2103,12 +2103,12 @@
     },
     {
       "item" : "minecraft:tall_grass",
-      "count" : 64,
+      "count" : 1,
       "category": "Decoration Blocks"
     },
     {
       "item" : "minecraft:large_fern",
-      "count" : 64,
+      "count" : 1,
       "category": "Decoration Blocks"
     },
     {
@@ -3853,7 +3853,7 @@
     },
     {
       "item" : "minecraft:enchanted_golden_apple",
-      "count" : 8,
+      "count" : 2,
       "category": "Foodstuffs"
     },
     {
@@ -4413,12 +4413,12 @@
     },
     {
       "item" : "minecraft:rabbit_foot",
-      "count" : 64,
+      "count" : 8,
       "category": "Brewing"
     },
     {
       "item" : "minecraft:dragon_breath",
-      "count" : 64,
+      "count" : 8,
       "category": "Brewing"
     },
     {
