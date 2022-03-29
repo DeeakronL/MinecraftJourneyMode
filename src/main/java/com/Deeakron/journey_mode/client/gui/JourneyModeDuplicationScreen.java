@@ -194,23 +194,23 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 ItemStack itemStack7 = slotIn.getStack();
                 if (type == ClickType.SWAP) {
                     journey_mode.LOGGER.info("testing swap");
-                    if (!itemStack7.isEmpty()) {
+                    /*if (!itemStack7.isEmpty()) {
                         ItemStack itemStack10 = itemStack7.copy();
                         itemStack10.setCount(itemStack10.getMaxStackSize());
                         this.minecraft.player.inventory.setInventorySlotContents(mouseButton, itemStack10);
                         this.minecraft.player.container.detectAndSendChanges();
-                    }
+                    }*/
 
                     return;
                 }
 
                 if (type == ClickType.CLONE) {
                     journey_mode.LOGGER.info("testing clone");
-                    if (playerInventory.getItemStack().isEmpty() && slotIn.getHasStack()) {
+                    /*if (playerInventory.getItemStack().isEmpty() && slotIn.getHasStack()) {
                         ItemStack itemStack9 = slotIn.getStack().copy();
                         itemStack9.setCount(itemStack9.getMaxStackSize());
                         playerInventory.setItemStack(itemStack9);
-                    }
+                    }*/
 
                     return;
                 }
@@ -276,7 +276,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     //journey_mode.LOGGER.info("testing idk???");
                     playerInventory.getItemStack().shrink(1);
                 }
-            } else if (this.container != null) {
+            } else if (this.container != null && type != ClickType.CLONE && type != ClickType.SWAP) {
                 ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.container.getSlot(slotIn.slotNumber).getStack();
                 this.container.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, this.minecraft.player);
                 if (Container.getDragEvent(mouseButton) == 2) {
@@ -285,11 +285,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     }
                 } else if (slotIn != null) {
                     ItemStack itemStack4 = this.container.getSlot(slotIn.slotNumber).getStack();
+                    journey_mode.LOGGER.info("yikes dude");
                     this.minecraft.playerController.sendSlotPacket(itemStack4, slotIn.slotNumber - (this.container).inventorySlots.size() + 9 + 36);
                     int i = 45 + mouseButton;
-                    if (type == ClickType.SWAP) {
-                        //this.minecraft.playerController.sendSlotPacket(itemStack3, i - (this.container).inventorySlots.size() + 9 + 36);
-                    } else if (type == ClickType.THROW && !itemStack3.isEmpty()) {
+                    if (type == ClickType.THROW && !itemStack3.isEmpty()) {
                         ItemStack itemStack2 = itemStack3.copy();
                         itemStack2.setCount(mouseButton == 0 ? 1 : itemStack2.getMaxStackSize());
                         this.minecraft.player.dropItem(itemStack2, true);
