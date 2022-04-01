@@ -114,9 +114,14 @@ public class EventHandler {
         }
 
         if (source instanceof ProjectileEntity) {
-            if (((ProjectileEntity) source).getShooter().getEntity() instanceof PlayerEntity) {
-                player = (PlayerEntity) ((ProjectileEntity) source).getShooter().getEntity();
+            try{
+                if (((ProjectileEntity) source).getShooter().getEntity() instanceof PlayerEntity) {
+                    player = (PlayerEntity) ((ProjectileEntity) source).getShooter().getEntity();
+                }
+            } catch (NullPointerException e) {
+                journey_mode.LOGGER.info("OOF");
             }
+
         }
 
         if (source instanceof WolfEntity) {
