@@ -61,6 +61,9 @@ public class MenuSwitchPacket {
                 wasCreative = false;
             }
             player.setGameType(GameType.CREATIVE);
+            if(!wasCreative) {
+                player.abilities.isCreativeMode = false;
+            }
             boolean wasGodMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
             if (wasGodMode == false) {
                 player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(false);

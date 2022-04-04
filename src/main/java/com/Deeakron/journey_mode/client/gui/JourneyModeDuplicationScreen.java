@@ -71,6 +71,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private boolean wasCreative;
     private boolean wasGodMode;
     private boolean filter = false;
+    private int filterTabPage = 0;
 
     private static int selectedTabIndex; // need to put something
 
@@ -462,11 +463,15 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.container.scrollTo(0.0F);
     }
 
-    private void updateLockedFilter(int filter) {
+    private int updateLockedFilter(int filter) {
         (this.container).itemList.clear();
         this.tagSearchResults.clear();
 
         ItemGroup tab = itemGroupSmall[selectedTabIndex];
+        journey_mode.LOGGER.info(filter + "  " + filterTabPage + "  " + selectedTabIndex);
+        if(filterTabPage != selectedTabIndex) {
+            filter = 1;
+        }
         if (/*tab.hasSearchBar() &&*/ tab != ItemGroup.SEARCH) {
             tab.fill(container.itemList);
             //if (!this.searchField.getText().isEmpty()) {
@@ -504,7 +509,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             //}
             this.currentScroll = 0.0F;
             container.scrollTo(0.0F);
-            return;
+            this.filterTabPage = selectedTabIndex;
+            return filter;
         }
 
         //Functionality for filtering search, doesn't work right now
@@ -601,6 +607,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
+        return filter;
     }
 
     private void searchTags(String search) {
@@ -1196,7 +1203,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             } else if (filter == 2) {
                 filter = 0;
             }
-            updateLockedFilter(this.filter);
+            this.filter = updateLockedFilter(this.filter);
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
