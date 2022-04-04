@@ -781,6 +781,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
+        this.filterTab.setUV(198, 220);
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
@@ -1125,8 +1126,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     abstract static class SpriteTab extends JourneyModeDuplicationScreen.Tab {
-        private final int u;
-        private final int v;
+        private int u;
+        private int v;
 
         protected SpriteTab(int x, int y, int u, int v) {
             super(x, y);
@@ -1136,6 +1137,11 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         protected void func_230454_a_(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
+        }
+
+        public void setUV(int u, int v) {
+            this.u = u;
+            this.v = v;
         }
     }
 
@@ -1206,11 +1212,19 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 filter = 0;
             }
             this.filter = updateLockedFilter(this.filter);
+            if (filter == 0) {
+                this.setUV(198, 220);
+            } else if (filter == 1) {
+                this.setUV(234, 220);
+            } else if (filter == 2) {
+                this.setUV(216, 220);
+            }
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             //JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RESEARCH_TAB, mouseX, mouseY);
         }
+
     }
 
     public static class DuplicationContainer extends Container {
