@@ -72,6 +72,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private boolean wasGodMode;
     private boolean filter = false;
     private int filterTabPage = 0;
+    private JourneyModeDuplicationScreen.FilterTab filterTab;
 
     private static int selectedTabIndex; // need to put something
 
@@ -312,7 +313,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79));
+        this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79);
+        this.addButton(filterTab);
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons
