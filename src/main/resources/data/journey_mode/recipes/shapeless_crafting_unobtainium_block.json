@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    },
+    {
+      "item": "journey_mode:unobtainium_ingot"
+    }
+  ],
+  "result": {
+    "item": "journey_mode:unobtainium_block",
+    "count": 1
+  }
+}

@@ -311,7 +311,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize, this.guiTop + 79));
+        this.addButton(new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79));
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons
@@ -1091,6 +1091,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     @OnlyIn(Dist.CLIENT)
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
+        public boolean filterTab = false;
 
         protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
 
@@ -1101,6 +1102,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             int j = 0;
             if (!this.currentTab) {
                 j += 32;
+            }
+            if (this.filterTab) {
+                j += 64;
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
@@ -1180,6 +1184,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         public FilterTab(int x, int y) {
             super(x, y, 198, 184);
             this.currentTab = true;
+            this.filterTab = true;
         }
 
         public void onPress() {
