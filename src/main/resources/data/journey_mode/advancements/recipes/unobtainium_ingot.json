@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_bedrock",
+      "has_unobtainium",
+      "has_void_dust",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_bedrock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:bedrock"
+          }
+        ]
+      }
+    },
+    "has_unobtainium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:unobtainium_raw"
+          }
+        ]
+      }
+    },
+    "has_void_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:primordial_void_dust"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:shaped_crafting_unobtainium_ingot"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:shaped_crafting_unobtainium_ingot"
+    ]
+  }
+}
