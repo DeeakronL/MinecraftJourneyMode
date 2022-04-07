@@ -13,7 +13,7 @@
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false,
-    "background": "journey_mode:textures/gui/advancements/background/unobtainium_raw_block.png"
+    "background": "journey_mode:textures/gui/advancements/background/raw_unobtainium_block.png"
   },
   "criteria": {
     "unobtainium": {
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "journey_mode:unobtainium_raw"
+            "item": "journey_mode:raw_unobtainium"
           }
         ]
       }

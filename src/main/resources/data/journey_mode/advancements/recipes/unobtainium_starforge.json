@@ -24,7 +24,7 @@
       "conditions": {
         "items": [
           {
-            "item": "journey_mode:unobtainium_raw"
+            "item": "journey_mode:raw_unobtainium"
           }
         ]
       }

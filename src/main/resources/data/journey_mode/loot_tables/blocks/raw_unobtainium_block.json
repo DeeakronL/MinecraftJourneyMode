@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "journey_mode:unobtainium_raw_block"
+          "name": "journey_mode:raw_unobtainium_block"
         }
       ],
       "conditions": [

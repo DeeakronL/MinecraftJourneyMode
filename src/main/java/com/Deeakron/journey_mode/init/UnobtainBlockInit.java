@@ -34,8 +34,8 @@ public class UnobtainBlockInit {
                             .sound(SoundType.NETHERITE)
                             .setRequiresTool()));
 
-    public static final RegistryObject<Block> UNOBTAINIUM_RAW_BLOCK = BLOCKS
-            .register("unobtainium_raw_block",
+    public static final RegistryObject<Block> RAW_UNOBTAINIUM_BLOCK = BLOCKS
+            .register("raw_unobtainium_block",
                     () -> new Block(AbstractBlock.Properties.create(Material.IRON)
                             .hardnessAndResistance(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)

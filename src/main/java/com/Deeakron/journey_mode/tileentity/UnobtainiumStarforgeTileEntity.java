@@ -182,7 +182,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
             return null;
         }
 
-        if (stack.getItem().getRegistryName().toString().equals("journey_mode:unobtainium_raw_block")) {
+        if (stack.getItem().getRegistryName().toString().equals("journey_mode:raw_unobtainium_block")) {
             //journey_mode.LOGGER.info("well it is unobtainium");
         }
 
