@@ -12,7 +12,7 @@
       "conditions": {
         "items": [
           {
-            "item": "journey_mode:unobtainium_raw"
+            "item": "journey_mode:raw_unobtainium"
           }
         ]
       }
@@ -20,13 +20,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "journey_mode:shapeless_crafting_unobtainium_raw_block"
+        "recipe": "journey_mode:shapeless_crafting_raw_unobtainium_block"
       }
     }
   },
   "rewards": {
     "recipes": [
-      "journey_mode:shapeless_crafting_unobtainium_raw_block"
+      "journey_mode:shapeless_crafting_raw_unobtainium_block"
     ]
   }
 }

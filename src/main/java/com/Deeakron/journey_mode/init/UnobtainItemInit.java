@@ -20,7 +20,7 @@ public class UnobtainItemInit {
             journey_mode.MODID);
 
     public static final RegistryObject<Item> UNOBTAINIUM_INGOT = ITEMS.register("unobtainium_ingot", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
-    public static final RegistryObject<Item> UNOBTAINIUM_RAW = ITEMS.register("unobtainium_raw", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
+    public static final RegistryObject<Item> RAW_UNOBTAINIUM = ITEMS.register("raw_unobtainium", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 
     public static final RegistryObject<Item> PRIMORDIAL_VOID_DUST = ITEMS.register("primordial_void_dust",
             () -> new PrimordialVoidDustItem(new Item.Properties().group(ItemGroup.MATERIALS)));
@@ -35,8 +35,8 @@ public class UnobtainItemInit {
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",
             () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
 
-    public static final RegistryObject<BlockItem> UNOBTAINIUM_RAW_BLOCK = ITEMS.register("unobtainium_raw_block",
-            () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_RAW_BLOCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
+    public static final RegistryObject<BlockItem> RAW_UNOBTAINIUM_BLOCK = ITEMS.register("raw_unobtainium_block",
+            () -> new BlockItem(UnobtainBlockInit.RAW_UNOBTAINIUM_BLOCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
 
     public static final RegistryObject<BlockItem> UNOBTAINIUM_ANTIKYTHERA = ITEMS.register("unobtainium_antikythera",
             () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_ANTIKYTHERA.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
