@@ -10,6 +10,7 @@ import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,7 +18,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.impl.GameModeCommand;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -26,6 +29,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -167,8 +171,10 @@ public class EventHandler {
         }
     }
 
-    //@SubscribeEvent
-    //public static void onVillagerTradesEvent(Event)
+    /*@SubscribeEvent
+    public static void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        PlayerEntity player = event.getPlayer();
+    }*/
 
     @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
@@ -272,7 +278,36 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onAdvancementEvent(AdvancementEvent event) {
-        //journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
+        ServerPlayerEntity player = event.getPlayer().getServer().getPlayerList().getPlayerByUUID(event.getPlayer().getUniqueID());
+        MinecraftServer server = event.getPlayer().getServer();
+        Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/villager_traded"));
+        if (advancement != null) {
+            journey_mode.LOGGER.info("correct advancement?");
+            if (event.getAdvancement().getId() == advancement.getId()) {
+                journey_mode.LOGGER.info("correct advancement");
+                AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancement);
+                if (!advancementprogress.hasProgress()) {
+
+                } else {
+                    for(String s : advancementprogress.getCompletedCriteria()) {
+                        player.getAdvancements().revokeCriterion(advancement, s);
+                        journey_mode.LOGGER.info("advancement revoked");
+                        String item = "\"" + SpawnEggItem.getEgg(EntityType.VILLAGER).getItem().getRegistryName() + "\"";
+                        EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                        //journey_mode.LOGGER.info("made it here");
+                        cap.updateResearch(new String[]{item},
+                                new int[]{1},
+                                false,
+                                event.getPlayer().getUniqueID(),
+                                SpawnEggItem.getEgg(EntityType.VILLAGER).getItem().getDefaultInstance());
+                    }
+
+                }
+            }
+        }
+
+
+        journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement());
         //journey_mode.LOGGER.info("ADVANCEMENT: " + event.getAdvancement().getCriteria());
     }
 

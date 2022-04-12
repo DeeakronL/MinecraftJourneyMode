@@ -1,0 +1,23 @@
+{
+  "criteria": {
+    "scanner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:scanner"
+          }
+        ]
+      }
+    },
+    "trading": {
+      "trigger": "minecraft:villager_trade"
+    }
+  },
+  "requirements": [
+    [
+      "scanner",
+      "trading"
+    ]
+  ]
+}
