@@ -283,7 +283,8 @@ public class EventHandler {
         Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/villager_traded"));
         if (advancement != null) {
             journey_mode.LOGGER.info("correct advancement?");
-            if (event.getAdvancement().getId() == advancement.getId()) {
+            ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            if (event.getAdvancement().getId() == advancement.getId() && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
                 journey_mode.LOGGER.info("correct advancement");
                 AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancement);
                 if (!advancementprogress.hasProgress()) {
