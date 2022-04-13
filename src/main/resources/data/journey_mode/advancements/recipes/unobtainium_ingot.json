@@ -3,7 +3,13 @@
   "requirements": [
     [
       "has_bedrock",
+      "has_the_recipe"
+    ],
+    [
       "has_unobtainium",
+      "has_the_recipe"
+    ],
+    [
       "has_void_dust",
       "has_the_recipe"
     ]

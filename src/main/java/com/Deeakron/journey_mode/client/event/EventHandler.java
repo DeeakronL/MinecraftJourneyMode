@@ -284,23 +284,32 @@ public class EventHandler {
         if (advancement != null) {
             journey_mode.LOGGER.info("correct advancement?");
             ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-            if (event.getAdvancement().getId() == advancement.getId() && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
+            if (event.getAdvancement().getId() == advancement.getId()) {
                 journey_mode.LOGGER.info("correct advancement");
                 AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancement);
                 if (!advancementprogress.hasProgress()) {
 
                 } else {
                     for(String s : advancementprogress.getCompletedCriteria()) {
-                        player.getAdvancements().revokeCriterion(advancement, s);
-                        journey_mode.LOGGER.info("advancement revoked");
-                        String item = "\"" + SpawnEggItem.getEgg(EntityType.VILLAGER).getItem().getRegistryName() + "\"";
-                        EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                        //journey_mode.LOGGER.info("made it here");
-                        cap.updateResearch(new String[]{item},
-                                new int[]{1},
-                                false,
-                                event.getPlayer().getUniqueID(),
-                                SpawnEggItem.getEgg(EntityType.VILLAGER).getItem().getDefaultInstance());
+                        boolean isCapped = false;
+                        if (helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
+                            String item = "\"" + SpawnEggItem.getEgg(EntityType.VILLAGER).getItem().getRegistryName() + "\"";
+                            EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                            //journey_mode.LOGGER.info("made it here");
+                            cap.updateResearch(new String[]{item},
+                                    new int[]{1},
+                                    false,
+                                    event.getPlayer().getUniqueID(),
+                                    SpawnEggItem.getEgg(EntityType.VILLAGER).getItem().getDefaultInstance());
+                            if(cap.getResearch(item)[0] == 64) {
+                                isCapped = true;
+                            }
+                        }
+                        if (!isCapped) {
+                            player.getAdvancements().revokeCriterion(advancement, s);
+                            journey_mode.LOGGER.info("advancement revoked");
+                        }
+
                     }
 
                 }

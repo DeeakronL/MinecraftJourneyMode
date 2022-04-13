@@ -3,7 +3,13 @@
   "requirements": [
     [
       "has_sword",
+      "has_the_recipe"
+    ],
+    [
       "has_logs",
+      "has_the_recipe"
+    ],
+    [
       "has_slabs",
       "has_the_recipe"
     ]

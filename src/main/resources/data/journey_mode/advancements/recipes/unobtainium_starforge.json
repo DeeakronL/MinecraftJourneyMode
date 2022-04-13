@@ -3,7 +3,13 @@
   "requirements": [
     [
       "has_glass",
+      "has_the_recipe"
+    ],
+    [
       "has_unobtainium",
+      "has_the_recipe"
+    ],
+    [
       "has_star",
       "has_the_recipe"
     ]

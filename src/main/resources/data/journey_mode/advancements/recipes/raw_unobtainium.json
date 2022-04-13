@@ -3,13 +3,37 @@
   "requirements": [
     [
       "has_sponge",
+      "has_the_recipe"
+    ],
+    [
       "has_end_crystal",
+      "has_the_recipe"
+    ],
+    [
       "has_conduit",
+      "has_the_recipe"
+    ],
+    [
       "has_beacon",
+      "has_the_recipe"
+    ],
+    [
       "has_potato",
+      "has_the_recipe"
+    ],
+    [
       "has_anchor",
+      "has_the_recipe"
+    ],
+    [
       "has_netherite",
+      "has_the_recipe"
+    ],
+    [
       "has_dragon_head",
+      "has_the_recipe"
+    ],
+    [
       "has_ore",
       "has_the_recipe"
     ]

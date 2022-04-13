@@ -3,9 +3,21 @@
   "requirements": [
     [
       "has_unobtainium",
+      "has_the_recipe"
+    ],
+    [
       "has_beacon",
+      "has_the_recipe"
+    ],
+    [
       "has_end_crystal",
+      "has_the_recipe"
+    ],
+    [
       "has_star",
+      "has_the_recipe"
+    ],
+    [
       "has_egg",
       "has_the_recipe"
     ]
