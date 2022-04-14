@@ -155,6 +155,8 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onBabyEntitySpawnEvent(BabyEntitySpawnEvent event){
+        journey_mode.LOGGER.info(event.getChild());
+        journey_mode.LOGGER.info(event.getCausedByPlayer());
         if (event.getCausedByPlayer() != null) {
             PlayerEntity player = event.getCausedByPlayer();
             ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
@@ -281,10 +283,11 @@ public class EventHandler {
         ServerPlayerEntity player = event.getPlayer().getServer().getPlayerList().getPlayerByUUID(event.getPlayer().getUniqueID());
         MinecraftServer server = event.getPlayer().getServer();
         Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/villager_traded"));
+        Advancement advancement2 = server.getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/dolphin_fed"));
         if (advancement != null) {
-            journey_mode.LOGGER.info("correct advancement?");
-            ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            //journey_mode.LOGGER.info("correct advancement?");
             if (event.getAdvancement().getId() == advancement.getId()) {
+                ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
                 journey_mode.LOGGER.info("correct advancement");
                 AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancement);
                 if (!advancementprogress.hasProgress()) {
@@ -307,6 +310,39 @@ public class EventHandler {
                         }
                         if (!isCapped) {
                             player.getAdvancements().revokeCriterion(advancement, s);
+                            journey_mode.LOGGER.info("advancement revoked");
+                        }
+
+                    }
+
+                }
+            }
+        }
+        if (advancement2 != null) {
+            if (event.getAdvancement().getId() == advancement2.getId()) {
+                ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+                journey_mode.LOGGER.info("dolphin advancement");
+                AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancement2);
+                if (!advancementprogress.hasProgress()) {
+
+                } else {
+                    for(String s : advancementprogress.getCompletedCriteria()) {
+                        boolean isCapped = false;
+                        if (helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
+                            String item = "\"" + SpawnEggItem.getEgg(EntityType.DOLPHIN).getItem().getRegistryName() + "\"";
+                            EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                            //journey_mode.LOGGER.info("made it here");
+                            cap.updateResearch(new String[]{item},
+                                    new int[]{1},
+                                    false,
+                                    event.getPlayer().getUniqueID(),
+                                    SpawnEggItem.getEgg(EntityType.DOLPHIN).getItem().getDefaultInstance());
+                            if(cap.getResearch(item)[0] == 64) {
+                                isCapped = true;
+                            }
+                        }
+                        if (!isCapped) {
+                            player.getAdvancements().revokeCriterion(advancement2, s);
                             journey_mode.LOGGER.info("advancement revoked");
                         }
 
