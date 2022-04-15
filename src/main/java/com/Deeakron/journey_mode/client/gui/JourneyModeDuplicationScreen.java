@@ -66,6 +66,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
+    public static final ITextComponent FILTER_TAB_0 = new TranslationTextComponent("journey_mode.gui.tabs.filters_0");
+    public static final ITextComponent FILTER_TAB_1 = new TranslationTextComponent("journey_mode.gui.tabs.filters_1");
+    public static final ITextComponent FILTER_TAB_2 = new TranslationTextComponent("journey_mode.gui.tabs.filters_2");
     private static final Inventory TMP_INVENTORY = new Inventory(45);
     private static final ITextComponent field_243345_D = new TranslationTextComponent("inventory.binSlot");
     private boolean wasCreative;
@@ -1222,7 +1225,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            //JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RESEARCH_TAB, mouseX, mouseY);
+            if (this.filter == 0) {
+                JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_0, mouseX, mouseY);
+            } else if (this.filter == 1) {
+                JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_1, mouseX, mouseY);
+            } else if (this.filter == 2) {
+                JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_2, mouseX, mouseY);
+            }
+
         }
 
     }
