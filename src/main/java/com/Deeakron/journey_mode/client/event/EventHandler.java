@@ -42,10 +42,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -169,6 +166,24 @@ public class EventHandler {
                         false,
                         player.getUniqueID(),
                         SpawnEggItem.getEgg(event.getChild().getType()).getItem().getDefaultInstance());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onParrotTameEvent(AnimalTameEvent event) {
+        if (event.getAnimal().getType() == EntityType.PARROT) {
+            PlayerEntity player = event.getTamer();
+            ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            if (SpawnEggItem.getEgg(event.getAnimal().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
+                String item = "\"" + SpawnEggItem.getEgg(event.getAnimal().getType()).getItem().getRegistryName() + "\"";
+                EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                //journey_mode.LOGGER.info("made it here");
+                cap.updateResearch(new String[]{item},
+                        new int[]{4},
+                        false,
+                        player.getUniqueID(),
+                        SpawnEggItem.getEgg(event.getAnimal().getType()).getItem().getDefaultInstance());
             }
         }
     }
