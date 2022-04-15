@@ -1,0 +1,23 @@
+{
+  "criteria": {
+    "give_fish": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+            "items": [
+              "minecraft:raw_cod",
+              "minecraft:raw_salmon"
+              ]
+          },
+        "entity": {
+            "type": "minecraft:dolphin"
+          }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "give_fish"
+    ]
+  ]
+}
