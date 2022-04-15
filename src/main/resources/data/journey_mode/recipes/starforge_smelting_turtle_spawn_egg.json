@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "output": {
+    "item": "minecraft:turtle_spawn_egg"
+  },
+  "input": {
+    "item": "minecraft:turtle_egg"
+  }
+}
