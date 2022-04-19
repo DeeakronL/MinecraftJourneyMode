@@ -74,7 +74,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private boolean wasCreative;
     private boolean wasGodMode;
     private boolean filter = false;
+    private int filterContainer = 0;
     private int filterTabPage = 0;
+    private NonNullList<ItemStack> searchList;
     private JourneyModeDuplicationScreen.FilterTab filterTab;
 
     private static int selectedTabIndex; // need to put something
@@ -443,6 +445,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             }
             this.currentScroll = 0.0F;
             container.scrollTo(0.0F);
+            //updateLockedFilter(this.filterContainer, this.container.itemList);
+            this.searchList = this.container.itemList;
             return;
         }
 
@@ -466,22 +470,55 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
+        //updateLockedFilter(this.filterContainer, this.container.itemList);
+        this.filterTab.setUV(198, 220);
+        this.filterTab.resetFilter();
+        this.searchList = this.container.itemList;
+        //journey_mode.LOGGER.info(container.itemList.get(0));
     }
 
-    private int updateLockedFilter(int filter) {
+    private int updateLockedFilter(int filter, NonNullList<ItemStack> current_item_list) {
         (this.container).itemList.clear();
-        this.tagSearchResults.clear();
+        //this.tagSearchResults.clear();
 
+        //journey_mode.LOGGER.info(current_item_list.get(0));
         ItemGroup tab = itemGroupSmall[selectedTabIndex];
         journey_mode.LOGGER.info(filter + "  " + filterTabPage + "  " + selectedTabIndex);
+        if (tab == ItemGroup.SEARCH && this.searchList != null) {
+            current_item_list = this.searchList;
+        }
+        if (current_item_list == null) {
+            current_item_list = container.itemList;
+        }
         if(filterTabPage != selectedTabIndex) {
             filter = 1;
         }
-        if (/*tab.hasSearchBar() &&*/ tab != ItemGroup.SEARCH) {
-            tab.fill(container.itemList);
+        if (/*tab.hasSearchBar() &&*/ true) {//tab != ItemGroup.SEARCH) {
+            if (tab == ItemGroup.SEARCH) {
+                String s = this.searchField.getText();
+                if (s.isEmpty()) {
+                    for(Item item : Registry.ITEM) {
+                        item.fillItemGroup(ItemGroup.SEARCH, current_item_list);
+                    }
+                } else {
+                    ISearchTree<ItemStack> isearchtree;
+                    if (s.startsWith("#")) {
+                        s = s.substring(1);
+                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
+                        this.searchTags(s);
+                    } else {
+                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
+                    }
+
+                    current_item_list.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
+                }
+            } else {
+                tab.fill(current_item_list);
+            }
+
             //if (!this.searchField.getText().isEmpty()) {
                 //String search = this.searchField.getText().toLowerCase(Locale.ROOT);
-                java.util.Iterator<ItemStack> itr = container.itemList.iterator();
+                java.util.Iterator<ItemStack> itr = current_item_list.iterator();
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
 
@@ -515,6 +552,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             this.currentScroll = 0.0F;
             container.scrollTo(0.0F);
             this.filterTabPage = selectedTabIndex;
+            this.filterContainer = filter;
             return filter;
         }
 
@@ -612,6 +650,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
+        this.filterContainer = filter;
         return filter;
     }
 
@@ -1214,7 +1253,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             } else if (filter == 2) {
                 filter = 0;
             }
-            this.filter = updateLockedFilter(this.filter);
+            this.filter = updateLockedFilter(this.filter, null);
             if (filter == 0) {
                 this.setUV(198, 220);
             } else if (filter == 1) {
@@ -1233,6 +1272,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_2, mouseX, mouseY);
             }
 
+        }
+
+        public void resetFilter() {
+            this.filter = 0;
         }
 
     }
