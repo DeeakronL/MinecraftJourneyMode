@@ -93,6 +93,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.addButton(new JourneyModePowersScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModePowersScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModePowersScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModePowersScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
         //journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
@@ -603,6 +604,23 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         public void onPress() {
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class RecipesTab extends JourneyModePowersScreen.SpriteTab {
+        public RecipesTab(int x, int y) {
+            super(x, y, 217, 202);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
             //current tab, so nothing happens
         }
 

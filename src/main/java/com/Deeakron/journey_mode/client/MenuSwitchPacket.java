@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.client;
 
 import com.Deeakron.journey_mode.container.JourneyModePowersContainerProvider;
+import com.Deeakron.journey_mode.container.JourneyModeRecipesContainerProvider;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
@@ -70,6 +71,8 @@ public class MenuSwitchPacket {
             }
             context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this, wasCreative, wasGodMode, player)));
             //NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeDuplicationContainerProvider());
+        } else if (menuType.equals("recipes")) {
+            NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeRecipesContainerProvider());
         }
     }
 
