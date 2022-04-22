@@ -2,28 +2,31 @@
   "parent": "minecraft:recipes/root",
   "requirements": [
     [
-      "has_shovel",
-      "has_dirt",
+      "has_stone",
+      "has_the_recipe"
+    ],
+    [
+      "has_spawn_egg",
       "has_the_recipe"
     ]
   ],
   "criteria": {
-    "has_shovel": {
+    "has_stone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:netherite_shovel"
+            "item": "minecraft:cobblestone"
           }
         ]
       }
     },
-    "has_dirt": {
+    "has_spawn_egg": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:dirt"
+            "item": "minecraft:silverfish_spawn_egg"
           }
         ]
       }
@@ -31,13 +34,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "journey_mode:antikythera_crafting_dirt_path"
+        "recipe": "journey_mode:antikythera_crafting_infested_cobblestone"
       }
     }
   },
   "rewards": {
     "recipes": [
-      "journey_mode:antikythera_crafting_dirt_path"
+      "journey_mode:antikythera_crafting_infested_cobblestone"
     ]
   }
 }

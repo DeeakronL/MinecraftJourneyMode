@@ -1,0 +1,143 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_stonecutter",
+      "has_the_recipe"
+    ],
+    [
+      "has_crafting_table",
+      "has_the_recipe"
+    ],
+    [
+      "has_smithing_table",
+      "has_the_recipe"
+    ],
+    [
+      "has_furnace",
+      "has_the_recipe"
+    ],
+    [
+      "has_writeable_book",
+      "has_the_recipe"
+    ],
+    [
+      "has_blast_furnace",
+      "has_the_recipe"
+    ],
+    [
+      "has_brewing_stand",
+      "has_the_recipe"
+    ],
+    [
+      "has_smoker",
+      "has_the_recipe"
+    ],
+    [
+      "has_enchanting_table",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_stonecutter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:stonecutter"
+          }
+        ]
+      }
+    },
+    "has_crafting_table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:crafting_table"
+          }
+        ]
+      }
+    },
+    "has_smithing_table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:smithing_table"
+          }
+        ]
+      }
+    },
+    "has_furnace": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:furnace"
+          }
+        ]
+      }
+    },
+    "has_writeable_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:writeable_book"
+          }
+        ]
+      }
+    },
+    "has_blast_furnace": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:blast_furnace"
+          }
+        ]
+      }
+    },
+    "has_brewing_stand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:brewing_stand"
+          }
+        ]
+      }
+    },"has_smoker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:smoker"
+          }
+        ]
+      }
+    },
+    "has_enchanting_table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:enchanting_table"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_knowledge_book"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_knowledge_book"
+    ]
+  }
+}

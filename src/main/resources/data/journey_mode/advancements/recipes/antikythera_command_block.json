@@ -1,0 +1,74 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_unobtainium",
+      "has_the_recipe"
+    ],
+    [
+      "has_observer",
+      "has_the_recipe"
+    ],
+    [
+      "has_netherite",
+      "has_the_recipe"
+    ],
+    [
+      "has_lodestone",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_unobtainium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:unobtainium_block"
+          }
+        ]
+      }
+    },
+    "has_observer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:observer"
+          }
+        ]
+      }
+    },
+    "has_netherite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:netherite_block"
+          }
+        ]
+      }
+    },
+    "has_lodestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:lodestone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_command_block"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_command_block"
+    ]
+  }
+}

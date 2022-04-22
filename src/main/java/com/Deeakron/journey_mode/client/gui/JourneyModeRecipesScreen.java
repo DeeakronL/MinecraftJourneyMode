@@ -10,11 +10,13 @@ import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -57,6 +59,9 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        Advancement advancement = this.playerInventory.player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:recipes/antikythera_barrier"));
+        ServerPlayerEntity player = this.playerInventory.player.getServer().getPlayerList().getPlayerByUUID(this.playerInventory.player.getUniqueID());
+        player.getAdvancements().getProgress(advancement).isDone();
 
     }
 
