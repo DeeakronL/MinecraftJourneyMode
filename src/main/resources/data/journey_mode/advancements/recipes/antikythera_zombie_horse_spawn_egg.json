@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_flesh",
+      "has_the_recipe"
+    ],
+    [
+      "has_spawn_egg",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_flesh": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:rotten_flesh"
+          }
+        ]
+      }
+    },
+    "has_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:horse_spawn_egg"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_zombie_horse_spawn_egg"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_zombie_horse_spawn_egg"
+    ]
+  }
+}

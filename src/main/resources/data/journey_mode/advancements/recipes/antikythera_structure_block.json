@@ -1,0 +1,60 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_jigsaw",
+      "has_the_recipe"
+    ],
+    [
+      "has_unobtainium",
+      "has_the_recipe"
+    ],
+    [
+      "has_command_block",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_jigsaw": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:jigsaw"
+          }
+        ]
+      }
+    },
+    "has_unobtainium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "journey_mode:unobtainium_block"
+          }
+        ]
+      }
+    },
+    "has_command_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:command_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_structure_block"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_structure_block"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_repeater",
+      "has_the_recipe"
+    ],
+    [
+      "has_command_block",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_repeater": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:repeater"
+          }
+        ]
+      }
+    },
+    "has_command_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:command_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_repeating_command_block"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_repeating_command_block"
+    ]
+  }
+}

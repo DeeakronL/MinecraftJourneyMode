@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:recipes/root",
+  "requirements": [
+    [
+      "has_structure_block",
+      "has_the_recipe"
+    ],
+    [
+      "has_barrier",
+      "has_the_recipe"
+    ]
+  ],
+  "criteria": {
+    "has_structure_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:structure_block"
+          }
+        ]
+      }
+    },
+    "has_barrier": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:barrier"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_structure_void"
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_structure_void"
+    ]
+  }
+}
