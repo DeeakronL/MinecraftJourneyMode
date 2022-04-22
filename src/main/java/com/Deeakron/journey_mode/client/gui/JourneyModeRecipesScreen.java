@@ -59,10 +59,38 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
-        Advancement advancement = this.playerInventory.player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:recipes/antikythera_barrier"));
         ServerPlayerEntity player = this.playerInventory.player.getServer().getPlayerList().getPlayerByUUID(this.playerInventory.player.getUniqueID());
-        player.getAdvancements().getProgress(advancement).isDone();
 
+        //Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:recipes/antikythera_barrier"));
+        //player.getAdvancements().getProgress(advancement).isDone();
+
+        //checking all antikythera recipes
+        ResourceLocation[] locations = {new ResourceLocation("journey_mode:recipes/antikythera_barrier"), new ResourceLocation("journey_mode:recipes/antikythera_chain_command_block"),new ResourceLocation("journey_mode:recipes/antikythera_command_block"),new ResourceLocation("journey_mode:recipes/antikythera_command_block_minecart"),new ResourceLocation("journey_mode:recipes/antikythera_debug_stick"),new ResourceLocation("journey_mode:recipes/antikythera_dirt_path"),new ResourceLocation("journey_mode:recipes/antikythera_end_portal_frame"),new ResourceLocation("journey_mode:recipes/antikythera_farmland"),new ResourceLocation("journey_mode:recipes/antikythera_infested_cobblestone"),new ResourceLocation("journey_mode:recipes/antikythera_infested_chiseled_stone_bricks"), new ResourceLocation("journey_mode:recipes/antikythera_mossy_stone_bricks"),new ResourceLocation("journey_mode:recipes/antikythera_infested_stone"),new ResourceLocation("journey_mode:recipes/antikythera_infested_stone_bricks"),new ResourceLocation("journey_mode:recipes/antikythera_infested_cracked_stone_bricks"),new ResourceLocation("journey_mode:recipes/antikythera_jigsaw"),new ResourceLocation("journey_mode:recipes/antikythera_knowledge_book"),new ResourceLocation("journey_mode:recipes/antikythera_paint_bucket"),new ResourceLocation("journey_mode:recipes/antikythera_petrified_oak_slab"),new ResourceLocation("journey_mode:recipes/antikythera_player_head"),new ResourceLocation("journey_mode:recipes/antikythera_repeating_command_block"),new ResourceLocation("journey_mode:recipes/antikythera_scanner"),new ResourceLocation("journey_mode:recipes/antikythera_spawner"),new ResourceLocation("journey_mode:recipes/antikythera_structure_block"),new ResourceLocation("journey_mode:recipes/antikythera_structure_void"),new ResourceLocation("journey_mode:recipes/antikythera_wandering_trader_spawn_egg"),new ResourceLocation("journey_mode:recipes/antikythera_zombie_horse_spawn_egg")};
+        boolean[] achieved = new boolean[locations.length];
+        int recipeCount = 0;
+        for (int i = 0; i < locations.length; i++) {
+            Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(locations[i]);
+            if (player.getAdvancements().getProgress(advancement).isDone()) {
+                achieved[i] = true;
+                recipeCount += 1;
+            } else {
+                achieved[i] = false;
+            }
+        }
+        ResourceLocation[][] items = new ResourceLocation[recipeCount][10];
+        int j = 0;
+        for (int i = 0; i < recipeCount; i++) {
+            boolean itemsReceived = false;
+            while (itemsReceived == false) {
+                if (achieved[j]) {
+                    //code to put items from recipe from locations[j] to items[i], with input being items[i][0-9] and output being items[i][9]
+                    j += 1;
+                    itemsReceived = true;
+                } else {
+                    j += 1;
+                }
+            }
+        }
     }
 
     @Override
