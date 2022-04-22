@@ -39,8 +39,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
     public static final ITextComponent RESEARCH_DESC = new TranslationTextComponent("journey_mode.gui.research");
     public static final ITextComponent RESEARCH_INFO = new TranslationTextComponent("journey_mode.gui.researched");
-    private static ResearchList list;
-    private static JourneyModeResearchContainer serverContain;
+    private boolean initialized;
 
     public JourneyModeRecipesScreen(JourneyModeRecipesContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -48,9 +47,8 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.guiTop = 0;
         this.xSize = 176;
         this.ySize = 166;
+        this.initialized = false;
         //this.playerInventoryTitleY = this.ySize - 92;
-        this.list = journey_mode.tempList;
-        this.serverContain = journey_mode.tempContain;
     }
 
     protected void init() {
@@ -58,23 +56,26 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.addButton(new JourneyModeRecipesScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        ResourceLocation[] loc1 = {new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:command_block"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain_command_block")};
-        ResourceLocation[] loc2 = {new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:ender_pearl"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("minecraft:end_portal_frame")};
 
-        ItemStack[] items1 = new ItemStack[10];
-        ItemStack[] items2 = new ItemStack[10];
-        for (int i = 0; i < 10; i++) {
-            items1[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc1[i]));
-            items2[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc2[i]));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.initialized) {
+            this.initialized = true;
+            ResourceLocation[] loc1 = {new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:command_block"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain_command_block")};
+            ResourceLocation[] loc2 = {new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:ender_pearl"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("minecraft:end_portal_frame")};
+
+            ItemStack[] items1 = new ItemStack[10];
+            ItemStack[] items2 = new ItemStack[10];
+            for (int i = 0; i < 10; i++) {
+                items1[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc1[i]));
+                items2[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc2[i]));
+            }
+            this.container.insertItem(items1, 1);
+            this.container.insertItem(items2, 2);
         }
-        //items1[0] = new ItemStack(UnobtainItemInit.AETHERIAL_VOID_DUST.get());
-        //ItemStack item = new ItemStack(UnobtainItemInit.AETHERIAL_VOID_DUST.get());
-        //this.container.insertItem(item);
-        this.container.insertItem(items1, 1);
-        this.container.insertItem(items2, 2);
-        this.minecraft.playerController.sendSlotPacket(items1[0], 0);
-        //journey_mode.LOGGER.info(getNarrationMessage());
-        //this.buttonsNotDrawn = true;
     }
 
     @Override
