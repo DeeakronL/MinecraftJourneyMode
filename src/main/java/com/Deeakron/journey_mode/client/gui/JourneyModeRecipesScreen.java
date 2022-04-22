@@ -37,8 +37,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
-    public static final ITextComponent RESEARCH_DESC = new TranslationTextComponent("journey_mode.gui.research");
-    public static final ITextComponent RESEARCH_INFO = new TranslationTextComponent("journey_mode.gui.researched");
+    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
     private boolean initialized;
 
     public JourneyModeRecipesScreen(JourneyModeRecipesContainer container, PlayerInventory inv, ITextComponent titleIn) {
@@ -48,7 +47,8 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.xSize = 176;
         this.ySize = 166;
         this.initialized = false;
-        //this.playerInventoryTitleY = this.ySize - 92;
+        this.playerInventoryTitleX = -1000;
+        this.playerInventoryTitleY = -1000;
     }
 
     protected void init() {
@@ -56,6 +56,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.addButton(new JourneyModeRecipesScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
 
     }
 
@@ -204,17 +205,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     }
 
     @OnlyIn(Dist.CLIENT)
-    abstract static class TextButton extends JourneyModeRecipesScreen.Button {
-        protected TextButton(int x, int y) {
-            super(x, y);
-        }
-
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
-            this.screen.font.drawString(p_230454_1_, this.screen.RESEARCH_DESC.getString(), this.screen.guiLeft + 64.0f, this.screen.guiTop + 72.0f, 4210752);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
     class PowersTab extends JourneyModeRecipesScreen.SpriteTab {
         public PowersTab(int x, int y) {
             super(x, y, 162, 202);
@@ -234,11 +224,11 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     class ResearchTab extends JourneyModeRecipesScreen.SpriteTab {
         public ResearchTab(int x, int y) {
             super(x, y, 198, 184);
-            this.currentTab = true;
+            this.currentTab = false;
         }
 
         public void onPress() {
-            //current tab, so nothing happens
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -260,6 +250,22 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModeRecipesScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class RecipesTab extends JourneyModeRecipesScreen.SpriteTab {
+        public RecipesTab(int x, int y) {
+            super(x, y, 217, 202);
+            this.currentTab = true;
+        }
+
+        public void onPress() {
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModeRecipesScreen.this.renderTooltip(matrixStack, RECIPES_TAB, mouseX, mouseY);
         }
     }
 }

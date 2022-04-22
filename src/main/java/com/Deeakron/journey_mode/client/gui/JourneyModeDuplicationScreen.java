@@ -66,6 +66,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
+    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
     public static final ITextComponent FILTER_TAB_0 = new TranslationTextComponent("journey_mode.gui.tabs.filters_0");
     public static final ITextComponent FILTER_TAB_1 = new TranslationTextComponent("journey_mode.gui.tabs.filters_1");
     public static final ITextComponent FILTER_TAB_2 = new TranslationTextComponent("journey_mode.gui.tabs.filters_2");
@@ -318,6 +319,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
         this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79);
         this.addButton(filterTab);
         int tabCount = this.itemGroupSmall.length;
@@ -1232,6 +1234,23 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class RecipesTab extends JourneyModeDuplicationScreen.SpriteTab {
+        public RecipesTab(int x, int y) {
+            super(x, y, 217, 202);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RECIPES_TAB, mouseX, mouseY);
         }
     }
 

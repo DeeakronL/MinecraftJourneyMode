@@ -34,6 +34,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     public static final ITextComponent RESEARCH_INFO = new TranslationTextComponent("journey_mode.gui.researched");
     private static ResearchList list;
     private static JourneyModeResearchContainer serverContain;
+    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
 
     public JourneyModeResearchScreen(JourneyModeResearchContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -52,6 +53,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         this.addButton(new JourneyModeResearchScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeResearchScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         this.addButton(new JourneyModeResearchScreen.ResearchButton(this.guiLeft + 58, this.guiTop + 67, this));
+        this.addButton(new JourneyModeResearchScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
         //journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
@@ -266,6 +268,23 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
             JourneyModeResearchScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    class RecipesTab extends JourneyModeResearchScreen.SpriteTab {
+        public RecipesTab(int x, int y) {
+            super(x, y, 217, 202);
+            this.currentTab = false;
+        }
+
+        public void onPress() {
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
+            //current tab, so nothing happens
+        }
+
+        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+            JourneyModeResearchScreen.this.renderTooltip(matrixStack, RECIPES_TAB, mouseX, mouseY);
         }
     }
 }

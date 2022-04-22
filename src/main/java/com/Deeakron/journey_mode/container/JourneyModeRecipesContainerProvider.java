@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public class JourneyModeRecipesContainerProvider implements INamedContainerProvider {
     @Override
     public ITextComponent getDisplayName() {
-        ITextComponent title = new TranslationTextComponent("journey_mode.gui.name");
+        ITextComponent title = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
         return new StringTextComponent(title.getString());
     }
 

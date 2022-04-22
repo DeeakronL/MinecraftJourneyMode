@@ -48,6 +48,7 @@
   "journey_mode.gui.tabs.powers" : "Powers Menu",
   "journey_mode.gui.tabs.research" : "Research Menu",
   "journey_mode.gui.tabs.duplication" : "Duplication Menu",
+  "journey_mode.gui.tabs.recipes" : "Antikythera Recipes",
   "journey_mode.gui.tabs.filters_0" : "Showing All Items",
   "journey_mode.gui.tabs.filters_1" : "Showing Unresearched",
   "journey_mode.gui.tabs.filters_2" : "Showing Researched",

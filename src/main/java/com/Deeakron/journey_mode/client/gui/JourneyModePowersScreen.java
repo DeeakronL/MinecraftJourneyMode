@@ -47,6 +47,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
+    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
 
     private static boolean freeze;
     private int tickSpeed;
@@ -625,7 +626,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            JourneyModePowersScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+            JourneyModePowersScreen.this.renderTooltip(matrixStack, RECIPES_TAB, mouseX, mouseY);
         }
     }
 }
