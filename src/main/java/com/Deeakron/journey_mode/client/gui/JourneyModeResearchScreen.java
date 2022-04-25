@@ -35,6 +35,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     private static ResearchList list;
     private static JourneyModeResearchContainer serverContain;
     public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
+    public static boolean hasRecipes;
 
     public JourneyModeResearchScreen(JourneyModeResearchContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -45,6 +46,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         this.playerInventoryTitleY = this.ySize - 92;
         this.list = journey_mode.tempList;
         this.serverContain = journey_mode.tempContain;
+        this.hasRecipes = journey_mode.hasRecipes;
     }
 
     protected void init() {
@@ -53,7 +55,9 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         this.addButton(new JourneyModeResearchScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeResearchScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
         this.addButton(new JourneyModeResearchScreen.ResearchButton(this.guiLeft + 58, this.guiTop + 67, this));
-        this.addButton(new JourneyModeResearchScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        if (this.hasRecipes) {
+            this.addButton(new JourneyModeResearchScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        }
         //journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }

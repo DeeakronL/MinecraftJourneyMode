@@ -15,13 +15,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
@@ -57,37 +55,37 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
 
     protected void init() {
         super.init();
-        this.addButton(new PowersTab(this.guiLeft -29, this.guiTop + 21));
-        this.addButton(new ResearchTab(this.guiLeft -29, this.guiTop + 50));
-        this.addButton(new DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new RecipesTab(this.guiLeft -29, this.guiTop + 108));
-        PlayerEntity player = this.playerInventory.player;
+        this.addButton(new JourneyModeRecipesScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
+        this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
+        this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        //ServerPlayerEntity player = this.playerInventory.player.getServer().getPlayerList().getPlayerByUUID(this.playerInventory.player.getUniqueID());
 
         //Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:recipes/antikythera_barrier"));
         //player.getAdvancements().getProgress(advancement).isDone();
 
         //checking all antikythera recipes
-        ResourceLocation[] locations = {new ResourceLocation("journey_mode:recipes/antikythera_crafting_barrier"), new ResourceLocation("journey_mode:recipes/antikythera_crafting_chain_command_block"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_command_block"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_command_block_minecart"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_debug_stick"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_dirt_path"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_end_portal_frame"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_farmland"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_infested_cobblestone"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_infested_chiseled_stone_bricks"), new ResourceLocation("journey_mode:recipes/antikythera_crafting_mossy_stone_bricks"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_infested_stone"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_infested_stone_bricks"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_infested_cracked_stone_bricks"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_jigsaw"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_knowledge_book"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_paint_bucket"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_petrified_oak_slab"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_player_head"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_repeating_command_block"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_scanner"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_spawner"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_structure_block"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_structure_void"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_wandering_trader_spawn_egg"),new ResourceLocation("journey_mode:recipes/antikythera_crafting_zombie_horse_spawn_egg")};
-        boolean[] achieved = new boolean[locations.length];
-        int recipeCount = 0;
+        ResourceLocation[] locations = journey_mode.itemListHandler.getLocations();
+        boolean[] achieved;
+        /*int recipeCount = 0;
         for (int i = 0; i < locations.length; i++) {
             Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(locations[i]);
-            if (true) {
+            if (player.getAdvancements().getProgress(advancement).isDone()) {
                 achieved[i] = true;
                 recipeCount += 1;
             } else {
                 achieved[i] = false;
             }
-        }
+        }*/
+        achieved = journey_mode.tempAdvance;
+        int recipeCount = journey_mode.tempCount;
         ResourceLocation[][] items = new ResourceLocation[recipeCount][10];
-        ResourceLocation[] locations2 = {new ResourceLocation("journey_mode:antikythera_crafting_barrier"), new ResourceLocation("journey_mode:antikythera_crafting_chain_command_block"),new ResourceLocation("journey_mode:antikythera_crafting_command_block"),new ResourceLocation("journey_mode:antikythera_crafting_command_block_minecart"),new ResourceLocation("journey_mode:antikythera_crafting_debug_stick"),new ResourceLocation("journey_mode:antikythera_crafting_dirt_path"),new ResourceLocation("journey_mode:antikythera_crafting_end_portal_frame"),new ResourceLocation("journey_mode:antikythera_crafting_farmland"),new ResourceLocation("journey_mode:antikythera_crafting_infested_cobblestone"),new ResourceLocation("journey_mode:antikythera_crafting_infested_chiseled_stone_bricks"), new ResourceLocation("journey_mode:antikythera_crafting_mossy_stone_bricks"),new ResourceLocation("journey_mode:antikythera_crafting_infested_stone"),new ResourceLocation("journey_mode:antikythera_crafting_infested_stone_bricks"),new ResourceLocation("journey_mode:antikythera_crafting_infested_cracked_stone_bricks"),new ResourceLocation("journey_mode:antikythera_crafting_jigsaw"),new ResourceLocation("journey_mode:antikythera_crafting_knowledge_book"),new ResourceLocation("journey_mode:antikythera_crafting_paint_bucket"),new ResourceLocation("journey_mode:antikythera_crafting_petrified_oak_slab"),new ResourceLocation("journey_mode:antikythera_crafting_player_head"),new ResourceLocation("journey_mode:antikythera_crafting_repeating_command_block"),new ResourceLocation("journey_mode:antikythera_crafting_scanner"),new ResourceLocation("journey_mode:antikythera_crafting_spawner"),new ResourceLocation("journey_mode:antikythera_crafting_structure_block"),new ResourceLocation("journey_mode:antikythera_crafting_structure_void"),new ResourceLocation("journey_mode:antikythera_crafting_wandering_trader_spawn_egg"),new ResourceLocation("journey_mode:antikythera_crafting_zombie_horse_spawn_egg")};
         int j = 0;
         for (int i = 0; i < recipeCount; i++) {
             boolean itemsReceived = false;
             while (itemsReceived == false) {
                 if (achieved[j]) {
                     //code to put items from recipe from locations[j] to items[i], with input being items[i][0-9] and output being items[i][9]
-                    NonNullList ingredients = player.getServer().getRecipeManager().getRecipe(locations2[i]).get().getIngredients();
                     j += 1;
                     itemsReceived = true;
                 } else {
