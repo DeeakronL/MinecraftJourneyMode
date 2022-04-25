@@ -64,6 +64,7 @@ public class journey_mode
     public static boolean[] tempAdvance;
     public static int tempCount;
     public static JourneyModeResearchContainer tempContain;
+    public static AntikytheraRecipeItemList itemListHandler;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -156,6 +157,7 @@ public class journey_mode
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
         JMTriggers.init();
+
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -196,6 +198,7 @@ public class journey_mode
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
+        this.itemListHandler = new AntikytheraRecipeItemList(event.getServer());
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
