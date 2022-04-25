@@ -49,8 +49,10 @@ public class MenuSwitchPacket {
         ServerWorld serverWorld = context.get().getSender().getServerWorld();
         PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(info);
         if (menuType.equals("powers")) {
+            journey_mode.LOGGER.info(player.inventory.getItemStack());
             NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
         } else if (menuType.equals("research")) {
+            journey_mode.LOGGER.info(player.inventory.getItemStack());
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
             NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeResearchContainerProvider());
         } else if (menuType.equals("duplication")) {
@@ -77,7 +79,6 @@ public class MenuSwitchPacket {
     }
 
     public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, PlayerEntity player) {
-
         Minecraft.getInstance().displayGuiScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayerEntity) player));
     }
 }
