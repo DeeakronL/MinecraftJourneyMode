@@ -18,7 +18,7 @@
       "has_the_recipe"
     ],
     [
-      "has_writeable_book",
+      "has_writable_book",
       "has_the_recipe"
     ],
     [
@@ -79,12 +79,12 @@
         ]
       }
     },
-    "has_writeable_book": {
+    "has_writable_book": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:writeable_book"
+            "item": "minecraft:writable_book"
           }
         ]
       }

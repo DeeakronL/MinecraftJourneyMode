@@ -101,6 +101,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private int hotbarIndex;
     private int survivalInventoryIndex;
     private ServerPlayerEntity serverPlayerEntity;
+    private static boolean hasRecipes;
 
     public JourneyModeDuplicationScreen(PlayerEntity player, boolean wasCreative, boolean wasGodMode, ServerPlayerEntity serverPlayerEntity) {
         super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.inventory, StringTextComponent.EMPTY);
@@ -112,6 +113,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.xSize = 190;
         this.ySize = 183;
         this.playerList = journey_mode.tempList;
+        this.hasRecipes = journey_mode.hasRecipes;
         this.itemGroupSmall = new ItemGroup[ItemGroup.GROUPS.length - 2];
         for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
             //journey_mode.LOGGER.info("current group " + i + " is: " + ItemGroup.GROUPS[i].getGroupName().getString());
@@ -319,7 +321,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        if (this.hasRecipes) {
+            this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        }
         this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79);
         this.addButton(filterTab);
         int tabCount = this.itemGroupSmall.length;

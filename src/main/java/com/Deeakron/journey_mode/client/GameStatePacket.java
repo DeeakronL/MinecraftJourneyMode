@@ -5,10 +5,12 @@ import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.MenuOpenEvent;
 import com.Deeakron.journey_mode.journey_mode;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
@@ -80,6 +82,13 @@ public class GameStatePacket {
         journey_mode.mobGrief = this.mobGrief;
         journey_mode.godMode = this.godMode;
         journey_mode.keepInv = this.keepInv;
+        Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+        boolean unlockRecipes = false;
+        if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
+            unlockRecipes = true;
+        }
+        journey_mode.hasRecipes = unlockRecipes;
         NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
         //context.get().enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> handleOnClient(this)::run));
         context.get().setPacketHandled(true);

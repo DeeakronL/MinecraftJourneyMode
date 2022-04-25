@@ -55,6 +55,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     private static boolean mobGrief;
     private static boolean godMode;
     private static boolean keepInv;
+    private static boolean hasRecipes;
 
     public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn) {//, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
         super(container, inv, titleIn);
@@ -70,6 +71,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.xSize = 176;
         this.ySize = 184;
         this.playerInventoryTitleY = this.ySize - 92;
+        this.hasRecipes = journey_mode.hasRecipes;
     }
 
     protected void init() {
@@ -94,7 +96,9 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.addButton(new JourneyModePowersScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
         this.addButton(new JourneyModePowersScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
         this.addButton(new JourneyModePowersScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModePowersScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        if (this.hasRecipes) {
+            this.addButton(new JourneyModePowersScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+        }
         //journey_mode.LOGGER.info(getNarrationMessage());
         //this.buttonsNotDrawn = true;
     }
