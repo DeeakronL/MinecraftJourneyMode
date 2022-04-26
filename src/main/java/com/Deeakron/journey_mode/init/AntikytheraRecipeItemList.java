@@ -1,8 +1,11 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.journey_mode;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 public class AntikytheraRecipeItemList {
@@ -13,10 +16,29 @@ public class AntikytheraRecipeItemList {
     public AntikytheraRecipeItemList(MinecraftServer server) {
         RecipeManager manager = server.getRecipeManager();
         //journey_mode.LOGGER.info("hey things seem to be working, like " + manager.getRecipe(recipeLocations[0]).toString());
-
+        ResourceLocation tempItems [][] = new ResourceLocation[recipeLocations.length][];
         for (int i = 0; i < recipeLocations.length; i++) {
-            //code to get items to put into items[i], with items[i][0-8] being the input and items[i][9] being the output
+            ResourceLocation tempItems2 [] = new ResourceLocation[9];
+            for (int j =0; j < tempItems2.length; j++) {
+                //code to get items to put into items[i], with items[i][0-8] being the input and items[i][9] being the output
+                journey_mode.LOGGER.info(recipeLocations[i]);
+                //journey_mode.LOGGER.info(manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j));
+                try {
+                    if (manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j) != null) {
+                        tempItems2[j] = manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j).getMatchingStacks()[0].getItem().getRegistryName();
+                    } else {
+                        tempItems2[j] = new ResourceLocation("");
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    tempItems2[j] = new ResourceLocation("");
+                }
+
+                //
+            }
+            tempItems[i] = tempItems2;
+
         }
+        items = tempItems;
     }
 
     public ResourceLocation[] getLocations() {
