@@ -4,6 +4,7 @@ import com.Deeakron.journey_mode.client.event.MenuResearchEvent;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.container.JourneyModeRecipesContainer;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
+import com.Deeakron.journey_mode.init.AntikytheraRecipeItemList;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
@@ -42,8 +43,11 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
     private boolean initialized;
     private int currentRecipe = 0;
+    private int numRecipes;
     private boolean showRightButton = false;
     private boolean showLeftButton = false;
+    private ResourceLocation[][] recipeItems;
+
 
     public JourneyModeRecipesScreen(JourneyModeRecipesContainer container, PlayerInventory inv, ITextComponent titleIn) {
         super(container, inv, titleIn);
@@ -64,8 +68,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
         this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.guiLeft + 6, this.guiTop + 73, false, this, 147, 234));
         this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.guiLeft + 152, this.guiTop + 73, true, this, 163, 234));
-        this.showRightButton = true;
-        this.showLeftButton = true;
         //ServerPlayerEntity player = this.playerInventory.player.getServer().getPlayerList().getPlayerByUUID(this.playerInventory.player.getUniqueID());
 
         //Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:recipes/antikythera_barrier"));
@@ -92,6 +94,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             boolean itemsReceived = false;
             while (itemsReceived == false) {
                 if (achieved[j]) {
+                    items[i] = journey_mode.itemListHandler.getSpecificRecipe(j);
                     //code to put items from recipe from locations[j] to items[i], with input being items[i][0-9] and output being items[i][9]
                     j += 1;
                     itemsReceived = true;
@@ -100,6 +103,13 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
                 }
             }
         }
+        this.recipeItems = items;
+        this.numRecipes = recipeCount;
+        if (recipeCount < 3) {
+            this.showRightButton = false;
+        } else {
+            this.showRightButton = true;
+        }
     }
 
     @Override
@@ -107,14 +117,42 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         super.tick();
         if (!this.initialized) {
             this.initialized = true;
-            ResourceLocation[] loc1 = {new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:command_block"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain_command_block")};
-            ResourceLocation[] loc2 = {new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:ender_pearl"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("minecraft:end_portal_frame")};
+            //ResourceLocation[] loc1 = {new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:command_block"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain_command_block")};
+            //ResourceLocation[] loc2 = {new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:ender_pearl"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("minecraft:end_portal_frame")};
+            ResourceLocation[] loc1 = new ResourceLocation[10];
+            ResourceLocation[] loc2 = new ResourceLocation[10];
+            if (this.numRecipes > 0) {
+                loc1 = this.recipeItems[0];
+            } else {
+                for (int i = 0; i < 10; i++) {
+                    loc1[i] = new ResourceLocation("");
+                }
+            }
 
+            if (this.numRecipes > 1) {
+                loc2 = this.recipeItems[1];
+            } else {
+                for (int i = 0; i < 10; i++) {
+                    loc2[i] = new ResourceLocation("");
+                }
+            }
             ItemStack[] items1 = new ItemStack[10];
             ItemStack[] items2 = new ItemStack[10];
+            //journey_mode.LOGGER.info("extracted is: " + loc1[0].toString());
             for (int i = 0; i < 10; i++) {
-                items1[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc1[i]));
-                items2[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc2[i]));
+                try {
+                    loc1[i].toString().equals("");
+                    items1[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc1[i]));
+                } catch (NullPointerException e) {
+                    items1[i] = ItemStack.EMPTY;
+                }
+
+                try {
+                    loc2[i].toString().equals("");
+                    items2[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc2[i]));
+                } catch (NullPointerException e) {
+                    items2[i] = ItemStack.EMPTY;
+                }
             }
             this.container.insertItem(items1, 1);
             this.container.insertItem(items2, 2);
@@ -130,10 +168,52 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
 
     public void updateRecipes(boolean isRight) {
         if (isRight) {
-            journey_mode.LOGGER.info("going RIGHT");
+            this.currentRecipe += 2;
+
         } else if (!isRight) {
-            journey_mode.LOGGER.info("going LEFT");
+            this.currentRecipe -= 2;
         }
+        if (this.currentRecipe + 2 >= this.numRecipes) {
+            this.showRightButton = false;
+        } else {
+            this.showRightButton = true;
+        }
+        if (this.currentRecipe == 0) {
+            this.showLeftButton = false;
+        } else {
+            this.showLeftButton = true;
+        }
+        ResourceLocation[] loc1 = new ResourceLocation[10];
+        ResourceLocation[] loc2 = new ResourceLocation[10];
+        loc1 = this.recipeItems[this.currentRecipe];
+
+        if (this.numRecipes > this.currentRecipe + 1) {
+            loc2 = this.recipeItems[this.currentRecipe + 1];
+        } else {
+            for (int i = 0; i < 10; i++) {
+                loc2[i] = new ResourceLocation("");
+            }
+        }
+        ItemStack[] items1 = new ItemStack[10];
+        ItemStack[] items2 = new ItemStack[10];
+        //journey_mode.LOGGER.info("extracted is: " + loc1[0].toString());
+        for (int i = 0; i < 10; i++) {
+            try {
+                loc1[i].toString().equals("");
+                items1[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc1[i]));
+            } catch (NullPointerException e) {
+                items1[i] = ItemStack.EMPTY;
+            }
+
+            try {
+                loc2[i].toString().equals("");
+                items2[i] = new ItemStack(ForgeRegistries.ITEMS.getValue(loc2[i]));
+            } catch (NullPointerException e) {
+                items2[i] = ItemStack.EMPTY;
+            }
+        }
+        this.container.insertItem(items1, 1);
+        this.container.insertItem(items2, 2);
     }
 
     @Override
@@ -251,23 +331,24 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
 
         public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            int i = 184;
+            int j = 0;
             if (this.isRight && this.screen.showRightButton) {
-                Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                int i = 184;
-                int j = 0;
-
-                this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-                this.func_230454_a_(matrixStack);
+                this.active = true;
             } else if (!this.isRight && this.screen.showLeftButton) {
-                Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                int i = 184;
-                int j = 0;
-
-                this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-                this.func_230454_a_(matrixStack);
+                this.active = true;
+            } else {
+                this.active = false;
             }
+            if (!this.active) {
+                j += 36;
+            }
+
+            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
+            this.func_230454_a_(matrixStack);
+
 
         }
 

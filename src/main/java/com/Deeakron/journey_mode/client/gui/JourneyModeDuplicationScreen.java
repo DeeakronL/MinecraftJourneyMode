@@ -1220,8 +1220,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public void onPress() {
             journey_mode.LOGGER.info(playerInventory.getItemStack());
-            ServerPlayerEntity player = (ServerPlayerEntity) playerInventory.player;
-            player.dropItem(playerInventory.getItemStack(), false);
+            //ServerPlayerEntity player = (ServerPlayerEntity) playerInventory.player;
+            //player.dropItem(playerInventory.getItemStack(), false);
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
         }
 

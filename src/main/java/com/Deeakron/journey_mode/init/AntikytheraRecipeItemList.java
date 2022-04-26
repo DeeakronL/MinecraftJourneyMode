@@ -19,7 +19,7 @@ public class AntikytheraRecipeItemList {
         ResourceLocation tempItems [][] = new ResourceLocation[recipeLocations.length][];
         for (int i = 0; i < recipeLocations.length; i++) {
             ResourceLocation tempItems2 [] = new ResourceLocation[10];
-            for (int j =0; j < 8; j++) {
+            for (int j =0; j < 9; j++) {
                 //code to get items to put into items[i], with items[i][0-8] being the input and items[i][9] being the output
                 journey_mode.LOGGER.info(recipeLocations[i]);
                 //journey_mode.LOGGER.info(manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j));
@@ -44,5 +44,9 @@ public class AntikytheraRecipeItemList {
 
     public ResourceLocation[] getLocations() {
         return this.locations;
+    }
+
+    public ResourceLocation[] getSpecificRecipe(int index) {
+        return this.items[index];
     }
 }
