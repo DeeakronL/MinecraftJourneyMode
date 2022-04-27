@@ -84,6 +84,8 @@
   "advancement.journey_mode.get_painted_barrier.description" : "Use a paint bucket to make a barrier block crafted from an antikythera visible and obtainable",
   "advancement.journey_mode.get_spawn_egg.title" : "(Un)Life from Death",
   "advancement.journey_mode.get_spawn_egg.description" : "While wearing a scanner, kill many zombies to unlock the ability to duplicate zombie spawn eggs",
+  "advancement.journey_mode.get_turtle_spawn_egg.title" : "",
+  "advancement.journey_mode.get_turtle_spawn_egg.description" : "Use a starforge to breathe new life into a turtle egg",
   "block.journey_mode.research_grinder.grind" : "Research Grinder Sound",
   "subtitles.journey_mode.block.research_grinder.grind_subtitle": "Research Grinder grinding",
   "block.journey_mode.unobtainium_antikythera.craft" : "Unobtainium Antikythera Craft Sound",
