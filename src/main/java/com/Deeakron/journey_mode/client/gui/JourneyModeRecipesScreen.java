@@ -41,12 +41,16 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
     public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
     public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
+    public static final ITextComponent SHAPELESS_NOTIF = new TranslationTextComponent("journey_mode.gui.recipes.shapeless");
     private boolean initialized;
     private int currentRecipe = 0;
     private int numRecipes;
     private boolean showRightButton = false;
     private boolean showLeftButton = false;
     private ResourceLocation[][] recipeItems;
+    private boolean[] isShaped;
+    private boolean topShaped = true;
+    private boolean bottomShaped = true;
 
 
     public JourneyModeRecipesScreen(JourneyModeRecipesContainer container, PlayerInventory inv, ITextComponent titleIn) {
@@ -89,12 +93,14 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         achieved = journey_mode.tempAdvance;
         int recipeCount = journey_mode.tempCount;
         ResourceLocation[][] items = new ResourceLocation[recipeCount][10];
+        boolean[] shaped = new boolean[recipeCount];
         int j = 0;
         for (int i = 0; i < recipeCount; i++) {
             boolean itemsReceived = false;
             while (itemsReceived == false) {
                 if (achieved[j]) {
                     items[i] = journey_mode.itemListHandler.getSpecificRecipe(j);
+                    shaped[i] = journey_mode.itemListHandler.getIsShaped(j);
                     //code to put items from recipe from locations[j] to items[i], with input being items[i][0-9] and output being items[i][9]
                     j += 1;
                     itemsReceived = true;
@@ -105,6 +111,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
         this.recipeItems = items;
         this.numRecipes = recipeCount;
+        this.isShaped = shaped;
         if (recipeCount < 3) {
             this.showRightButton = false;
         } else {
@@ -123,18 +130,22 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             ResourceLocation[] loc2 = new ResourceLocation[10];
             if (this.numRecipes > 0) {
                 loc1 = this.recipeItems[0];
+                this.topShaped = this.isShaped[0];
             } else {
                 for (int i = 0; i < 10; i++) {
                     loc1[i] = new ResourceLocation("");
                 }
+                this.topShaped = true;
             }
 
             if (this.numRecipes > 1) {
                 loc2 = this.recipeItems[1];
+                this.bottomShaped = this.isShaped[1];
             } else {
                 for (int i = 0; i < 10; i++) {
                     loc2[i] = new ResourceLocation("");
                 }
+                this.bottomShaped = true;
             }
             ItemStack[] items1 = new ItemStack[10];
             ItemStack[] items2 = new ItemStack[10];
@@ -186,13 +197,16 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         ResourceLocation[] loc1 = new ResourceLocation[10];
         ResourceLocation[] loc2 = new ResourceLocation[10];
         loc1 = this.recipeItems[this.currentRecipe];
+        this.topShaped = this.isShaped[this.currentRecipe];
 
         if (this.numRecipes > this.currentRecipe + 1) {
             loc2 = this.recipeItems[this.currentRecipe + 1];
+            this.bottomShaped = this.isShaped[this.currentRecipe + 1];
         } else {
             for (int i = 0; i < 10; i++) {
                 loc2[i] = new ResourceLocation("");
             }
+            this.bottomShaped = true;
         }
         ItemStack[] items1 = new ItemStack[10];
         ItemStack[] items2 = new ItemStack[10];
@@ -227,20 +241,12 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
                 break;
             }
         }
-        /*if (!this.container.getInventory().get(0).isEmpty()) {
-            String key = "\"" + this.container.getInventory().get(0).getItem().getRegistryName().toString() + "\"";
-            if (this.list.hasItem(key)) {
-                String info1 = this.container.getInventory().get(0).getItem().getName().getString();
-                String info2 = this.list.get(key)[0] + "/" + this.list.get(key)[1] + " " + this.RESEARCH_INFO.getString();
-                if (this.list.reachCap(key)) {
-                    this.font.drawString(matrixStack, info1, 8, 16, TextFormatting.DARK_RED.getColor());
-                    this.font.drawString(matrixStack, info2, 8, 26, TextFormatting.DARK_RED.getColor());
-                } else {
-                    this.font.drawString(matrixStack, info1, 8, 16, 4210752);
-                    this.font.drawString(matrixStack, info2, 8, 26, 4210752);
-                }
-            }
-        }*/
+        if (!this.topShaped) {
+            this.font.drawString(matrixStack, this.SHAPELESS_NOTIF.getString(), 90, 60, TextFormatting.DARK_RED.getColor());
+        }
+        if (!this.bottomShaped) {
+            this.font.drawString(matrixStack, this.SHAPELESS_NOTIF.getString(), 90, 138, TextFormatting.DARK_RED.getColor());
+        }
     }
 
     @Override
