@@ -55,6 +55,7 @@
   "journey_mode.gui.name" : "Journey Mode Menu",
   "journey_mode.gui.research" : "Research",
   "journey_mode.gui.researched" : "researched.",
+  "journey_mode.gui.recipes.shapeless" : "*Shapeless",
   "advancement.journey_mode.research.item_researched" : "Item Researched",
   "advancement.journey_mode.root.title" : "Journey Mode",
   "advancement.journey_mode.root.description" : "Obtain the unobtainable",
