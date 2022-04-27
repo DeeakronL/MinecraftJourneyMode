@@ -318,11 +318,11 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     protected void init() {
         super.init();
-        this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
-        this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
-        this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21, this));
+        this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50, this));
+        this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79, this));
         if (this.hasRecipes) {
-            this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+            this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108, this));
         }
         this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79);
         this.addButton(filterTab);
@@ -1150,8 +1150,16 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
         public boolean filterTab = false;
+        public JourneyModeDuplicationScreen screen;
 
-        protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
+        protected Tab(int x, int y) {
+            super(x, y, 32, 28, StringTextComponent.EMPTY);
+        }
+
+        protected Tab(int x, int y, JourneyModeDuplicationScreen screen) {
+            super(x, y, 32, 28, StringTextComponent.EMPTY);
+            this.screen = screen;
+        }
 
         public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
             Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
@@ -1183,6 +1191,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             this.v = v;
         }
 
+        protected SpriteTab(int x, int y, int u, int v, JourneyModeDuplicationScreen screen) {
+            super(x, y, screen);
+            this.u = u;
+            this.v = v;
+        }
+
         protected void func_230454_a_(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
@@ -1195,14 +1209,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     class PowersTab extends JourneyModeDuplicationScreen.SpriteTab {
-        public PowersTab(int x, int y) {
-            super(x, y, 162, 202);
+        public PowersTab(int x, int y, JourneyModeDuplicationScreen screen) {
+            super(x, y, 162, 202, screen);
             this.currentTab = false;
         }
 
         public void onPress() {
-            journey_mode.LOGGER.info(playerInventory.getItemStack());
-            playerInventory.player.dropItem(playerInventory.player.inventory.getItemStack(), false);
+            this.screen.minecraft.player.dropItem(playerInventory.getItemStack(), true);
+            this.screen.minecraft.playerController.sendPacketDropItem(playerInventory.getItemStack());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "powers"));
         }
 
@@ -1213,15 +1227,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     class ResearchTab extends JourneyModeDuplicationScreen.SpriteTab {
-        public ResearchTab(int x, int y) {
-            super(x, y, 198, 184);
+        public ResearchTab(int x, int y, JourneyModeDuplicationScreen screen) {
+            super(x, y, 198, 184, screen);
             this.currentTab = false;
         }
 
         public void onPress() {
-            journey_mode.LOGGER.info(playerInventory.getItemStack());
-            //ServerPlayerEntity player = (ServerPlayerEntity) playerInventory.player;
-            //player.dropItem(playerInventory.getItemStack(), false);
+            this.screen.minecraft.player.dropItem(playerInventory.getItemStack(), true);
+            this.screen.minecraft.playerController.sendPacketDropItem(playerInventory.getItemStack());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
         }
 
@@ -1232,8 +1245,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     class DuplicationTab extends JourneyModeDuplicationScreen.SpriteTab {
-        public DuplicationTab(int x, int y) {
-            super(x, y, 198, 202);
+        public DuplicationTab(int x, int y, JourneyModeDuplicationScreen screen) {
+            super(x, y, 198, 202, screen);
             this.currentTab = true;
         }
 
@@ -1248,14 +1261,15 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     @OnlyIn(Dist.CLIENT)
     class RecipesTab extends JourneyModeDuplicationScreen.SpriteTab {
-        public RecipesTab(int x, int y) {
-            super(x, y, 217, 202);
+        public RecipesTab(int x, int y, JourneyModeDuplicationScreen screen) {
+            super(x, y, 217, 202, screen);
             this.currentTab = false;
         }
 
         public void onPress() {
+            this.screen.minecraft.player.dropItem(playerInventory.getItemStack(), true);
+            this.screen.minecraft.playerController.sendPacketDropItem(playerInventory.getItemStack());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
-            //current tab, so nothing happens
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
