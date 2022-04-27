@@ -1,0 +1,35 @@
+{
+  "parent": "journey_mode:journey_mode/get_breedable_spawn_egg",
+  "display": {
+    "icon": {
+      "item": "minecraft:zombie_horse_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_zombie_horse_spawn_egg.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_zombie_horse_spawn_egg.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:zombie_horse_spawn_egg"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "spawn_egg"
+    ]
+  ]
+}
