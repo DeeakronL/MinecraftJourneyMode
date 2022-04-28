@@ -1,10 +1,7 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.*;
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
 import com.Deeakron.journey_mode.data.AntikytheraShapelessRecipe;
-import com.Deeakron.journey_mode.data.recipebook.JMRecipeBookCategory;
-import com.Deeakron.journey_mode.data.recipebook.JMRecipeBookContainer;
 import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
@@ -37,7 +34,6 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
 
     public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory) {
         this(id, playerInventory, IWorldPosCallable.DUMMY);
-        //journey_mode.LOGGER.info("this was the culprit");
     }
 
     public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, final IWorldPosCallable p_i50090_3_) {
@@ -52,24 +48,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
             }
 
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-                    //journey_mode.LOGGER.info(worldPosCallable);
-                    //player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1.0F, 1.0F);
                     if(!player.world.isRemote){player.playSound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
-
-                    //journey_mode.LOGGER.info(Sound);
-                /*worldPosCallable.consume((p_216954_1_, p_216954_2_) -> {
-                    long l = p_216954_1_.getGameTime();
-                    if (UnobtainiumAntikytheraContainer.this.lastOnTake != l) {
-                        p_216954_1_.playSound((PlayerEntity) null, p_216954_2_, JMSounds.ANTIKYTHERA_CRAFT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        journey_mode.LOGGER.info("insert sound here");
-                        UnobtainiumAntikytheraContainer.this.lastOnTake = l;
-                    }
-
-
-                });*/
-                    //journey_mode.LOGGER.info("taken");
-                    //p_234633_1_.playEvent(1029, p_234633_2_, 0);
-                
                 this.onCrafting(stack);
                 net.minecraftforge.common.ForgeHooks.setCraftingPlayer(thePlayer);
                 NonNullList<ItemStack> nonnulllist;
@@ -147,9 +126,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
 
     public void onContainerClosed(PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
-        //this.worldPosCallable.consume((p_217068_2_, p_217068_3_) -> {
         this.clearContainer(playerIn, playerIn.world, this.craftMatrix);
-        //});*/
     }
 
 
@@ -178,41 +155,26 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
-        //journey_mode.LOGGER.info("part 1");
-        //this.worldPosCallable.consume((p_217069_1_, p_217069_2_) -> {
-            //journey_mode.LOGGER.info("part 2");
             this.detectAndSendChanges();
             this.updateCraftingResult(this.windowId, this.player.world, this.player, this.craftMatrix, this.craftResult);
-        //});
     }
 
 
     public void updateCraftingResult(int id, World world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
-        //journey_mode.LOGGER.info("part 3");
         if (!world.isRemote) {
-            //journey_mode.LOGGER.info("part 4");
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
             ItemStack itemstack = ItemStack.EMPTY;
-            //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA.);
-            //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipes(IJMRecipes.CRAFTING_ANTIKYTHERA.matches(), inventory, world));
             Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipe(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA, inventory, world);
 
-            //optional.get().
-            //journey_mode.LOGGER.info(optional);
-            //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipe());
             if (optional.isPresent()) {
-                //journey_mode.LOGGER.info(optional.get().group + " is the group");
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
                     itemstack = icraftingrecipe.getCraftingResult(inventory);
                     isShaped = true;
                 }
             } else {
-                //journey_mode.LOGGER.info("Second optional slot reached");
                 Optional<AntikytheraShapelessRecipe> optional2 = world.getServer().getRecipeManager().getRecipe(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS, inventory, world);
-                //journey_mode.LOGGER.info(world.getServer().getRecipeManager().getRecipes());
                 if (optional2.isPresent()) {
-                    //journey_mode.LOGGER.info(optional2.get().group + " is the group");
                     ICraftingRecipe icraftingrecipe = optional2.get();
                     if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
                         itemstack = icraftingrecipe.getCraftingResult(inventory);
@@ -227,16 +189,13 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
     }
 
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        //journey_mode.LOGGER.info("problem?");
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index == 0) {
-                //this.worldPosCallable.consume((p_217067_2_, p_217067_3_) -> {
                     itemstack1.getItem().onCreated(itemstack1, this.player.world, playerIn);
-                //});
                 if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -277,7 +236,6 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookContainer {
     }
 
     public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-        //journey_mode.LOGGER.info("what is here?");
         return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
     }
 

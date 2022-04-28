@@ -35,7 +35,6 @@ public class StarforgeScreen  extends ContainerScreen<StarforgeContainer> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        //super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
         this.font.drawString(matrixStack, this.title.getString(), 8.0f, 1.0f, 15921906);
         this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 89.0f, 69.0f, 15921906);
     }

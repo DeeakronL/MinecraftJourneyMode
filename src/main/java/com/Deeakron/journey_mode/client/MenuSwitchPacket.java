@@ -81,7 +81,6 @@ public class MenuSwitchPacket {
                 player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(false);
             }
             context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this, wasCreative, wasGodMode, player)));
-            //NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeDuplicationContainerProvider());
         } else if (menuType.equals("recipes")) {
             ResourceLocation[] locations = journey_mode.itemListHandler.getLocations();
             boolean[] achieved = new boolean[locations.length];

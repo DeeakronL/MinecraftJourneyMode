@@ -31,6 +31,9 @@ public class UnobtainItemInit {
     public static final RegistryObject<Item> PAINT_BUCKET = ITEMS.register("paint_bucket",
             () -> new PaintBucketItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 
+    public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
+            () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT)));
+
     //Block Items
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",
             () -> new BlockItem(UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
@@ -64,9 +67,6 @@ public class UnobtainItemInit {
 
     public static final RegistryObject<BlockItem> PAINTED_BARRIER = ITEMS.register("painted_barrier",
             () -> new BlockItem(UnobtainBlockInit.PAINTED_BARRIER.get(), new Item.Properties().group(unobtainableGroup)));
-
-    public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
-            () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT)));
 
 
 }

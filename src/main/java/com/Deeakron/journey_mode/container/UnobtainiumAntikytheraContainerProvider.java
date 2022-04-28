@@ -21,9 +21,6 @@ public class UnobtainiumAntikytheraContainerProvider implements INamedContainerP
     @Override
     public Container createMenu(int p_createMenu_1_, PlayerInventory inv, PlayerEntity player) {
         UnobtainiumAntikytheraContainer container = new UnobtainiumAntikytheraContainer(p_createMenu_1_, inv);
-        /*if (!player.world.isRemote()) {
-            journey_mode.tempContain = container;
-        }*/
         return container;
     }
 }

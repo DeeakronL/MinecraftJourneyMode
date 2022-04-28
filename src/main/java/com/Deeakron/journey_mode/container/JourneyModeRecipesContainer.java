@@ -1,7 +1,6 @@
 package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -51,30 +50,6 @@ public class JourneyModeRecipesContainer extends Container {
     public JourneyModeRecipesContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
         this(windowId);
     }
-
-    /*@Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if(slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if(index < 1) {
-                if(!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if(!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-        }
-        return itemstack;
-    }*/
 
     public void onContainerClosed(PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);

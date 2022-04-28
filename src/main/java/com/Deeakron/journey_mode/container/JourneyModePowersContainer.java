@@ -16,11 +16,6 @@ public class JourneyModePowersContainer extends Container {
         int startX = 8;
         int startY = 18;
         int slotSizePlus2 = 18;
-        //for(int row = 0; row < 4; ++row) {
-        //    for(int col = 0; col < 9; ++col) {
-        //        this.addSlot(new Slot(tileEntity, (row * 9) + col, startX + (col * slotSizePlus2), startY + (row*slotSizePlus2)));
-        //    }
-        //}
 
         //Main Player Inventory
         int startPlayerInvY = startY * 5 + 12;

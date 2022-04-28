@@ -17,7 +17,6 @@ import java.util.UUID;
 
 public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
     private final EntityJourneyMode jm = new EntityJourneyMode();
-    //public static final ResourceLocation ID = new ResourceLocation(journey_mode.MODID, "jm");
     private final LazyOptional<EntityJourneyMode> implContainer;
     private final LazyOptional<IEntityJourneyMode> jMOptional = LazyOptional.of(() -> jm);
     @CapabilityInject(IEntityJourneyMode.class)
@@ -29,26 +28,20 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
 
     public JMCapabilityProvider(ServerPlayerEntity object) {
         this.implContainer = LazyOptional.of(() -> new EntityJourneyMode());
-        //journey_mode.LOGGER.info("Attached?");
     }
 
     public JMCapabilityProvider() {
-        //journey_mode.LOGGER.info("Attached?");
         this.implContainer = LazyOptional.of(() -> new EntityJourneyMode());
     }
 
     @Override
     public CompoundNBT serializeNBT() {
         if(INSTANCE == null) {
-            //journey_mode.LOGGER.info("look at me the provider and serializeNBT for null");
             return new CompoundNBT();
 
         } else {
-            //journey_mode.LOGGER.info("look at me the provider and serializeNBT");
             return (CompoundNBT) INSTANCE.writeNBT(jm, null);
         }
-        //journey_mode.LOGGER.info("look at me the provider and serializeNBT");
-        //return null;
     }
 
     @Override
@@ -61,8 +54,6 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        //journey_mode.LOGGER.info("huh? what?");
-        //return INSTANCE == cap ? jMOptional.cast() : LazyOptional.empty();
         return jMOptional.cast();
     }
 
@@ -75,7 +66,6 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
         @Nullable
         @Override
         public INBT writeNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side) {
-            //journey_mode.LOGGER.info("look at me the provider and writeNBT");
             CompoundNBT tag = new CompoundNBT();
             tag.putBoolean("mode", instance.getJourneyMode());
             instance.getResearchList().getList().forEach((k,v) -> tag.putInt(k, v[0]));
@@ -120,7 +110,6 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
             try {
                 UUID player = ((CompoundNBT) nbt).getUniqueId("player");
                 if(player != null){
-                    //journey_mode.LOGGER.info("testing here i guess");
                     instance.setPlayer(player);
                     instance.setGodMode(godMode);
                 }
@@ -128,8 +117,6 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
 
             }
 
-
-            //journey_mode.LOGGER.info("readNBT done");
         }
     }
 }

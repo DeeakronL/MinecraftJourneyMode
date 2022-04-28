@@ -3,7 +3,6 @@ package com.Deeakron.journey_mode.block;
 import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.client.event.ResearchEvent;
-import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -73,7 +72,6 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 damage = 1.75F;
             }
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, damage);
-            //worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
         }
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();
@@ -81,7 +79,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
             ServerPlayerEntity player = players.getPlayerByUUID(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
             worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
-            ((ItemEntity) entityIn).remove();
+            entityIn.remove();
 
 
         }
@@ -178,7 +176,6 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
-            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
@@ -273,7 +270,6 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
-            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
@@ -480,7 +476,6 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         return world.getBlockState(pos1).getLightValue(world, pos1);
-        //return super.getLightValue(state, world, pos);
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {

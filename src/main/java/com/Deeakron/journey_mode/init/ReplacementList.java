@@ -21,8 +21,7 @@ public class ReplacementList {
         while ((line = readIn.readLine()) != null) {
             sb.append(line);
         }
-        JsonObject json = new JsonObject();//.addProperty("main", sb.toString());
-        //json.addProperty("main", sb.toString());
+        JsonObject json;
         json = new JsonParser().parse(sb.toString()).getAsJsonObject();
         JsonElement[] items = new JsonElement[json.getAsJsonArray("items").size()];
         for (int i = 0; i < json.getAsJsonArray("items").size(); i++) {

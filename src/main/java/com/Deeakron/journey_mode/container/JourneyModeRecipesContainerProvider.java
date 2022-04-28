@@ -1,6 +1,5 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;

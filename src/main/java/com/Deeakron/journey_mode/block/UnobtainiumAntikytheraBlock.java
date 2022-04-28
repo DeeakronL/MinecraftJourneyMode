@@ -32,7 +32,6 @@ public class UnobtainiumAntikytheraBlock extends Block {
             return ActionResultType.SUCCESS;
         } else {
             player.openContainer(state.getContainer(worldIn, pos));
-            //player.addStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
             NetworkHooks.openGui((ServerPlayerEntity) player, new UnobtainiumAntikytheraContainerProvider());
             return ActionResultType.CONSUME;
         }

@@ -4,7 +4,6 @@ import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
-import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -58,7 +57,6 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-//@OnlyIn(Dist.CLIENT)
 public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
     private static final ResourceLocation DUPLICATION_INVENTORY_TABS = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_duplication_tabs.png");
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
@@ -115,9 +113,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.playerList = journey_mode.tempList;
         this.hasRecipes = journey_mode.hasRecipes;
         this.itemGroupSmall = new ItemGroup[ItemGroup.GROUPS.length - 2];
-        for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
-            //journey_mode.LOGGER.info("current group " + i + " is: " + ItemGroup.GROUPS[i].getGroupName().getString());
-        }
         boolean hotbarPresent = false;
         boolean survivalInventoryPresent = false;
         for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
@@ -155,8 +150,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         boolean flag = type == ClickType.QUICK_MOVE;
         type = slotId == -999 && type == ClickType.PICKUP ? ClickType.THROW : type;
-        if (slotIn == null && /*selectedTabIndex != ItemGroup.INVENTORY.getIndex() &&*/ type != ClickType.QUICK_CRAFT) {
-            journey_mode.LOGGER.info("hfewh");
+        if (slotIn == null &&  type != ClickType.QUICK_CRAFT) {
             PlayerInventory playerInventory1 = this.minecraft.player.inventory;
             if (!playerInventory1.getItemStack().isEmpty() && this.field_199506_G) {
                 if (mouseButton == 0) {
@@ -180,65 +174,23 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 for (int j = 0; j < this.minecraft.player.container.getInventory().size(); j++) {
                     this.minecraft.playerController.sendSlotPacket(ItemStack.EMPTY, j);
                 }
-            } /*else if (selectedTabIndex == ItemGroup.INVENTORY.getIndex()) {
-                if (slotIn == this.destroyItemSlot) {
-                    this.minecraft.player.inventory.setItemStack(ItemStack.EMPTY);
-                } else if (type == ClickType.THROW && slotIn != null && slotIn.getHasStack()) {
-                    ItemStack itemStack = slotIn.decrStackSize(mouseButton == 0 ? 1 : slotIn.getStack().getMaxStackSize());
-                    ItemStack itemStack1 = slotIn.getStack();
-                    this.minecraft.player.dropItem(itemStack, true);
-                    this.minecraft.playerController.sendPacketDropItem(itemStack);
-                    this.minecraft.playerController.sendSlotPacket(itemStack1, ((JourneyModeDuplicationScreen.DuplicationSlot)slotIn).slot.slotNumber);
-                } else if (type == ClickType.THROW && !this.minecraft.player.inventory.getItemStack().isEmpty()) {
-                    this.minecraft.player.dropItem(this.minecraft.player.inventory.getItemStack(), true);
-                    this.minecraft.playerController.sendPacketDropItem(this.minecraft.player.inventory.getItemStack());
-                    this.minecraft.player.inventory.setItemStack(ItemStack.EMPTY);
-                } else {
-                    this.minecraft.player.container.slotClick(slotIn == null ? slotId : ((JourneyModeDuplicationScreen.DuplicationSlot)slotIn).slot.slotNumber, mouseButton, type, this.minecraft.player);
-                    this.minecraft.player.container.detectAndSendChanges();
-                }
-            }*/ else if (type != ClickType.QUICK_CRAFT && slotIn.inventory == TMP_INVENTORY) {
-                //journey_mode.LOGGER.info("testing");
+            } else if (type != ClickType.QUICK_CRAFT && slotIn.inventory == TMP_INVENTORY) {
                 PlayerInventory playerInventory = this.minecraft.player.inventory;
                 ItemStack itemStack5 = playerInventory.getItemStack();
                 ItemStack itemStack7 = slotIn.getStack();
                 if (type == ClickType.SWAP) {
-                    journey_mode.LOGGER.info("testing swap");
-                    /*if (!itemStack7.isEmpty()) {
-                        ItemStack itemStack10 = itemStack7.copy();
-                        itemStack10.setCount(itemStack10.getMaxStackSize());
-                        this.minecraft.player.inventory.setInventorySlotContents(mouseButton, itemStack10);
-                        this.minecraft.player.container.detectAndSendChanges();
-                    }*/
-
                     return;
                 }
 
                 if (type == ClickType.CLONE) {
-                    journey_mode.LOGGER.info("testing clone");
-                    /*if (playerInventory.getItemStack().isEmpty() && slotIn.getHasStack()) {
-                        ItemStack itemStack9 = slotIn.getStack().copy();
-                        itemStack9.setCount(itemStack9.getMaxStackSize());
-                        playerInventory.setItemStack(itemStack9);
-                    }*/
-
                     return;
                 }
 
                 if (type == ClickType.THROW) {
-                    //journey_mode.LOGGER.info("testing throw");
-                    /*if (!itemStack7.isEmpty()) {
-                        ItemStack itemStack8 = itemStack7.copy();
-                        itemStack8.setCount(mouseButton == 0 ? 1 : itemStack8.getMaxStackSize());
-                        this.minecraft.player.dropItem(itemStack8, true);
-                        this.minecraft.playerController.sendPacketDropItem(itemStack8);
-                    }*/
-
                     return;
                 }
 
                 if (!itemStack5.isEmpty() && !itemStack7.isEmpty() && itemStack5.isItemEqual(itemStack7) && ItemStack.areItemStackTagsEqual(itemStack5, itemStack7)) {
-                    //journey_mode.LOGGER.info("testing idk");
                     if (mouseButton == 0) {
                         if (flag) {
                             itemStack5.setCount(itemStack5.getMaxStackSize());
@@ -249,7 +201,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         itemStack5.shrink(1);
                     }
                 } else if (!itemStack7.isEmpty() && itemStack5.isEmpty()) {
-                    journey_mode.LOGGER.info("testing idk?");
                     boolean success = false;
                     try {
                         String item = "\"" +slotIn.getStack().getItem().getRegistryName() + "\"";
@@ -263,7 +214,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
                     }
                     if (success) {
-                        //journey_mode.LOGGER.info("amount remaining: " + ((LockedSlot) slotIn).remaining);
                         if (((LockedSlot) slotIn).remaining <= 0) {
                             playerInventory.setItemStack(itemStack7.copy());
                             itemStack5 = playerInventory.getItemStack();
@@ -273,29 +223,18 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
                         }
                     }
-                    /*playerInventory.setItemStack(itemStack7.copy());
-                    itemStack5 = playerInventory.getItemStack();
-                    if (flag) {
-                        itemStack5.setCount(itemStack5.getMaxStackSize());
-                    }*/
                 } else if (mouseButton == 0) {
-
-                    //journey_mode.LOGGER.info("testing idk??");
                     playerInventory.setItemStack(ItemStack.EMPTY);
                 } else {
-                    //journey_mode.LOGGER.info("testing idk???");
                     playerInventory.getItemStack().shrink(1);
                 }
             } else if (this.container != null && type != ClickType.CLONE && type != ClickType.SWAP && type != ClickType.THROW) {
                 ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.container.getSlot(slotIn.slotNumber).getStack();
                 this.container.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, this.minecraft.player);
                 if (Container.getDragEvent(mouseButton) == 2) {
-                    for(int k = 0; k < 9; k++) {
-                        //this.minecraft.playerController.sendSlotPacket(this.container.getSlot(45 + k).getStack(), 36 + k);
-                    }
+
                 } else if (slotIn != null) {
                     ItemStack itemStack4 = this.container.getSlot(slotIn.slotNumber).getStack();
-                    journey_mode.LOGGER.info("yikes dude");
                     this.minecraft.playerController.sendSlotPacket(itemStack4, slotIn.slotNumber - (this.container).inventorySlots.size() + 9 + 36);
                     int i = 45 + mouseButton;
                     if (type == ClickType.THROW && !itemStack3.isEmpty()) {
@@ -363,7 +302,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (this.minecraft.player != null && this.minecraft.player.inventory != null) {
             this.minecraft.player.container.removeListener(this.listener);
         }
-        journey_mode.LOGGER.info("testing closing here " + this.wasCreative);
         this.minecraft.keyboardListener.enableRepeatEvents(false);
         if (!this.wasCreative) {
             this.serverPlayerEntity.setGameType(GameType.SURVIVAL);
@@ -451,7 +389,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             }
             this.currentScroll = 0.0F;
             container.scrollTo(0.0F);
-            //updateLockedFilter(this.filterContainer, this.container.itemList);
             this.searchList = this.container.itemList;
             return;
         }
@@ -476,20 +413,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
-        //updateLockedFilter(this.filterContainer, this.container.itemList);
         this.filterTab.setUV(198, 220);
         this.filterTab.resetFilter();
         this.searchList = this.container.itemList;
-        //journey_mode.LOGGER.info(container.itemList.get(0));
     }
 
     private int updateLockedFilter(int filter, NonNullList<ItemStack> current_item_list) {
         (this.container).itemList.clear();
-        //this.tagSearchResults.clear();
-
-        //journey_mode.LOGGER.info(current_item_list.get(0));
         ItemGroup tab = itemGroupSmall[selectedTabIndex];
-        journey_mode.LOGGER.info(filter + "  " + filterTabPage + "  " + selectedTabIndex);
         if (tab == ItemGroup.SEARCH && this.searchList != null) {
             current_item_list = this.searchList;
         }
@@ -499,7 +430,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if(filterTabPage != selectedTabIndex) {
             filter = 1;
         }
-        if (/*tab.hasSearchBar() &&*/ true) {//tab != ItemGroup.SEARCH) {
+        if (true) {
             if (tab == ItemGroup.SEARCH) {
                 String s = this.searchField.getText();
                 if (s.isEmpty()) {
@@ -522,8 +453,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 tab.fill(current_item_list);
             }
 
-            //if (!this.searchField.getText().isEmpty()) {
-                //String search = this.searchField.getText().toLowerCase(Locale.ROOT);
                 java.util.Iterator<ItemStack> itr = current_item_list.iterator();
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
@@ -554,105 +483,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     }
 
                 }
-            //}
             this.currentScroll = 0.0F;
             container.scrollTo(0.0F);
             this.filterTabPage = selectedTabIndex;
             this.filterContainer = filter;
             return filter;
         }
-
-        //Functionality for filtering search, doesn't work right now
-        /*if(tab == ItemGroup.SEARCH) {
-            journey_mode.LOGGER.info("searching?");
-            String s = this.searchField.getText();
-            if (s.isEmpty()) {
-                for(Item item : Registry.ITEM) {
-                    item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
-                    try {
-                        String item2 = "\"" + item.getRegistryName() + "\"";
-                        if (filter == 1) {
-                            if (!this.container.research.reachCap(item2)) {
-                                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
-                            }
-
-                        } else if (filter == 2) {
-                            if (this.container.research.reachCap(item2)) {
-                                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
-                            }
-                        }
-                    } catch (ClassCastException e) {
-
-                    } catch (ArrayIndexOutOfBoundsException e) {
-
-                    } catch (IndexOutOfBoundsException e) {
-
-                    } catch (NullPointerException e) {
-
-                    }
-
-                    if (filter == 0) {
-                        item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
-                    }
-
-                }
-            } else {
-                ISearchTree<ItemStack> isearchtree;
-                if (s.startsWith("#")) {
-                    s = s.substring(1);
-                    isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
-                    this.searchTags(s);
-                } else {
-                    isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
-                }
-
-                (this.container).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
-                journey_mode.LOGGER.info(this.container.itemList.get(0));
-                for(ItemStack item : this.container.itemList) {
-                    try {
-                        String item2 = "\"" + item.getItem().getRegistryName() + "\"";
-                        if (filter == 1) {
-                            if (this.container.research.reachCap(item2)) {
-                                this.container.itemList.remove(item);
-                            }
-
-                        } else if (filter == 2) {
-                            if (!this.container.research.reachCap(item2)) {
-                                this.container.itemList.remove(item);
-                            }
-                        }
-                    } catch (ClassCastException e) {
-
-                    } catch (ArrayIndexOutOfBoundsException e) {
-
-                    } catch (IndexOutOfBoundsException e) {
-
-                    } catch (NullPointerException e) {
-
-                    } catch (NoSuchElementException e) {
-
-                    }
-
-                }
-            }
-        }*/
-        /*String s = this.searchField.getText();
-        if (s.isEmpty()) {
-            for(Item item : Registry.ITEM) {
-                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
-            }
-        } else {
-            ISearchTree<ItemStack> isearchtree;
-            if (s.startsWith("#")) {
-                s = s.substring(1);
-                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
-                this.searchTags(s);
-            } else {
-                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
-            }
-
-            (this.container).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
-        }*/
 
         this.currentScroll = 0.0F;
         this.container.scrollTo(0.0F);
@@ -731,8 +567,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     index = itemgroup.getIndex();
                 }
                 if (itemgroup != null && this.isMouseOverGroup(itemgroup, d0, d1)) {
-                    //journey_mode.LOGGER.info("At mouse released, index: " + index + " itemgroup.getIndex: " + itemgroup.getIndex());
-                    //journey_mode.LOGGER.info("At mouse released, hotbarindex: " + hotbarIndex + " survivalinventoryindex: " + survivalInventoryIndex);
                     this.setCurrentDuplicationTab(itemgroup, index);
                     return true;
                 }
@@ -748,10 +582,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     private void setCurrentDuplicationTab(ItemGroup tab, int index) {
         if (tab == null) return;
-        //if (tab == ItemGroup.HOTBAR) return;
-        //if (tab == ItemGroup.INVENTORY) return;
         int i = selectedTabIndex;
-        //journey_mode.LOGGER.info("THE INDEX WAS " + index + " FOR " + tab);
         selectedTabIndex = index;
         slotColor = tab.getSlotColor();
         this.dragSplittingSlots.clear();
@@ -853,17 +684,17 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     protected boolean func_195376_a(double p_195376_1_, double p_195376_3_) {
         int i = this.guiLeft;
         int j = this.guiTop;
-        int k = i + 171;//175;
-        int l = j + 22;//18;
+        int k = i + 171;
+        int l = j + 22;
         int i1 = k + 14;
-        int j1 = l + 156;//112;
+        int j1 = l + 156;
         return p_195376_1_ >= (double)k && p_195376_3_ >= (double)l && p_195376_1_ < (double)i1 && p_195376_3_ < (double)j1;
     }
 
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (this.isScrolling) {
             int i = this.guiTop + 18;
-            int j = i + 156;//112;
+            int j = i + 156;
             this.currentScroll = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
             this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
             this.container.scrollTo(this.currentScroll);
@@ -893,10 +724,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
         if (!rendered && !this.func_238809_a_(matrixStack, ItemGroup.SEARCH, mouseX, mouseY))
             this.func_238809_a_(matrixStack, ItemGroup.INVENTORY, mouseX, mouseY);
-
-        /*if (this.destroyItemSlot != null && selectedTabIndex == ItemGroup.INVENTORY.getIndex() && this.isPointInRegion(this.destroyItemSlot.xPos, this.destroyItemSlot.yPos, 16, 16, (double)mouseX, (double)mouseY)) {
-            this.renderTooltip(matrixStack, field_243345_D, mouseX, mouseY);
-        }*/
 
         if (maxPages != 0) {
             ITextComponent page = new StringTextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
@@ -982,8 +809,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 func_238808_a_(matrixStack, ItemGroup.SEARCH);
             }
             if (itemgroup != ItemGroup.INVENTORY && itemgroup != ItemGroup.HOTBAR) {
-                //this.minecraft.getTextureManager().bindTexture(ItemGroup.INVENTORY.getTabsImage());
-                //func_238808_a_(matrixStack, ItemGroup.INVENTORY);
+
             }
         }
         if (itemgroup != ItemGroup.SEARCH) {
@@ -994,9 +820,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         this.searchField.render(matrixStack, x, y, partialTicks);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        int i = this.guiLeft + 171;//175;
-        int j = this.guiTop + 22;//18;
-        int k = j + 156;//112;
+        int i = this.guiLeft + 171;
+        int j = this.guiTop + 22;
+        int k = j + 156;
         //looks like this is the current tab
         this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
         if (itemgroup.hasScrollbar()) {
@@ -1054,7 +880,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 return false;
             }
             this.renderTooltip(p_238809_1_, p_238809_2_.getGroupName(), p_238809_3_, p_238809_4_);
-            //journey_mode.LOGGER.info(p_238809_2_.getGroupName() + " is the group name at this render tooltip");
             return true;
         } else {
             return false;
@@ -1104,7 +929,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         ItemStack itemstack = p_238808_2_.getIcon();
         this.itemRenderer.renderItemAndEffectIntoGUI(itemstack, l, i1);
         this.itemRenderer.renderItemOverlays(this.font, itemstack, l, i1);
-        //this.font.drawString(p_238808_1_, "000", l, i1, TextFormatting.DARK_RED.getColor());
         this.itemRenderer.zLevel = 0.0F;
     }
 
@@ -1287,7 +1111,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
 
         public void onPress() {
-            // place code here
             if (filter == 0) {
                 filter = 1;
             } else if (filter == 1) {
@@ -1330,34 +1153,18 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             super((ContainerType<?>) null, 0);
             PlayerInventory playerInventory = player.inventory;
             this.research = research;
-            //itemGroup.fill(itemList);
 
             int startX = 8;
             int startY = 18;
             int slotSizePlus2 = 18;
 
             int startDupeInvY = 22;
-            /*for (int row = 0; row < 3; ++row) {
-                for (int col = 0; col < 9; ++col) {
-                    this.addSlot(new Slot(playerInventory, 9 + (row * 9) + col, startX + (col * slotSizePlus2), startDupeInvY + (row * slotSizePlus2)));
-                }
-            }*/
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
-                    /*String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
-                    int[] result = research.get(item);*/
                     boolean wasResearched = false;
                     int count = 0;
-                    /*if (result[0] < result[1]) {
-                        wasResearched = true;
-                        count = 0;
-                    } else {
-                        wasResearched = false;
-                        count = result[1] - result[0];
-                    }*/
                     this.addSlot(new JourneyModeDuplicationScreen.LockedSlot(JourneyModeDuplicationScreen.TMP_INVENTORY, 9 + (i * 9) + j, startX + (j * slotSizePlus2), startDupeInvY + (i * slotSizePlus2), wasResearched, count));
-                    //journey_mode.LOGGER.info("The item added was: " + item);
                 }
             }
 
@@ -1420,7 +1227,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                                 count = result[1] - result[0];
                             }
                             slot.changeResearch(wasResearched, count);
-                            //journey_mode.LOGGER.info("item adjusted: " + item);
                         }
                     } else {
                         JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, ItemStack.EMPTY);
@@ -1538,7 +1344,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public boolean canTakeStack(PlayerEntity playerIn) {
             if (super.canTakeStack(playerIn) && this.getHasStack()) {
-                return true;//this.getStack().getChildTag("DuplicationLock") == null;
+                return true;
             } else {
                 return !this.getHasStack();
             }
@@ -1549,7 +1355,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         public void changeResearch(boolean research, int remaining) {
             this.researched = research;
             this.remaining = remaining;
-            //journey_mode.LOGGER.info("slot updated!");
         }
     }
 }

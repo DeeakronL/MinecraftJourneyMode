@@ -59,7 +59,6 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
     public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn) {//, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
         super(container, inv, titleIn);
-        //journey_mode.LOGGER.info("the world really is: " + inv.player.world.isRemote());
         this.freeze = journey_mode.freeze;
         this.tickSpeed = journey_mode.tickSpeed;
         this.mobSpawn = journey_mode.mobSpawn;
@@ -99,8 +98,6 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         if (this.hasRecipes) {
             this.addButton(new JourneyModePowersScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
         }
-        //journey_mode.LOGGER.info(getNarrationMessage());
-        //this.buttonsNotDrawn = true;
     }
 
     @Override
@@ -127,10 +124,6 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
-        //int x = (this.width = this.xSize) / 2;
-        //int y = (this.height = this.ySize) / 2;
-
-        //this.blit(matrixStack, this.width/2,this.height/2, 0, 0, this.xSize, this.ySize);
 
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
@@ -592,7 +585,6 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         public void onPress() {
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
-            //NetworkHooks.openGui((ServerPlayerEntity) playerInventory.player, new JourneyModeResearchContainerProvider());
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -609,7 +601,6 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         public void onPress() {
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
-            //current tab, so nothing happens
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -626,7 +617,6 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         public void onPress() {
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
-            //current tab, so nothing happens
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {

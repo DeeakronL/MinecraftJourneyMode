@@ -1,6 +1,5 @@
 package com.Deeakron.journey_mode.advancements;
 
-import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -20,11 +19,6 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
     private final ResourceLocation location = new ResourceLocation("journey_mode:item_researched");
     private final Map<PlayerAdvancements, CustomTrigger.Listeners> listeners = Maps.newHashMap();
 
-    /*
-    public CustomTrigger(ResourceLocation location){
-        super();
-        this.location = location;
-    }*/
 
     @Override
     public ResourceLocation getId() {
@@ -33,12 +27,7 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
 
     @Override
     public void addListener(PlayerAdvancements playerAdvancementsIn, Listener<Instance> listener) {
-        journey_mode.LOGGER.info("Item Research ADD LISTENER Triggered");
         CustomTrigger.Listeners listeners = this.listeners.computeIfAbsent(playerAdvancementsIn, Listeners::new);
-        /*CustomTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
-        if (listeners == null) {
-            listeners = new CustomTrigger.Listeners(playerAdvancementsIn);
-        }*/
         listeners.add(listener);
     }
 
@@ -66,7 +55,6 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
 
     public void trigger(ServerPlayerEntity player) {
         CustomTrigger.Listeners listeners = this.listeners.get(player.getAdvancements());
-        //journey_mode.LOGGER.info("Item Research Triggered: " + listeners);
         if (listeners!= null) {
             listeners.trigger();
         }
@@ -96,7 +84,6 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
         }
 
         public void add(Listener<CustomTrigger.Instance> listener){
-            //journey_mode.LOGGER.info("added?");
             this.listeners.add(listener);
         }
 
@@ -105,9 +92,7 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
         }
 
         public void trigger(){
-            //journey_mode.LOGGER.info("yay granted?");
             for (Listener<CustomTrigger.Instance> listener : Lists.newArrayList(this.listeners)){
-                //journey_mode.LOGGER.info("yay granted!");
                 listener.grantCriterion(this.playerAdvancements);
             }
 
