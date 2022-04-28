@@ -1,7 +1,6 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -18,7 +17,6 @@ public class StarforgeRecipe implements IStarforgeRecipe {
     private final ItemStack output;
 
     public StarforgeRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
-        //journey_mode.LOGGER.info("checking for bad problem");
         this.id = id;
         this.output = output;
         this.input = input;

@@ -4,7 +4,6 @@ import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.client.sound.ResearchGrinderSound;
 import com.Deeakron.journey_mode.client.event.ResearchEvent;
-import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
@@ -45,7 +44,6 @@ public class ResearchGrinderBlock extends HorizontalBlock {
     protected static final VoxelShape BASE_SHAPE_EAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_EAST);
     protected static final VoxelShape BASE_SHAPE_SOUTHWEST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
     protected static final VoxelShape BASE_SHAPE_SOUTHEAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
-    //protected static final VoxelShape RENDER_SHAPE = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,8.0D,16.0D);
     private final String type;
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     private BlockPos pos1;
@@ -55,11 +53,6 @@ public class ResearchGrinderBlock extends HorizontalBlock {
     private ResearchGrinderSound grinderSound = null;
     private int isGrinding = 0;
 
-    /*@Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        for (BlockPos pos : getV)
-    }*/
 
     public ResearchGrinderBlock(Properties properties, String type) {
         super(properties);
@@ -85,25 +78,21 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 pos1 = pos.east();
                 pos2 = pos.south();
                 pos3 = pos.east().south();
-                //journey_mode.LOGGER.info("NORTH");
                 break;
             case SOUTH:
                 pos1 = pos.west();
                 pos2 = pos.north();
                 pos3 = pos.west().north();
-                //journey_mode.LOGGER.info("SOUTH");
                 break;
             case WEST:
                 pos1 = pos.north();
                 pos2 = pos.east();
                 pos3 = pos.north().east();
-                //journey_mode.LOGGER.info("WEST");
                 break;
             case EAST:
                 pos1 = pos.south();
                 pos2 = pos.west();
                 pos3 = pos.south().west();
-                //journey_mode.LOGGER.info("EAST");
                 break;
         }
 
@@ -111,26 +100,19 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             worldin.setBlockState(pos1, BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos2, BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos3, BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
-            //journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         } else if (this.type == "iron"){
             worldin.setBlockState(pos1, BlockInit.IRON_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos2, BlockInit.IRON_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos3, BlockInit.IRON_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
-            //journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         } else if (this.type == "diamond"){
             worldin.setBlockState(pos1, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos2, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get().getDefaultState().with(FACING, state.get(FACING)));
             worldin.setBlockState(pos3, BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get().getDefaultState().with(FACING, state.get(FACING)));
-            //journey_mode.LOGGER.info(state.get(FACING) + " is the supposed direction");
             super.onBlockPlacedBy(worldin, pos, state, placer, stack);
         }
         }
-
-        /*this.pos1 = pos1;
-        this.pos2 = pos2;
-        this.pos3 = pos3;*/
 
     }
 
@@ -143,29 +125,24 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 pos1 = pos.east();
                 pos2 = pos.south();
                 pos3 = pos.east().south();
-                //journey_mode.LOGGER.info("NORTH");
                 break;
             case SOUTH:
                 pos1 = pos.west();
                 pos2 = pos.north();
                 pos3 = pos.west().north();
-                //journey_mode.LOGGER.info("SOUTH");
                 break;
             case WEST:
                 pos1 = pos.north();
                 pos2 = pos.east();
                 pos3 = pos.north().east();
-                //journey_mode.LOGGER.info("WEST");
                 break;
             case EAST:
                 pos1 = pos.south();
                 pos2 = pos.west();
                 pos3 = pos.south().west();
-                //journey_mode.LOGGER.info("EAST");
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderPartBlock){
-            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
@@ -175,6 +152,14 @@ public class ResearchGrinderBlock extends HorizontalBlock {
             worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
         }
         super.onBlockHarvested(worldIn, pos, state, player);
+        if (type == "wood" && !player.isCreative()) {
+            spawnDrops(state, worldIn, pos);
+        } else {
+            if(player.getHeldItemMainhand().canHarvestBlock(state) && !player.isCreative()) {
+                spawnDrops(state, worldIn, pos);
+            }
+        }
+
     }
 
     @Override
@@ -187,29 +172,24 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 pos1 = pos.east();
                 pos2 = pos.south();
                 pos3 = pos.east().south();
-                //journey_mode.LOGGER.info("NORTH");
                 break;
             case SOUTH:
                 pos1 = pos.west();
                 pos2 = pos.north();
                 pos3 = pos.west().north();
-                //journey_mode.LOGGER.info("SOUTH");
                 break;
             case WEST:
                 pos1 = pos.north();
                 pos2 = pos.east();
                 pos3 = pos.north().east();
-                //journey_mode.LOGGER.info("WEST");
                 break;
             case EAST:
                 pos1 = pos.south();
                 pos2 = pos.west();
                 pos3 = pos.south().west();
-                //journey_mode.LOGGER.info("EAST");
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderPartBlock){
-            //journey_mode.LOGGER.info(worldIn.getBlockState(pos1).getBlock());
             worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
@@ -237,30 +217,13 @@ public class ResearchGrinderBlock extends HorizontalBlock {
                 damage = 1.75F;
             }
             entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, damage);
-            /*if (isGrinding % 5 == 0) {
-                worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
-                isGrinding += 1;
-            } else {
-                isGrinding += 1;
-            }*/
-
-
-            /*if (Minecraft.getInstance().getSoundHandler().isPlaying(grinderSound)){
-
-            } else {
-                Minecraft.getInstance().getSoundHandler().play(grinderSound);
-                Minecraft.getInstance().getSoundHandler().stop(grinderSound);
-            }*/
-
         }
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrowerId();
             PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
             ServerPlayerEntity player = players.getPlayerByUUID(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
-            ((ItemEntity) entityIn).remove();
-            /*Minecraft.getInstance().getSoundHandler().playOnNextTick(grinderSound);
-            Minecraft.getInstance().getSoundHandler().stop(grinderSound);*/
+            entityIn.remove();
             worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
 
         }

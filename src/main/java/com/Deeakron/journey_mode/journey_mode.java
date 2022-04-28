@@ -8,7 +8,6 @@ import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
-import com.Deeakron.journey_mode.data.IJMRecipes;
 import com.Deeakron.journey_mode.init.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -96,7 +95,6 @@ public class journey_mode
                 this.list.updateList(unobtainList);
                 String[] test = new String[1];
                 test[0] = "\"minecraft:bedrock\"";
-                //this.list.removeItem(test);
             }
             if (NewFilesConfig.use_other_files.get()) {
                 ItemList changeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("changes.json").toString());
@@ -127,7 +125,6 @@ public class journey_mode
         if (UnobtainConfig.use_unobtainable.get()) {
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
-            //LOGGER.info("problem...?");
             JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
             JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
         }
@@ -141,9 +138,6 @@ public class journey_mode
             DuplicationInit.init();
             DuplicationInit.ITEMS.register(bus);
         }
-        //IJMRecipes.RECIPE_SERIALIZERS.register(bus);
-        //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA);
-        //journey_mode.LOGGER.info(IJMRecipes.CRAFTING_ANTIKYTHERA_SHAPELESS);
 
     }
 

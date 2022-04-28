@@ -1,14 +1,12 @@
 package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.container.UnobtainiumAntikytheraContainer;
-import com.Deeakron.journey_mode.data.recipebook.JMRecipeBookGui;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
 import net.minecraft.client.gui.recipebook.RecipeBookGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
@@ -30,18 +28,11 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
 
     protected void init() {
         super.init();
-        //journey_mode.LOGGER.info("reached this menu");
         this.widthTooNarrow = this.width < 379;
         this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.container);
         this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
         this.children.add(this.recipeBookGui);
         this.setFocusedDefault(this.recipeBookGui);
-        /*this.addButton(new ImageButton(this.guiLeft + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
-            this.recipeBookGui.initSearchBar(this.widthTooNarrow);
-            this.recipeBookGui.toggleVisibility();
-            this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
-            ((ImageButton)button).setPosition(this.guiLeft + 5, this.height / 2 - 49);
-        }));*/
         if(this.recipeBookGui.isVisible()) {
             this.recipeBookGui.toggleVisibility();
         }
@@ -100,7 +91,6 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
     protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
         this.recipeBookGui.slotClicked(slotIn);
-        //journey_mode.LOGGER.info(slotId);
     }
 
     public void recipesUpdated() {

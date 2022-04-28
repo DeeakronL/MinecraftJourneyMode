@@ -1,11 +1,8 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 public class AntikytheraRecipeItemList {
@@ -16,14 +13,12 @@ public class AntikytheraRecipeItemList {
 
     public AntikytheraRecipeItemList(MinecraftServer server) {
         RecipeManager manager = server.getRecipeManager();
-        //journey_mode.LOGGER.info("hey things seem to be working, like " + manager.getRecipe(recipeLocations[0]).toString());
         ResourceLocation tempItems [][] = new ResourceLocation[recipeLocations.length][];
         for (int i = 0; i < recipeLocations.length; i++) {
             ResourceLocation tempItems2 [] = new ResourceLocation[10];
             for (int j =0; j < 9; j++) {
                 //code to get items to put into items[i], with items[i][0-8] being the input and items[i][9] being the output
                 journey_mode.LOGGER.info(recipeLocations[i]);
-                //journey_mode.LOGGER.info(manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j));
                 try {
                     if (manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j) != null) {
                         tempItems2[j] = manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j).getMatchingStacks()[0].getItem().getRegistryName();
@@ -33,8 +28,6 @@ public class AntikytheraRecipeItemList {
                 } catch (IndexOutOfBoundsException e) {
                     tempItems2[j] = new ResourceLocation("");
                 }
-
-                //
             }
             tempItems2[9] = manager.getRecipe(recipeLocations[i]).get().getRecipeOutput().getItem().getRegistryName();
             tempItems[i] = tempItems2;

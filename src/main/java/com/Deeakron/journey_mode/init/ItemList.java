@@ -1,6 +1,5 @@
 package com.Deeakron.journey_mode.init;
 
-import com.Deeakron.journey_mode.journey_mode;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -18,22 +17,18 @@ public class ItemList {
     public String[] catTypes;
 
     public ItemList(String file) throws IOException {
-        //ResourceLocation location = new ResourceLocation("journey_mode", "duplication_menu/base_minecraft.json");
         BufferedReader readIn = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(file), StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = readIn.readLine()) != null) {
             sb.append(line);
         }
-        JsonObject json = new JsonObject();//.addProperty("main", sb.toString());
-        //json.addProperty("main", sb.toString());
+        JsonObject json;
         json = new JsonParser().parse(sb.toString()).getAsJsonObject();
         JsonElement[] items = new JsonElement[json.getAsJsonArray("items").size()];
         for (int i =0; i<json.getAsJsonArray("items").size(); i++){
             items[i] = json.getAsJsonArray("items").get(i);
         }
-        //journey_mode.LOGGER.info(items[0].getAsJsonObject().get("item"));
-        //journey_mode.LOGGER.info("bookmark");
         this.items = new String[items.length];
         this.caps = new int[items.length];
         this.categories = new String[items.length];
@@ -76,14 +71,12 @@ public class ItemList {
         String[] newCategories = list.getCategories();
         String[] newCatTypes = list.getCatTypes();
         for (int i = 0; i < newItems.length; i++) {
-            //journey_mode.LOGGER.info("adding new item: " + newItems[i]);
             boolean alreadyUsed = false;
             for (int j = 0; j < this.items.length; j++) {
                 if (newItems[i].equals(this.items[j])) {
                     this.caps[j] = newCaps[i];
                     this.categories[j] = newCategories[i];
                     alreadyUsed = true;
-                    //journey_mode.LOGGER.info(newItems[i] + " was already used! Updated.");
                     break;
                 }
             }

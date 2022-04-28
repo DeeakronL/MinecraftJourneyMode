@@ -29,13 +29,6 @@ public class JMContainerTypes {
     public static final RegistryObject<ContainerType<StarforgeContainer>> UNOBTAINIUM_STARFORGE = CONTAINER_TYPES
             .register("starforge", () -> IForgeContainerType.create(StarforgeContainer::new));
 
-   /*public static final RegistryObject<ContainerType<JourneyModeDuplicationScreen.DuplicationContainer>> JOURNEY_MODE_DUPLICATION = CONTAINER_TYPES
-            .register("journey_mode_duplication", () -> IForgeContainerType.create(JourneyModeDuplicationScreen::new));*/
-
-    /*public static <T extends Container> RegistryObject<ContainerType<T>> registerContainer(String id, IContainerFactory<T> factory) {
-        return CONTAINER_TYPES.register(id, () -> IForgeContainerType.create(factory));
-    }*/
-
     @OnlyIn(Dist.CLIENT)
     public static void registerScreens() {
         ScreenManager.registerFactory(JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
@@ -43,6 +36,5 @@ public class JMContainerTypes {
         ScreenManager.registerFactory(JOURNEY_MODE_RECIPES.get(), JourneyModeRecipesScreen::new);
         ScreenManager.registerFactory(UNOBTAINIUM_ANTIKYTHERA.get(), UnobtainiumAntikytheraScreen::new);
         ScreenManager.registerFactory(UNOBTAINIUM_STARFORGE.get(), StarforgeScreen::new);
-        //ScreenManager.registerFactory(JOURNEY_MODE_DUPLICATION.get(), JourneyModeDuplicationScreen::new);
     }
 }

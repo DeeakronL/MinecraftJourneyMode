@@ -3,12 +3,9 @@ package com.Deeakron.journey_mode.client;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
-import com.Deeakron.journey_mode.client.gui.JourneyModePowersScreen;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
@@ -49,7 +46,6 @@ public class JMCheckPacket {
         this.result = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode();
         context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
         context.get().setPacketHandled(true);
-        //journey_mode.LOGGER.info("packet sent!");
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -59,7 +55,6 @@ public class JMCheckPacket {
             int window = Minecraft.getInstance().player.openContainer.windowId;
             ITextComponent title = new StringTextComponent("Journey Mode Menu");
             EventHandler.INSTANCE.sendToServer(new GameStatePacket(this.data, false, 1, false, false, false, false));
-            //Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window));
         }
     }
 

@@ -1,17 +1,9 @@
 package com.Deeakron.journey_mode.init;
 
-import com.Deeakron.journey_mode.advancements.JMTriggers;
 import com.Deeakron.journey_mode.client.gui.ResearchToast;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -20,14 +12,10 @@ public class ResearchList {
     private HashMap<String, int[]> research;
 
     public ResearchList(String[] items, int[] caps) {
-        //ResourceLocation data = new ResourceLocation(journey_mode.MODID, "duplication_menu/base_minecraft.json");
         this.research = new HashMap<String, int[]>();
-        //journey_mode.LOGGER.info("currently creating!");
         for (int i = 0; i < items.length; i++) {
-            //journey_mode.LOGGER.info("the item is: " + items[i] + " with cap: " + caps[i]);
             this.research.put(items[i], new int[]{0, caps[i]});
         }
-        //journey_mode.LOGGER.info("testing i guess: " + this.research.get("minecraft:stone"));
     }
 
     public void updateCount(String[] items, int[] counts, boolean isGenerating, UUID player, ItemStack... itemObject) {
@@ -46,10 +34,7 @@ public class ResearchList {
                     //hit the cap
                     newData[0] = data[1];
                     if (!isGenerating) {
-                        journey_mode.LOGGER.info("Cap hit");
                         if(itemObject != null) {
-                            journey_mode.LOGGER.info("Cap hit 2?");
-                            journey_mode.LOGGER.info(itemObject[i]);
                             Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[i].copy()));
                         }
 
@@ -60,7 +45,6 @@ public class ResearchList {
                 }
                 this.research.remove(items[i]);
                 this.research.put(items[i], newData);
-                //journey_mode.LOGGER.info("Updated count for " + items[i] + "! Remaining needed: " + (this.research.get(items[i])[1] - this.research.get(items[i])[0]));
             }
         }
     }
@@ -107,10 +91,5 @@ public class ResearchList {
         } else {
             return false;
         }
-    }
-
-    //debug, remove later
-    public void listItems() {
-        this.getList().forEach((k,v) -> journey_mode.LOGGER.info("item: " + k + " with count " + v[0] + "/" + v[1]));
     }
 }

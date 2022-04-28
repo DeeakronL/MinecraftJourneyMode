@@ -1,6 +1,5 @@
 package com.Deeakron.journey_mode.data;
 
-import com.Deeakron.journey_mode.journey_mode;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -13,9 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Map;
 
 public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<AntikytheraRecipe> {
-    /*public static final RegistryObject<IRecipeSerializer<?>> CRAFTING_ANTIKYTHERA = IJMRecipes.RECIPE_SERIALIZERS.register(
-            "crafting_antikythera", AntikytheraRecipeSerializer::new
-    );*/
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera");
     public AntikytheraRecipe read(ResourceLocation recipeId, JsonObject json) {
         String s = JSONUtils.getString(json, "group", "CRAFTING");
@@ -25,7 +21,6 @@ public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.F
         int j = astring.length;
         NonNullList<Ingredient> nonnulllist = AntikytheraRecipe.deserializeIngredients(astring, map, i, j);
         ItemStack itemstack = AntikytheraRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
-        //journey_mode.LOGGER.info("String is: " + s);
         return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
     }
 

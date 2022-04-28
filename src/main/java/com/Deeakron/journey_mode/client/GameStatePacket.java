@@ -74,8 +74,6 @@ public class GameStatePacket {
         this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
         this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY);
-        //journey_mode.LOGGER.info("the world is: " + player.world.isRemote());
-        //player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setVariables(freeze, tickSpeed, mobSpawn, mobGrief, keepInv);
         journey_mode.freeze = this.freeze;
         journey_mode.tickSpeed = this.tickSpeed;
         journey_mode.mobSpawn = this.mobSpawn;
@@ -90,11 +88,9 @@ public class GameStatePacket {
         }
         journey_mode.hasRecipes = unlockRecipes;
         NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
-        //context.get().enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> handleOnClient(this)::run));
         context.get().setPacketHandled(true);
     }
 
-    //@OnlyIn(Dist.CLIENT)
     public static DistExecutor.SafeRunnable handleOnClient(final GameStatePacket msg) {
         Boolean freeze = msg.getFreeze();
         int tickSpeed = msg.getTickSpeed();
@@ -107,25 +103,9 @@ public class GameStatePacket {
             @Override
             public void run() {
                 MinecraftForge.EVENT_BUS.post(new MenuOpenEvent(freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv, UUID.fromString(msg.data)));
-                //ITextComponent title = new StringTextComponent("Journey Mode Menu");
-                //EventHandler.menuHandle(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv);
-                //Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
             }
         };
     }
-    /*public void handleOnClient(final GameStatePacket msg) {
-        Boolean freeze = msg.getFreeze();
-        int tickSpeed = msg.getTickSpeed();
-        Boolean mobSpawn = msg.getMobSpawn();
-        Boolean mobGrief = msg.getMobGrief();
-        Boolean godMode = msg.getGodMode();
-        Boolean keepInv = msg.getKeepInv();
-        int window = Minecraft.getInstance().player.openContainer.windowId;
-        ITextComponent title = new StringTextComponent("Journey Mode Menu");
-        if (Minecraft.getInstance().world.isRemote()) {
-            Minecraft.getInstance().displayGuiScreen(new JourneyModePowersScreen(Minecraft.getInstance().player.inventory, title, window, freeze, tickSpeed, mobSpawn, mobGrief, godMode, keepInv));
-        }
-    }*/
 
     public Boolean getFreeze() {
         return this.freeze;

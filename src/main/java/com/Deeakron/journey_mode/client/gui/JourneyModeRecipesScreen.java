@@ -1,28 +1,19 @@
 package com.Deeakron.journey_mode.client.gui;
 
-import com.Deeakron.journey_mode.client.event.MenuResearchEvent;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.container.JourneyModeRecipesContainer;
-import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
-import com.Deeakron.journey_mode.init.AntikytheraRecipeItemList;
-import com.Deeakron.journey_mode.init.JMSounds;
-import com.Deeakron.journey_mode.init.ResearchList;
-import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -72,24 +63,11 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
         this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.guiLeft + 6, this.guiTop + 73, false, this, 147, 234));
         this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.guiLeft + 152, this.guiTop + 73, true, this, 163, 234));
-        //ServerPlayerEntity player = this.playerInventory.player.getServer().getPlayerList().getPlayerByUUID(this.playerInventory.player.getUniqueID());
-
-        //Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:recipes/antikythera_barrier"));
-        //player.getAdvancements().getProgress(advancement).isDone();
 
         //checking all antikythera recipes
         ResourceLocation[] locations = journey_mode.itemListHandler.getLocations();
         boolean[] achieved;
-        /*int recipeCount = 0;
-        for (int i = 0; i < locations.length; i++) {
-            Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(locations[i]);
-            if (player.getAdvancements().getProgress(advancement).isDone()) {
-                achieved[i] = true;
-                recipeCount += 1;
-            } else {
-                achieved[i] = false;
-            }
-        }*/
+
         achieved = journey_mode.tempAdvance;
         int recipeCount = journey_mode.tempCount;
         ResourceLocation[][] items = new ResourceLocation[recipeCount][10];
@@ -124,8 +102,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         super.tick();
         if (!this.initialized) {
             this.initialized = true;
-            //ResourceLocation[] loc1 = {new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"), new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:command_block"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain"),new ResourceLocation("minecraft:chain_command_block")};
-            //ResourceLocation[] loc2 = {new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:ender_pearl"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("journey_mode:unobtainium_block"),new ResourceLocation("minecraft:end_stone"),new ResourceLocation("minecraft:end_portal_frame")};
             ResourceLocation[] loc1 = new ResourceLocation[10];
             ResourceLocation[] loc2 = new ResourceLocation[10];
             if (this.numRecipes > 0) {
@@ -149,7 +125,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             }
             ItemStack[] items1 = new ItemStack[10];
             ItemStack[] items2 = new ItemStack[10];
-            //journey_mode.LOGGER.info("extracted is: " + loc1[0].toString());
             for (int i = 0; i < 10; i++) {
                 try {
                     loc1[i].toString().equals("");
@@ -210,7 +185,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
         ItemStack[] items1 = new ItemStack[10];
         ItemStack[] items2 = new ItemStack[10];
-        //journey_mode.LOGGER.info("extracted is: " + loc1[0].toString());
         for (int i = 0; i < 10; i++) {
             try {
                 loc1[i].toString().equals("");
@@ -253,11 +227,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
-        //int x = (this.width = this.xSize) / 2;
-        //int y = (this.height = this.ySize) / 2;
-
-        //this.blit(matrixStack, this.width/2,this.height/2, 0, 0, this.xSize, this.ySize);
-
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
@@ -429,7 +398,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            //JourneyModeRecipesScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
+
         }
     }
 
@@ -458,7 +427,6 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
 
         public void onPress() {
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
-            //current tab, so nothing happens
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {

@@ -2,7 +2,6 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
-import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import com.Deeakron.journey_mode.util.FunctionalIntReferenceHolder;
 import net.minecraft.entity.player.PlayerEntity;
@@ -80,7 +79,6 @@ public class StarforgeContainer extends Container {
     @Override
     public ItemStack transferStackInSlot(final PlayerEntity player, final int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        //journey_mode.LOGGER.info("index is: " + index);
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();

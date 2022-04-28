@@ -46,7 +46,6 @@ public class JMResearchCommand {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            //journey_mode.LOGGER.info(item.getRegistryName().toString());
             int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
             int remaining = values[1];
             String[] name = new String[1];
@@ -78,7 +77,6 @@ public class JMResearchCommand {
         int count = IntegerArgumentType.getInteger(commandContext, "count");
         if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            //journey_mode.LOGGER.info(item.getRegistryName().toString());
             int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
             if (count < 0){
                 count = 0;
