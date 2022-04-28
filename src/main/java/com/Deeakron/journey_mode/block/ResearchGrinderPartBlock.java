@@ -185,6 +185,13 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
             worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
         }
         super.onBlockHarvested(worldIn, pos, state, player);
+        if (type == "wood" && !player.isCreative()) {
+            spawnDrops(state, worldIn, pos);
+        } else {
+            if(player.getHeldItemMainhand().canHarvestBlock(state) && !player.isCreative()) {
+                spawnDrops(state, worldIn, pos);
+            }
+        }
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.pos3 = pos3;
