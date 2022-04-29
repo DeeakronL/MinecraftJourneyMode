@@ -632,10 +632,6 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
             this.destroyItemSlot = new Slot(TMP_INVENTORY, 0, 173, 112);
             (this.container).inventorySlots.add(this.destroyItemSlot);
-        } else if (i == survivalInventoryIndex) {
-            (this.container).inventorySlots.clear();
-            (this.container).inventorySlots.addAll(this.originalSlots);
-            this.originalSlots = null;
         }
 
         if (this.searchField != null) {
