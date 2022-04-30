@@ -89,23 +89,23 @@ public class journey_mode
 
 
         try{
-            this.list = new ItemList("data/journey_mode/duplication_menu/base_minecraft.json");
+            this.list = new ItemList("data/journey_mode/duplication_menu/base_minecraft.json", true);
             if (UnobtainConfig.use_unobtainable.get()) {
-                ItemList unobtainList = new ItemList("data/journey_mode/duplication_menu/unobtainable.json");
+                ItemList unobtainList = new ItemList("data/journey_mode/duplication_menu/unobtainable.json", true);
                 this.list.updateList(unobtainList);
                 String[] test = new String[1];
                 test[0] = "\"minecraft:bedrock\"";
             }
             if (NewFilesConfig.use_other_files.get()) {
-                ItemList changeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("changes.json").toString());
+                ItemList changeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("changes.json").toString(), false);
                 this.list.updateList(changeList);
             }
             if (NewFilesConfig.use_replacements.get()) {
-                this.replacementList = new ReplacementList(FMLPaths.CONFIGDIR.get().resolve("replacements.json").toString());
+                this.replacementList = new ReplacementList(FMLPaths.CONFIGDIR.get().resolve("replacements.json").toString(), false);
                 this.doReplace = true;
             }
             if (NewFilesConfig.use_removals.get()) {
-                ItemList removeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("removals.json").toString());
+                ItemList removeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("removals.json").toString(), false);
                 this.list.removeItem(removeList.getItems());
             }
         } catch (IOException e) {

@@ -4,9 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -14,8 +12,11 @@ public class ReplacementList {
     public String[] originals;
     public String[] replacements;
 
-    public ReplacementList(String file) throws IOException {
-        BufferedReader readIn = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(file), StandardCharsets.UTF_8));
+    public ReplacementList(String file, boolean internal) throws IOException {
+        InputStream inputStream = internal
+                ? getClass().getClassLoader().getResourceAsStream(file)
+                : new FileInputStream(file);
+        BufferedReader readIn = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = readIn.readLine()) != null) {

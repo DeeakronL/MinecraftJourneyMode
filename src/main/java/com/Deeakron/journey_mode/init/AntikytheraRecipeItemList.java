@@ -18,7 +18,6 @@ public class AntikytheraRecipeItemList {
             ResourceLocation tempItems2 [] = new ResourceLocation[10];
             for (int j =0; j < 9; j++) {
                 //code to get items to put into items[i], with items[i][0-8] being the input and items[i][9] being the output
-                journey_mode.LOGGER.info(recipeLocations[i]);
                 try {
                     if (manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j) != null) {
                         tempItems2[j] = manager.getRecipe(recipeLocations[i]).get().getIngredients().get(j).getMatchingStacks()[0].getItem().getRegistryName();

@@ -1,12 +1,12 @@
 package com.Deeakron.journey_mode.init;
 
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minecraftforge.fml.loading.FMLPaths;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -16,8 +16,11 @@ public class ItemList {
     public String[] categories;
     public String[] catTypes;
 
-    public ItemList(String file) throws IOException {
-        BufferedReader readIn = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(file), StandardCharsets.UTF_8));
+    public ItemList(String file, boolean internal) throws IOException {
+        InputStream inputStream = internal
+                ? getClass().getClassLoader().getResourceAsStream(file)
+                : new FileInputStream(file);
+        BufferedReader readIn = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = readIn.readLine()) != null) {
