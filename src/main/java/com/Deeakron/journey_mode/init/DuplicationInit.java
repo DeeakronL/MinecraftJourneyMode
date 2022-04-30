@@ -29,9 +29,9 @@ public class DuplicationInit {
             try {
                 ForgeRegistries.ITEMS.getValue(loc).getGroup().getGroupName().getString();
             } catch (NullPointerException e) {
-                String check = string.substring(1, 13);
+                String check = string.substring(1, 10);
                 substring = string.substring(11, string.length() - 1);
-                if(!check.equals("journey_mode")) {
+                if(check.equals("minecraft" )) {
                     if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass() || item.getItem().getClass() == new OperatorOnlyItem(null, new Item.Properties()).getClass()) {
                         DuplicationInit.ITEMS.register(substring, () -> new BlockItem(((BlockItem) (item.getItem())).getBlock(), new BlockItem.Properties().group(unobtainableGroup)));
                     } else {
