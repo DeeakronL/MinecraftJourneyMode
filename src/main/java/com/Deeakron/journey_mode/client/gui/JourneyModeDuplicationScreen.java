@@ -480,6 +480,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         success = false;
                     } catch (NullPointerException e) {
                         success = false;
+                        itr.remove();
                     }
 
                 }
