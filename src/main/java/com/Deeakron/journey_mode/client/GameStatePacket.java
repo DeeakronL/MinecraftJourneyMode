@@ -80,11 +80,14 @@ public class GameStatePacket {
         journey_mode.mobGrief = this.mobGrief;
         journey_mode.godMode = this.godMode;
         journey_mode.keepInv = this.keepInv;
-        Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
-        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         boolean unlockRecipes = false;
-        if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
-            unlockRecipes = true;
+        if (journey_mode.useUnobtain) {
+            Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+
+            if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
+                unlockRecipes = true;
+            }
         }
         journey_mode.hasRecipes = unlockRecipes;
         NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());

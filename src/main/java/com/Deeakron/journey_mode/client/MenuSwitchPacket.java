@@ -50,11 +50,15 @@ public class MenuSwitchPacket {
         UUID info = UUID.fromString(data);
         ServerWorld serverWorld = context.get().getSender().getServerWorld();
         PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(info);
-        Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         boolean unlockRecipes = false;
-        if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
-            unlockRecipes = true;
+        if (journey_mode.useUnobtain) {
+            Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+
+
+            if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
+                unlockRecipes = true;
+            }
         }
         if (menuType.equals("powers")) {
             journey_mode.hasRecipes = unlockRecipes;
