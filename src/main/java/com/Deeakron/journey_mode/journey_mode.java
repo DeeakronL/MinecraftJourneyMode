@@ -144,8 +144,8 @@ public class journey_mode
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        //LOGGER.info("HELLO FROM PREINIT");
+        //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
         JMCapabilityProvider.register();
         EventHandler.registerPackets();
@@ -156,7 +156,7 @@ public class journey_mode
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
         RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(), RenderType.getCutout());
