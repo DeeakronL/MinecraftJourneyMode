@@ -64,6 +64,7 @@ public class journey_mode
     public static int tempCount;
     public static JourneyModeResearchContainer tempContain;
     public static AntikytheraRecipeItemList itemListHandler;
+    private static boolean useUnobtain;
 
     public journey_mode() {
         // Register the setup method for modloading
@@ -123,10 +124,13 @@ public class journey_mode
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         if (UnobtainConfig.use_unobtainable.get()) {
+            this.useUnobtain = true;
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
             JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
             JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
+        } else {
+            this.useUnobtain = false;
         }
 
         JMSounds.SOUNDS.register(bus);
@@ -192,7 +196,8 @@ public class journey_mode
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
         //LOGGER.info("HELLO from server starting");
-        if (UnobtainConfig.use_unobtainable.get()) {
+        LOGGER.info("here is server startup " + this.useUnobtain);
+        if (this.useUnobtain) {
             this.itemListHandler = new AntikytheraRecipeItemList(event.getServer());
         }
     }
