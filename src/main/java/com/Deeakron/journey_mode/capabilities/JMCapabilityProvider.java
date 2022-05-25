@@ -1,10 +1,10 @@
 package com.Deeakron.journey_mode.capabilities;
 
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
+public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag> {
     private final EntityJourneyMode jm = new EntityJourneyMode();
     private final LazyOptional<EntityJourneyMode> implContainer;
     private final LazyOptional<IEntityJourneyMode> jMOptional = LazyOptional.of(() -> jm);
@@ -26,7 +26,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
         jMOptional.invalidate();
     }
 
-    public JMCapabilityProvider(ServerPlayerEntity object) {
+    public JMCapabilityProvider(ServerPlayer object) {
         this.implContainer = LazyOptional.of(() -> new EntityJourneyMode());
     }
 
@@ -35,17 +35,17 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
+    public CompoundTag serializeNBT() {
         if(INSTANCE == null) {
-            return new CompoundNBT();
+            return new CompoundTag();
 
         } else {
-            return (CompoundNBT) INSTANCE.writeNBT(jm, null);
+            return (CompoundTag) INSTANCE.writeNBT(jm, null);
         }
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         if(INSTANCE != null) {
             INSTANCE.readNBT(jm, null, nbt);
         }
@@ -65,13 +65,13 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
 
         @Nullable
         @Override
-        public INBT writeNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side) {
-            CompoundNBT tag = new CompoundNBT();
+        public Tag writeNBT(Capability<IEntityJourneyMode> capability, IEntityJourneyMode instance, Direction side) {
+            CompoundTag tag = new CompoundTag();
             tag.putBoolean("mode", instance.getJourneyMode());
             instance.getResearchList().getList().forEach((k,v) -> tag.putInt(k, v[0]));
             tag.putBoolean("godMode", instance.getGodMode());
             if(instance.getPlayer() != null){
-                tag.putUniqueId("player", instance.getPlayer());
+                tag.putUUID("player", instance.getPlayer());
             }
 
             return tag;
@@ -108,7 +108,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
             instance.updateResearch(items, counts, true, null);
             boolean godMode = ((CompoundNBT) nbt).getBoolean("godMode");
             try {
-                UUID player = ((CompoundNBT) nbt).getUniqueId("player");
+                UUID player = ((CompoundNBT) nbt).getUUID("player");
                 if(player != null){
                     instance.setPlayer(player);
                     instance.setGodMode(godMode);

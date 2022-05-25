@@ -6,18 +6,18 @@ import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,14 +25,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
-public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipesContainer> {
+public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyModeRecipesContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_antikythera_recipes.png");
-    public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
-    public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
-    public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
-    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
-    public static final ITextComponent SHAPELESS_NOTIF = new TranslationTextComponent("journey_mode.gui.recipes.shapeless");
+    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
+    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
+    public static final Component SHAPELESS_NOTIF = new TranslatableComponent("journey_mode.gui.recipes.shapeless");
     private boolean initialized;
     private int currentRecipe = 0;
     private int numRecipes;
@@ -44,25 +44,25 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     private boolean bottomShaped = true;
 
 
-    public JourneyModeRecipesScreen(JourneyModeRecipesContainer container, PlayerInventory inv, ITextComponent titleIn) {
+    public JourneyModeRecipesScreen(JourneyModeRecipesContainer container, Inventory inv, Component titleIn) {
         super(container, inv, titleIn);
-        this.guiLeft = 0;
-        this.guiTop = 0;
-        this.xSize = 176;
-        this.ySize = 166;
+        this.leftPos = 0;
+        this.topPos = 0;
+        this.imageWidth = 176;
+        this.imageHeight = 166;
         this.initialized = false;
-        this.playerInventoryTitleX = -1000;
-        this.playerInventoryTitleY = -1000;
+        this.inventoryLabelX = -1000;
+        this.inventoryLabelY = -1000;
     }
 
     protected void init() {
         super.init();
-        this.addButton(new JourneyModeRecipesScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
-        this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
-        this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
-        this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.guiLeft + 6, this.guiTop + 73, false, this, 147, 234));
-        this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.guiLeft + 152, this.guiTop + 73, true, this, 163, 234));
+        this.addButton(new JourneyModeRecipesScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
+        this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
+        this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 6, this.topPos + 73, false, this, 147, 234));
+        this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 152, this.topPos + 73, true, this, 163, 234));
 
         //checking all antikythera recipes
         ResourceLocation[] locations = journey_mode.itemListHandler.getLocations();
@@ -140,8 +140,8 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
                     items2[i] = ItemStack.EMPTY;
                 }
             }
-            this.container.insertItem(items1, 1);
-            this.container.insertItem(items2, 2);
+            this.menu.insertItem(items1, 1);
+            this.menu.insertItem(items2, 2);
         }
     }
 
@@ -149,7 +149,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
     public void render(final MatrixStack matrixStack, final int mouseX, final int mouseY, final float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     public void updateRecipes(boolean isRight) {
@@ -200,40 +200,40 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
                 items2[i] = ItemStack.EMPTY;
             }
         }
-        this.container.insertItem(items1, 1);
-        this.container.insertItem(items2, 2);
+        this.menu.insertItem(items1, 1);
+        this.menu.insertItem(items2, 2);
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
-        this.font.drawString(matrixStack, this.title.getString(), 8.0f, 6.0f, 4210752);
+    protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+        super.renderLabels(matrixStack, mouseX, mouseY);
+        this.font.draw(matrixStack, this.title.getString(), 8.0f, 6.0f, 4210752);
 
         for(Widget widget : this.buttons) {
             if (widget.isHovered()) {
-                widget.renderToolTip(matrixStack, mouseX - this.guiLeft, mouseY - this.guiTop);
+                widget.renderToolTip(matrixStack, mouseX - this.leftPos, mouseY - this.topPos);
                 break;
             }
         }
         if (!this.topShaped) {
-            this.font.drawString(matrixStack, this.SHAPELESS_NOTIF.getString(), 90, 60, TextFormatting.DARK_RED.getColor());
+            this.font.draw(matrixStack, this.SHAPELESS_NOTIF.getString(), 90, 60, TextFormatting.DARK_RED.getColor());
         }
         if (!this.bottomShaped) {
-            this.font.drawString(matrixStack, this.SHAPELESS_NOTIF.getString(), 90, 138, TextFormatting.DARK_RED.getColor());
+            this.font.draw(matrixStack, this.SHAPELESS_NOTIF.getString(), 90, 138, TextFormatting.DARK_RED.getColor());
         }
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        this.minecraft.getTextureManager().bind(BACKGROUND_TEXTURE);
+        int i = (this.width - this.imageWidth) / 2;
+        int j = (this.height - this.imageHeight) / 2;
+        this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     @Override
-    protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
+    protected void slotClicked(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
 
     }
 
@@ -247,8 +247,8 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             super(x, y, 59, 21, StringTextComponent.EMPTY);
         }
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 228;
             int j = 77;
@@ -257,10 +257,10 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
 
         public boolean isSelected() {
             return this.selected;
@@ -277,8 +277,8 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
 
         protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 221;
             int j = 0;
@@ -287,10 +287,10 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -305,8 +305,8 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             this.screen = screen;
         }
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 184;
             int j = 0;
@@ -322,12 +322,12 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
 
 
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -343,7 +343,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             this.isRight = isRight;
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
+        protected void renderIcon(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x +1, this.y, this.u, this.v, 18, 18);
         }
     }
@@ -356,7 +356,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "powers"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "powers"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -375,7 +375,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
             this.v = v;
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
+        protected void renderIcon(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
     }
@@ -410,7 +410,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -426,7 +426,7 @@ public class JourneyModeRecipesScreen extends ContainerScreen<JourneyModeRecipes
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "duplication"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {

@@ -4,10 +4,10 @@ import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.client.event.ResearchEvent;
 import com.Deeakron.journey_mode.util.JMDamageSources;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.HorizontalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +23,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -32,18 +32,20 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.UUID;
 
-public class ResearchGrinderPartBlock extends HorizontalBlock {
+import net.minecraft.block.AbstractBlock.Properties;
+
+public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
     private final int part;
-    protected static final VoxelShape BASE_SLAB = Block.makeCuboidShape(0.0D,0.0D,0.0D,16.0D,7.0D,16.0D);
-    protected static final VoxelShape BASE_SLOPE_WEST = Block.makeCuboidShape(1.0D,1.0D,1.0D,16.0D,12.0D,16.0D);
-    protected static final VoxelShape BASE_SLOPE_EAST = Block.makeCuboidShape(0.0D,1.0D,1.0D,15.0D,12.0D,16.0D);
-    protected static final VoxelShape BASE_SLOPE_SOUTHWEST = Block.makeCuboidShape(1.0D,1.0D,0.0D,16.0D,12.0D,15.0D);
-    protected static final VoxelShape BASE_SLOPE_SOUTHEAST = Block.makeCuboidShape(0.0D,1.0D,0.0D,15.0D,12.0D,15.0D);
+    protected static final VoxelShape BASE_SLAB = Block.box(0.0D,0.0D,0.0D,16.0D,7.0D,16.0D);
+    protected static final VoxelShape BASE_SLOPE_WEST = Block.box(1.0D,1.0D,1.0D,16.0D,12.0D,16.0D);
+    protected static final VoxelShape BASE_SLOPE_EAST = Block.box(0.0D,1.0D,1.0D,15.0D,12.0D,16.0D);
+    protected static final VoxelShape BASE_SLOPE_SOUTHWEST = Block.box(1.0D,1.0D,0.0D,16.0D,12.0D,15.0D);
+    protected static final VoxelShape BASE_SLOPE_SOUTHEAST = Block.box(0.0D,1.0D,0.0D,15.0D,12.0D,15.0D);
     protected static final VoxelShape BASE_SHAPE = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_WEST);
     protected static final VoxelShape BASE_SHAPE_EAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_EAST);
     protected static final VoxelShape BASE_SHAPE_SOUTHWEST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
     protected static final VoxelShape BASE_SHAPE_SOUTHEAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = HorizontalBlock.FACING;
     private final String type;
     private BlockPos pos1;
     private BlockPos pos2;
@@ -57,11 +59,11 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
 
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+    public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
             float damage = 1.0F;
             if (type == "wood") {
@@ -71,39 +73,39 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
             } else if (type == "diamond") {
                 damage = 1.75F;
             }
-            entityIn.attackEntityFrom(JMDamageSources.RESEARCH_GRINDER, damage);
+            entityIn.hurt(JMDamageSources.RESEARCH_GRINDER, damage);
         }
         if(entityIn instanceof ItemEntity){
-            UUID id = ((ItemEntity) entityIn).getThrowerId();
+            UUID id = ((ItemEntity) entityIn).getThrower();
             PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
-            ServerPlayerEntity player = players.getPlayerByUUID(id);
+            ServerPlayerEntity player = players.getPlayer(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
             worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
             entityIn.remove();
 
 
         }
-        super.onEntityWalk(worldIn, pos, entityIn);
+        super.stepOn(worldIn, pos, entityIn);
     }
 
-    public PushReaction getPushReaction(BlockState state){
+    public PushReaction getPistonPushReaction(BlockState state){
         return PushReaction.BLOCK;
     }
 
 
 
-    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;
     }
 
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockPos pos1 = null;
         BlockPos pos2 = null;
         BlockPos pos3 = null;
 
         switch (part) {
             case 0:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.west();
                         pos2 = pos.west().south();
@@ -127,7 +129,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.north();
                         pos2 = pos.north().east();
@@ -151,7 +153,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.north().west();
                         pos2 = pos.north();
@@ -176,20 +178,20 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
-            worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+            worldIn.setBlockAndUpdate(pos1, Blocks.AIR.defaultBlockState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
-            worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+            worldIn.setBlockAndUpdate(pos2, Blocks.AIR.defaultBlockState());
         }
         if(worldIn.getBlockState(pos3).getBlock() instanceof ResearchGrinderPartBlock){
-            worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+            worldIn.setBlockAndUpdate(pos3, Blocks.AIR.defaultBlockState());
         }
-        super.onBlockHarvested(worldIn, pos, state, player);
+        super.playerWillDestroy(worldIn, pos, state, player);
         if (type == "wood" && !player.isCreative()) {
-            spawnDrops(state, worldIn, pos);
+            dropResources(state, worldIn, pos);
         } else {
-            if(player.getHeldItemMainhand().canHarvestBlock(state) && !player.isCreative()) {
-                spawnDrops(state, worldIn, pos);
+            if(player.getMainHandItem().isCorrectToolForDrops(state) && !player.isCreative()) {
+                dropResources(state, worldIn, pos);
             }
         }
         this.pos1 = pos1;
@@ -197,14 +199,14 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
         this.pos3 = pos3;
     }
 
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockPos pos1 = null;
         BlockPos pos2 = null;
         BlockPos pos3 = null;
 
         switch (part) {
             case 0:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.west();
                         pos2 = pos.west().south();
@@ -228,7 +230,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.north();
                         pos2 = pos.north().east();
@@ -252,7 +254,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.north().west();
                         pos2 = pos.north();
@@ -277,21 +279,21 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 break;
         }
         if(worldIn.getBlockState(pos1).getBlock() instanceof ResearchGrinderBlock){
-            worldIn.setBlockState(pos1, Blocks.AIR.getDefaultState());
+            worldIn.setBlockAndUpdate(pos1, Blocks.AIR.defaultBlockState());
         }
         if(worldIn.getBlockState(pos2).getBlock() instanceof ResearchGrinderPartBlock){
-            worldIn.setBlockState(pos2, Blocks.AIR.getDefaultState());
+            worldIn.setBlockAndUpdate(pos2, Blocks.AIR.defaultBlockState());
         }
         if(worldIn.getBlockState(pos3).getBlock() instanceof ResearchGrinderPartBlock){
-            worldIn.setBlockState(pos3, Blocks.AIR.getDefaultState());
+            worldIn.setBlockAndUpdate(pos3, Blocks.AIR.defaultBlockState());
         }
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        super.onRemove(state, worldIn, pos, newState, isMoving);
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.pos3 = pos3;
     }
 
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(IBlockReader worldIn, BlockPos pos, BlockState state) {
         if (type == "wood"){
             return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
         } else if (type == "iron"){
@@ -303,10 +305,10 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     }
 
 
-    public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    public VoxelShape getOcclusionShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
         switch (part) {
             case 0:
-                switch (state.get(FACING)) {
+                switch (state.getValue(FACING)) {
                     case NORTH: return BASE_SHAPE_EAST;
                     case SOUTH: return BASE_SHAPE_SOUTHWEST;
                     case WEST: return BASE_SHAPE;
@@ -314,14 +316,14 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
 
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHWEST;
                     case SOUTH: return BASE_SHAPE_EAST;
                     case WEST: return BASE_SHAPE_SOUTHEAST;
                     case EAST: return BASE_SHAPE;
                 }
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHEAST;
                     case SOUTH: return BASE_SHAPE;
                     case WEST: return BASE_SHAPE_EAST;
@@ -334,7 +336,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                switch (state.get(FACING)) {
+                switch (state.getValue(FACING)) {
                     case NORTH: return BASE_SHAPE_EAST;
                     case SOUTH: return BASE_SHAPE_SOUTHWEST;
                     case WEST: return BASE_SHAPE;
@@ -342,14 +344,14 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
 
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHWEST;
                     case SOUTH: return BASE_SHAPE_EAST;
                     case WEST: return BASE_SHAPE_SOUTHEAST;
                     case EAST: return BASE_SHAPE;
                 }
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHEAST;
                     case SOUTH: return BASE_SHAPE;
                     case WEST: return BASE_SHAPE_EAST;
@@ -362,7 +364,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                switch (state.get(FACING)) {
+                switch (state.getValue(FACING)) {
                     case NORTH: return BASE_SHAPE_EAST;
                     case SOUTH: return BASE_SHAPE_SOUTHWEST;
                     case WEST: return BASE_SHAPE;
@@ -370,14 +372,14 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
 
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHWEST;
                     case SOUTH: return BASE_SHAPE_EAST;
                     case WEST: return BASE_SHAPE_SOUTHEAST;
                     case EAST: return BASE_SHAPE;
                 }
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHEAST;
                     case SOUTH: return BASE_SHAPE;
                     case WEST: return BASE_SHAPE_EAST;
@@ -388,10 +390,10 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
     }
 
     @Override
-    public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getVisualShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
         switch (part) {
             case 0:
-                switch (state.get(FACING)) {
+                switch (state.getValue(FACING)) {
                     case NORTH: return BASE_SHAPE_EAST;
                     case SOUTH: return BASE_SHAPE_SOUTHWEST;
                     case WEST: return BASE_SHAPE;
@@ -399,14 +401,14 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
 
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHWEST;
                     case SOUTH: return BASE_SHAPE_EAST;
                     case WEST: return BASE_SHAPE_SOUTHEAST;
                     case EAST: return BASE_SHAPE;
                 }
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH: return BASE_SHAPE_SOUTHEAST;
                     case SOUTH: return BASE_SHAPE;
                     case WEST: return BASE_SHAPE_EAST;
@@ -434,7 +436,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
 
         switch (part) {
             case 0:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.west();
                         break;
@@ -450,7 +452,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
             case 1:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.north();
                         break;
@@ -466,7 +468,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
                 }
                 break;
             case 2:
-                switch (state.get(FACING)){
+                switch (state.getValue(FACING)){
                     case NORTH:
                         pos1 = pos.north().west();
                         break;
@@ -485,7 +487,7 @@ public class ResearchGrinderPartBlock extends HorizontalBlock {
         return world.getBlockState(pos1).getLightValue(world, pos1);
     }
 
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 

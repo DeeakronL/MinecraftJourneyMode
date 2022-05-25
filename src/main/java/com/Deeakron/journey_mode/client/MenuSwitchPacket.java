@@ -11,7 +11,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
@@ -27,9 +27,9 @@ public class MenuSwitchPacket {
     private final String data;
     private final String menuType;
 
-    public MenuSwitchPacket(PacketBuffer buf) {
-        this.data = buf.readString();
-        this.menuType = buf.readString();
+    public MenuSwitchPacket(FriendlyByteBuf buf) {
+        this.data = buf.readUtf();
+        this.menuType = buf.readUtf();
     }
 
     public MenuSwitchPacket(String data, String menuType) {
@@ -38,25 +38,25 @@ public class MenuSwitchPacket {
     }
 
     public void encode(PacketBuffer buf) {
-        buf.writeString(data);
-        buf.writeString(menuType);
+        buf.writeUtf(data);
+        buf.writeUtf(menuType);
     }
 
     public static MenuSwitchPacket decode(PacketBuffer buf) {
-        return new MenuSwitchPacket(buf.readString(), buf.readString());
+        return new MenuSwitchPacket(buf.readUtf(), buf.readUtf());
     }
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerWorld serverWorld = context.get().getSender().getServerWorld();
-        PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(info);
+        ServerWorld serverWorld = context.get().getSender().getLevel();
+        PlayerEntity player = (PlayerEntity) serverWorld.getEntity(info);
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
-            Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+            Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
 
 
-            if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
+            if (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone()) {
                 unlockRecipes = true;
             }
         }
@@ -71,14 +71,14 @@ public class MenuSwitchPacket {
             journey_mode.hasRecipes = unlockRecipes;
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
             boolean wasCreative;
-            if (player.abilities.isCreativeMode) {
+            if (player.abilities.instabuild) {
                 wasCreative = true;
             } else {
                 wasCreative = false;
             }
-            player.setGameType(GameType.CREATIVE);
+            player.setGameMode(GameType.CREATIVE);
             if(!wasCreative) {
-                player.abilities.isCreativeMode = false;
+                player.abilities.instabuild = false;
             }
             boolean wasGodMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
             if (wasGodMode == false) {
@@ -90,8 +90,8 @@ public class MenuSwitchPacket {
             boolean[] achieved = new boolean[locations.length];
             int recipeCount = 0;
             for (int i = 0; i < locations.length; i++) {
-                Advancement recipeAdvancement = player.getServer().getAdvancementManager().getAdvancement(locations[i]);
-                if (serverPlayer.getAdvancements().getProgress(recipeAdvancement).isDone()) {
+                Advancement recipeAdvancement = player.getServer().getAdvancements().getAdvancement(locations[i]);
+                if (serverPlayer.getAdvancements().getOrStartProgress(recipeAdvancement).isDone()) {
                     achieved[i] = true;
                     recipeCount += 1;
                 } else {
@@ -106,6 +106,6 @@ public class MenuSwitchPacket {
 
     public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, PlayerEntity player) {
 
-        Minecraft.getInstance().displayGuiScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayerEntity) player));
+        Minecraft.getInstance().setScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayerEntity) player));
     }
 }

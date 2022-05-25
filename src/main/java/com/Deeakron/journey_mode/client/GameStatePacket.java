@@ -9,7 +9,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.server.ServerWorld;
@@ -30,8 +30,8 @@ public class GameStatePacket {
     private Boolean godMode;
     private Boolean keepInv;
 
-    public GameStatePacket(PacketBuffer buf) {
-        this.data = buf.readString();
+    public GameStatePacket(FriendlyByteBuf buf) {
+        this.data = buf.readUtf();
         this.freeze = buf.readBoolean();
         this.tickSpeed = buf.readInt();
         this.mobSpawn = buf.readBoolean();
@@ -51,7 +51,7 @@ public class GameStatePacket {
     }
 
     public void encode(PacketBuffer buf) {
-        buf.writeString(this.data);
+        buf.writeUtf(this.data);
         buf.writeBoolean(this.freeze);
         buf.writeInt(this.tickSpeed);
         buf.writeBoolean(this.mobSpawn);
@@ -61,19 +61,19 @@ public class GameStatePacket {
     }
 
     public static GameStatePacket decode(PacketBuffer buf) {
-        return new GameStatePacket(buf.readString(), buf.readBoolean(), buf.readInt(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean());
+        return new GameStatePacket(buf.readUtf(), buf.readBoolean(), buf.readInt(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean());
     }
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerWorld serverWorld = context.get().getSender().getServerWorld();
-        PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(info);
-        this.freeze = !serverWorld.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE);
-        this.tickSpeed = serverWorld.getGameRules().getInt(GameRules.RANDOM_TICK_SPEED)/3;
-        this.mobSpawn = !serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING);
-        this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.MOB_GRIEFING);
+        ServerWorld serverWorld = context.get().getSender().getLevel();
+        PlayerEntity player = (PlayerEntity) serverWorld.getEntity(info);
+        this.freeze = !serverWorld.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
+        this.tickSpeed = serverWorld.getGameRules().getInt(GameRules.RULE_RANDOMTICKING)/3;
+        this.mobSpawn = !serverWorld.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
+        this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
-        this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY);
+        this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
         journey_mode.freeze = this.freeze;
         journey_mode.tickSpeed = this.tickSpeed;
         journey_mode.mobSpawn = this.mobSpawn;
@@ -82,10 +82,10 @@ public class GameStatePacket {
         journey_mode.keepInv = this.keepInv;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
-            Advancement advancement = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+            Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 
-            if (serverPlayer.getAdvancements().getProgress(advancement).isDone()) {
+            if (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone()) {
                 unlockRecipes = true;
             }
         }
@@ -101,7 +101,7 @@ public class GameStatePacket {
         Boolean mobGrief = msg.getMobGrief();
         Boolean godMode = msg.getGodMode();
         Boolean keepInv = msg.getKeepInv();
-        int window = Minecraft.getInstance().player.openContainer.windowId;
+        int window = Minecraft.getInstance().player.containerMenu.containerId;
         return new DistExecutor.SafeRunnable() {
             @Override
             public void run() {

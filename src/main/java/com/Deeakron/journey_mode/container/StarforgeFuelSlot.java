@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.container;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -12,7 +12,7 @@ public class StarforgeFuelSlot extends SlotItemHandler {
         this.handler = handler;
     }
 
-    public boolean isItemValid(ItemStack stack) {
+    public boolean mayPlace(ItemStack stack) {
         String item = "\"" + stack.getItem().getItem().getRegistryName() + "\"";
         String check = "\"minecraft:nether_star\"";
         return item.equals(check);

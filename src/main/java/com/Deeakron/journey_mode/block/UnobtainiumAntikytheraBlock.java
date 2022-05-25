@@ -2,44 +2,44 @@ package com.Deeakron.journey_mode.block;
 
 import com.Deeakron.journey_mode.container.UnobtainiumAntikytheraContainer;
 import com.Deeakron.journey_mode.container.UnobtainiumAntikytheraContainerProvider;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class UnobtainiumAntikytheraBlock extends Block {
-    private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.journey_mode.unobtainium_antikythera");
+    private static final Component CONTAINER_NAME = new TranslatableComponent("container.journey_mode.unobtainium_antikythera");
 
-    public UnobtainiumAntikytheraBlock(AbstractBlock.Properties properties) {
+    public UnobtainiumAntikytheraBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (worldIn.isRemote) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        if (worldIn.isClientSide) {
             return ActionResultType.SUCCESS;
         } else {
-            player.openContainer(state.getContainer(worldIn, pos));
+            player.openMenu(state.getMenuProvider(worldIn, pos));
             NetworkHooks.openGui((ServerPlayerEntity) player, new UnobtainiumAntikytheraContainerProvider());
             return ActionResultType.CONSUME;
         }
     }
 
     @Override
-    public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
+    public INamedContainerProvider getMenuProvider(BlockState state, World worldIn, BlockPos pos) {
         return new SimpleNamedContainerProvider((id, inventory, player) ->
-                new UnobtainiumAntikytheraContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)), CONTAINER_NAME);
+                new UnobtainiumAntikytheraContainer(id, inventory, IWorldPosCallable.create(worldIn, pos)), CONTAINER_NAME);
     }
 }

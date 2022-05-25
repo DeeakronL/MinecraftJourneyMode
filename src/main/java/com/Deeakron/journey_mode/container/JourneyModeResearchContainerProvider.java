@@ -1,28 +1,28 @@
 package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 
-public class JourneyModeResearchContainerProvider implements INamedContainerProvider {
+public class JourneyModeResearchContainerProvider implements MenuProvider {
     @Override
-    public ITextComponent getDisplayName() {
-        ITextComponent title = new TranslationTextComponent("journey_mode.gui.name");
-        return new StringTextComponent(title.getString());
+    public Component getDisplayName() {
+        Component title = new TranslatableComponent("journey_mode.gui.name");
+        return new TextComponent(title.getString());
     }
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory inv, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory inv, Player player) {
         JourneyModeResearchContainer container = new JourneyModeResearchContainer(p_createMenu_1_, inv);
-        if (!player.world.isRemote()) {
+        if (!player.level.isClientSide()) {
             journey_mode.tempContain = container;
         }
         return container;

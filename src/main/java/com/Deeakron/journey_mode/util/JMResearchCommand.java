@@ -7,18 +7,18 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.command.arguments.ItemArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 
 public class JMResearchCommand {
-    public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        LiteralArgumentBuilder<CommandSource> jMResearchCommand
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        LiteralArgumentBuilder<CommandSourceStack> jMResearchCommand
                 = Commands.literal("research")
-                .requires((commandSource) -> commandSource.hasPermissionLevel(2))
+                .requires((commandSource) -> commandSource.hasPermission(2))
                 .then(Commands.argument("player", EntityArgument.player())
                         .then(Commands.literal("grant")
                                 .then(Commands.argument("item", ItemArgument.item())
@@ -52,7 +52,7 @@ public class JMResearchCommand {
             name[0] = "\"" + item.getRegistryName().toString() + "\"";
             int[] num = new int[1];
             num[0] = remaining;
-            cap.updateResearch(name, num, false, cap.getPlayer(), ItemArgument.getItem(commandContext, "item").createStack(1,false));
+            cap.updateResearch(name, num, false, cap.getPlayer(), ItemArgument.getItem(commandContext, "item").createItemStack(1,false));
         }
         return 1;
     }

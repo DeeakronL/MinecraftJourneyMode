@@ -8,17 +8,19 @@ import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DirectionalBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.StructureMode;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.gen.feature.jigsaw.JigsawOrientation;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class AetherialVoidDustItem extends Item {
     private boolean resultFlag = false;
@@ -27,38 +29,38 @@ public class AetherialVoidDustItem extends Item {
         super(properties);
     }
 
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         resultFlag = false;
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         PlayerEntity player = context.getPlayer();
-        if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.COMMAND_BLOCK)) {
-            Direction facing = world.getBlockState(pos).get(DirectionalBlock.FACING);
-            Boolean conditional = world.getBlockState(pos).get(BlockStateProperties.CONDITIONAL);
-            world.setBlockState(pos, UnobtainBlockInit.INERT_COMMAND_BLOCK.get().getDefaultState().with(InertCommandBlock.FACING, facing).with(InertCommandBlock.CONDITIONAL, conditional));
+        if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.COMMAND_BLOCK)) {
+            Direction facing = world.getBlockState(pos).getValue(DirectionalBlock.FACING);
+            Boolean conditional = world.getBlockState(pos).getValue(BlockStateProperties.CONDITIONAL);
+            world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_COMMAND_BLOCK.get().defaultBlockState().setValue(InertCommandBlock.FACING, facing).setValue(InertCommandBlock.CONDITIONAL, conditional));
             resultFlag = true;
-        } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.CHAIN_COMMAND_BLOCK)) {
-            Direction facing = world.getBlockState(pos).get(DirectionalBlock.FACING);
-            Boolean conditional = world.getBlockState(pos).get(BlockStateProperties.CONDITIONAL);
-            world.setBlockState(pos, UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get().getDefaultState().with(InertCommandBlock.FACING, facing).with(InertCommandBlock.CONDITIONAL, conditional));
+        } else if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.CHAIN_COMMAND_BLOCK)) {
+            Direction facing = world.getBlockState(pos).getValue(DirectionalBlock.FACING);
+            Boolean conditional = world.getBlockState(pos).getValue(BlockStateProperties.CONDITIONAL);
+            world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get().defaultBlockState().setValue(InertCommandBlock.FACING, facing).setValue(InertCommandBlock.CONDITIONAL, conditional));
             resultFlag = true;
-        } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.REPEATING_COMMAND_BLOCK)) {
-            Direction facing = world.getBlockState(pos).get(DirectionalBlock.FACING);
-            Boolean conditional = world.getBlockState(pos).get(BlockStateProperties.CONDITIONAL);
-            world.setBlockState(pos, UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get().getDefaultState().with(InertCommandBlock.FACING, facing).with(InertCommandBlock.CONDITIONAL, conditional));
+        } else if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.REPEATING_COMMAND_BLOCK)) {
+            Direction facing = world.getBlockState(pos).getValue(DirectionalBlock.FACING);
+            Boolean conditional = world.getBlockState(pos).getValue(BlockStateProperties.CONDITIONAL);
+            world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get().defaultBlockState().setValue(InertCommandBlock.FACING, facing).setValue(InertCommandBlock.CONDITIONAL, conditional));
             resultFlag = true;
-        } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.JIGSAW)) {
-            JigsawOrientation orientation = world.getBlockState(pos).get(BlockStateProperties.ORIENTATION);
-            world.setBlockState(pos, UnobtainBlockInit.INERT_JIGSAW_BLOCK.get().getDefaultState().with(InertJigsawBlock.ORIENTATION, orientation));
+        } else if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.JIGSAW)) {
+            JigsawOrientation orientation = world.getBlockState(pos).getValue(BlockStateProperties.ORIENTATION);
+            world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_JIGSAW_BLOCK.get().defaultBlockState().setValue(InertJigsawBlock.ORIENTATION, orientation));
             resultFlag = true;
-        } else if (world.getBlockState(pos).getBlock().getDefaultState().matchesBlock(Blocks.STRUCTURE_BLOCK)) {
-            StructureMode mode = world.getBlockState(pos).get(BlockStateProperties.STRUCTURE_BLOCK_MODE);
-            world.setBlockState(pos, UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get().getDefaultState().with(InertStructureBlock.MODE, mode));
+        } else if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.STRUCTURE_BLOCK)) {
+            StructureMode mode = world.getBlockState(pos).getValue(BlockStateProperties.STRUCTUREBLOCK_MODE);
+            world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get().defaultBlockState().setValue(InertStructureBlock.MODE, mode));
             resultFlag = true;
         }
 
         if (resultFlag) {
-            if(!world.isRemote){player.playSound(JMSounds.AETHERIAL_DEACTIVATE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+            if(!world.isClientSide){player.playNotifySound(JMSounds.AETHERIAL_DEACTIVATE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
             for (int i = 0; i < 50; i++) {
                 double d0 = 3.0D;
                 double d1 = 1.0D;
@@ -71,8 +73,8 @@ public class AetherialVoidDustItem extends Item {
                 double d8 = (double)pos.getZ() + random.nextDouble();// * d0 - 0.5D;
                 world.addParticle(ParticleTypes.SMOKE, d6, d7, d8, d2, d3, d4);
             }
-            context.getItem().shrink(1);
-            return ActionResultType.func_233537_a_(world.isRemote);
+            context.getItemInHand().shrink(1);
+            return ActionResultType.sidedSuccess(world.isClientSide);
         } else {
             return ActionResultType.PASS;
         }

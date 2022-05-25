@@ -7,47 +7,47 @@ import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 
 @OnlyIn(Dist.CLIENT)
-public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersContainer> {
+public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyModePowersContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_powers.png");
-    public static final ITextComponent DAWN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.dawn");
-    public static final ITextComponent NOON_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.noon");
-    public static final ITextComponent DUSK_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.dusk");
-    public static final ITextComponent MIDNIGHT_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.midnight");
-    public static final ITextComponent FREEZE_TIME_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.freeze");
-    public static final ITextComponent UNFREEZE_TIME_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.unfreeze");
-    public static final ITextComponent CLEAR_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.clear");
-    public static final ITextComponent RAIN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.rain");
-    public static final ITextComponent STORM_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.storm");
-    public static final ITextComponent NORMAL_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.normal");
-    public static final ITextComponent DOUBLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.double");
-    public static final ITextComponent QUADRUPLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.quadruple");
-    public static final ITextComponent OCTUPLE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.octuple");
-    public static final ITextComponent ENABLE_MOB_SPAWN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.enable_spawn");
-    public static final ITextComponent DISABLE_MOB_SPAWN_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_spawn");
-    public static final ITextComponent ENABLE_MOB_GRIEFING_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.enable_grief");
-    public static final ITextComponent DISABLE_MOB_GRIEFING_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_grief");
-    public static final ITextComponent ENABLE_GOD_MODE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.enable_god_mode");
-    public static final ITextComponent DISABLE_GOD_MODE_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.disable_god_mode");
-    public static final ITextComponent LOSE_INVENTORY_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.lose_inv");
-    public static final ITextComponent KEEP_INVENTORY_BUTTON = new TranslationTextComponent("journey_mode.gui.powers.keep_inv");
-    public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
-    public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
-    public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
-    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
+    public static final Component DAWN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.dawn");
+    public static final Component NOON_BUTTON = new TranslatableComponent("journey_mode.gui.powers.noon");
+    public static final Component DUSK_BUTTON = new TranslatableComponent("journey_mode.gui.powers.dusk");
+    public static final Component MIDNIGHT_BUTTON = new TranslatableComponent("journey_mode.gui.powers.midnight");
+    public static final Component FREEZE_TIME_BUTTON = new TranslatableComponent("journey_mode.gui.powers.freeze");
+    public static final Component UNFREEZE_TIME_BUTTON = new TranslatableComponent("journey_mode.gui.powers.unfreeze");
+    public static final Component CLEAR_BUTTON = new TranslatableComponent("journey_mode.gui.powers.clear");
+    public static final Component RAIN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.rain");
+    public static final Component STORM_BUTTON = new TranslatableComponent("journey_mode.gui.powers.storm");
+    public static final Component NORMAL_BUTTON = new TranslatableComponent("journey_mode.gui.powers.normal");
+    public static final Component DOUBLE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.double");
+    public static final Component QUADRUPLE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.quadruple");
+    public static final Component OCTUPLE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.octuple");
+    public static final Component ENABLE_MOB_SPAWN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.enable_spawn");
+    public static final Component DISABLE_MOB_SPAWN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.disable_spawn");
+    public static final Component ENABLE_MOB_GRIEFING_BUTTON = new TranslatableComponent("journey_mode.gui.powers.enable_grief");
+    public static final Component DISABLE_MOB_GRIEFING_BUTTON = new TranslatableComponent("journey_mode.gui.powers.disable_grief");
+    public static final Component ENABLE_GOD_MODE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.enable_god_mode");
+    public static final Component DISABLE_GOD_MODE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.disable_god_mode");
+    public static final Component LOSE_INVENTORY_BUTTON = new TranslatableComponent("journey_mode.gui.powers.lose_inv");
+    public static final Component KEEP_INVENTORY_BUTTON = new TranslatableComponent("journey_mode.gui.powers.keep_inv");
+    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
+    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
 
     private static boolean freeze;
     private int tickSpeed;
@@ -57,7 +57,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     private static boolean keepInv;
     private static boolean hasRecipes;
 
-    public JourneyModePowersScreen(JourneyModePowersContainer container, PlayerInventory inv, ITextComponent titleIn) {//, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
+    public JourneyModePowersScreen(JourneyModePowersContainer container, Inventory inv, Component titleIn) {//, int window, boolean freeze, int tickSpeed, boolean mobSpawn, boolean mobGrief, boolean godMode, boolean keepInv) {
         super(container, inv, titleIn);
         this.freeze = journey_mode.freeze;
         this.tickSpeed = journey_mode.tickSpeed;
@@ -65,38 +65,38 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         this.mobGrief = journey_mode.mobGrief;
         this.godMode = journey_mode.godMode;
         this.keepInv = journey_mode.keepInv;
-        this.guiLeft = 0;
-        this.guiTop = 0;
-        this.xSize = 176;
-        this.ySize = 184;
-        this.playerInventoryTitleY = this.ySize - 92;
+        this.leftPos = 0;
+        this.topPos = 0;
+        this.imageWidth = 176;
+        this.imageHeight = 184;
+        this.inventoryLabelY = this.imageHeight - 92;
         this.hasRecipes = journey_mode.hasRecipes;
     }
 
     protected void init() {
         super.init();
 
-        this.addButton(new JourneyModePowersScreen.DawnButton(this.guiLeft + 25, this.guiTop + 17, this));
-        this.addButton(new JourneyModePowersScreen.NoonButton(this.guiLeft + 61, this.guiTop + 17, this));
-        this.addButton(new JourneyModePowersScreen.DuskButton(this.guiLeft + 97, this.guiTop + 17, this));
-        this.addButton(new JourneyModePowersScreen.MidnightButton(this.guiLeft + 133, this.guiTop + 17, this));
-        this.addButton(new JourneyModePowersScreen.FreezeButton(this.guiLeft + 7, this.guiTop + 35, this, this.freeze));
-        this.addButton(new JourneyModePowersScreen.ClearButton(this.guiLeft + 43, this.guiTop + 35, this));
-        this.addButton(new JourneyModePowersScreen.RainButton(this.guiLeft + 79, this.guiTop + 35, this));
-        this.addButton(new JourneyModePowersScreen.StormButton(this.guiLeft + 115, this.guiTop + 35, this));
-        this.addButton(new JourneyModePowersScreen.NormalButton(this.guiLeft + 25, this.guiTop + 53, this));
-        this.addButton(new JourneyModePowersScreen.DoubleButton(this.guiLeft + 61, this.guiTop + 53, this));
-        this.addButton(new JourneyModePowersScreen.QuadrupleButton(this.guiLeft + 97, this.guiTop + 53, this));
-        this.addButton(new JourneyModePowersScreen.OctupleButton(this.guiLeft + 133, this.guiTop + 53, this));
-        this.addButton(new JourneyModePowersScreen.MobSpawnButton(this.guiLeft + 7, this.guiTop + 71, this, this.mobSpawn));
-        this.addButton(new JourneyModePowersScreen.MobGriefButton(this.guiLeft + 43, this.guiTop + 71, this, this.mobGrief));
-        this.addButton(new JourneyModePowersScreen.GodModeButton(this.guiLeft + 79, this.guiTop + 71, this, this.godMode));
-        this.addButton(new JourneyModePowersScreen.InventoryButton(this.guiLeft + 115, this.guiTop + 71, this, this.keepInv));
-        this.addButton(new JourneyModePowersScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
-        this.addButton(new JourneyModePowersScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
-        this.addButton(new JourneyModePowersScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
+        this.addButton(new JourneyModePowersScreen.DawnButton(this.leftPos + 25, this.topPos + 17, this));
+        this.addButton(new JourneyModePowersScreen.NoonButton(this.leftPos + 61, this.topPos + 17, this));
+        this.addButton(new JourneyModePowersScreen.DuskButton(this.leftPos + 97, this.topPos + 17, this));
+        this.addButton(new JourneyModePowersScreen.MidnightButton(this.leftPos + 133, this.topPos + 17, this));
+        this.addButton(new JourneyModePowersScreen.FreezeButton(this.leftPos + 7, this.topPos + 35, this, this.freeze));
+        this.addButton(new JourneyModePowersScreen.ClearButton(this.leftPos + 43, this.topPos + 35, this));
+        this.addButton(new JourneyModePowersScreen.RainButton(this.leftPos + 79, this.topPos + 35, this));
+        this.addButton(new JourneyModePowersScreen.StormButton(this.leftPos + 115, this.topPos + 35, this));
+        this.addButton(new JourneyModePowersScreen.NormalButton(this.leftPos + 25, this.topPos + 53, this));
+        this.addButton(new JourneyModePowersScreen.DoubleButton(this.leftPos + 61, this.topPos + 53, this));
+        this.addButton(new JourneyModePowersScreen.QuadrupleButton(this.leftPos + 97, this.topPos + 53, this));
+        this.addButton(new JourneyModePowersScreen.OctupleButton(this.leftPos + 133, this.topPos + 53, this));
+        this.addButton(new JourneyModePowersScreen.MobSpawnButton(this.leftPos + 7, this.topPos + 71, this, this.mobSpawn));
+        this.addButton(new JourneyModePowersScreen.MobGriefButton(this.leftPos + 43, this.topPos + 71, this, this.mobGrief));
+        this.addButton(new JourneyModePowersScreen.GodModeButton(this.leftPos + 79, this.topPos + 71, this, this.godMode));
+        this.addButton(new JourneyModePowersScreen.InventoryButton(this.leftPos + 115, this.topPos + 71, this, this.keepInv));
+        this.addButton(new JourneyModePowersScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addButton(new JourneyModePowersScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addButton(new JourneyModePowersScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
         if (this.hasRecipes) {
-            this.addButton(new JourneyModePowersScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+            this.addButton(new JourneyModePowersScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
         }
     }
 
@@ -104,30 +104,30 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
     public void render(final MatrixStack matrixStack, final int mouseX, final int mouseY, final float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
-        this.font.drawString(matrixStack, this.title.getString(), 8.0f, 6.0f, 4210752);
+    protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+        super.renderLabels(matrixStack, mouseX, mouseY);
+        this.font.draw(matrixStack, this.title.getString(), 8.0f, 6.0f, 4210752);
 
         for(Widget widget : this.buttons) {
             if (widget.isHovered()) {
-                widget.renderToolTip(matrixStack, mouseX - this.guiLeft, mouseY - this.guiTop);
+                widget.renderToolTip(matrixStack, mouseX - this.leftPos, mouseY - this.topPos);
                 break;
             }
         }
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+        this.minecraft.getTextureManager().bind(BACKGROUND_TEXTURE);
 
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        int i = (this.width - this.imageWidth) / 2;
+        int j = (this.height - this.imageHeight) / 2;
+        this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -142,8 +142,8 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
             super(x, y, 18, 18, StringTextComponent.EMPTY);
         }
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModePowersScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModePowersScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 184;
             int j = 0;
@@ -159,10 +159,10 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
 
         public boolean isSelected() {
             return this.selected;
@@ -179,8 +179,8 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
 
         protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModePowersScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModePowersScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 221;
             int j = 0;
@@ -189,10 +189,10 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -206,7 +206,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
             this.v = v;
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
+        protected void renderIcon(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 1, this.y + 1, this.u, this.v, 18, 18);
         }
     }
@@ -222,7 +222,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
             this.v = v;
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
+        protected void renderIcon(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
     }
@@ -584,7 +584,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -600,7 +600,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "duplication"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -616,7 +616,7 @@ public class JourneyModePowersScreen extends ContainerScreen<JourneyModePowersCo
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "recipes"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {

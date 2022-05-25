@@ -13,9 +13,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.util.ISearchTree;
@@ -24,30 +24,30 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.client.util.SearchTreeManager;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.ITagCollection;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -57,19 +57,19 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
+public class JourneyModeDuplicationScreen extends AbstractContainerScreen<JourneyModeDuplicationScreen.DuplicationContainer> /*DisplayEffectsScreen<JourneyModeDuplicationScreen.DuplicationContainer>*/ {
     private static final ResourceLocation DUPLICATION_INVENTORY_TABS = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_duplication_tabs.png");
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
     private static final ResourceLocation BACKGROUND_SEARCH_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication_search.png");
-    public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
-    public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
-    public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
-    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
-    public static final ITextComponent FILTER_TAB_0 = new TranslationTextComponent("journey_mode.gui.tabs.filters_0");
-    public static final ITextComponent FILTER_TAB_1 = new TranslationTextComponent("journey_mode.gui.tabs.filters_1");
-    public static final ITextComponent FILTER_TAB_2 = new TranslationTextComponent("journey_mode.gui.tabs.filters_2");
-    private static final Inventory TMP_INVENTORY = new Inventory(45);
-    private static final ITextComponent field_243345_D = new TranslationTextComponent("inventory.binSlot");
+    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
+    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
+    public static final Component FILTER_TAB_0 = new TranslatableComponent("journey_mode.gui.tabs.filters_0");
+    public static final Component FILTER_TAB_1 = new TranslatableComponent("journey_mode.gui.tabs.filters_1");
+    public static final Component FILTER_TAB_2 = new TranslatableComponent("journey_mode.gui.tabs.filters_2");
+    private static final SimpleContainer TMP_INVENTORY = new SimpleContainer(45);
+    private static final Component TRASH_SLOT_TOOLTIP = new TranslatableComponent("inventory.binSlot");
     private boolean wasCreative;
     private boolean wasGodMode;
     private boolean filter = false;
@@ -83,39 +83,39 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     private float currentScroll;
 
     private boolean isScrolling;
-    private TextFieldWidget searchField;
+    private EditBox searchField;
     @Nullable
     private List<Slot> originalSlots;
     @Nullable
     private Slot destroyItemSlot;
     private DuplicationListener listener;
-    private boolean field_195377_F;
+    private boolean ignoreTextInput;
     private static int tabPage = 0;
     private int maxPages = 0;
-    private boolean field_199506_G;
-    private final Map<ResourceLocation, ITag<Item>> tagSearchResults = Maps.newTreeMap();
+    private boolean hasClickedOutside;
+    private final Map<ResourceLocation, Tag<Item>> tagSearchResults = Maps.newTreeMap();
     private final ResearchList playerList;
-    private ItemGroup[] itemGroupSmall = null;
+    private CreativeModeTab[] itemGroupSmall = null;
     private int hotbarIndex;
     private int survivalInventoryIndex;
-    private ServerPlayerEntity serverPlayerEntity;
+    private ServerPlayer serverPlayerEntity;
     private static boolean hasRecipes;
 
-    public JourneyModeDuplicationScreen(PlayerEntity player, boolean wasCreative, boolean wasGodMode, ServerPlayerEntity serverPlayerEntity) {
-        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.inventory, StringTextComponent.EMPTY);
-        player.openContainer = this.container;
+    public JourneyModeDuplicationScreen(Player player, boolean wasCreative, boolean wasGodMode, ServerPlayer serverPlayerEntity) {
+        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.inventory, TextComponent.EMPTY);
+        player.containerMenu = this.menu;
         this.wasCreative = wasCreative;
         this.wasGodMode = wasGodMode;
         this.serverPlayerEntity = serverPlayerEntity;
         this.passEvents = true;
-        this.xSize = 190;
-        this.ySize = 183;
+        this.imageWidth = 190;
+        this.imageHeight = 183;
         this.playerList = journey_mode.tempList;
         this.hasRecipes = journey_mode.hasRecipes;
-        this.itemGroupSmall = new ItemGroup[ItemGroup.GROUPS.length - 2];
+        this.itemGroupSmall = new ItemGroup[ItemGroup.TABS.length - 2];
         boolean hotbarPresent = false;
         boolean survivalInventoryPresent = false;
-        for (int i = 0; i < ItemGroup.GROUPS.length; i++) {
+        for (int i = 0; i < ItemGroup.TABS.length; i++) {
             int index = i;
             if (hotbarPresent) {
                 index -= 1;
@@ -123,14 +123,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             if (survivalInventoryPresent) {
                 index -= 1;
             }
-            if (ItemGroup.GROUPS[i] == ItemGroup.HOTBAR) {
+            if (ItemGroup.TABS[i] == ItemGroup.TAB_HOTBAR) {
                 hotbarPresent = true;
                 hotbarIndex = i;
-            } else if (ItemGroup.GROUPS[i] == ItemGroup.INVENTORY) {
+            } else if (ItemGroup.TABS[i] == ItemGroup.TAB_INVENTORY) {
                 survivalInventoryPresent = true;
                 survivalInventoryIndex = i;
             } else {
-                itemGroupSmall[index] = ItemGroup.GROUPS[i];
+                itemGroupSmall[index] = ItemGroup.TABS[i];
             }
         }
     }
@@ -142,42 +142,42 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     }
 
-    protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
+    protected void slotClicked(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
         if (this.hasTmpInventory(slotIn)) {
-            this.searchField.setCursorPositionEnd();
-            this.searchField.setSelectionPos(0);
+            this.searchField.moveCursorToEnd();
+            this.searchField.setHighlightPos(0);
         }
 
         boolean flag = type == ClickType.QUICK_MOVE;
         type = slotId == -999 && type == ClickType.PICKUP ? ClickType.THROW : type;
         if (slotIn == null &&  type != ClickType.QUICK_CRAFT) {
             PlayerInventory playerInventory1 = this.minecraft.player.inventory;
-            if (!playerInventory1.getItemStack().isEmpty() && this.field_199506_G) {
+            if (!playerInventory1.getCarried().isEmpty() && this.hasClickedOutside) {
                 if (mouseButton == 0) {
-                    this.minecraft.player.dropItem(playerInventory1.getItemStack(), true);
-                    this.minecraft.playerController.sendPacketDropItem(playerInventory1.getItemStack());
-                    playerInventory1.setItemStack(ItemStack.EMPTY);
+                    this.minecraft.player.drop(playerInventory1.getCarried(), true);
+                    this.minecraft.gameMode.handleCreativeModeItemDrop(playerInventory1.getCarried());
+                    playerInventory1.setCarried(ItemStack.EMPTY);
                 }
 
                 if (mouseButton == 1) {
-                    ItemStack itemStack6 = playerInventory1.getItemStack().split(1);
-                    this.minecraft.player.dropItem(itemStack6, true);
-                    this.minecraft.playerController.sendPacketDropItem(itemStack6);
+                    ItemStack itemStack6 = playerInventory1.getCarried().split(1);
+                    this.minecraft.player.drop(itemStack6, true);
+                    this.minecraft.gameMode.handleCreativeModeItemDrop(itemStack6);
                 }
             }
         } else {
-            if (slotIn != null && !slotIn.canTakeStack(this.minecraft.player)) {
+            if (slotIn != null && !slotIn.mayPickup(this.minecraft.player)) {
                 return;
             }
 
             if (slotIn == this.destroyItemSlot && flag) {
-                for (int j = 0; j < this.minecraft.player.container.getInventory().size(); j++) {
-                    this.minecraft.playerController.sendSlotPacket(ItemStack.EMPTY, j);
+                for (int j = 0; j < this.minecraft.player.inventoryMenu.getItems().size(); j++) {
+                    this.minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, j);
                 }
-            } else if (type != ClickType.QUICK_CRAFT && slotIn.inventory == TMP_INVENTORY) {
+            } else if (type != ClickType.QUICK_CRAFT && slotIn.container == TMP_INVENTORY) {
                 PlayerInventory playerInventory = this.minecraft.player.inventory;
-                ItemStack itemStack5 = playerInventory.getItemStack();
-                ItemStack itemStack7 = slotIn.getStack();
+                ItemStack itemStack5 = playerInventory.getCarried();
+                ItemStack itemStack7 = slotIn.getItem();
                 if (type == ClickType.SWAP) {
                     return;
                 }
@@ -190,7 +190,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     return;
                 }
 
-                if (!itemStack5.isEmpty() && !itemStack7.isEmpty() && itemStack5.isItemEqual(itemStack7) && ItemStack.areItemStackTagsEqual(itemStack5, itemStack7)) {
+                if (!itemStack5.isEmpty() && !itemStack7.isEmpty() && itemStack5.sameItem(itemStack7) && ItemStack.tagMatches(itemStack5, itemStack7)) {
                     if (mouseButton == 0) {
                         if (flag) {
                             itemStack5.setCount(itemStack5.getMaxStackSize());
@@ -203,7 +203,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 } else if (!itemStack7.isEmpty() && itemStack5.isEmpty()) {
                     boolean success = false;
                     try {
-                        String item = "\"" +slotIn.getStack().getItem().getRegistryName() + "\"";
+                        String item = "\"" +slotIn.getItem().getItem().getRegistryName() + "\"";
                         int[] result = this.playerList.get(item);
                         if (result[0] == result[1]) {
                             success = true;
@@ -215,8 +215,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     }
                     if (success) {
                         if (((LockedSlot) slotIn).remaining <= 0) {
-                            playerInventory.setItemStack(itemStack7.copy());
-                            itemStack5 = playerInventory.getItemStack();
+                            playerInventory.setCarried(itemStack7.copy());
+                            itemStack5 = playerInventory.getCarried();
                             if (flag) {
                                 itemStack5.setCount(itemStack5.getMaxStackSize());
                             }
@@ -224,27 +224,27 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                         }
                     }
                 } else if (mouseButton == 0) {
-                    playerInventory.setItemStack(ItemStack.EMPTY);
+                    playerInventory.setCarried(ItemStack.EMPTY);
                 } else {
-                    playerInventory.getItemStack().shrink(1);
+                    playerInventory.getCarried().shrink(1);
                 }
-            } else if (this.container != null && type != ClickType.CLONE && type != ClickType.SWAP && type != ClickType.THROW) {
-                ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.container.getSlot(slotIn.slotNumber).getStack();
-                this.container.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, this.minecraft.player);
-                if (Container.getDragEvent(mouseButton) == 2) {
+            } else if (this.menu != null && type != ClickType.CLONE && type != ClickType.SWAP && type != ClickType.THROW) {
+                ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.menu.getSlot(slotIn.index).getItem();
+                this.menu.clicked(slotIn == null ? slotId : slotIn.index, mouseButton, type, this.minecraft.player);
+                if (Container.getQuickcraftHeader(mouseButton) == 2) {
 
                 } else if (slotIn != null) {
-                    ItemStack itemStack4 = this.container.getSlot(slotIn.slotNumber).getStack();
-                    this.minecraft.playerController.sendSlotPacket(itemStack4, slotIn.slotNumber - (this.container).inventorySlots.size() + 9 + 36);
+                    ItemStack itemStack4 = this.menu.getSlot(slotIn.index).getItem();
+                    this.minecraft.gameMode.handleCreativeModeItemAdd(itemStack4, slotIn.index - (this.menu).slots.size() + 9 + 36);
                     int i = 45 + mouseButton;
                     if (type == ClickType.THROW && !itemStack3.isEmpty()) {
                         ItemStack itemStack2 = itemStack3.copy();
                         itemStack2.setCount(mouseButton == 0 ? 1 : itemStack2.getMaxStackSize());
-                        this.minecraft.player.dropItem(itemStack2, true);
-                        this.minecraft.playerController.sendPacketDropItem(itemStack2);
+                        this.minecraft.player.drop(itemStack2, true);
+                        this.minecraft.gameMode.handleCreativeModeItemDrop(itemStack2);
                     }
                 }
-                this.minecraft.player.container.detectAndSendChanges();
+                this.minecraft.player.inventoryMenu.broadcastChanges();
             }
 
         }
@@ -252,72 +252,72 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     }
 
     private boolean hasTmpInventory(@Nullable Slot slotIn) {
-        return slotIn != null && slotIn.inventory == TMP_INVENTORY;
+        return slotIn != null && slotIn.container == TMP_INVENTORY;
     }
 
     protected void init() {
         super.init();
-        this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.guiLeft -29, this.guiTop + 21, this));
-        this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50, this));
-        this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79, this));
+        this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.leftPos -29, this.topPos + 21, this));
+        this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.leftPos -29, this.topPos + 50, this));
+        this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.leftPos -29, this.topPos + 79, this));
         if (this.hasRecipes) {
-            this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108, this));
+            this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.leftPos -29, this.topPos + 108, this));
         }
-        this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.guiLeft + xSize - 3, this.guiTop + 79);
+        this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.leftPos + imageWidth - 3, this.topPos + 79);
         this.addButton(filterTab);
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft -25,              guiTop, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addButton(new net.minecraft.client.gui.widget.button.Button(guiLeft + xSize +5, guiTop, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos -25,              topPos, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos + imageWidth +5, topPos, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
-        this.minecraft.keyboardListener.enableRepeatEvents(true);
-        this.searchField = new TextFieldWidget(this.font, this.guiLeft + 81, this.guiTop + 9, 80, 9, new TranslationTextComponent("itemGroup.search"));
-        this.searchField.setMaxStringLength(50);
-        this.searchField.setEnableBackgroundDrawing(false);
+        this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
+        this.searchField = new TextFieldWidget(this.font, this.leftPos + 81, this.topPos + 9, 80, 9, new TranslationTextComponent("itemGroup.search"));
+        this.searchField.setMaxLength(50);
+        this.searchField.setBordered(false);
         this.searchField.setVisible(false);
         this.searchField.setTextColor(16777215);
         this.children.add(this.searchField);
         int i = selectedTabIndex;
         selectedTabIndex = -1;
         this.setCurrentDuplicationTab(itemGroupSmall[i], i);
-        this.minecraft.player.container.removeListener(this.listener);
+        this.minecraft.player.inventoryMenu.removeSlotListener(this.listener);
         this.listener = new DuplicationListener(this.minecraft);
-        this.minecraft.player.container.addListener(this.listener);
+        this.minecraft.player.inventoryMenu.addSlotListener(this.listener);
     }
 
     public void resize(Minecraft minecraft, int width, int height) {
-        String s = this.searchField.getText();
+        String s = this.searchField.getValue();
         this.init(minecraft, width, height);
-        this.searchField.setText(s);
-        if (!this.searchField.getText().isEmpty()) {
+        this.searchField.setValue(s);
+        if (!this.searchField.getValue().isEmpty()) {
             this.updateDuplicationSearch();
         }
     }
 
-    public void onClose() {
-        super.onClose();
+    public void removed() {
+        super.removed();
         if (this.minecraft.player != null && this.minecraft.player.inventory != null) {
-            this.minecraft.player.container.removeListener(this.listener);
+            this.minecraft.player.inventoryMenu.removeSlotListener(this.listener);
         }
-        this.minecraft.keyboardListener.enableRepeatEvents(false);
+        this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
         if (!this.wasCreative) {
-            this.serverPlayerEntity.setGameType(GameType.SURVIVAL);
+            this.serverPlayerEntity.setGameMode(GameType.SURVIVAL);
         }
         this.serverPlayerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(wasGodMode);
     }
 
     public boolean charTyped(char codePoint, int modifiers) {
-        if (this.field_195377_F) {
+        if (this.ignoreTextInput) {
             return false;
         } else if (!itemGroupSmall[selectedTabIndex].hasSearchBar()) {
             return false;
         } else {
-            String s = this.searchField.getText();
+            String s = this.searchField.getValue();
             if (this.searchField.charTyped(codePoint, modifiers)) {
-                if (!Objects.equals(s, this.searchField.getText())) {
+                if (!Objects.equals(s, this.searchField.getValue())) {
                     this.updateDuplicationSearch();
                 }
 
@@ -329,56 +329,56 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        this.field_195377_F = false;
+        this.ignoreTextInput = false;
         if (!itemGroupSmall[selectedTabIndex].hasSearchBar()) {
-            if (this.minecraft.gameSettings.keyBindChat.matchesKey(keyCode, scanCode)) {
-                this.field_195377_F = true;
-                this.setCurrentDuplicationTab(ItemGroup.SEARCH, 4);
+            if (this.minecraft.options.keyChat.matches(keyCode, scanCode)) {
+                this.ignoreTextInput = true;
+                this.setCurrentDuplicationTab(ItemGroup.TAB_SEARCH, 4);
                 return true;
             } else {
                 return super.keyPressed(keyCode, scanCode, modifiers);
             }
         } else {
-            boolean flag = !this.hasTmpInventory(this.hoveredSlot) || this.hoveredSlot.getHasStack();
-            boolean flag1 = InputMappings.getInputByCode(keyCode, scanCode).func_241552_e_().isPresent();
-            if (flag && flag1 && this.itemStackMoved(keyCode, scanCode)) {
-                this.field_195377_F = true;
+            boolean flag = !this.hasTmpInventory(this.hoveredSlot) || this.hoveredSlot.hasItem();
+            boolean flag1 = InputMappings.getKey(keyCode, scanCode).getNumericKeyValue().isPresent();
+            if (flag && flag1 && this.checkHotbarKeyPressed(keyCode, scanCode)) {
+                this.ignoreTextInput = true;
                 return true;
             } else {
-                String s = this.searchField.getText();
+                String s = this.searchField.getValue();
                 if (this.searchField.keyPressed(keyCode, scanCode, modifiers)) {
-                    if (!Objects.equals(s, this.searchField.getText())) {
+                    if (!Objects.equals(s, this.searchField.getValue())) {
                         this.updateDuplicationSearch();
                     }
 
                     return true;
                 } else {
-                    return this.searchField.isFocused() && this.searchField.getVisible() && keyCode != 256 ? true : super.keyPressed(keyCode, scanCode, modifiers);
+                    return this.searchField.isFocused() && this.searchField.isVisible() && keyCode != 256 ? true : super.keyPressed(keyCode, scanCode, modifiers);
                 }
             }
         }
     }
 
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        this.field_195377_F = false;
+        this.ignoreTextInput = false;
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     private void updateDuplicationSearch() {
-        (this.container).itemList.clear();
+        (this.menu).itemList.clear();
         this.tagSearchResults.clear();
 
         ItemGroup tab = itemGroupSmall[selectedTabIndex];
-        if (tab.hasSearchBar() && tab != ItemGroup.SEARCH) {
-            tab.fill(container.itemList);
-            if (!this.searchField.getText().isEmpty()) {
-                String search = this.searchField.getText().toLowerCase(Locale.ROOT);
-                java.util.Iterator<ItemStack> itr = container.itemList.iterator();
+        if (tab.hasSearchBar() && tab != ItemGroup.TAB_SEARCH) {
+            tab.fillItemList(menu.itemList);
+            if (!this.searchField.getValue().isEmpty()) {
+                String search = this.searchField.getValue().toLowerCase(Locale.ROOT);
+                java.util.Iterator<ItemStack> itr = menu.itemList.iterator();
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
                     boolean matches = false;
-                    for (ITextComponent line : stack.getTooltip(this.minecraft.player, this.minecraft.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL)) {
-                        if (TextFormatting.getTextWithoutFormattingCodes(line.getString()).toLowerCase(Locale.ROOT).contains(search)) {
+                    for (ITextComponent line : stack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL)) {
+                        if (TextFormatting.stripFormatting(line.getString()).toLowerCase(Locale.ROOT).contains(search)) {
                             matches = true;
                             break;
                         }
@@ -388,69 +388,69 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
             }
             this.currentScroll = 0.0F;
-            container.scrollTo(0.0F);
-            this.searchList = this.container.itemList;
+            menu.scrollTo(0.0F);
+            this.searchList = this.menu.itemList;
             return;
         }
 
-        String s = this.searchField.getText();
+        String s = this.searchField.getValue();
         if (s.isEmpty()) {
             for(Item item : Registry.ITEM) {
-                item.fillItemGroup(ItemGroup.SEARCH, (this.container).itemList);
+                item.fillItemCategory(ItemGroup.TAB_SEARCH, (this.menu).itemList);
             }
         } else {
             ISearchTree<ItemStack> isearchtree;
             if (s.startsWith("#")) {
                 s = s.substring(1);
-                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
+                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_TAGS);
                 this.searchTags(s);
             } else {
-                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
+                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_NAMES);
             }
 
-            (this.container).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
+            (this.menu).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
         }
 
         this.currentScroll = 0.0F;
-        this.container.scrollTo(0.0F);
+        this.menu.scrollTo(0.0F);
         this.filterTab.setUV(198, 220);
         this.filterTab.resetFilter();
-        this.searchList = this.container.itemList;
+        this.searchList = this.menu.itemList;
     }
 
     private int updateLockedFilter(int filter, NonNullList<ItemStack> current_item_list) {
-        (this.container).itemList.clear();
+        (this.menu).itemList.clear();
         ItemGroup tab = itemGroupSmall[selectedTabIndex];
-        if (tab == ItemGroup.SEARCH && this.searchList != null) {
+        if (tab == ItemGroup.TAB_SEARCH && this.searchList != null) {
             current_item_list = this.searchList;
         }
         if (current_item_list == null) {
-            current_item_list = container.itemList;
+            current_item_list = menu.itemList;
         }
         if(filterTabPage != selectedTabIndex) {
             filter = 1;
         }
         if (true) {
-            if (tab == ItemGroup.SEARCH) {
-                String s = this.searchField.getText();
+            if (tab == ItemGroup.TAB_SEARCH) {
+                String s = this.searchField.getValue();
                 if (s.isEmpty()) {
                     for(Item item : Registry.ITEM) {
-                        item.fillItemGroup(ItemGroup.SEARCH, current_item_list);
+                        item.fillItemCategory(ItemGroup.TAB_SEARCH, current_item_list);
                     }
                 } else {
                     ISearchTree<ItemStack> isearchtree;
                     if (s.startsWith("#")) {
                         s = s.substring(1);
-                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.TAGS);
+                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_TAGS);
                         this.searchTags(s);
                     } else {
-                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.ITEMS);
+                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_NAMES);
                     }
 
                     current_item_list.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
                 }
             } else {
-                tab.fill(current_item_list);
+                tab.fillItemList(current_item_list);
             }
 
                 java.util.Iterator<ItemStack> itr = current_item_list.iterator();
@@ -461,12 +461,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     try {
                         String item = "\"" + stack.getItem().getRegistryName() + "\"";
                         if (filter == 1) {
-                            if (this.container.research.reachCap(item)) {
+                            if (this.menu.research.reachCap(item)) {
                                     itr.remove();
                             }
 
                         } else if (filter == 2) {
-                            if (!this.container.research.reachCap(item)) {
+                            if (!this.menu.research.reachCap(item)) {
                                 itr.remove();
                             }
                         }
@@ -485,14 +485,14 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
                 }
             this.currentScroll = 0.0F;
-            container.scrollTo(0.0F);
+            menu.scrollTo(0.0F);
             this.filterTabPage = selectedTabIndex;
             this.filterContainer = filter;
             return filter;
         }
 
         this.currentScroll = 0.0F;
-        this.container.scrollTo(0.0F);
+        this.menu.scrollTo(0.0F);
         this.filterContainer = filter;
         return filter;
     }
@@ -512,22 +512,22 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             };
         }
 
-        ITagCollection<Item> itagcollection = ItemTags.getCollection();
-        itagcollection.getRegisteredTags().stream().filter(predicate).forEach((p_214082_2_) -> {
-            ITag itag = this.tagSearchResults.put(p_214082_2_, itagcollection.get(p_214082_2_));
+        ITagCollection<Item> itagcollection = ItemTags.getAllTags();
+        itagcollection.getAvailableTags().stream().filter(predicate).forEach((p_214082_2_) -> {
+            ITag itag = this.tagSearchResults.put(p_214082_2_, itagcollection.getTag(p_214082_2_));
         });
     }
 
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+    protected void renderLabels(MatrixStack matrixStack, int x, int y) {
         ItemGroup itemgroup = itemGroupSmall[selectedTabIndex];
-        if (itemgroup != null && itemgroup.drawInForegroundOfGroup()) {
+        if (itemgroup != null && itemgroup.showTitle()) {
             RenderSystem.disableBlend();
-            this.font.drawText(matrixStack, itemgroup.getGroupName(), 8.0F, 10.0F, itemgroup.getLabelColor());
+            this.font.draw(matrixStack, itemgroup.getDisplayName(), 8.0F, 10.0F, itemgroup.getLabelColor());
         }
 
         for(Widget widget : this.buttons) {
             if (widget.isHovered()) {
-                widget.renderToolTip(matrixStack, x - this.guiLeft, y - this.guiTop);
+                widget.renderToolTip(matrixStack, x - this.leftPos, y - this.topPos);
                 break;
             }
         }
@@ -536,8 +536,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0) {
-            double d0 = mouseX - (double)this.guiLeft;
-            double d1 = mouseY - (double)this.guiTop;
+            double d0 = mouseX - (double)this.leftPos;
+            double d1 = mouseY - (double)this.topPos;
 
             for(ItemGroup itemgroup : itemGroupSmall) {
                 if (itemgroup != null && this.isMouseOverGroup(itemgroup, d0, d1)) {
@@ -545,7 +545,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 }
             }
 
-            if (this.func_195376_a(mouseX, mouseY)) {
+            if (this.insideScrollbar(mouseX, mouseY)) {
                 this.isScrolling = this.needsScrollBars();
                 return true;
             }
@@ -555,17 +555,17 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         if (button == 0) {
-            double d0 = mouseX - (double)this.guiLeft;
-            double d1 = mouseY - (double)this.guiTop;
+            double d0 = mouseX - (double)this.leftPos;
+            double d1 = mouseY - (double)this.topPos;
             this.isScrolling = false;
             int index = 0;
             for(ItemGroup itemgroup : itemGroupSmall) {
-                if (itemgroup.getIndex() >= survivalInventoryIndex) {
-                    index = itemgroup.getIndex() - 2;
-                } else if (itemgroup.getIndex() >= hotbarIndex){
-                    index = itemgroup.getIndex() - 1;
+                if (itemgroup.getId() >= survivalInventoryIndex) {
+                    index = itemgroup.getId() - 2;
+                } else if (itemgroup.getId() >= hotbarIndex){
+                    index = itemgroup.getId() - 1;
                 } else {
-                    index = itemgroup.getIndex();
+                    index = itemgroup.getId();
                 }
                 if (itemgroup != null && this.isMouseOverGroup(itemgroup, d0, d1)) {
                     this.setCurrentDuplicationTab(itemgroup, index);
@@ -578,7 +578,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     private boolean needsScrollBars() {
         if (itemGroupSmall[selectedTabIndex] == null) return false;
-        return itemGroupSmall[selectedTabIndex].hasScrollbar() && this.container.canScroll();
+        return itemGroupSmall[selectedTabIndex].canScroll() && this.menu.canScroll();
     }
 
     private void setCurrentDuplicationTab(ItemGroup tab, int index) {
@@ -586,21 +586,21 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         int i = selectedTabIndex;
         selectedTabIndex = index;
         slotColor = tab.getSlotColor();
-        this.dragSplittingSlots.clear();
-        (this.container).itemList.clear();
-        if (tab != ItemGroup.SEARCH) {
-            tab.fill((this.container).itemList);
+        this.quickCraftSlots.clear();
+        (this.menu).itemList.clear();
+        if (tab != ItemGroup.TAB_SEARCH) {
+            tab.fillItemList((this.menu).itemList);
         }
 
-        if (tab == ItemGroup.INVENTORY) {
-            Container container = this.minecraft.player.container;
+        if (tab == ItemGroup.TAB_INVENTORY) {
+            Container container = this.minecraft.player.inventoryMenu;
             if (this.originalSlots == null) {
-                this.originalSlots = ImmutableList.copyOf((this.container).inventorySlots);
+                this.originalSlots = ImmutableList.copyOf((this.menu).slots);
             }
 
-            (this.container).inventorySlots.clear();
+            (this.menu).slots.clear();
 
-            for(int l = 0; l < container.inventorySlots.size(); ++l) {
+            for(int l = 0; l < container.slots.size(); ++l) {
                 int i1;
                 int j1;
                 if (l >= 5 && l < 9) {
@@ -627,36 +627,36 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                     }
                 }
 
-                Slot slot = new JourneyModeDuplicationScreen.DuplicationSlot(container.inventorySlots.get(l), l, i1, j1);
-                (this.container).inventorySlots.add(slot);
+                Slot slot = new JourneyModeDuplicationScreen.DuplicationSlot(container.slots.get(l), l, i1, j1);
+                (this.menu).slots.add(slot);
             }
 
             this.destroyItemSlot = new Slot(TMP_INVENTORY, 0, 173, 112);
-            (this.container).inventorySlots.add(this.destroyItemSlot);
+            (this.menu).slots.add(this.destroyItemSlot);
         }
 
         if (this.searchField != null) {
             if (tab.hasSearchBar()) {
                 this.searchField.setVisible(true);
                 this.searchField.setCanLoseFocus(false);
-                this.searchField.setFocused2(true);
+                this.searchField.setFocus(true);
                 if (i != index) {
-                    this.searchField.setText("");
+                    this.searchField.setValue("");
                 }
                 this.searchField.setWidth(tab.getSearchbarWidth());
-                this.searchField.x = this.guiLeft + (82 /*default left*/ + 89 /*default width*/) - this.searchField.getWidth();
+                this.searchField.x = this.leftPos + (82 /*default left*/ + 89 /*default width*/) - this.searchField.getWidth();
 
                 this.updateDuplicationSearch();
             } else {
                 this.searchField.setVisible(false);
                 this.searchField.setCanLoseFocus(true);
-                this.searchField.setFocused2(false);
-                this.searchField.setText("");
+                this.searchField.setFocus(false);
+                this.searchField.setValue("");
             }
         }
 
         this.currentScroll = 0.0F;
-        this.container.scrollTo(0.0F);
+        this.menu.scrollTo(0.0F);
         this.filterTab.setUV(198, 220);
     }
 
@@ -664,23 +664,23 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         if (!this.needsScrollBars()) {
             return false;
         } else {
-            int i = ((this.container).itemList.size() + 9 - 1) / 9 - 5;
+            int i = ((this.menu).itemList.size() + 9 - 1) / 9 - 5;
             this.currentScroll = (float)((double)this.currentScroll - delta / (double)i);
             this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
-            this.container.scrollTo(this.currentScroll);
+            this.menu.scrollTo(this.currentScroll);
             return true;
         }
     }
 
     protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeftIn, int guiTopIn, int mouseButton) {
-        boolean flag = mouseX < (double)guiLeftIn || mouseY < (double)guiTopIn || mouseX >= (double)(guiLeftIn + this.xSize) || mouseY >= (double)(guiTopIn + this.ySize);
-        this.field_199506_G = flag && !this.isMouseOverGroup(itemGroupSmall[selectedTabIndex], mouseX, mouseY);
-        return this.field_199506_G;
+        boolean flag = mouseX < (double)guiLeftIn || mouseY < (double)guiTopIn || mouseX >= (double)(guiLeftIn + this.imageWidth) || mouseY >= (double)(guiTopIn + this.imageHeight);
+        this.hasClickedOutside = flag && !this.isMouseOverGroup(itemGroupSmall[selectedTabIndex], mouseX, mouseY);
+        return this.hasClickedOutside;
     }
 
-    protected boolean func_195376_a(double p_195376_1_, double p_195376_3_) {
-        int i = this.guiLeft;
-        int j = this.guiTop;
+    protected boolean insideScrollbar(double p_195376_1_, double p_195376_3_) {
+        int i = this.leftPos;
+        int j = this.topPos;
         int k = i + 171;
         int l = j + 22;
         int i1 = k + 14;
@@ -690,11 +690,11 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (this.isScrolling) {
-            int i = this.guiTop + 18;
+            int i = this.topPos + 18;
             int j = i + 156;
             this.currentScroll = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
             this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
-            this.container.scrollTo(this.currentScroll);
+            this.menu.scrollTo(this.currentScroll);
             return true;
         } else {
             return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
@@ -705,7 +705,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
 
-        this.container.render(matrixStack, this.guiTop, this.guiLeft, this.font);
+        this.menu.render(matrixStack, this.topPos, this.leftPos, this.font);
 
         int start = tabPage * 8;
         int end = Math.min(itemGroupSmall.length, ((tabPage + 1) * 8) + 2);
@@ -714,41 +714,41 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         for (int x = start; x < end; x++) {
             ItemGroup itemgroup = itemGroupSmall[x];
-            if (itemgroup != null && this.func_238809_a_(matrixStack, itemgroup, mouseX, mouseY)) {
+            if (itemgroup != null && this.checkTabHovering(matrixStack, itemgroup, mouseX, mouseY)) {
                 rendered = true;
                 break;
             }
         }
-        if (!rendered && !this.func_238809_a_(matrixStack, ItemGroup.SEARCH, mouseX, mouseY))
-            this.func_238809_a_(matrixStack, ItemGroup.INVENTORY, mouseX, mouseY);
+        if (!rendered && !this.checkTabHovering(matrixStack, ItemGroup.TAB_SEARCH, mouseX, mouseY))
+            this.checkTabHovering(matrixStack, ItemGroup.TAB_INVENTORY, mouseX, mouseY);
 
         if (maxPages != 0) {
             ITextComponent page = new StringTextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
             RenderSystem.disableLighting();
             this.setBlitOffset(300);
-            this.itemRenderer.zLevel = 300.0F;
-            font.drawTextWithShadow(matrixStack, page.func_241878_f(), guiLeft + (xSize + 45) - (font.getStringPropertyWidth(page) / 2), guiTop +7, -1);
+            this.itemRenderer.blitOffset = 300.0F;
+            font.drawShadow(matrixStack, page.getVisualOrderText(), leftPos + (imageWidth + 45) - (font.width(page) / 2), topPos +7, -1);
             this.setBlitOffset(0);
-            this.itemRenderer.zLevel = 0.0F;
+            this.itemRenderer.blitOffset = 0.0F;
         }
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     protected void renderTooltip(MatrixStack matrixStack, ItemStack itemStack, int mouseX, int mouseY) {
-        if (selectedTabIndex == ItemGroup.SEARCH.getIndex()) {
-            List<ITextComponent> list = itemStack.getTooltip(this.minecraft.player, this.minecraft.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+        if (selectedTabIndex == ItemGroup.TAB_SEARCH.getId()) {
+            List<ITextComponent> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
             List<ITextComponent> list1 = Lists.newArrayList(list);
             Item item = itemStack.getItem();
-            ItemGroup itemgroup = item.getGroup();
+            ItemGroup itemgroup = item.getItemCategory();
             if (itemgroup == null && item == Items.ENCHANTED_BOOK) {
                 Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);
                 if (map.size() == 1) {
                     Enchantment enchantment = map.keySet().iterator().next();
 
                     for(ItemGroup itemgroup1 : itemGroupSmall) {
-                        if (itemgroup1.hasRelevantEnchantmentType(enchantment.type)) {
+                        if (itemgroup1.hasEnchantmentCategory(enchantment.category)) {
                             itemgroup = itemgroup1;
                             break;
                         }
@@ -758,12 +758,12 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
             this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
                 if (p_214083_3_.contains(item)) {
-                    list1.add(1, (new StringTextComponent("#" + p_214083_2_)).mergeStyle(TextFormatting.DARK_PURPLE));
+                    list1.add(1, (new StringTextComponent("#" + p_214083_2_)).withStyle(TextFormatting.DARK_PURPLE));
                 }
 
             });
-            if (itemgroup != null && itemgroup != ItemGroup.INVENTORY) {
-                list1.add(1, itemgroup.getGroupName().deepCopy().mergeStyle(TextFormatting.BLUE));
+            if (itemgroup != null && itemgroup != ItemGroup.TAB_INVENTORY) {
+                list1.add(1, itemgroup.getDisplayName().copy().withStyle(TextFormatting.BLUE));
             }
 
             net.minecraft.client.gui.FontRenderer font = itemStack.getItem().getFontRenderer(itemStack);
@@ -776,7 +776,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
     }
 
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         ItemGroup itemgroup = itemGroupSmall[selectedTabIndex];
 
@@ -787,124 +787,124 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         for (int idx = start; idx < end; idx++) {
             ItemGroup itemgroup1 = itemGroupSmall[idx];
             int index = 0;
-            if (itemgroup1.getIndex() >= survivalInventoryIndex) {
-                index = itemgroup1.getIndex() - 2;
-            } else if (itemgroup1.getIndex() >= hotbarIndex){
-                index = itemgroup1.getIndex() - 1;
+            if (itemgroup1.getId() >= survivalInventoryIndex) {
+                index = itemgroup1.getId() - 2;
+            } else if (itemgroup1.getId() >= hotbarIndex){
+                index = itemgroup1.getId() - 1;
             } else {
-                index = itemgroup1.getIndex();
+                index = itemgroup1.getId();
             }
-            if (itemgroup1 != null && index != selectedTabIndex && itemgroup1 != ItemGroup.HOTBAR && itemgroup1 != ItemGroup.INVENTORY) {
-                this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
-                this.func_238808_a_(matrixStack, itemgroup1);
+            if (itemgroup1 != null && index != selectedTabIndex && itemgroup1 != ItemGroup.TAB_HOTBAR && itemgroup1 != ItemGroup.TAB_INVENTORY) {
+                this.minecraft.getTextureManager().bind(DUPLICATION_INVENTORY_TABS);
+                this.renderTabButton(matrixStack, itemgroup1);
             }
         }
 
         if (tabPage != 0) {
-            if (itemgroup != ItemGroup.SEARCH  && itemgroup != ItemGroup.HOTBAR && itemgroup != ItemGroup.INVENTORY) {
-                this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
-                func_238808_a_(matrixStack, ItemGroup.SEARCH);
+            if (itemgroup != ItemGroup.TAB_SEARCH  && itemgroup != ItemGroup.TAB_HOTBAR && itemgroup != ItemGroup.TAB_INVENTORY) {
+                this.minecraft.getTextureManager().bind(DUPLICATION_INVENTORY_TABS);
+                renderTabButton(matrixStack, ItemGroup.TAB_SEARCH);
             }
-            if (itemgroup != ItemGroup.INVENTORY && itemgroup != ItemGroup.HOTBAR) {
+            if (itemgroup != ItemGroup.TAB_INVENTORY && itemgroup != ItemGroup.TAB_HOTBAR) {
 
             }
         }
-        if (itemgroup != ItemGroup.SEARCH) {
-            this.minecraft.getTextureManager().bindTexture(this.BACKGROUND_TEXTURE);
+        if (itemgroup != ItemGroup.TAB_SEARCH) {
+            this.minecraft.getTextureManager().bind(this.BACKGROUND_TEXTURE);
         } else {
-            this.minecraft.getTextureManager().bindTexture(this.BACKGROUND_SEARCH_TEXTURE);
+            this.minecraft.getTextureManager().bind(this.BACKGROUND_SEARCH_TEXTURE);
         }
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         this.searchField.render(matrixStack, x, y, partialTicks);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        int i = this.guiLeft + 171;
-        int j = this.guiTop + 22;
+        int i = this.leftPos + 171;
+        int j = this.topPos + 22;
         int k = j + 156;
         //looks like this is the current tab
-        this.minecraft.getTextureManager().bindTexture(DUPLICATION_INVENTORY_TABS);
-        if (itemgroup.hasScrollbar()) {
+        this.minecraft.getTextureManager().bind(DUPLICATION_INVENTORY_TABS);
+        if (itemgroup.canScroll()) {
             this.blit(matrixStack, i, j + (int)((float)(k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
         }
 
-        if ((itemgroup == null || itemgroup.getTabPage() != tabPage) && itemgroup != ItemGroup.SEARCH && itemgroup != ItemGroup.INVENTORY  && itemgroup != ItemGroup.HOTBAR)
+        if ((itemgroup == null || itemgroup.getTabPage() != tabPage) && itemgroup != ItemGroup.TAB_SEARCH && itemgroup != ItemGroup.TAB_INVENTORY  && itemgroup != ItemGroup.TAB_HOTBAR)
             return;
 
-        this.func_238808_a_(matrixStack, itemgroup);
-        if (itemgroup == ItemGroup.INVENTORY) {
-            InventoryScreen.drawEntityOnScreen(this.guiLeft + 88, this.guiTop + 45, 20, (float)(this.guiLeft + 88 - x), (float)(this.guiTop + 45 - 30 - y), this.minecraft.player);
+        this.renderTabButton(matrixStack, itemgroup);
+        if (itemgroup == ItemGroup.TAB_INVENTORY) {
+            InventoryScreen.renderEntityInInventory(this.leftPos + 88, this.topPos + 45, 20, (float)(this.leftPos + 88 - x), (float)(this.topPos + 45 - 30 - y), this.minecraft.player);
         }
 
     }
 
     protected boolean isMouseOverGroup(ItemGroup p_195375_1_, double p_195375_2_, double p_195375_4_) {
-        if (p_195375_1_.getTabPage() != tabPage && p_195375_1_ != ItemGroup.SEARCH && p_195375_1_ != ItemGroup.INVENTORY){ return false;};
+        if (p_195375_1_.getTabPage() != tabPage && p_195375_1_ != ItemGroup.TAB_SEARCH && p_195375_1_ != ItemGroup.TAB_INVENTORY){ return false;};
         int i = p_195375_1_.getColumn();
         int j = 28 * i;
         int k = 0;
         if (p_195375_1_.isAlignedRight()) {
-            j = this.xSize - 28 * (6 - i) + 2;
+            j = this.imageWidth - 28 * (6 - i) + 2;
         } else if (i > 0) {
             j += i;
         }
 
-        if (p_195375_1_.isOnTopRow()) {
+        if (p_195375_1_.isTopRow()) {
             k = k - 32;
         } else {
-            k = k + this.ySize;
+            k = k + this.imageHeight;
         }
 
         return p_195375_2_ >= (double)j && p_195375_2_ <= (double)(j + 28) && p_195375_4_ >= (double)k && p_195375_4_ <= (double)(k + 32);
     }
 
-    protected boolean func_238809_a_(MatrixStack p_238809_1_, ItemGroup p_238809_2_, int p_238809_3_, int p_238809_4_) {
+    protected boolean checkTabHovering(MatrixStack p_238809_1_, ItemGroup p_238809_2_, int p_238809_3_, int p_238809_4_) {
         int i = p_238809_2_.getColumn();
         int j = 28 * i;
         int k = 0;
         if (p_238809_2_.isAlignedRight()) {
-            j = this.xSize - 28 * (6 - i) + 2;
+            j = this.imageWidth - 28 * (6 - i) + 2;
         } else if (i > 0) {
             j += i;
         }
 
-        if (p_238809_2_.isOnTopRow()) {
+        if (p_238809_2_.isTopRow()) {
             k = k - 32;
         } else {
-            k = k + this.ySize;
+            k = k + this.imageHeight;
         }
 
-        if (this.isPointInRegion(j + 3, k + 3, 23, 27, (double)p_238809_3_, (double)p_238809_4_)) {
-            if (p_238809_2_ == ItemGroup.INVENTORY) {
+        if (this.isHovering(j + 3, k + 3, 23, 27, (double)p_238809_3_, (double)p_238809_4_)) {
+            if (p_238809_2_ == ItemGroup.TAB_INVENTORY) {
                 return false;
             }
-            this.renderTooltip(p_238809_1_, p_238809_2_.getGroupName(), p_238809_3_, p_238809_4_);
+            this.renderTooltip(p_238809_1_, p_238809_2_.getDisplayName(), p_238809_3_, p_238809_4_);
             return true;
         } else {
             return false;
         }
     }
 
-    protected void func_238808_a_(MatrixStack p_238808_1_, ItemGroup p_238808_2_) {
-        int index = p_238808_2_.getIndex();
-        if (p_238808_2_.getIndex() >= hotbarIndex) {
+    protected void renderTabButton(MatrixStack p_238808_1_, ItemGroup p_238808_2_) {
+        int index = p_238808_2_.getId();
+        if (p_238808_2_.getId() >= hotbarIndex) {
             index = index - 1;
         }
-        if (p_238808_2_.getIndex() >= survivalInventoryIndex) {
+        if (p_238808_2_.getId() >= survivalInventoryIndex) {
             index = index - 1;
         }
         boolean flag = index == selectedTabIndex;
-        boolean flag1 = p_238808_2_.isOnTopRow();
+        boolean flag1 = p_238808_2_.isTopRow();
         int i = p_238808_2_.getColumn();
         int j = i * 28;
         int k = 0;
-        int l = this.guiLeft + 28 * i;
-        int i1 = this.guiTop;
+        int l = this.leftPos + 28 * i;
+        int i1 = this.topPos;
         int j1 = 32;
         if (flag) {
             k += 32;
         }
 
         if (p_238808_2_.isAlignedRight()) {
-            l = this.guiLeft + this.xSize - 28 * (6 - i);
+            l = this.leftPos + this.imageWidth - 28 * (6 - i);
         } else if (i > 0) {
             l += i;
         }
@@ -913,20 +913,20 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             i1 = i1 - 28;
         } else {
             k += 64;
-            i1 = i1 + (this.ySize - 4);
+            i1 = i1 + (this.imageHeight - 4);
         }
 
         RenderSystem.color3f(1F, 1F, 1F); //Forge: Reset color in case Items change it.
         RenderSystem.enableBlend(); //Forge: Make sure blend is enabled else tabs show a white border.
         this.blit(p_238808_1_, l, i1, j, k, 28, 32);
-        this.itemRenderer.zLevel = 100.0F;
+        this.itemRenderer.blitOffset = 100.0F;
         l = l + 6;
         i1 = i1 + 8 + (flag1 ? 1 : -1);
         RenderSystem.enableRescaleNormal();
-        ItemStack itemstack = p_238808_2_.getIcon();
-        this.itemRenderer.renderItemAndEffectIntoGUI(itemstack, l, i1);
-        this.itemRenderer.renderItemOverlays(this.font, itemstack, l, i1);
-        this.itemRenderer.zLevel = 0.0F;
+        ItemStack itemstack = p_238808_2_.getIconItem();
+        this.itemRenderer.renderAndDecorateItem(itemstack, l, i1);
+        this.itemRenderer.renderGuiItemDecorations(this.font, itemstack, l, i1);
+        this.itemRenderer.blitOffset = 0.0F;
     }
 
     public int getSelectedTabIndex() {
@@ -943,8 +943,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             super(x, y, 59, 21, StringTextComponent.EMPTY);
         }
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 228;
             int j = 77;
@@ -953,10 +953,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
 
         public boolean isSelected() {
             return this.selected;
@@ -982,8 +982,8 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             this.screen = screen;
         }
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 221;
             int j = 0;
@@ -995,10 +995,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -1018,7 +1018,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             this.v = v;
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
+        protected void renderIcon(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
 
@@ -1036,9 +1036,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
 
         public void onPress() {
-            this.screen.minecraft.player.dropItem(playerInventory.getItemStack(), true);
-            this.screen.minecraft.playerController.sendPacketDropItem(playerInventory.getItemStack());
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "powers"));
+            this.screen.minecraft.player.drop(inventory.getCarried(), true);
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "powers"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -1054,9 +1054,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
 
         public void onPress() {
-            this.screen.minecraft.player.dropItem(playerInventory.getItemStack(), true);
-            this.screen.minecraft.playerController.sendPacketDropItem(playerInventory.getItemStack());
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "research"));
+            this.screen.minecraft.player.drop(inventory.getCarried(), true);
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -1088,9 +1088,9 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         }
 
         public void onPress() {
-            this.screen.minecraft.player.dropItem(playerInventory.getItemStack(), true);
-            this.screen.minecraft.playerController.sendPacketDropItem(playerInventory.getItemStack());
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
+            this.screen.minecraft.player.drop(inventory.getCarried(), true);
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "recipes"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -1180,7 +1180,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         }
 
-        public boolean canInteractWith(PlayerEntity playerIn) {return true;}
+        public boolean stillValid(PlayerEntity playerIn) {return true;}
 
         public void scrollTo(float pos) {
             int i = (this.itemList.size() + 18 - 1) / 9 - 5;
@@ -1193,10 +1193,10 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                 for(int l = 0; l < 9; l++) {
                     int i1 = (l + (k + j) * 9) - 9;
                     if (i1 >= 0 && i1 < this.itemList.size()) {
-                        JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, this.itemList.get(i1));
+                        JourneyModeDuplicationScreen.TMP_INVENTORY.setItem(l + k * 9, this.itemList.get(i1));
                         boolean success = false;
                         try {
-                            LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
+                            LockedSlot slot = (LockedSlot) this.slots.get(l + k * 9);
                             String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
                             int[] result = this.research.get(item);
                             success = true;
@@ -1210,7 +1210,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                             success = false;
                         }
                         if (success) {
-                            LockedSlot slot = (LockedSlot) this.inventorySlots.get(l + k * 9);
+                            LockedSlot slot = (LockedSlot) this.slots.get(l + k * 9);
                             String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
 
                             int[] result = this.research.get(item);
@@ -1226,7 +1226,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
                             slot.changeResearch(wasResearched, count);
                         }
                     } else {
-                        JourneyModeDuplicationScreen.TMP_INVENTORY.setInventorySlotContents(l + k * 9, ItemStack.EMPTY);
+                        JourneyModeDuplicationScreen.TMP_INVENTORY.setItem(l + k * 9, ItemStack.EMPTY);
                     }
                 }
             }
@@ -1234,21 +1234,21 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
 
         public boolean canScroll() {return this.itemList.size() > 36;}
 
-        public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-            if (index >= this.inventorySlots.size() - 45 && index < this.inventorySlots.size()) {
-                Slot slot = this.inventorySlots.get(index);
-                if (slot != null && slot.getHasStack()) {
-                    slot.putStack(ItemStack.EMPTY);
+        public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+            if (index >= this.slots.size() - 45 && index < this.slots.size()) {
+                Slot slot = this.slots.get(index);
+                if (slot != null && slot.hasItem()) {
+                    slot.set(ItemStack.EMPTY);
                 }
             }
             return ItemStack.EMPTY;
         }
 
-        public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-            return slotIn.inventory != JourneyModeDuplicationScreen.TMP_INVENTORY;
+        public boolean canTakeItemForPickAll(ItemStack stack, Slot slotIn) {
+            return slotIn.container != JourneyModeDuplicationScreen.TMP_INVENTORY;
         }
 
-        public boolean canDragIntoSlot(Slot slotIn) {return slotIn.inventory != JourneyModeDuplicationScreen.TMP_INVENTORY;}
+        public boolean canDragTo(Slot slotIn) {return slotIn.container != JourneyModeDuplicationScreen.TMP_INVENTORY;}
 
         public void render(MatrixStack matrix, int topX, int topY, FontRenderer font) {
             int baseX = topX + 32;
@@ -1258,17 +1258,17 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
                     try {
-                        String item = "\"" + this.inventorySlots.get(i * 9 + j).getStack().getItem().getRegistryName() + "\"";
+                        String item = "\"" + this.slots.get(i * 9 + j).getItem().getItem().getRegistryName() + "\"";
                         int[] result = this.research.get(item);
                         int diff = result[1] - result[0];
                         String string = Integer.toString(diff);
                         if (diff > 0) {
-                            font.drawStringWithShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
+                            font.drawShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
                         }
                     } catch (NullPointerException e) {
-                        if (this.inventorySlots.get(i * 9 + j).getHasStack()) {
+                        if (this.slots.get(i * 9 + j).hasItem()) {
                             String string = "  X  ";
-                            font.drawStringWithShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
+                            font.drawShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
                         }
                     }
 
@@ -1284,7 +1284,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
         private final Slot slot;
 
         public DuplicationSlot(Slot p_i229959_1_, int p_i229959_2_, int p_i229959_3_, int p_i229959_4_) {
-            super(p_i229959_1_.inventory, p_i229959_2_, p_i229959_3_, p_i229959_4_);
+            super(p_i229959_1_.container, p_i229959_2_, p_i229959_3_, p_i229959_4_);
             this.slot = p_i229959_1_;
         }
 
@@ -1292,28 +1292,28 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             return this.slot.onTake(thePlayer, stack);
         }
 
-        public boolean isItemValid(ItemStack stack) { return this.slot.isItemValid(stack);}
+        public boolean mayPlace(ItemStack stack) { return this.slot.mayPlace(stack);}
 
-        public ItemStack getStack() {return this.slot.getStack();}
+        public ItemStack getItem() {return this.slot.getItem();}
 
-        public boolean getHasStack() {return this.slot.getHasStack();}
+        public boolean hasItem() {return this.slot.hasItem();}
 
-        public void putStack(ItemStack stack) {this.slot.putStack(stack);}
+        public void set(ItemStack stack) {this.slot.set(stack);}
 
-        public void onSlotChanged() { this.slot.onSlotChanged(); }
+        public void setChanged() { this.slot.setChanged(); }
 
-        public int getSlotStackLimit() { return this.slot.getSlotStackLimit(); }
+        public int getMaxStackSize() { return this.slot.getMaxStackSize(); }
 
-        public int getItemStackLimit(ItemStack stack) { return this.slot.getItemStackLimit(stack); }
+        public int getMaxStackSize(ItemStack stack) { return this.slot.getMaxStackSize(stack); }
 
         @Nullable
-        public Pair<ResourceLocation, ResourceLocation> getBackground() {return this.slot.getBackground(); }
+        public Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {return this.slot.getNoItemIcon(); }
 
-        public ItemStack decrStackSize(int amount) { return this.slot.decrStackSize(amount); }
+        public ItemStack remove(int amount) { return this.slot.remove(amount); }
 
-        public boolean isEnabled() {return this.slot.isEnabled(); }
+        public boolean isActive() {return this.slot.isActive(); }
 
-        public boolean canTakeStack(PlayerEntity playerIn) { return this.slot.canTakeStack(playerIn); }
+        public boolean mayPickup(PlayerEntity playerIn) { return this.slot.mayPickup(playerIn); }
 
         @Override
         public int getSlotIndex() { return this.slot.getSlotIndex(); }
@@ -1339,15 +1339,15 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
             this.remaining = count;
         }
 
-        public boolean canTakeStack(PlayerEntity playerIn) {
-            if (super.canTakeStack(playerIn) && this.getHasStack()) {
+        public boolean mayPickup(PlayerEntity playerIn) {
+            if (super.mayPickup(playerIn) && this.hasItem()) {
                 return true;
             } else {
-                return !this.getHasStack();
+                return !this.hasItem();
             }
         }
 
-        public void putStack(ItemStack stack) {}
+        public void set(ItemStack stack) {}
 
         public void changeResearch(boolean research, int remaining) {
             this.researched = research;

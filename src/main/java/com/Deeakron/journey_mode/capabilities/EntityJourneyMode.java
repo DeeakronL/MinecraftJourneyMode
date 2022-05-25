@@ -2,7 +2,7 @@ package com.Deeakron.journey_mode.capabilities;
 
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.UUID;
@@ -62,7 +62,7 @@ public class EntityJourneyMode implements IEntityJourneyMode{
     public void setGodMode(boolean mode) {
         this.godMode = mode;
         if(this.player != null){
-            ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUUID(this.player).abilities.disableDamage = mode;
+            ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(this.player).abilities.invulnerable = mode;
         }
 
     }

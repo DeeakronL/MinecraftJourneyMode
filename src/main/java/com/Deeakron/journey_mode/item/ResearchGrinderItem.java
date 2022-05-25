@@ -1,19 +1,21 @@
 package com.Deeakron.journey_mode.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.util.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.BlockPos;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class ResearchGrinderItem extends BlockItem {
     public ResearchGrinderItem(Block blockIn, Properties builder) {super(blockIn, builder);}
 
     @Override
-    protected boolean placeBlock(BlockItemUseContext context, BlockState state) {
-        Direction facing = context.getPlacementHorizontalFacing().getOpposite();
-        BlockPos pos = context.getPos();
+    protected boolean placeBlock(BlockPlaceContext context, BlockState state) {
+        Direction facing = context.getHorizontalDirection().getOpposite();
+        BlockPos pos = context.getClickedPos();
         BlockPos pos1 = null;
         BlockPos pos2 = null;
         BlockPos pos3 = null;
@@ -39,9 +41,9 @@ public class ResearchGrinderItem extends BlockItem {
                 pos3 = pos.south().west();
                 break;
         }
-        if(context.getWorld().getBlockState(pos1).isReplaceable(context)  &&
-                context.getWorld().getBlockState(pos2).isReplaceable(context) &&
-                context.getWorld().getBlockState(pos3).isReplaceable(context)){
+        if(context.getLevel().getBlockState(pos1).canBeReplaced(context)  &&
+                context.getLevel().getBlockState(pos2).canBeReplaced(context) &&
+                context.getLevel().getBlockState(pos3).canBeReplaced(context)){
             return super.placeBlock(context, state);
         }
 

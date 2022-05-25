@@ -1,15 +1,15 @@
 package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
 
-public class JourneyModePowersContainer extends Container {
-    public JourneyModePowersContainer(final int windowId, final PlayerInventory playerInventory) {
+public class JourneyModePowersContainer extends AbstractContainerMenu {
+    public JourneyModePowersContainer(final int windowId, final Inventory playerInventory) {
         super(JMContainerTypes.JOURNEY_MODE_POWERS.get(), windowId);
 
         //Main Inventory
@@ -34,33 +34,33 @@ public class JourneyModePowersContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return true;
     }
 
-    public JourneyModePowersContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
+    public JourneyModePowersContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if(slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if(slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if(index < 36) {
-                if(!this.mergeItemStack(itemstack1, 36, this.inventorySlots.size(), true)) {
+                if(!this.moveItemStackTo(itemstack1, 36, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if(!this.mergeItemStack(itemstack1, 0, 36, false)) {
+            } else if(!this.moveItemStackTo(itemstack1, 0, 36, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
         return itemstack;

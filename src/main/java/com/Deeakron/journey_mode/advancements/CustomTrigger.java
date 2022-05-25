@@ -4,18 +4,20 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.advancements.criterion.CriterionInstance;
-import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.loot.ConditionArrayParser;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 import java.util.Set;
 
-public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> {
+import net.minecraft.advancements.CriterionTrigger.Listener;
+
+public class CustomTrigger implements CriterionTrigger<CustomTrigger.Instance> {
     private final ResourceLocation location = new ResourceLocation("journey_mode:item_researched");
     private final Map<PlayerAdvancements, CustomTrigger.Listeners> listeners = Maps.newHashMap();
 
@@ -26,13 +28,13 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
     }
 
     @Override
-    public void addListener(PlayerAdvancements playerAdvancementsIn, Listener<Instance> listener) {
+    public void addPlayerListener(PlayerAdvancements playerAdvancementsIn, Listener<Instance> listener) {
         CustomTrigger.Listeners listeners = this.listeners.computeIfAbsent(playerAdvancementsIn, Listeners::new);
         listeners.add(listener);
     }
 
     @Override
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, Listener<CustomTrigger.Instance> listener) {
+    public void removePlayerListener(PlayerAdvancements playerAdvancementsIn, Listener<CustomTrigger.Instance> listener) {
         CustomTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
         if (listeners != null) {
             listeners.remove(listener);
@@ -43,13 +45,13 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
     }
 
     @Override
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
+    public void removePlayerListeners(PlayerAdvancements playerAdvancementsIn) {
         this.listeners.remove(playerAdvancementsIn);
     }
 
     @Override
-    public Instance deserialize(JsonObject object, ConditionArrayParser conditions) {
-        EntityPredicate.AndPredicate player = EntityPredicate.AndPredicate.deserializeJSONObject(object, "player", conditions);
+    public Instance createInstance(JsonObject object, DeserializationContext conditions) {
+        EntityPredicate.Composite player = EntityPredicate.Composite.fromJson(object, "player", conditions);
         return new CustomTrigger.Instance(player, location);
     }
 
@@ -93,7 +95,7 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance> 
 
         public void trigger(){
             for (Listener<CustomTrigger.Instance> listener : Lists.newArrayList(this.listeners)){
-                listener.grantCriterion(this.playerAdvancements);
+                listener.run(this.playerAdvancements);
             }
 
         }

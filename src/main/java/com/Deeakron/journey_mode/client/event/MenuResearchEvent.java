@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.client.event;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;
 
 import java.util.UUID;

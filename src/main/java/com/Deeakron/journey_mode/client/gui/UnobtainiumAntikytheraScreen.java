@@ -4,39 +4,39 @@ import com.Deeakron.journey_mode.container.UnobtainiumAntikytheraContainer;
 import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.recipebook.IRecipeShownListener;
-import net.minecraft.client.gui.recipebook.RecipeBookGui;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAntikytheraContainer> implements IRecipeShownListener {
+public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<UnobtainiumAntikytheraContainer> implements RecipeUpdateListener {
     private static final ResourceLocation ANTIKYTHERA_GUI_TEXTURES = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_antikythera.png");
     private static final ResourceLocation RECIPE_BUTTON_TEXTURE = new ResourceLocation("textures/gui/recipe_button.png");
-    private final RecipeBookGui recipeBookGui = new RecipeBookGui();
+    private final RecipeBookComponent recipeBookGui = new RecipeBookComponent();
     private boolean widthTooNarrow;
 
-    public UnobtainiumAntikytheraScreen(UnobtainiumAntikytheraContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public UnobtainiumAntikytheraScreen(UnobtainiumAntikytheraContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
     }
 
     protected void init() {
         super.init();
         this.widthTooNarrow = this.width < 379;
-        this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.container);
-        this.guiLeft = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.xSize);
+        this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
+        this.leftPos = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.imageWidth);
         this.children.add(this.recipeBookGui);
-        this.setFocusedDefault(this.recipeBookGui);
+        this.setInitialFocus(this.recipeBookGui);
         if(this.recipeBookGui.isVisible()) {
             this.recipeBookGui.toggleVisibility();
         }
-        this.titleX = 29;
+        this.titleLabelX = 29;
     }
 
     public void tick() {
@@ -47,33 +47,33 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         if (this.recipeBookGui.isVisible() && this.widthTooNarrow) {
-            this.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, mouseX, mouseY);
+            this.renderBg(matrixStack, partialTicks, mouseX, mouseY);
             this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);
         } else {
             this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);
             super.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.recipeBookGui.func_230477_a_(matrixStack, this.guiLeft, this.guiTop, true, partialTicks);
+            this.recipeBookGui.renderGhostRecipe(matrixStack, this.leftPos, this.topPos, true, partialTicks);
         }
 
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
-        this.recipeBookGui.func_238924_c_(matrixStack, this.guiLeft, this.guiTop, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
+        this.recipeBookGui.renderTooltip(matrixStack, this.leftPos, this.topPos, mouseX, mouseY);
     }
 
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(ANTIKYTHERA_GUI_TEXTURES);
-        int i = this.guiLeft;
-        int j = (this.height - this.ySize) / 2;
-        this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        this.minecraft.getTextureManager().bind(ANTIKYTHERA_GUI_TEXTURES);
+        int i = this.leftPos;
+        int j = (this.height - this.imageHeight) / 2;
+        this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
     }
 
-    protected boolean isPointInRegion(int x, int y, int width, int height, double mouseX, double mouseY) {
-        return super.isPointInRegion(x, y, width, height, mouseX, mouseY);
+    protected boolean isHovering(int x, int y, int width, int height, double mouseX, double mouseY) {
+        return super.isHovering(x, y, width, height, mouseX, mouseY);
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.recipeBookGui.mouseClicked(mouseX, mouseY, button)) {
-            this.setListener(this.recipeBookGui);
+            this.setFocused(this.recipeBookGui);
             return true;
         } else {
             return  super.mouseClicked(mouseX, mouseY, button);
@@ -81,15 +81,15 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
     }
 
     protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeftIn, int guiTopIn, int mouseButton) {
-        boolean flag = mouseX < (double)guiLeftIn || mouseY < (double)guiTopIn || mouseX >= (double)(guiLeftIn + this.xSize) || mouseY >= (double)(guiTopIn + this.ySize);
-        return this.recipeBookGui.func_195604_a(mouseX, mouseY, this.guiLeft, this.guiTop, this.xSize, this.ySize, mouseButton) && flag;
+        boolean flag = mouseX < (double)guiLeftIn || mouseY < (double)guiTopIn || mouseX >= (double)(guiLeftIn + this.imageWidth) || mouseY >= (double)(guiTopIn + this.imageHeight);
+        return this.recipeBookGui.hasClickedOutside(mouseX, mouseY, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, mouseButton) && flag;
     }
 
     /**
      * Called when the mouse is clicked over a slot or outside the gui.
      */
-    protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-        super.handleMouseClick(slotIn, slotId, mouseButton, type);
+    protected void slotClicked(Slot slotIn, int slotId, int mouseButton, ClickType type) {
+        super.slotClicked(slotIn, slotId, mouseButton, type);
         this.recipeBookGui.slotClicked(slotIn);
     }
 
@@ -97,12 +97,12 @@ public class UnobtainiumAntikytheraScreen extends ContainerScreen<UnobtainiumAnt
         this.recipeBookGui.recipesUpdated();
     }
 
-    public void onClose() {
+    public void removed() {
         this.recipeBookGui.removed();
-        super.onClose();
+        super.removed();
     }
 
-    public RecipeBookGui getRecipeGui() {
+    public RecipeBookGui getRecipeBookComponent() {
         return this.recipeBookGui;
     }
 }

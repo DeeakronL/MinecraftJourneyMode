@@ -5,13 +5,13 @@ import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import com.Deeakron.journey_mode.util.FunctionalIntReferenceHolder;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
@@ -19,16 +19,16 @@ import net.minecraftforge.items.SlotItemHandler;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class StarforgeContainer extends Container {
+public class StarforgeContainer extends AbstractContainerMenu {
 
     private UnobtainiumStarforgeTileEntity tileEntity;
-    private IWorldPosCallable canInteractWithCallable;
+    private ContainerLevelAccess canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
     public FunctionalIntReferenceHolder currentFuelTime;
 
-    public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
+    public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
         super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
-        this.canInteractWithCallable = IWorldPosCallable.of(tile.getWorld(), tile.getPos());
+        this.canInteractWithCallable = ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos());
         this.tileEntity = tile;
         final int slotSizePlus2 = 18;
         final int startX = 8;
@@ -52,8 +52,8 @@ public class StarforgeContainer extends Container {
         // Starforge Fuel
         this.addSlot(new StarforgeFuelSlot(tile.getInventory(),2, 56, 53));
 
-        this.trackInt(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentSmeltTime, value -> this.tileEntity.currentSmeltTime = value));
-        this.trackInt(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentFuelTime, value -> this.tileEntity.currentFuelTime = value));
+        this.addDataSlot(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentSmeltTime, value -> this.tileEntity.currentSmeltTime = value));
+        this.addDataSlot(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentFuelTime, value -> this.tileEntity.currentFuelTime = value));
     }
 
     public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final PacketBuffer data) {
@@ -63,7 +63,7 @@ public class StarforgeContainer extends Container {
     private static UnobtainiumStarforgeTileEntity getTileEntity(final PlayerInventory playerInv, final PacketBuffer data) {
         Objects.requireNonNull(playerInv, "plyerInv cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
-        final TileEntity tileAtPos = playerInv.player.world.getTileEntity(data.readBlockPos());
+        final TileEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());
         if (tileAtPos instanceof UnobtainiumStarforgeTileEntity) {
             return (UnobtainiumStarforgeTileEntity) tileAtPos;
         }
@@ -71,46 +71,46 @@ public class StarforgeContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(canInteractWithCallable, playerIn, UnobtainBlockInit.UNOBTAINIUM_STARFORGE.get());
+    public boolean stillValid(PlayerEntity playerIn) {
+        return stillValid(canInteractWithCallable, playerIn, UnobtainBlockInit.UNOBTAINIUM_STARFORGE.get());
     }
 
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(final PlayerEntity player, final int index) {
+    public ItemStack quickMoveStack(final PlayerEntity player, final int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index == 37) {
-                if (!this.mergeItemStack(itemstack1, 0, 36, true)) {
+                if (!this.moveItemStackTo(itemstack1, 0, 36, true)) {
                     return ItemStack.EMPTY;
                 }
             } else if (index != 38 && index != 36) {
                 if (this.tileEntity.getRecipe(itemstack1) != null) {
-                    if (!this.mergeItemStack(itemstack1, 36, 37, false)) {
+                    if (!this.moveItemStackTo(itemstack1, 36, 37, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (this.tileEntity.getInventory().isItemValid(38, itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 38, 39, false)) {
+                    if (!this.moveItemStackTo(itemstack1, 38, 39, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index >= 9 && index < 36) {
-                    if (!this.mergeItemStack(itemstack1, 0, 9, false)) {
+                    if (!this.moveItemStackTo(itemstack1, 0, 9, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 0 && index < 9 && !this.mergeItemStack(itemstack1, 9, 36, false)) {
+                } else if (index >= 0 && index < 9 && !this.moveItemStackTo(itemstack1, 9, 36, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, 36, false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, 36, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
 
             if (itemstack1.getCount() == itemstack.getCount()) {

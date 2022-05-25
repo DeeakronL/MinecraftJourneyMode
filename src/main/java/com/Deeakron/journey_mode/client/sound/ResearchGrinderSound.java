@@ -1,31 +1,31 @@
 package com.Deeakron.journey_mode.client.sound;
 
 import com.Deeakron.journey_mode.init.JMSounds;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.client.resources.sounds.TickableSoundInstance;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
 
-public class ResearchGrinderSound extends SimpleSound implements ITickableSound {
-    public HorizontalBlock grinder;
+public class ResearchGrinderSound extends SimpleSoundInstance implements TickableSoundInstance {
+    public HorizontalDirectionalBlock grinder;
     private Boolean donePlaying = false;
     private Boolean hasStarted = false;
 
 
-    public ResearchGrinderSound(HorizontalBlock researchGrinder, BlockPos pos) {
-        super(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.1f, 1.0f, pos);
+    public ResearchGrinderSound(HorizontalDirectionalBlock researchGrinder, BlockPos pos) {
+        super(JMSounds.RESEARCH_GRIND.get(), SoundSource.BLOCKS, 0.1f, 1.0f, pos);
         this.grinder = researchGrinder;
-        this.repeat = false;
-        this.repeatDelay = 1;
+        this.looping = false;
+        this.delay = 1;
     }
 
-    public boolean shouldPlaySound() {
+    public boolean canPlaySound() {
         return !this.donePlaying;
     }
 
     @Override
-    public boolean isDonePlaying() {
+    public boolean isStopped() {
         return this.donePlaying;
     }
 

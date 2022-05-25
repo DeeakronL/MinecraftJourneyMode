@@ -5,7 +5,7 @@ import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
@@ -20,8 +20,8 @@ import java.util.function.Supplier;
 public class JMCheckPacket {
     private final String data;
     private boolean result = false;
-    public JMCheckPacket(PacketBuffer buf) {
-        this.data = buf.readString();
+    public JMCheckPacket(FriendlyByteBuf buf) {
+        this.data = buf.readUtf();
         this.result = buf.readBoolean();
     }
 
@@ -31,18 +31,18 @@ public class JMCheckPacket {
     }
 
     public void encode(PacketBuffer buf){
-        buf.writeString(data);
+        buf.writeUtf(data);
         buf.writeBoolean(result);
     }
 
     public static JMCheckPacket decode(PacketBuffer buf) {
-        return new JMCheckPacket(buf.readString(), buf.readBoolean());
+        return new JMCheckPacket(buf.readUtf(), buf.readBoolean());
     }
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerWorld serverWorld = context.get().getSender().getServerWorld();
-        PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(info);
+        ServerWorld serverWorld = context.get().getSender().getLevel();
+        PlayerEntity player = (PlayerEntity) serverWorld.getEntity(info);
         this.result = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode();
         context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
         context.get().setPacketHandled(true);
@@ -52,7 +52,7 @@ public class JMCheckPacket {
     public void handleOnClient(final JMCheckPacket msg) {
         Boolean result = msg.getResult();
         if (result) {
-            int window = Minecraft.getInstance().player.openContainer.windowId;
+            int window = Minecraft.getInstance().player.containerMenu.containerId;
             ITextComponent title = new StringTextComponent("Journey Mode Menu");
             EventHandler.INSTANCE.sendToServer(new GameStatePacket(this.data, false, 1, false, false, false, false));
         }

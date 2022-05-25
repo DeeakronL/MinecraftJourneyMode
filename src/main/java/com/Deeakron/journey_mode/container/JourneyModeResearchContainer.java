@@ -1,18 +1,18 @@
 package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
 
-public class JourneyModeResearchContainer extends Container {
-    private final IInventory researchInventory = new Inventory(1);
-    public JourneyModeResearchContainer(final int windowId, final PlayerInventory playerInventory) {
+public class JourneyModeResearchContainer extends AbstractContainerMenu {
+    private final Container researchInventory = new SimpleContainer(1);
+    public JourneyModeResearchContainer(final int windowId, final Inventory playerInventory) {
         super(JMContainerTypes.JOURNEY_MODE_RESEARCH.get(), windowId);
 
         //Main Inventory
@@ -38,40 +38,40 @@ public class JourneyModeResearchContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return true;
     }
 
-    public JourneyModeResearchContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
+    public JourneyModeResearchContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if(slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if(slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if(index < 1) {
-                if(!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true)) {
+                if(!this.moveItemStackTo(itemstack1, 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if(!this.mergeItemStack(itemstack1, 0, 1, false)) {
+            } else if(!this.moveItemStackTo(itemstack1, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
         return itemstack;
     }
 
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
-        this.clearContainer(playerIn, playerIn.world, this.researchInventory);
+    public void removed(PlayerEntity playerIn) {
+        super.removed(playerIn);
+        this.clearContainer(playerIn, playerIn.level, this.researchInventory);
     }
 }

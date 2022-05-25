@@ -5,21 +5,24 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Set;
 
-public class AntikytheraRecipe implements ICraftingRecipe {
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+
+public class AntikytheraRecipe implements CraftingRecipe {
 
     public final int recipeWidth;
     public final int recipeHeight;
@@ -59,7 +62,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
      * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
      * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
      */
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.recipeOutput;
     }
 
@@ -70,14 +73,14 @@ public class AntikytheraRecipe implements ICraftingRecipe {
     /**
      * Used to determine if this recipe can fit in a grid of the given width/height
      */
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width >= this.recipeWidth && height >= this.recipeHeight;
     }
 
     /**
      * Used to check if a recipe matches current crafting inventory
      */
-    public boolean matches(CraftingInventory inv, World worldIn) {
+    public boolean matches(CraftingContainer inv, Level worldIn) {
         for(int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i) {
             for(int j = 0; j <= inv.getHeight() - this.recipeHeight; ++j) {
                 if (this.checkMatch(inv, i, j, true)) {
@@ -96,7 +99,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
     /**
      * Checks if the region of a crafting inventory is match for the recipe.
      */
-    private boolean checkMatch(CraftingInventory craftingInventory, int width, int height, boolean p_77573_4_) {
+    private boolean checkMatch(CraftingContainer craftingInventory, int width, int height, boolean p_77573_4_) {
         for(int i = 0; i < craftingInventory.getWidth(); ++i) {
             for(int j = 0; j < craftingInventory.getHeight(); ++j) {
                 int k = i - width;
@@ -110,7 +113,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
                     }
                 }
 
-                if (!ingredient.test(craftingInventory.getStackInSlot(i + j * craftingInventory.getWidth()))) {
+                if (!ingredient.test(craftingInventory.getItem(i + j * craftingInventory.getWidth()))) {
                     return false;
                 }
             }
@@ -122,8 +125,8 @@ public class AntikytheraRecipe implements ICraftingRecipe {
     /**
      * Returns an Item that is the result of this recipe
      */
-    public ItemStack getCraftingResult(CraftingInventory inv) {
-        return this.getRecipeOutput().copy();
+    public ItemStack assemble(CraftingInventory inv) {
+        return this.getResultItem().copy();
     }
 
     @Nonnull
@@ -191,7 +194,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
                 throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
             }
 
-            map.put(entry.getKey(), Ingredient.deserialize(entry.getValue()));
+            map.put(entry.getKey(), Ingredient.fromJson(entry.getValue()));
         }
 
         map.put(" ", Ingredient.EMPTY);
@@ -199,14 +202,14 @@ public class AntikytheraRecipe implements ICraftingRecipe {
     }
 
     public static ItemStack deserializeItem(JsonObject object) {
-        String s = JSONUtils.getString(object, "item");
+        String s = JSONUtils.getAsString(object, "item");
         Item item = Registry.ITEM.getOptional(new ResourceLocation(s)).orElseThrow(() -> {
             return new JsonSyntaxException("Unknown item '" + s + "'");
         });
         if (object.has("data")) {
             throw new JsonParseException("Disallowed data tag found");
         } else {
-            int i = JSONUtils.getInt(object, "count", 1);
+            int i = JSONUtils.getAsInt(object, "count", 1);
             return net.minecraftforge.common.crafting.CraftingHelper.getItemStack(object, true);
         }
     }
@@ -271,7 +274,7 @@ public class AntikytheraRecipe implements ICraftingRecipe {
             throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
         } else {
             for(int i = 0; i < astring.length; ++i) {
-                String s = JSONUtils.getString(jsonArr.get(i), "pattern[" + i + "]");
+                String s = JSONUtils.convertToString(jsonArr.get(i), "pattern[" + i + "]");
                 if (s.length() > MAX_WIDTH) {
                     throw new JsonSyntaxException("Invalid pattern: too many columns, " + MAX_WIDTH + " is maximum");
                 }

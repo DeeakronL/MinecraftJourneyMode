@@ -1,8 +1,8 @@
 package com.Deeakron.journey_mode.container;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class StarforgeItemHandler extends ItemStackHandler {

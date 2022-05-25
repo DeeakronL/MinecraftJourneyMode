@@ -9,41 +9,41 @@ import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 
 @OnlyIn(Dist.CLIENT)
-public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResearchContainer> {
+public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyModeResearchContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_research.png");
-    public static final ITextComponent POWERS_TAB = new TranslationTextComponent("journey_mode.gui.tabs.powers");
-    public static final ITextComponent RESEARCH_TAB = new TranslationTextComponent("journey_mode.gui.tabs.research");
-    public static final ITextComponent DUPLICATION_TAB = new TranslationTextComponent("journey_mode.gui.tabs.duplication");
-    public static final ITextComponent RESEARCH_DESC = new TranslationTextComponent("journey_mode.gui.research");
-    public static final ITextComponent RESEARCH_INFO = new TranslationTextComponent("journey_mode.gui.researched");
+    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
+    public static final Component RESEARCH_DESC = new TranslatableComponent("journey_mode.gui.research");
+    public static final Component RESEARCH_INFO = new TranslatableComponent("journey_mode.gui.researched");
     private static ResearchList list;
     private static JourneyModeResearchContainer serverContain;
-    public static final ITextComponent RECIPES_TAB = new TranslationTextComponent("journey_mode.gui.tabs.recipes");
+    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
     public static boolean hasRecipes;
 
-    public JourneyModeResearchScreen(JourneyModeResearchContainer container, PlayerInventory inv, ITextComponent titleIn) {
+    public JourneyModeResearchScreen(JourneyModeResearchContainer container, Inventory inv, Component titleIn) {
         super(container, inv, titleIn);
-        this.guiLeft = 0;
-        this.guiTop = 0;
-        this.xSize = 176;
-        this.ySize = 184;
-        this.playerInventoryTitleY = this.ySize - 92;
+        this.leftPos = 0;
+        this.topPos = 0;
+        this.imageWidth = 176;
+        this.imageHeight = 184;
+        this.inventoryLabelY = this.imageHeight - 92;
         this.list = journey_mode.tempList;
         this.serverContain = journey_mode.tempContain;
         this.hasRecipes = journey_mode.hasRecipes;
@@ -51,12 +51,12 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
 
     protected void init() {
         super.init();
-        this.addButton(new JourneyModeResearchScreen.PowersTab(this.guiLeft -29, this.guiTop + 21));
-        this.addButton(new JourneyModeResearchScreen.ResearchTab(this.guiLeft -29, this.guiTop + 50));
-        this.addButton(new JourneyModeResearchScreen.DuplicationTab(this.guiLeft -29, this.guiTop + 79));
-        this.addButton(new JourneyModeResearchScreen.ResearchButton(this.guiLeft + 58, this.guiTop + 67, this));
+        this.addButton(new JourneyModeResearchScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addButton(new JourneyModeResearchScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addButton(new JourneyModeResearchScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
+        this.addButton(new JourneyModeResearchScreen.ResearchButton(this.leftPos + 58, this.topPos + 67, this));
         if (this.hasRecipes) {
-            this.addButton(new JourneyModeResearchScreen.RecipesTab(this.guiLeft -29, this.guiTop + 108));
+            this.addButton(new JourneyModeResearchScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
         }
     }
 
@@ -64,43 +64,43 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
     public void render(final MatrixStack matrixStack, final int mouseX, final int mouseY, final float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
-        this.font.drawString(matrixStack, this.title.getString(), 8.0f, 6.0f, 4210752);
+    protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+        super.renderLabels(matrixStack, mouseX, mouseY);
+        this.font.draw(matrixStack, this.title.getString(), 8.0f, 6.0f, 4210752);
 
         for(Widget widget : this.buttons) {
             if (widget.isHovered()) {
-                widget.renderToolTip(matrixStack, mouseX - this.guiLeft, mouseY - this.guiTop);
+                widget.renderToolTip(matrixStack, mouseX - this.leftPos, mouseY - this.topPos);
                 break;
             }
         }
-        if (!this.container.getInventory().get(0).isEmpty()) {
-            String key = "\"" + this.container.getInventory().get(0).getItem().getRegistryName().toString() + "\"";
+        if (!this.menu.getItems().get(0).isEmpty()) {
+            String key = "\"" + this.menu.getItems().get(0).getItem().getRegistryName().toString() + "\"";
             if (this.list.hasItem(key)) {
-                String info1 = this.container.getInventory().get(0).getItem().getName().getString();
+                String info1 = this.menu.getItems().get(0).getItem().getDescription().getString();
                 String info2 = this.list.get(key)[0] + "/" + this.list.get(key)[1] + " " + this.RESEARCH_INFO.getString();
                 if (this.list.reachCap(key)) {
-                    this.font.drawString(matrixStack, info1, 8, 16, TextFormatting.DARK_RED.getColor());
-                    this.font.drawString(matrixStack, info2, 8, 26, TextFormatting.DARK_RED.getColor());
+                    this.font.draw(matrixStack, info1, 8, 16, TextFormatting.DARK_RED.getColor());
+                    this.font.draw(matrixStack, info2, 8, 26, TextFormatting.DARK_RED.getColor());
                 } else {
-                    this.font.drawString(matrixStack, info1, 8, 16, 4210752);
-                    this.font.drawString(matrixStack, info2, 8, 26, 4210752);
+                    this.font.draw(matrixStack, info1, 8, 16, 4210752);
+                    this.font.draw(matrixStack, info2, 8, 26, 4210752);
                 }
             }
         }
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        this.minecraft.getTextureManager().bind(BACKGROUND_TEXTURE);
+        int i = (this.width - this.imageWidth) / 2;
+        int j = (this.height - this.imageHeight) / 2;
+        this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -113,8 +113,8 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
             super(x, y, 59, 21, StringTextComponent.EMPTY);
         }
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeResearchScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeResearchScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 228;
             int j = 77;
@@ -123,10 +123,10 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
 
         public boolean isSelected() {
             return this.selected;
@@ -143,8 +143,8 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
 
         protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
 
-        public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bindTexture(JourneyModeResearchScreen.BACKGROUND_TEXTURE);
+        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+            Minecraft.getInstance().getTextureManager().bind(JourneyModeResearchScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 221;
             int j = 0;
@@ -153,10 +153,10 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
             }
 
             this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.func_230454_a_(matrixStack);
+            this.renderIcon(matrixStack);
         }
 
-        protected abstract void func_230454_a_(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(MatrixStack p_230454_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -170,7 +170,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
             this.v = v;
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
+        protected void renderIcon(MatrixStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
     }
@@ -181,8 +181,8 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
             super(x, y);
         }
 
-        protected void func_230454_a_(MatrixStack p_230454_1_) {
-            this.screen.font.drawString(p_230454_1_, this.screen.RESEARCH_DESC.getString(), this.screen.guiLeft + 64.0f, this.screen.guiTop + 72.0f, 4210752);
+        protected void renderIcon(MatrixStack p_230454_1_) {
+            this.screen.font.draw(p_230454_1_, this.screen.RESEARCH_DESC.getString(), this.screen.leftPos + 64.0f, this.screen.topPos + 72.0f, 4210752);
         }
     }
 
@@ -194,7 +194,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "powers"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "powers"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -210,20 +210,20 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         }
 
         public void onPress() {
-            String key = "\"" + this.screen.container.getInventory().get(0).getItem().getRegistryName().toString() + "\"";
-            int count = this.screen.container.getInventory().get(0).getCount();
+            String key = "\"" + this.screen.menu.getItems().get(0).getItem().getRegistryName().toString() + "\"";
+            int count = this.screen.menu.getItems().get(0).getCount();
             if (this.screen.list.hasItem(key)) {
                 if (this.screen.list.reachCap(key)) {
 
                 } else {
-                    /*if(!minecraft.player.world.isRemote){*/minecraft.player.playSound(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.1F, 1.0F);//}
+                    /*if(!minecraft.player.world.isRemote){*/minecraft.player.playNotifySound(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.1F, 1.0F);//}
                     int diff = this.screen.list.get(key)[1] - this.screen.list.get(key)[0];
                     if (count > diff) {
-                        this.screen.serverContain.getInventory().get(0).setCount(count - diff);
-                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, diff, Minecraft.getInstance().player.getUniqueID(), this.screen.container.getInventory().get(0).getItem().getDefaultInstance()));
+                        this.screen.serverContain.getItems().get(0).setCount(count - diff);
+                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, diff, Minecraft.getInstance().player.getUUID(), this.screen.menu.getItems().get(0).getItem().getDefaultInstance()));
                     } else {
-                        this.screen.serverContain.getInventory().get(0).setCount(0);
-                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, count, Minecraft.getInstance().player.getUniqueID(), this.screen.container.getInventory().get(0).getItem().getDefaultInstance()));
+                        this.screen.serverContain.getItems().get(0).setCount(0);
+                        MinecraftForge.EVENT_BUS.post(new MenuResearchEvent(key, count, Minecraft.getInstance().player.getUUID(), this.screen.menu.getItems().get(0).getItem().getDefaultInstance()));
                     }
                 }
             }
@@ -257,7 +257,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "duplication"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "duplication"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -273,7 +273,7 @@ public class JourneyModeResearchScreen extends ContainerScreen<JourneyModeResear
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(playerInventory.player.getUniqueID().toString(), "recipes"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "recipes"));
         }
 
         public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {

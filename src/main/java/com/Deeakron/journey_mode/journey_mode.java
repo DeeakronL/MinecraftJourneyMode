@@ -11,9 +11,9 @@ import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
 import com.Deeakron.journey_mode.init.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -46,7 +46,7 @@ public class journey_mode
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
     public static ItemList list;
-    public static KeyBinding[] keyBindings;
+    public static KeyMapping[] keyBindings;
     public static ReplacementList replacementList;
     public static boolean doReplace = false;
     public static Date lastMenuOpened;
@@ -114,9 +114,9 @@ public class journey_mode
         };
 
 
-        keyBindings = new KeyBinding[1];
+        keyBindings = new KeyMapping[1];
 
-        keyBindings[0] = new KeyBinding("key.journey_mode.menu", GLFW.GLFW_KEY_O, "key.categories.journey_mode");
+        keyBindings[0] = new KeyMapping("key.journey_mode.menu", GLFW.GLFW_KEY_O, "key.categories.journey_mode");
 
         ClientRegistry.registerKeyBinding(keyBindings[0]);
 
@@ -161,20 +161,20 @@ public class journey_mode
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
-        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_2.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.getCutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
         if (UnobtainConfig.use_unobtainable.get()) {
-            RenderTypeLookup.setRenderLayer(UnobtainBlockInit.PAINTED_BARRIER.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(UnobtainBlockInit.PAINTED_BARRIER.get(), RenderType.cutout());
         }
     }
 

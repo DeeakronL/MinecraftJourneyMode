@@ -1,37 +1,37 @@
 package com.Deeakron.journey_mode.data;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class StarforgeRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<StarforgeRecipe> {
+public class StarforgeRecipeSerializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<StarforgeRecipe> {
 
     @Override
-    public StarforgeRecipe read(ResourceLocation recipeId, JsonObject json) {
-        ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
-        Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "input"));
+    public StarforgeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        ItemStack output = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "output"), true);
+        Ingredient input = Ingredient.fromJson(JSONUtils.getAsJsonObject(json, "input"));
         return new StarforgeRecipe(recipeId, input, output);
     }
 
     @Override
-    public StarforgeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-        ItemStack output = buffer.readItemStack();
-        Ingredient input = Ingredient.read(buffer);
+    public StarforgeRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        ItemStack output = buffer.readItem();
+        Ingredient input = Ingredient.fromNetwork(buffer);
 
         return new StarforgeRecipe(recipeId, input, output);
     }
 
     @Override
-    public void write(PacketBuffer buffer, StarforgeRecipe recipe) {
+    public void toNetwork(PacketBuffer buffer, StarforgeRecipe recipe) {
         Ingredient input = recipe.getIngredients().get(0);
-        input.write(buffer);
+        input.toNetwork(buffer);
 
-        buffer.writeItemStack(recipe.getRecipeOutput(), false);
+        buffer.writeItemStack(recipe.getResultItem(), false);
     }
 }

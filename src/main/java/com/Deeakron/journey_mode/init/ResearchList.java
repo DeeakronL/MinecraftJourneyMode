@@ -2,7 +2,7 @@ package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.client.gui.ResearchToast;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -35,7 +35,7 @@ public class ResearchList {
                     newData[0] = data[1];
                     if (!isGenerating) {
                         if(itemObject != null) {
-                            Minecraft.getInstance().getToastGui().add(new ResearchToast(itemObject[i].copy()));
+                            Minecraft.getInstance().getToasts().addToast(new ResearchToast(itemObject[i].copy()));
                         }
 
                     }

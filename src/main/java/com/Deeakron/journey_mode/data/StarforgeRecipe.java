@@ -1,13 +1,13 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class StarforgeRecipe implements IStarforgeRecipe {
@@ -23,25 +23,25 @@ public class StarforgeRecipe implements IStarforgeRecipe {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
-        if(this.input.test(inv.getStackInSlot(0))) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
+        if(this.input.test(inv.getItem(0))) {
             return true;
         }
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper inv) {
         return this.output;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return false;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output;
     }
 
@@ -66,6 +66,6 @@ public class StarforgeRecipe implements IStarforgeRecipe {
 
 
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(null, this.input);
+        return NonNullList.of(null, this.input);
     }
 }

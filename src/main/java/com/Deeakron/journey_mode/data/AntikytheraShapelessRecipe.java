@@ -2,17 +2,23 @@ package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.*;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
 
-public class AntikytheraShapelessRecipe implements ICraftingRecipe {
+import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+
+public class AntikytheraShapelessRecipe implements CraftingRecipe {
 
     public final ResourceLocation id;
     public final String group;
@@ -34,12 +40,12 @@ public class AntikytheraShapelessRecipe implements ICraftingRecipe {
 
     @Nonnull
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS;
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return JMRecipeSerializerInit.ANTIKYTHERA_SHAPELESS_SERIALIZER.get();
     }
 
@@ -54,7 +60,7 @@ public class AntikytheraShapelessRecipe implements ICraftingRecipe {
      * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
      * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
      */
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.recipeOutput;
     }
 
@@ -65,17 +71,17 @@ public class AntikytheraShapelessRecipe implements ICraftingRecipe {
     /**
      * Used to check if a recipe matches current crafting inventory
      */
-    public boolean matches(CraftingInventory inv, World worldIn) {
-        RecipeItemHelper recipeitemhelper = new RecipeItemHelper();
+    public boolean matches(CraftingContainer inv, Level worldIn) {
+        StackedContents recipeitemhelper = new StackedContents();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
-        for(int j = 0; j < inv.getSizeInventory(); ++j) {
-            ItemStack itemstack = inv.getStackInSlot(j);
+        for(int j = 0; j < inv.getContainerSize(); ++j) {
+            ItemStack itemstack = inv.getItem(j);
             if (!itemstack.isEmpty()) {
                 ++i;
                 if (isSimple)
-                    recipeitemhelper.func_221264_a(itemstack, 1);
+                    recipeitemhelper.accountStack(itemstack, 1);
                 else inputs.add(itemstack);
             }
         }
@@ -86,14 +92,14 @@ public class AntikytheraShapelessRecipe implements ICraftingRecipe {
     /**
      * Returns an Item that is the result of this recipe
      */
-    public ItemStack getCraftingResult(CraftingInventory inv) {
+    public ItemStack assemble(CraftingInventory inv) {
         return this.recipeOutput.copy();
     }
 
     /**
      * Used to determine if this recipe can fit in a grid of the given width/height
      */
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= this.recipeItems.size();
     }
 

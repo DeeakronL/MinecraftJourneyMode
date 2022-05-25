@@ -10,11 +10,11 @@ import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
@@ -22,12 +22,12 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -45,16 +45,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
+public class UnobtainiumStarforgeTileEntity extends BlockEntity implements TickableBlockEntity, MenuProvider {
 
-    private ITextComponent customName;
+    private Component customName;
     public int currentSmeltTime = 0;
     public final int maxSmeltTime = 100;
     private StarforgeItemHandler inventory;
     public int currentFuelTime = 0;
     public final int maxFuelTime = 801;
 
-    public UnobtainiumStarforgeTileEntity(TileEntityType<?> tileEntityTypeIn) {
+    public UnobtainiumStarforgeTileEntity(BlockEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
 
         this.inventory = new StarforgeItemHandler(3);
@@ -66,7 +66,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
 
     @Nullable
     @Override
-    public Container createMenu(final int windowId, final PlayerInventory playerInv, final PlayerEntity playerIn) {
+    public AbstractContainerMenu createMenu(final int windowId, final Inventory playerInv, final Player playerIn) {
         return new StarforgeContainer(windowId, playerInv, this);
     }
 
@@ -75,19 +75,19 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
         boolean dirty = false;
         boolean itemCheck = false;
         try {
-            itemCheck = (this.inventory.getStackInSlot(1).isEmpty() || this.inventory.getStackInSlot(1).getItem().getRegistryName().equals(this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput().getItem().getRegistryName()));
+            itemCheck = (this.inventory.getStackInSlot(1).isEmpty() || this.inventory.getStackInSlot(1).getItem().getRegistryName().equals(this.getRecipe(this.inventory.getStackInSlot(0)).getResultItem().getItem().getRegistryName()));
         } catch (NullPointerException e) {
 
         }
 
-        if (this.world != null && !this.world.isRemote) {
+        if (this.level != null && !this.level.isClientSide) {
             if (this.currentFuelTime <= 0) {
                 if (!this.getInventory().getStackInSlot(2).isEmpty() && this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
-                    this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, true));
+                    this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(UnobtainiumStarforgeBlock.LIT, true));
                     this.inventory.decrStackSize(2, 1);
                     this.currentFuelTime = maxFuelTime;
                 } else {
-                    this.world.setBlockState(this.getPos(), this.getBlockState().with(UnobtainiumStarforgeBlock.LIT, false));
+                    this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(UnobtainiumStarforgeBlock.LIT, false));
                     if(this.currentSmeltTime > 0) {
                         this.currentSmeltTime--;
                     }
@@ -102,7 +102,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
                     } else {
                         this.currentSmeltTime = 1;
                         this.currentFuelTime--;
-                        ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
+                        ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getResultItem();
                         this.inventory.insertItem(1, output.copy(), false);
                         this.inventory.decrStackSize(0, 1);
                         dirty = true;
@@ -118,8 +118,8 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
         }
 
         if (dirty) {
-            this.markDirty();
-            this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
+            this.setChanged();
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
         }
     }
 
@@ -146,10 +146,10 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(BlockState state, CompoundNBT compound) {
+        super.load(state, compound);
         if(compound.contains("CustomName", Constants.NBT.TAG_STRING)) {
-            this.customName = ITextComponent.Serializer.getComponentFromJson(compound.getString("CustomName"));
+            this.customName = ITextComponent.Serializer.fromJson(compound.getString("CustomName"));
         }
 
         NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(this.inventory.getSlots(), ItemStack.EMPTY);
@@ -161,8 +161,8 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
+    public CompoundNBT save(CompoundNBT compound) {
+        super.save(compound);
         if (this.customName != null) {
             compound.putString("CustomName", ITextComponent.Serializer.toJson(this.customName));
         }
@@ -182,10 +182,10 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
             return null;
         }
 
-        Set<IRecipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.world);
+        Set<IRecipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.level);
         for (IRecipe<?> iRecipe : recipes) {
             StarforgeRecipe recipe = (StarforgeRecipe) iRecipe;
-            if (recipe.matches(new RecipeWrapper(this.inventory), this.world)) {
+            if (recipe.matches(new RecipeWrapper(this.inventory), this.level)) {
                 return recipe;
             }
         }
@@ -199,7 +199,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
 
     @OnlyIn(Dist.CLIENT)
     public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn) {
-        ClientWorld world = Minecraft.getInstance().world;
+        ClientWorld world = Minecraft.getInstance().level;
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
@@ -209,7 +209,7 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
         for (IRecipe<?> recipe : recipes) {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             ingredients.forEach(ingredient -> {
-                for(ItemStack stack : ingredient.getMatchingStacks()) {
+                for(ItemStack stack : ingredient.getItems()) {
                     inputs.add(stack);
                 }
             });
@@ -225,25 +225,25 @@ public class UnobtainiumStarforgeTileEntity extends TileEntity implements ITicka
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
         CompoundNBT nbt = new CompoundNBT();
-        this.write(nbt);
-        return new SUpdateTileEntityPacket(this.pos, 0, nbt);
+        this.save(nbt);
+        return new SUpdateTileEntityPacket(this.worldPosition, 0, nbt);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.read(this.getBlockState(), pkt.getNbtCompound());
+        this.load(this.getBlockState(), pkt.getTag());
     }
 
     @Override
     public CompoundNBT getUpdateTag() {
         CompoundNBT nbt = new CompoundNBT();
-        this.write(nbt);
+        this.save(nbt);
         return nbt;
     }
 
     @Override
     public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
-        this.read(state, nbt);
+        this.load(state, nbt);
     }
 
     @Override

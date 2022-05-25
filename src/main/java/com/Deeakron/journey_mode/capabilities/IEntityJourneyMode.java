@@ -1,7 +1,7 @@
 package com.Deeakron.journey_mode.capabilities;
 
 import com.Deeakron.journey_mode.init.ResearchList;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
 

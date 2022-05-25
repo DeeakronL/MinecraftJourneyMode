@@ -1,20 +1,20 @@
 package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
-public class JourneyModeRecipesContainer extends Container {
-    public IInventory recipeInputInventory = new Inventory(9);
-    private IInventory recipeOutputInventory = new Inventory(1);
-    private IInventory recipe2InputInventory = new Inventory(9);
-    private IInventory recipe2OutputInventory = new Inventory(1);
+public class JourneyModeRecipesContainer extends AbstractContainerMenu {
+    public Container recipeInputInventory = new SimpleContainer(9);
+    private Container recipeOutputInventory = new SimpleContainer(1);
+    private Container recipe2InputInventory = new SimpleContainer(9);
+    private Container recipe2OutputInventory = new SimpleContainer(1);
     public JourneyModeRecipesContainer(final int windowId) {
         super(JMContainerTypes.JOURNEY_MODE_RECIPES.get(), windowId);
 
@@ -43,34 +43,34 @@ public class JourneyModeRecipesContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return true;
     }
 
-    public JourneyModeRecipesContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
+    public JourneyModeRecipesContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId);
     }
 
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
-        this.clearContainer(playerIn, playerIn.world, this.recipeInputInventory);
-        this.clearContainer(playerIn, playerIn.world, this.recipeOutputInventory);
-        this.clearContainer(playerIn, playerIn.world, this.recipe2InputInventory);
-        this.clearContainer(playerIn, playerIn.world, this.recipe2OutputInventory);
+    public void removed(Player playerIn) {
+        super.removed(playerIn);
+        this.clearContainer(playerIn, playerIn.level, this.recipeInputInventory);
+        this.clearContainer(playerIn, playerIn.level, this.recipeOutputInventory);
+        this.clearContainer(playerIn, playerIn.level, this.recipe2InputInventory);
+        this.clearContainer(playerIn, playerIn.level, this.recipe2OutputInventory);
     }
 
     public void insertItem(ItemStack[] items, int recipe) {
         if (recipe == 1) {
             for (int i = 0; i < 9; i++) {
-                this.recipeInputInventory.setInventorySlotContents(i, items[i]);
+                this.recipeInputInventory.setItem(i, items[i]);
             }
-            this.recipeOutputInventory.setInventorySlotContents(0, items[9]);
+            this.recipeOutputInventory.setItem(0, items[9]);
         } else if (recipe == 2) {
             for (int i = 0; i < 9; i++) {
-                this.recipe2InputInventory.setInventorySlotContents(i, items[i]);
+                this.recipe2InputInventory.setItem(i, items[i]);
             }
-            this.recipe2OutputInventory.setInventorySlotContents(0, items[9]);
+            this.recipe2OutputInventory.setItem(0, items[9]);
         }
-        this.detectAndSendChanges();
+        this.broadcastChanges();
     }
 }

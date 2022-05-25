@@ -4,26 +4,26 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 
-public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AntikytheraShapelessRecipe> {
+public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AntikytheraShapelessRecipe> {
 
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera_shapeless");
-    public AntikytheraShapelessRecipe read(ResourceLocation recipeId, JsonObject json) {
-        String s = JSONUtils.getString(json, "group", "");
-        NonNullList<Ingredient> nonnulllist = readIngredients(JSONUtils.getJsonArray(json, "ingredients"));
+    public AntikytheraShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        String s = GsonHelper.getAsString(json, "group", "");
+        NonNullList<Ingredient> nonnulllist = readIngredients(JSONUtils.getAsJsonArray(json, "ingredients"));
         if (nonnulllist.isEmpty()) {
             throw new JsonParseException("No ingredients for shapeless recipe");
         } else if (nonnulllist.size() > AntikytheraRecipe.MAX_WIDTH * AntikytheraRecipe.MAX_HEIGHT) {
             throw new JsonParseException("Too many ingredients for shapeless recipe the max is " + (AntikytheraRecipe.MAX_WIDTH * AntikytheraRecipe.MAX_HEIGHT));
         } else {
-            ItemStack itemstack = AntikytheraRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
+            ItemStack itemstack = AntikytheraRecipe.deserializeItem(JSONUtils.getAsJsonObject(json, "result"));
             return new AntikytheraShapelessRecipe(recipeId, s, itemstack, nonnulllist);
         }
     }
@@ -32,8 +32,8 @@ public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.reg
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
 
         for(int i = 0; i < ingredientArray.size(); ++i) {
-            Ingredient ingredient = Ingredient.deserialize(ingredientArray.get(i));
-            if (!ingredient.hasNoMatchingItems()) {
+            Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
+            if (!ingredient.isEmpty()) {
                 nonnulllist.add(ingredient);
             }
         }
@@ -41,28 +41,28 @@ public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.reg
         return nonnulllist;
     }
 
-    public AntikytheraShapelessRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-        String s = buffer.readString(32767);
+    public AntikytheraShapelessRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        String s = buffer.readUtf(32767);
         int i = buffer.readVarInt();
         NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
 
         for(int j = 0; j < nonnulllist.size(); ++j) {
-            nonnulllist.set(j, Ingredient.read(buffer));
+            nonnulllist.set(j, Ingredient.fromNetwork(buffer));
         }
 
-        ItemStack itemstack = buffer.readItemStack();
+        ItemStack itemstack = buffer.readItem();
         return new AntikytheraShapelessRecipe(recipeId, s, itemstack, nonnulllist);
     }
 
-    public void write(PacketBuffer buffer, AntikytheraShapelessRecipe recipe) {
-        buffer.writeString(recipe.group);
+    public void toNetwork(PacketBuffer buffer, AntikytheraShapelessRecipe recipe) {
+        buffer.writeUtf(recipe.group);
         buffer.writeVarInt(recipe.recipeItems.size());
 
         for(Ingredient ingredient : recipe.recipeItems) {
-            ingredient.write(buffer);
+            ingredient.toNetwork(buffer);
         }
 
-        buffer.writeItemStack(recipe.recipeOutput);
+        buffer.writeItem(recipe.recipeOutput);
     }
 
     public void init(){
