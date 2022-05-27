@@ -6,7 +6,7 @@ import com.Deeakron.journey_mode.client.event.ResearchEvent;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;

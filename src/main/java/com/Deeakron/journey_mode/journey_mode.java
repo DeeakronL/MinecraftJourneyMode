@@ -10,7 +10,7 @@ import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
 import com.Deeakron.journey_mode.init.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -20,14 +20,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
+import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
@@ -162,6 +162,18 @@ public class journey_mode
         // do something that can only be done on the client
         //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
         ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.IRON_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
+        /* this was from before 1.17
         RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
@@ -172,7 +184,7 @@ public class journey_mode
         RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());/*
         if (UnobtainConfig.use_unobtainable.get()) {
             RenderTypeLookup.setRenderLayer(UnobtainBlockInit.PAINTED_BARRIER.get(), RenderType.cutout());
         }
