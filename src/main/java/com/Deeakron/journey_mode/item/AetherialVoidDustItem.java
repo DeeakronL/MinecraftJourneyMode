@@ -5,7 +5,7 @@ import com.Deeakron.journey_mode.block.InertJigsawBlock;
 import com.Deeakron.journey_mode.block.InertStructureBlock;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.block.DirectionalBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.item.Item;

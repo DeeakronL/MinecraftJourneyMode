@@ -7,7 +7,7 @@ import com.Deeakron.journey_mode.data.StarforgeRecipe;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMTileEntityTypes;
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.entity.player.Player;

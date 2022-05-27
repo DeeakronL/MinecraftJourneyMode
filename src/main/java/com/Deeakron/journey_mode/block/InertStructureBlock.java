@@ -2,8 +2,8 @@ package com.Deeakron.journey_mode.block;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.BlockRenderType;
+import net.minecraft.world.level.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.state.StateContainer;
