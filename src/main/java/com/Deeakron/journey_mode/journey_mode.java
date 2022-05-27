@@ -9,7 +9,7 @@ import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
 import com.Deeakron.journey_mode.init.*;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;

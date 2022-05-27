@@ -3,7 +3,7 @@ package com.Deeakron.journey_mode.init;
 import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
