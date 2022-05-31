@@ -14,7 +14,7 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -216,7 +216,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
                 if (this.screen.list.reachCap(key)) {
 
                 } else {
-                    /*if(!minecraft.player.world.isRemote){*/minecraft.player.playNotifySound(JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.1F, 1.0F);//}
+                    /*if(!minecraft.player.world.isRemote){*/minecraft.player.playNotifySound(JMSounds.RESEARCH_GRIND.get(), SoundSource.BLOCKS, 0.1F, 1.0F);//}
                     int diff = this.screen.list.get(key)[1] - this.screen.list.get(key)[0];
                     if (count > diff) {
                         this.screen.serverContain.getItems().get(0).setCount(count - diff);

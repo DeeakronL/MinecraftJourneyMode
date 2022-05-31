@@ -11,7 +11,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.command.arguments.ItemArgument;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.item.Item;
 
 public class JMResearchCommand {
@@ -44,7 +44,7 @@ public class JMResearchCommand {
 
     static int grantResearch(CommandContext<CommandSource> commandContext) throws CommandSyntaxException {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
-        if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
+        if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
             int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
             int remaining = values[1];
@@ -59,7 +59,7 @@ public class JMResearchCommand {
 
     static int revokeResearch(CommandContext<CommandSource> commandContext){
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
-        if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
+        if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
             int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
             int progress = values[0];
@@ -75,7 +75,7 @@ public class JMResearchCommand {
     static int changeResearch(CommandContext<CommandSource> commandContext){
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         int count = IntegerArgumentType.getInteger(commandContext, "count");
-        if(commandContext.getSource().getEntity() instanceof ServerPlayerEntity){
+        if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
             int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
             if (count < 0){

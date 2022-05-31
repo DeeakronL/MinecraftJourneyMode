@@ -8,19 +8,19 @@ import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
@@ -50,7 +50,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
             }
 
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-                    if(!player.level.isClientSide){player.playNotifySound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+                    if(!player.level.isClientSide){player.playNotifySound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}
                 this.checkTakeAchievements(stack);
                 net.minecraftforge.common.ForgeHooks.setCraftingPlayer(thePlayer);
                 NonNullList<ItemStack> nonnulllist;
@@ -162,9 +162,9 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     }
 
 
-    public void updateCraftingResult(int id, World world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
+    public void updateCraftingResult(int id, Level world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
         if (!world.isClientSide) {
-            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
+            ServerPlayer serverplayerentity = (ServerPlayer) player;
             ItemStack itemstack = ItemStack.EMPTY;
             Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipeFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA, inventory, world);
 

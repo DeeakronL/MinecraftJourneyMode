@@ -5,7 +5,7 @@ import com.Deeakron.journey_mode.item.PaintBucketItem;
 import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -32,7 +32,7 @@ public class UnobtainItemInit {
             () -> new PaintBucketItem(new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
 
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
-            () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlotType.HEAD, (new Item.Properties()).tab(ItemGroup.TAB_COMBAT)));
+            () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlot.HEAD, (new Item.Properties()).tab(ItemGroup.TAB_COMBAT)));
 
     //Block Items
     public static final RegistryObject<BlockItem> UNOBTAINIUM_BLOCK = ITEMS.register("unobtainium_block",

@@ -9,8 +9,8 @@ import com.Deeakron.journey_mode.client.gui.JourneyModeDuplicationScreen;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameType;
@@ -49,8 +49,8 @@ public class MenuSwitchPacket {
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
         ServerWorld serverWorld = context.get().getSender().getLevel();
-        PlayerEntity player = (PlayerEntity) serverWorld.getEntity(info);
-        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+        Player player = (Player) serverWorld.getEntity(info);
+        ServerPlayer serverPlayer = (ServerPlayer) player;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
             Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
@@ -62,11 +62,11 @@ public class MenuSwitchPacket {
         }
         if (menuType.equals("powers")) {
             journey_mode.hasRecipes = unlockRecipes;
-            NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
+            NetworkHooks.openGui((ServerPlayer) player, new JourneyModePowersContainerProvider());
         } else if (menuType.equals("research")) {
             journey_mode.hasRecipes = unlockRecipes;
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
-            NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeResearchContainerProvider());
+            NetworkHooks.openGui((ServerPlayer) player, new JourneyModeResearchContainerProvider());
         } else if (menuType.equals("duplication")) {
             journey_mode.hasRecipes = unlockRecipes;
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
@@ -100,12 +100,12 @@ public class MenuSwitchPacket {
             }
             journey_mode.tempAdvance = achieved;
             journey_mode.tempCount = recipeCount;
-            NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModeRecipesContainerProvider());
+            NetworkHooks.openGui((ServerPlayer) player, new JourneyModeRecipesContainerProvider());
         }
     }
 
-    public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, PlayerEntity player) {
+    public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, Player player) {
 
-        Minecraft.getInstance().setScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayerEntity) player));
+        Minecraft.getInstance().setScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayer) player));
     }
 }

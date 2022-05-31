@@ -1146,7 +1146,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public final NonNullList<ItemStack> itemList = NonNullList.create();
         public ResearchList research;
 
-        public DuplicationContainer(PlayerEntity player, ResearchList research) {
+        public DuplicationContainer(Player player, ResearchList research) {
             super((ContainerType<?>) null, 0);
             PlayerInventory playerInventory = player.inventory;
             this.research = research;
@@ -1180,7 +1180,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         }
 
-        public boolean stillValid(PlayerEntity playerIn) {return true;}
+        public boolean stillValid(Player playerIn) {return true;}
 
         public void scrollTo(float pos) {
             int i = (this.itemList.size() + 18 - 1) / 9 - 5;
@@ -1234,7 +1234,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         public boolean canScroll() {return this.itemList.size() > 36;}
 
-        public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+        public ItemStack quickMoveStack(Player playerIn, int index) {
             if (index >= this.slots.size() - 45 && index < this.slots.size()) {
                 Slot slot = this.slots.get(index);
                 if (slot != null && slot.hasItem()) {
@@ -1288,7 +1288,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.slot = p_i229959_1_;
         }
 
-        public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
+        public ItemStack onTake(Player thePlayer, ItemStack stack) {
             return this.slot.onTake(thePlayer, stack);
         }
 
@@ -1313,7 +1313,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         public boolean isActive() {return this.slot.isActive(); }
 
-        public boolean mayPickup(PlayerEntity playerIn) { return this.slot.mayPickup(playerIn); }
+        public boolean mayPickup(Player playerIn) { return this.slot.mayPickup(playerIn); }
 
         @Override
         public int getSlotIndex() { return this.slot.getSlotIndex(); }
@@ -1339,7 +1339,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.remaining = count;
         }
 
-        public boolean mayPickup(PlayerEntity playerIn) {
+        public boolean mayPickup(Player playerIn) {
             if (super.mayPickup(playerIn) && this.hasItem()) {
                 return true;
             } else {

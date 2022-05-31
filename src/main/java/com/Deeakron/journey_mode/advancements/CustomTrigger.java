@@ -8,7 +8,7 @@ import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.resources.ResourceLocation;
 
@@ -55,7 +55,7 @@ public class CustomTrigger implements CriterionTrigger<CustomTrigger.Instance> {
         return new CustomTrigger.Instance(player, location);
     }
 
-    public void trigger(ServerPlayerEntity player) {
+    public void trigger(ServerPlayer player) {
         CustomTrigger.Listeners listeners = this.listeners.get(player.getAdvancements());
         if (listeners!= null) {
             listeners.trigger();

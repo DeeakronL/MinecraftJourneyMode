@@ -5,30 +5,30 @@ import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.client.event.ResearchEvent;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.server.management.PlayerList;
-import net.minecraft.state.DirectionProperty;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 import java.util.UUID;
 
@@ -41,11 +41,11 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
     protected static final VoxelShape BASE_SLOPE_EAST = Block.box(0.0D,1.0D,1.0D,15.0D,12.0D,16.0D);
     protected static final VoxelShape BASE_SLOPE_SOUTHWEST = Block.box(1.0D,1.0D,0.0D,16.0D,12.0D,15.0D);
     protected static final VoxelShape BASE_SLOPE_SOUTHEAST = Block.box(0.0D,1.0D,0.0D,15.0D,12.0D,15.0D);
-    protected static final VoxelShape BASE_SHAPE = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_WEST);
-    protected static final VoxelShape BASE_SHAPE_EAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_EAST);
-    protected static final VoxelShape BASE_SHAPE_SOUTHWEST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
-    protected static final VoxelShape BASE_SHAPE_SOUTHEAST = VoxelShapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
-    public static final DirectionProperty FACING = HorizontalBlock.FACING;
+    protected static final VoxelShape BASE_SHAPE = Shapes.or(BASE_SLAB, BASE_SLOPE_WEST);
+    protected static final VoxelShape BASE_SHAPE_EAST = Shapes.or(BASE_SLAB, BASE_SLOPE_EAST);
+    protected static final VoxelShape BASE_SHAPE_SOUTHWEST = Shapes.or(BASE_SLAB, BASE_SLOPE_SOUTHWEST);
+    protected static final VoxelShape BASE_SHAPE_SOUTHEAST = Shapes.or(BASE_SLAB, BASE_SLOPE_SOUTHEAST);
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     private final String type;
     private BlockPos pos1;
     private BlockPos pos2;
@@ -58,12 +58,12 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
         this.type = type;
     }
 
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
 
-    public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
+    public void stepOn(Level worldIn, BlockPos pos, BlockState state, Entity entityIn) {
         if(entityIn instanceof LivingEntity) {
             float damage = 1.0F;
             if (type == "wood") {
@@ -78,14 +78,14 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
         if(entityIn instanceof ItemEntity){
             UUID id = ((ItemEntity) entityIn).getThrower();
             PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
-            ServerPlayerEntity player = players.getPlayer(id);
+            ServerPlayer player = players.getPlayer(id);
             MinecraftForge.EVENT_BUS.post(new ResearchEvent((ItemEntity) entityIn, player));
-            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
-            entityIn.remove();
+            worldIn.playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundSource.BLOCKS, 0.10f, 1.0f);
+            entityIn.remove(Entity.RemovalReason.DISCARDED);
 
 
         }
-        super.stepOn(worldIn, pos, entityIn);
+        super.stepOn(worldIn, pos, state, entityIn);
     }
 
     public PushReaction getPistonPushReaction(BlockState state){
@@ -94,11 +94,11 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
 
 
 
-    public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, BlockPathTypes type) {
         return false;
     }
 
-    public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void playerWillDestroy(Level worldIn, BlockPos pos, BlockState state, Player player) {
         BlockPos pos1 = null;
         BlockPos pos2 = null;
         BlockPos pos3 = null;
@@ -199,7 +199,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
         this.pos3 = pos3;
     }
 
-    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockPos pos1 = null;
         BlockPos pos2 = null;
         BlockPos pos3 = null;
@@ -293,7 +293,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
         this.pos3 = pos3;
     }
 
-    public ItemStack getCloneItemStack(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         if (type == "wood"){
             return new ItemStack(ItemInit.WOODEN_RESEARCH_GRINDER.get());
         } else if (type == "iron"){
@@ -305,7 +305,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
     }
 
 
-    public VoxelShape getOcclusionShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    public VoxelShape getOcclusionShape(BlockState state, BlockGetter worldIn, BlockPos pos) {
         switch (part) {
             case 0:
                 switch (state.getValue(FACING)) {
@@ -333,7 +333,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
         return null;
     }
 
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         switch (part) {
             case 0:
                 switch (state.getValue(FACING)) {
@@ -361,7 +361,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
         return null;
     }
 
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         switch (part) {
             case 0:
                 switch (state.getValue(FACING)) {
@@ -390,7 +390,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public VoxelShape getVisualShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getVisualShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
         switch (part) {
             case 0:
                 switch (state.getValue(FACING)) {
@@ -431,7 +431,7 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+    public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
         BlockPos pos1 = null;
 
         switch (part) {
@@ -484,10 +484,10 @@ public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
                 }
                 break;
         }
-        return world.getBlockState(pos1).getLightValue(world, pos1);
+        return world.getBlockState(pos1).getLightEmission(world, pos1);
     }
 
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 

@@ -6,19 +6,19 @@ import com.Deeakron.journey_mode.block.InertStructureBlock;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.block.DirectionalBlock;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.StructureMode;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.StructureMode;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.gen.feature.jigsaw.JigsawOrientation;
+import net.minecraft.core.FrontAndTop;
 
 import net.minecraft.world.item.Item.Properties;
 
@@ -33,7 +33,7 @@ public class AetherialVoidDustItem extends Item {
         resultFlag = false;
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        PlayerEntity player = context.getPlayer();
+        Player player = context.getPlayer();
         if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.COMMAND_BLOCK)) {
             Direction facing = world.getBlockState(pos).getValue(DirectionalBlock.FACING);
             Boolean conditional = world.getBlockState(pos).getValue(BlockStateProperties.CONDITIONAL);
@@ -50,7 +50,7 @@ public class AetherialVoidDustItem extends Item {
             world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get().defaultBlockState().setValue(InertCommandBlock.FACING, facing).setValue(InertCommandBlock.CONDITIONAL, conditional));
             resultFlag = true;
         } else if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.JIGSAW)) {
-            JigsawOrientation orientation = world.getBlockState(pos).getValue(BlockStateProperties.ORIENTATION);
+            FrontAndTop orientation = world.getBlockState(pos).getValue(BlockStateProperties.ORIENTATION);
             world.setBlockAndUpdate(pos, UnobtainBlockInit.INERT_JIGSAW_BLOCK.get().defaultBlockState().setValue(InertJigsawBlock.ORIENTATION, orientation));
             resultFlag = true;
         } else if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.STRUCTURE_BLOCK)) {
@@ -60,7 +60,7 @@ public class AetherialVoidDustItem extends Item {
         }
 
         if (resultFlag) {
-            if(!world.isClientSide){player.playNotifySound(JMSounds.AETHERIAL_DEACTIVATE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+            if(!world.isClientSide){player.playNotifySound(JMSounds.AETHERIAL_DEACTIVATE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}
             for (int i = 0; i < 50; i++) {
                 double d0 = 3.0D;
                 double d1 = 1.0D;

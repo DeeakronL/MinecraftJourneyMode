@@ -7,8 +7,8 @@ import com.Deeakron.journey_mode.client.event.MenuOpenEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameRules;
@@ -67,7 +67,7 @@ public class GameStatePacket {
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
         ServerWorld serverWorld = context.get().getSender().getLevel();
-        PlayerEntity player = (PlayerEntity) serverWorld.getEntity(info);
+        Player player = (Player) serverWorld.getEntity(info);
         this.freeze = !serverWorld.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
         this.tickSpeed = serverWorld.getGameRules().getInt(GameRules.RULE_RANDOMTICKING)/3;
         this.mobSpawn = !serverWorld.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
@@ -83,14 +83,14 @@ public class GameStatePacket {
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
             Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+            ServerPlayer serverPlayer = (ServerPlayer) player;
 
             if (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone()) {
                 unlockRecipes = true;
             }
         }
         journey_mode.hasRecipes = unlockRecipes;
-        NetworkHooks.openGui((ServerPlayerEntity) player, new JourneyModePowersContainerProvider());
+        NetworkHooks.openGui((ServerPlayer) player, new JourneyModePowersContainerProvider());
         context.get().setPacketHandled(true);
     }
 

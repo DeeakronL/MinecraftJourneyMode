@@ -12,19 +12,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.level.Level;
@@ -93,15 +93,15 @@ public class EventHandler {
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
         Entity source = event.getSource().getDirectEntity();
-        PlayerEntity player = null;
-        if (source instanceof  PlayerEntity) {
-            player = (PlayerEntity) source;
+        Player player = null;
+        if (source instanceof  Player) {
+            player = (Player) source;
         }
 
         if (source instanceof ProjectileEntity) {
             try{
-                if (((ProjectileEntity) source).getOwner().getEntity() instanceof PlayerEntity) {
-                    player = (PlayerEntity) ((ProjectileEntity) source).getOwner().getEntity();
+                if (((ProjectileEntity) source).getOwner().getEntity() instanceof Player) {
+                    player = (Player) ((ProjectileEntity) source).getOwner().getEntity();
                 }
             } catch (NullPointerException e) {
                 //for instances where the shooter is dead before the projectile kills
@@ -110,13 +110,13 @@ public class EventHandler {
         }
 
         if (source instanceof WolfEntity) {
-            if (((WolfEntity) source).getOwner() instanceof PlayerEntity) {
-                player = (PlayerEntity) ((WolfEntity) source).getOwner();
+            if (((WolfEntity) source).getOwner() instanceof Player) {
+                player = (Player) ((WolfEntity) source).getOwner();
             }
         }
 
-        if (player instanceof PlayerEntity){
-            ItemStack helmet = player.getItemBySlot(EquipmentSlotType.HEAD);
+        if (player instanceof Player){
+            ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getEntity().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
                 String item = "\"" + SpawnEggItem.byId(event.getEntity().getType()).getItem().getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -133,8 +133,8 @@ public class EventHandler {
     @SubscribeEvent
     public static void onBabyEntitySpawnEvent(BabyEntitySpawnEvent event){
         if (event.getCausedByPlayer() != null) {
-            PlayerEntity player = event.getCausedByPlayer();
-            ItemStack helmet = player.getItemBySlot(EquipmentSlotType.HEAD);
+            Player player = event.getCausedByPlayer();
+            ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getChild().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
                 String item = "\"" + SpawnEggItem.byId(event.getChild().getType()).getItem().getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -150,8 +150,8 @@ public class EventHandler {
     @SubscribeEvent
     public static void onParrotTameEvent(AnimalTameEvent event) {
         if (event.getAnimal().getType() == EntityType.PARROT) {
-            PlayerEntity player = event.getTamer();
-            ItemStack helmet = player.getItemBySlot(EquipmentSlotType.HEAD);
+            Player player = event.getTamer();
+            ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getAnimal().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
                 String item = "\"" + SpawnEggItem.byId(event.getAnimal().getType()).getItem().getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -166,10 +166,10 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
-        if (event.getEntity() instanceof  ServerPlayerEntity){
+        if (event.getEntity() instanceof  ServerPlayer){
             if (true){
-                PlayerEntity original = event.getOriginal();
-                PlayerEntity newer = event.getPlayer();
+                Player original = event.getOriginal();
+                Player newer = event.getPlayer();
                 EntityJourneyMode cap = original.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap2.setJourneyMode(cap.getJourneyMode());
@@ -213,7 +213,7 @@ public class EventHandler {
     public static void openMenu(final InputEvent.KeyInputEvent event) {
 
         if (journey_mode.keyBindings[0].consumeClick()) {
-            PlayerEntity player = Minecraft.getInstance().player;
+            Player player = Minecraft.getInstance().player;
             JMCheckPacket packet = new JMCheckPacket(player.getUUID().toString(), false);
             INSTANCE.sendToServer(packet);
         }
@@ -237,20 +237,20 @@ public class EventHandler {
         if (event.getEntity() instanceof LivingEntity) {
             if (event.getSource() == JMDamageSources.RESEARCH_GRINDER) {
                 BlockPos pos = event.getEntity().blockPosition();
-                event.getEntity().getCommandSenderWorld().playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundCategory.BLOCKS, 0.10f, 1.0f);
+                event.getEntity().getCommandSenderWorld().playSound(null, pos, JMSounds.RESEARCH_GRIND.get(), SoundSource.BLOCKS, 0.10f, 1.0f);
             }
         }
     }
 
     @SubscribeEvent
     public static void onAdvancementEvent(AdvancementEvent event) {
-        ServerPlayerEntity player = event.getPlayer().getServer().getPlayerList().getPlayer(event.getPlayer().getUUID());
+        ServerPlayer player = event.getPlayer().getServer().getPlayerList().getPlayer(event.getPlayer().getUUID());
         MinecraftServer server = event.getPlayer().getServer();
         Advancement advancement = server.getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/villager_traded"));
         Advancement advancement2 = server.getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/dolphin_fed"));
         if (advancement != null) {
             if (event.getAdvancement().getId() == advancement.getId()) {
-                ItemStack helmet = player.getItemBySlot(EquipmentSlotType.HEAD);
+                ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
                 AdvancementProgress advancementprogress = player.getAdvancements().getOrStartProgress(advancement);
                 if (!advancementprogress.hasProgress()) {
 
@@ -280,7 +280,7 @@ public class EventHandler {
         }
         if (advancement2 != null) {
             if (event.getAdvancement().getId() == advancement2.getId()) {
-                ItemStack helmet = player.getItemBySlot(EquipmentSlotType.HEAD);
+                ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
                 AdvancementProgress advancementprogress = player.getAdvancements().getOrStartProgress(advancement2);
                 if (!advancementprogress.hasProgress()) {
 
@@ -330,8 +330,8 @@ public class EventHandler {
     @SubscribeEvent
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
         try{
-            if (event.player.getItemBySlot(EquipmentSlotType.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()) {
-                World world = event.player.level;
+            if (event.player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()) {
+                Level world = event.player.level;
                 BlockPos pos = event.player.blockPosition();
                 for (int i = -5; i < 6; i++) {
                     for (int j = -5; j < 6; j++) {

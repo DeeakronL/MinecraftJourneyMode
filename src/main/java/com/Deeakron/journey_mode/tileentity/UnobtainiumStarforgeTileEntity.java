@@ -7,7 +7,7 @@ import com.Deeakron.journey_mode.data.StarforgeRecipe;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMTileEntityTypes;
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
@@ -29,7 +29,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
@@ -193,7 +193,7 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements Ticka
         return null;
     };
 
-    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn, World world) {
+    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn, Level world) {
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
@@ -203,7 +203,7 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements Ticka
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
-    public static Set<ItemStack> getAllRecipeInputs(IRecipeType<?> typeIn, World worldIn) {
+    public static Set<ItemStack> getAllRecipeInputs(IRecipeType<?> typeIn, Level worldIn) {
         Set<ItemStack> inputs = new HashSet<ItemStack>();
         Set<IRecipe<?>> recipes = findRecipesByType(typeIn, worldIn);
         for (IRecipe<?> recipe : recipes) {

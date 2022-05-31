@@ -12,7 +12,7 @@ import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;

@@ -8,8 +8,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 import net.minecraft.world.item.Item.Properties;
@@ -24,7 +24,7 @@ public class PaintBucketItem extends Item {
         BlockPos pos = context.getClickedPos();
         if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.BARRIER)) {
             world.setBlockAndUpdate(pos, UnobtainBlockInit.PAINTED_BARRIER.get().defaultBlockState());
-            if(!world.isClientSide){context.getPlayer().playNotifySound(JMSounds.BARRIER_PAINT.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);}
+            if(!world.isClientSide){context.getPlayer().playNotifySound(JMSounds.BARRIER_PAINT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}
             for (int i = 0; i < 50; i++) {
                 double d0 = 3.0D;
                 double d1 = 1.0D;

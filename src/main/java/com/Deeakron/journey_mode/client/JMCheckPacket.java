@@ -4,7 +4,7 @@ import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -42,7 +42,7 @@ public class JMCheckPacket {
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
         ServerWorld serverWorld = context.get().getSender().getLevel();
-        PlayerEntity player = (PlayerEntity) serverWorld.getEntity(info);
+        Player player = (Player) serverWorld.getEntity(info);
         this.result = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode();
         context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
         context.get().setPacketHandled(true);
