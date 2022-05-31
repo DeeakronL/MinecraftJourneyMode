@@ -6,7 +6,7 @@ import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
 import com.Deeakron.journey_mode.item.ScannerItem;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fmllegacy.RegistryObject;

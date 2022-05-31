@@ -1,11 +1,11 @@
 package com.Deeakron.journey_mode.block;
 
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
-import net.minecraft.block.*;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,19 +28,18 @@ public class PaintedBarrierBlock extends Block {
     }
 
 
-
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, Level worldIn, BlockPos pos, Random random) {
         List<? extends Player> players = worldIn.players();
-        for (PlayerEntity player :players) {
-            if (player.getItemBySlot(EquipmentSlotType.MAINHAND).getItem() instanceof BlockItem) {
-                if (((BlockItem) player.getItemBySlot(EquipmentSlotType.MAINHAND).getItem()).getBlock() == Blocks.BARRIER){
+        for (Player player :players) {
+            if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof BlockItem) {
+                if (((BlockItem) player.getItemBySlot(EquipmentSlot.MAINHAND).getItem()).getBlock() == Blocks.BARRIER){
                     int i = pos.getX();
                     int j = pos.getY();
                     int k = pos.getZ();
                     worldIn.addParticle(ParticleTypes.BARRIER, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
                 }
-            } else if (player.getItemBySlot(EquipmentSlotType.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()){
+            } else if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()){
                 int i = pos.getX();
                 int j = pos.getY();
                 int k = pos.getZ();

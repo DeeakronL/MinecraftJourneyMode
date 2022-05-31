@@ -1,12 +1,12 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.block.*;
-import net.minecraft.block.AbstractBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -28,7 +28,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> UNOBTAINIUM_BLOCK = BLOCKS
             .register("unobtainium_block",
-                    () -> new Block(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.NETHERITE_BLOCK)
@@ -36,7 +36,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> RAW_UNOBTAINIUM_BLOCK = BLOCKS
             .register("raw_unobtainium_block",
-                    () -> new Block(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.ANCIENT_DEBRIS)
@@ -44,7 +44,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> UNOBTAINIUM_ANTIKYTHERA = BLOCKS
             .register("unobtainium_antikythera",
-                    () -> new UnobtainiumAntikytheraBlock(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new UnobtainiumAntikytheraBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.LODESTONE)
@@ -52,7 +52,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> UNOBTAINIUM_STARFORGE = BLOCKS
             .register("unobtainium_starforge",
-                    () -> new UnobtainiumStarforgeBlock(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new UnobtainiumStarforgeBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.LODESTONE)
@@ -61,7 +61,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> CRACKED_BEDROCK = BLOCKS
             .register("cracked_bedrock",
-                    () -> new Block(AbstractBlock.Properties.of(Material.STONE)
+                    () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.STONE)
@@ -69,7 +69,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_COMMAND_BLOCK = BLOCKS
             .register("inert_command_block",
-                    () -> new InertCommandBlock(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new InertCommandBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.METAL)
@@ -77,7 +77,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_CHAIN_COMMAND_BLOCK = BLOCKS
             .register("inert_chain_command_block",
-                    () -> new InertCommandBlock(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new InertCommandBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.METAL)
@@ -85,7 +85,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_REPEATING_COMMAND_BLOCK = BLOCKS
             .register("inert_repeating_command_block",
-                    () -> new InertCommandBlock(AbstractBlock.Properties.of(Material.METAL)
+                    () -> new InertCommandBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.METAL)
@@ -93,7 +93,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_STRUCTURE_BLOCK = BLOCKS
             .register("inert_structure_block",
-                    () -> new InertStructureBlock(AbstractBlock.Properties.of(Material.STONE)
+                    () -> new InertStructureBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.STONE)
@@ -101,7 +101,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> INERT_JIGSAW_BLOCK = BLOCKS
             .register("inert_jigsaw_block",
-                    () -> new InertJigsawBlock(AbstractBlock.Properties.of(Material.STONE)
+                    () -> new InertJigsawBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.STONE)
@@ -109,7 +109,7 @@ public class UnobtainBlockInit {
 
     public static final RegistryObject<Block> PAINTED_BARRIER = BLOCKS
             .register("painted_barrier",
-                    () -> new PaintedBarrierBlock(AbstractBlock.Properties.of(Material.BARRIER)
+                    () -> new PaintedBarrierBlock(BlockBehaviour.Properties.of(Material.BARRIER)
                             .strength(50f, 1200f)
                             .harvestTool(ToolType.PICKAXE).harvestLevel(4)
                             .sound(SoundType.LODESTONE)
