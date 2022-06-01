@@ -33,19 +33,59 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
 
     @Override
     public CompoundTag serializeNBT() {
-        if(INSTANCE == null) {
-            return new CompoundTag();
-
-        } else {
-            return (CompoundTag) INSTANCE.writeNBT(jm, null);
+        CompoundTag tag = new CompoundTag();
+        tag.putBoolean("mode", jm.getJourneyMode());
+        jm.getResearchList().getList().forEach((k,v) -> tag.putInt(k, v[0]));
+        tag.putBoolean("godMode", jm.getGodMode());
+        if(jm.getPlayer() != null){
+            tag.putUUID("player", jm.getPlayer());
         }
+
+        return tag;
     }
 
+
+    // using jm instead of instance may cause issues, if there are problems check there
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        if(INSTANCE != null) {
-            INSTANCE.readNBT(jm, null, nbt);
+        boolean mode = nbt.getBoolean("mode");
+        jm.setJourneyMode(mode);
+        String[] items = journey_mode.list.getItems();
+        String[][] replacements;
+        int[] counts = new int[items.length];
+        for (int i = 0; i < items.length; i++) {
+            if (journey_mode.doReplace) {
+                boolean wasReplaced = false;
+                for (int j = 0; j < journey_mode.replacementList.getReplacements().length; j++) {
+                    if (items[i].equals(journey_mode.replacementList.getReplacements()[j])) {
+                        wasReplaced = true;
+                        int newCount = nbt.getInt(journey_mode.replacementList.getOriginals()[j]);
+                        if (newCount == 0) {
+                            newCount = nbt.getInt(items[i]);
+                        }
+                        counts[i] = newCount;
+                        break;
+                    }
+                }
+                if (!wasReplaced) {
+                    counts[i] = nbt.getInt(items[i]);
+                }
+            } else {
+                counts[i] = nbt.getInt(items[i]);
+            }
         }
+        jm.updateResearch(items, counts, true, null);
+        boolean godMode = nbt.getBoolean("godMode");
+        try {
+            UUID player = nbt.getUUID("player");
+            if(player != null){
+                jm.setPlayer(player);
+                jm.setGodMode(godMode);
+            }
+        } catch (NullPointerException e) {
+
+        }
+
     }
 
     @Nonnull
