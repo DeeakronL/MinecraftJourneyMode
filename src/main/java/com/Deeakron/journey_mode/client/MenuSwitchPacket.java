@@ -14,11 +14,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameType;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -48,8 +48,8 @@ public class MenuSwitchPacket {
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerWorld serverWorld = context.get().getSender().getLevel();
-        Player player = (Player) serverWorld.getEntity(info);
+        ServerLevel ServerLevel = context.get().getSender().getLevel();
+        Player player = (Player) ServerLevel.getEntity(info);
         ServerPlayer serverPlayer = (ServerPlayer) player;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {

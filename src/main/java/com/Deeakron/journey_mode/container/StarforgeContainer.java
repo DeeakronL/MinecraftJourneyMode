@@ -2,7 +2,7 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
-import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
+import com.Deeakron.journey_mode.BlockEntity.UnobtainiumStarforgeBlockEntity;
 import com.Deeakron.journey_mode.util.FunctionalIntReferenceHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,15 +21,15 @@ import java.util.Objects;
 
 public class StarforgeContainer extends AbstractContainerMenu {
 
-    private UnobtainiumStarforgeTileEntity tileEntity;
+    private UnobtainiumStarforgeBlockEntity BlockEntity;
     private ContainerLevelAccess canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
     public FunctionalIntReferenceHolder currentFuelTime;
 
-    public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
+    public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeBlockEntity tile) {
         super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
         this.canInteractWithCallable = ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos());
-        this.tileEntity = tile;
+        this.BlockEntity = tile;
         final int slotSizePlus2 = 18;
         final int startX = 8;
 
@@ -52,22 +52,22 @@ public class StarforgeContainer extends AbstractContainerMenu {
         // Starforge Fuel
         this.addSlot(new StarforgeFuelSlot(tile.getInventory(),2, 56, 53));
 
-        this.addDataSlot(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentSmeltTime, value -> this.tileEntity.currentSmeltTime = value));
-        this.addDataSlot(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentFuelTime, value -> this.tileEntity.currentFuelTime = value));
+        this.addDataSlot(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.BlockEntity.currentSmeltTime, value -> this.BlockEntity.currentSmeltTime = value));
+        this.addDataSlot(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.BlockEntity.currentFuelTime, value -> this.BlockEntity.currentFuelTime = value));
     }
 
     public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final PacketBuffer data) {
-        this(windowID, playerInv, getTileEntity(playerInv, data));
+        this(windowID, playerInv, getBlockEntity(playerInv, data));
     }
 
-    private static UnobtainiumStarforgeTileEntity getTileEntity(final PlayerInventory playerInv, final PacketBuffer data) {
+    private static UnobtainiumStarforgeBlockEntity getBlockEntity(final PlayerInventory playerInv, final PacketBuffer data) {
         Objects.requireNonNull(playerInv, "plyerInv cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
-        final TileEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof UnobtainiumStarforgeTileEntity) {
-            return (UnobtainiumStarforgeTileEntity) tileAtPos;
+        final BlockEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());
+        if (tileAtPos instanceof UnobtainiumStarforgeBlockEntity) {
+            return (UnobtainiumStarforgeBlockEntity) tileAtPos;
         }
-        throw new IllegalStateException("TileEntity is not correct " + tileAtPos);
+        throw new IllegalStateException("BlockEntity is not correct " + tileAtPos);
     }
 
     @Override
@@ -88,11 +88,11 @@ public class StarforgeContainer extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
             } else if (index != 38 && index != 36) {
-                if (this.tileEntity.getRecipe(itemstack1) != null) {
+                if (this.BlockEntity.getRecipe(itemstack1) != null) {
                     if (!this.moveItemStackTo(itemstack1, 36, 37, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (this.tileEntity.getInventory().isItemValid(38, itemstack1)) {
+                } else if (this.BlockEntity.getInventory().isItemValid(38, itemstack1)) {
                     if (!this.moveItemStackTo(itemstack1, 38, 39, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -125,11 +125,11 @@ public class StarforgeContainer extends AbstractContainerMenu {
 
     @OnlyIn(Dist.CLIENT)
     public int getSmeltProgressionScaled() {
-        return this.currentSmeltTime.get() != 0 && this.tileEntity.maxSmeltTime != 0 ? this.currentSmeltTime.get() * 24 / this.tileEntity.maxSmeltTime : 0;
+        return this.currentSmeltTime.get() != 0 && this.BlockEntity.maxSmeltTime != 0 ? this.currentSmeltTime.get() * 24 / this.BlockEntity.maxSmeltTime : 0;
     }
 
     @OnlyIn(Dist.CLIENT)
     public int getFuelUsageScaled() {
-        return this.currentFuelTime.get() != 0 && this.tileEntity.maxFuelTime != 0 ? this.currentFuelTime.get() * 12 / this.tileEntity.maxFuelTime : 0;
+        return this.currentFuelTime.get() != 0 && this.BlockEntity.maxFuelTime != 0 ? this.currentFuelTime.get() * 12 / this.BlockEntity.maxFuelTime : 0;
     }
 }

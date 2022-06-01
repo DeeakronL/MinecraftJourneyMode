@@ -128,7 +128,7 @@ public class journey_mode
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
             JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
-            JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
+            JMBlockEntityTypes.TILE_ENTITY_TYPES.register(bus);
         } else {
             this.useUnobtain = false;
         }

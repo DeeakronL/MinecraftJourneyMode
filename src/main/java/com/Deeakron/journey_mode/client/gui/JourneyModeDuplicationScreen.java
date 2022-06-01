@@ -30,7 +30,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.inventory.container.ClickType;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;

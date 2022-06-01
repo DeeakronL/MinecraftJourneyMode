@@ -9,7 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -34,9 +34,9 @@ public class CommandPacket {
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         String command = data;
-        ServerWorld serverWorld = context.get().getSender().getLevel();
+        ServerLevel ServerLevel = context.get().getSender().getLevel();
         MinecraftServer server = context.get().getSender().getServer();
-        CommandSource source = new CommandSource(ICommandSource.NULL, Vector3d.atCenterOf(context.get().getSender().blockPosition()), Vector2f.ZERO, (ServerWorld) serverWorld, 2, context.get().getSender().getName().getString(), context.get().getSender().getName(), server, (Entity) null);
+        CommandSource source = new CommandSource(ICommandSource.NULL, Vector3d.atCenterOf(context.get().getSender().blockPosition()), Vector2f.ZERO, (ServerLevel) ServerLevel, 2, context.get().getSender().getName().getString(), context.get().getSender().getName(), server, (Entity) null);
         if (command.equals("dawn")) {
             server.getCommands().performCommand(source, "time set day");
         } else if (command.equals("noon")) {

@@ -1,11 +1,11 @@
-package com.Deeakron.journey_mode.tileentity;
+package com.Deeakron.journey_mode.BlockEntity;
 
 import com.Deeakron.journey_mode.block.UnobtainiumStarforgeBlock;
 import com.Deeakron.journey_mode.container.StarforgeContainer;
 import com.Deeakron.journey_mode.container.StarforgeItemHandler;
 import com.Deeakron.journey_mode.data.StarforgeRecipe;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
-import com.Deeakron.journey_mode.init.JMTileEntityTypes;
+import com.Deeakron.journey_mode.init.JMBlockEntityTypes;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
@@ -21,7 +21,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.network.play.server.SUpdateBlockEntityPacket;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -45,7 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UnobtainiumStarforgeTileEntity extends BlockEntity implements TickableBlockEntity, MenuProvider {
+public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements TickableBlockEntity, MenuProvider {
 
     private Component customName;
     public int currentSmeltTime = 0;
@@ -54,14 +54,14 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements Ticka
     public int currentFuelTime = 0;
     public final int maxFuelTime = 801;
 
-    public UnobtainiumStarforgeTileEntity(BlockEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public UnobtainiumStarforgeBlockEntity(BlockEntityType<?> BlockEntityTypeIn) {
+        super(BlockEntityTypeIn);
 
         this.inventory = new StarforgeItemHandler(3);
     }
 
-    public UnobtainiumStarforgeTileEntity() {
-        this(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get());
+    public UnobtainiumStarforgeBlockEntity() {
+        this(JMBlockEntityTypes.UNOBTAINIUM_STARFORGE.get());
     }
 
     @Nullable
@@ -223,14 +223,14 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements Ticka
 
     @Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
+    public SUpdateBlockEntityPacket getUpdatePacket() {
         CompoundNBT nbt = new CompoundNBT();
         this.save(nbt);
-        return new SUpdateTileEntityPacket(this.worldPosition, 0, nbt);
+        return new SUpdateBlockEntityPacket(this.worldPosition, 0, nbt);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+    public void onDataPacket(NetworkManager net, SUpdateBlockEntityPacket pkt) {
         this.load(this.getBlockState(), pkt.getTag());
     }
 

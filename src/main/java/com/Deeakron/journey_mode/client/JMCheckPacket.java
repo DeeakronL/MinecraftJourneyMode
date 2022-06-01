@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
@@ -41,8 +41,8 @@ public class JMCheckPacket {
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerWorld serverWorld = context.get().getSender().getLevel();
-        Player player = (Player) serverWorld.getEntity(info);
+        ServerLevel ServerLevel = context.get().getSender().getLevel();
+        Player player = (Player) ServerLevel.getEntity(info);
         this.result = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode();
         context.get().enqueueWork(() -> DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleOnClient(this)));
         context.get().setPacketHandled(true);

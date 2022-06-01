@@ -16,7 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.ProjecBlockEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
@@ -98,10 +98,10 @@ public class EventHandler {
             player = (Player) source;
         }
 
-        if (source instanceof ProjectileEntity) {
+        if (source instanceof ProjecBlockEntity) {
             try{
-                if (((ProjectileEntity) source).getOwner().getEntity() instanceof Player) {
-                    player = (Player) ((ProjectileEntity) source).getOwner().getEntity();
+                if (((ProjecBlockEntity) source).getOwner().getEntity() instanceof Player) {
+                    player = (Player) ((ProjecBlockEntity) source).getOwner().getEntity();
                 }
             } catch (NullPointerException e) {
                 //for instances where the shooter is dead before the projectile kills

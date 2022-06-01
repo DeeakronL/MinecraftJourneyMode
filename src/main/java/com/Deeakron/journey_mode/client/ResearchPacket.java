@@ -5,7 +5,7 @@ import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.UUID;
@@ -44,8 +44,8 @@ public class ResearchPacket {
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(player);
-        ServerWorld serverWorld = context.get().getSender().getLevel();
-        Player playerEntity = (Player) serverWorld.getEntity(info);
+        ServerLevel ServerLevel = context.get().getSender().getLevel();
+        Player playerEntity = (Player) ServerLevel.getEntity(info);
         EntityJourneyMode cap = playerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
         cap.updateResearch(new String[]{item}, new int[]{count}, false, info, itemStack);
     }

@@ -35,10 +35,10 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     private long lastOnTake;
 
     public UnobtainiumAntikytheraContainer(int id, Inventory playerInventory) {
-        this(id, playerInventory, IWorldPosCallable.NULL);
+        this(id, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, final IWorldPosCallable p_i50090_3_) {
+    public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, final ContainerLevelAccess p_i50090_3_) {
         super(JMContainerTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
         this.worldPosCallable = p_i50090_3_;
         this.player = playerInventory.player;

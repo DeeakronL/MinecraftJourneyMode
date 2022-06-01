@@ -38,8 +38,8 @@ public class PrimordialVoidDustItem extends Item {
                 world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.BEDROCK.defaultBlockState()), d6, d7, d8, d2, d3, d4);
             }
             context.getItemInHand().shrink(1);
-            return ActionResultType.sidedSuccess(world.isClientSide);
+            return InteractionResult.sidedSuccess(world.isClientSide);
         }
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 }

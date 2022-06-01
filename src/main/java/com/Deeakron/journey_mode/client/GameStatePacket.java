@@ -12,11 +12,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -66,14 +66,14 @@ public class GameStatePacket {
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerWorld serverWorld = context.get().getSender().getLevel();
-        Player player = (Player) serverWorld.getEntity(info);
-        this.freeze = !serverWorld.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
-        this.tickSpeed = serverWorld.getGameRules().getInt(GameRules.RULE_RANDOMTICKING)/3;
-        this.mobSpawn = !serverWorld.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
-        this.mobGrief = !serverWorld.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        ServerLevel ServerLevel = context.get().getSender().getLevel();
+        Player player = (Player) ServerLevel.getEntity(info);
+        this.freeze = !ServerLevel.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
+        this.tickSpeed = ServerLevel.getGameRules().getInt(GameRules.RULE_RANDOMTICKING)/3;
+        this.mobSpawn = !ServerLevel.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
+        this.mobGrief = !ServerLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
         this.godMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
-        this.keepInv = serverWorld.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
+        this.keepInv = ServerLevel.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
         journey_mode.freeze = this.freeze;
         journey_mode.tickSpeed = this.tickSpeed;
         journey_mode.mobSpawn = this.mobSpawn;
