@@ -5,10 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.core.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
@@ -19,8 +16,8 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
     private final EntityJourneyMode jm = new EntityJourneyMode();
     private final LazyOptional<EntityJourneyMode> implContainer;
     private final LazyOptional<IEntityJourneyMode> jMOptional = LazyOptional.of(() -> jm);
-    @CapabilityInject(IEntityJourneyMode.class)
-    public static final Capability<EntityJourneyMode> INSTANCE = null;
+
+    public static final Capability<EntityJourneyMode> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {});
 
     public void invalidate() {
         jMOptional.invalidate();
@@ -57,10 +54,11 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
         return jMOptional.cast();
     }
 
-    public static void register() {
-        CapabilityManager.INSTANCE.register(IEntityJourneyMode.class, new Storage(), EntityJourneyMode::new);
+    public static void register(RegisterCapabilitiesEvent event) {
+        event.register(IEntityJourneyMode.class);
     }
 
+    /* No longer necessary?
     public static class Storage implements  Capability.IStorage<IEntityJourneyMode> {
 
         @Nullable
@@ -118,5 +116,5 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
             }
 
         }
-    }
+    }*/
 }

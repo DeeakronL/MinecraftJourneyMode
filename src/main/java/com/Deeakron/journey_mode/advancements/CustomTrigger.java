@@ -6,7 +6,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.server.PlayerAdvancements;
-import net.minecraft.advancements.criterion.CriterionInstance;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.advancements.critereon.DeserializationContext;
@@ -62,8 +62,8 @@ public class CustomTrigger implements CriterionTrigger<CustomTrigger.Instance> {
         }
     }
 
-    public static class Instance extends CriterionInstance {
-        public Instance(EntityPredicate.AndPredicate player, ResourceLocation location){
+    public static class Instance extends AbstractCriterionTriggerInstance {
+        public Instance(EntityPredicate.Composite player, ResourceLocation location){
             super(location, player);
         }
 
