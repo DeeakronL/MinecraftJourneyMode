@@ -6,13 +6,13 @@ import com.Deeakron.journey_mode.client.event.EventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -53,7 +53,7 @@ public class JMCheckPacket {
         Boolean result = msg.getResult();
         if (result) {
             int window = Minecraft.getInstance().player.containerMenu.containerId;
-            ITextComponent title = new StringTextComponent("Journey Mode Menu");
+            Component title = new TextComponent("Journey Mode Menu");
             EventHandler.INSTANCE.sendToServer(new GameStatePacket(this.data, false, 1, false, false, false, false));
         }
     }

@@ -15,7 +15,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -244,7 +244,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         public boolean pressed = false;
 
         protected Button(int x, int y) {
-            super(x, y, 59, 21, StringTextComponent.EMPTY);
+            super(x, y, 59, 21, TextComponent.EMPTY);
         }
 
         public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -275,7 +275,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
 
-        protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
+        protected Tab(int x, int y) { super(x, y, 32, 28, TextComponent.EMPTY);}
 
         public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
             Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
@@ -300,7 +300,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         public JourneyModeRecipesScreen screen;
 
         protected ArrowButton(int x, int y, boolean isRight, JourneyModeRecipesScreen screen) {
-            super(x, y, 18, 18, StringTextComponent.EMPTY);
+            super(x, y, 18, 18, TextComponent.EMPTY);
             this.isRight = isRight;
             this.screen = screen;
         }

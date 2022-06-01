@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -110,7 +110,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
         public boolean pressed = false;
 
         protected Button(int x, int y) {
-            super(x, y, 59, 21, StringTextComponent.EMPTY);
+            super(x, y, 59, 21, TextComponent.EMPTY);
         }
 
         public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -141,7 +141,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
 
-        protected Tab(int x, int y) { super(x, y, 32, 28, StringTextComponent.EMPTY);}
+        protected Tab(int x, int y) { super(x, y, 32, 28, TextComponent.EMPTY);}
 
         public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
             Minecraft.getInstance().getTextureManager().bind(JourneyModeResearchScreen.BACKGROUND_TEXTURE);

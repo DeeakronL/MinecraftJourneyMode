@@ -123,25 +123,25 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
         }
     }
 
-    public void setCustomName(ITextComponent name) {
+    public void setCustomName(Component name) {
         this.customName = name;
     }
 
-    public ITextComponent getName() {
+    public Component getName() {
         return this.customName != null ? this.customName : this.getDefaultName();
     }
 
-    private ITextComponent getDefaultName() {
+    private Component getDefaultName() {
         return new TranslationTextComponent("container." + journey_mode.MODID + ".unobtainium_starforge");
     }
 
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return this.getName();
     }
 
     @Nullable
-    public ITextComponent getCustomName() {
+    public Component getCustomName() {
         return this.customName;
     }
 
@@ -149,7 +149,7 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
     public void load(BlockState state, CompoundNBT compound) {
         super.load(state, compound);
         if(compound.contains("CustomName", Constants.NBT.TAG_STRING)) {
-            this.customName = ITextComponent.Serializer.fromJson(compound.getString("CustomName"));
+            this.customName = Component.Serializer.fromJson(compound.getString("CustomName"));
         }
 
         NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(this.inventory.getSlots(), ItemStack.EMPTY);
@@ -164,7 +164,7 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
     public CompoundNBT save(CompoundNBT compound) {
         super.save(compound);
         if (this.customName != null) {
-            compound.putString("CustomName", ITextComponent.Serializer.toJson(this.customName));
+            compound.putString("CustomName", Component.Serializer.toJson(this.customName));
         }
 
         ItemStackHelper.saveAllItems(compound, this.inventory.toNonNullList());

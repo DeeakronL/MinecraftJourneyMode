@@ -269,8 +269,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos -25,              topPos, 20, 20, new StringTextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos + imageWidth +5, topPos, 20, 20, new StringTextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
@@ -377,7 +377,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
                     boolean matches = false;
-                    for (ITextComponent line : stack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL)) {
+                    for (Component line : stack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL)) {
                         if (TextFormatting.stripFormatting(line.getString()).toLowerCase(Locale.ROOT).contains(search)) {
                             matches = true;
                             break;
@@ -723,7 +723,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.checkTabHovering(matrixStack, ItemGroup.TAB_INVENTORY, mouseX, mouseY);
 
         if (maxPages != 0) {
-            ITextComponent page = new StringTextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
+            Component page = new TextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
             RenderSystem.disableLighting();
             this.setBlitOffset(300);
             this.itemRenderer.blitOffset = 300.0F;
@@ -738,8 +738,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
     protected void renderTooltip(MatrixStack matrixStack, ItemStack itemStack, int mouseX, int mouseY) {
         if (selectedTabIndex == ItemGroup.TAB_SEARCH.getId()) {
-            List<ITextComponent> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
-            List<ITextComponent> list1 = Lists.newArrayList(list);
+            List<Component> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+            List<Component> list1 = Lists.newArrayList(list);
             Item item = itemStack.getItem();
             ItemGroup itemgroup = item.getItemCategory();
             if (itemgroup == null && item == Items.ENCHANTED_BOOK) {
@@ -758,7 +758,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
             this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
                 if (p_214083_3_.contains(item)) {
-                    list1.add(1, (new StringTextComponent("#" + p_214083_2_)).withStyle(TextFormatting.DARK_PURPLE));
+                    list1.add(1, (new TextComponent("#" + p_214083_2_)).withStyle(TextFormatting.DARK_PURPLE));
                 }
 
             });
@@ -940,7 +940,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public boolean pressed = false;
 
         protected Button(int x, int y) {
-            super(x, y, 59, 21, StringTextComponent.EMPTY);
+            super(x, y, 59, 21, TextComponent.EMPTY);
         }
 
         public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -974,11 +974,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public JourneyModeDuplicationScreen screen;
 
         protected Tab(int x, int y) {
-            super(x, y, 32, 28, StringTextComponent.EMPTY);
+            super(x, y, 32, 28, TextComponent.EMPTY);
         }
 
         protected Tab(int x, int y, JourneyModeDuplicationScreen screen) {
-            super(x, y, 32, 28, StringTextComponent.EMPTY);
+            super(x, y, 32, 28, TextComponent.EMPTY);
             this.screen = screen;
         }
 

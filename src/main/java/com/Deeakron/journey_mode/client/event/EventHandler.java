@@ -8,25 +8,25 @@ import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.advancements.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.entity.projectile.ProjecBlockEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -37,8 +37,8 @@ import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 import java.util.Date;
 
@@ -98,10 +98,10 @@ public class EventHandler {
             player = (Player) source;
         }
 
-        if (source instanceof ProjecBlockEntity) {
+        if (source instanceof Projectile) {
             try{
-                if (((ProjecBlockEntity) source).getOwner().getEntity() instanceof Player) {
-                    player = (Player) ((ProjecBlockEntity) source).getOwner().getEntity();
+                if (((Projectile) source).getOwner() instanceof Player) {
+                    player = (Player) ((Projectile) source).getOwner();
                 }
             } catch (NullPointerException e) {
                 //for instances where the shooter is dead before the projectile kills
@@ -109,22 +109,22 @@ public class EventHandler {
 
         }
 
-        if (source instanceof WolfEntity) {
-            if (((WolfEntity) source).getOwner() instanceof Player) {
-                player = (Player) ((WolfEntity) source).getOwner();
+        if (source instanceof Wolf) {
+            if (((Wolf) source).getOwner() instanceof Player) {
+                player = (Player) ((Wolf) source).getOwner();
             }
         }
 
         if (player instanceof Player){
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getEntity().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
-                String item = "\"" + SpawnEggItem.byId(event.getEntity().getType()).getItem().getRegistryName() + "\"";
+                String item = "\"" + SpawnEggItem.byId(event.getEntity().getType()).getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap.updateResearch(new String[]{item},
                         new int[]{1},
                         false,
                         player.getUUID(),
-                        SpawnEggItem.byId(event.getEntity().getType()).getItem().getDefaultInstance());
+                        SpawnEggItem.byId(event.getEntity().getType()).getDefaultInstance());
             }
         }
 
@@ -136,13 +136,13 @@ public class EventHandler {
             Player player = event.getCausedByPlayer();
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getChild().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
-                String item = "\"" + SpawnEggItem.byId(event.getChild().getType()).getItem().getRegistryName() + "\"";
+                String item = "\"" + SpawnEggItem.byId(event.getChild().getType()).getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap.updateResearch(new String[]{item},
                         new int[]{1},
                         false,
                         player.getUUID(),
-                        SpawnEggItem.byId(event.getChild().getType()).getItem().getDefaultInstance());
+                        SpawnEggItem.byId(event.getChild().getType()).getDefaultInstance());
             }
         }
     }
@@ -153,13 +153,13 @@ public class EventHandler {
             Player player = event.getTamer();
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getAnimal().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
-                String item = "\"" + SpawnEggItem.byId(event.getAnimal().getType()).getItem().getRegistryName() + "\"";
+                String item = "\"" + SpawnEggItem.byId(event.getAnimal().getType()).getRegistryName() + "\"";
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 cap.updateResearch(new String[]{item},
                         new int[]{4},
                         false,
                         player.getUUID(),
-                        SpawnEggItem.byId(event.getAnimal().getType()).getItem().getDefaultInstance());
+                        SpawnEggItem.byId(event.getAnimal().getType()).getDefaultInstance());
             }
         }
     }
@@ -222,7 +222,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void openMenuActual(final MenuOpenEvent event) {
         if (new Date().getTime() - journey_mode.lastMenuOpened.getTime() >= 400) {
-            ITextComponent title = new StringTextComponent("Journey Mode Menu");
+            Component title = new TextComponent("Journey Mode Menu");
             journey_mode.lastMenuOpened = new Date();
         }
     }
@@ -258,13 +258,13 @@ public class EventHandler {
                     for(String s : advancementprogress.getCompletedCriteria()) {
                         boolean isCapped = false;
                         if (helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
-                            String item = "\"" + SpawnEggItem.byId(EntityType.VILLAGER).getItem().getRegistryName() + "\"";
+                            String item = "\"" + SpawnEggItem.byId(EntityType.VILLAGER).getRegistryName() + "\"";
                             EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                             cap.updateResearch(new String[]{item},
                                     new int[]{1},
                                     false,
                                     event.getPlayer().getUUID(),
-                                    SpawnEggItem.byId(EntityType.VILLAGER).getItem().getDefaultInstance());
+                                    SpawnEggItem.byId(EntityType.VILLAGER).getDefaultInstance());
                             if(cap.getResearch(item)[0] == 64) {
                                 isCapped = true;
                             }
@@ -288,13 +288,13 @@ public class EventHandler {
                     for(String s : advancementprogress.getCompletedCriteria()) {
                         boolean isCapped = false;
                         if (helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
-                            String item = "\"" + SpawnEggItem.byId(EntityType.DOLPHIN).getItem().getRegistryName() + "\"";
+                            String item = "\"" + SpawnEggItem.byId(EntityType.DOLPHIN).getRegistryName() + "\"";
                             EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                             cap.updateResearch(new String[]{item},
                                     new int[]{1},
                                     false,
                                     event.getPlayer().getUUID(),
-                                    SpawnEggItem.byId(EntityType.DOLPHIN).getItem().getDefaultInstance());
+                                    SpawnEggItem.byId(EntityType.DOLPHIN).getDefaultInstance());
                             if(cap.getResearch(item)[0] == 64) {
                                 isCapped = true;
                             }
