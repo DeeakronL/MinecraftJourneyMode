@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraftforge.api.distmarker.Dist;
@@ -56,11 +56,11 @@ public class StarforgeContainer extends AbstractContainerMenu {
         this.addDataSlot(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.BlockEntity.currentFuelTime, value -> this.BlockEntity.currentFuelTime = value));
     }
 
-    public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final PacketBuffer data) {
+    public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final FriendlyByteBuf data) {
         this(windowID, playerInv, getBlockEntity(playerInv, data));
     }
 
-    private static UnobtainiumStarforgeBlockEntity getBlockEntity(final PlayerInventory playerInv, final PacketBuffer data) {
+    private static UnobtainiumStarforgeBlockEntity getBlockEntity(final PlayerInventory playerInv, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInv, "plyerInv cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());

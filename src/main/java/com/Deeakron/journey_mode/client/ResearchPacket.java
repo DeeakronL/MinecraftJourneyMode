@@ -31,14 +31,14 @@ public class ResearchPacket {
         this.itemStack = itemObject;
     }
 
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(item);
         buf.writeInt(count);
         buf.writeUtf(player);
         buf.writeItem(itemStack);
     }
 
-    public static ResearchPacket decode(PacketBuffer buf) {
+    public static ResearchPacket decode(FriendlyByteBuf buf) {
         return new ResearchPacket(buf.readUtf(), buf.readInt(), buf.readUtf(), buf.readItem());
     }
 

@@ -2,13 +2,13 @@ package com.Deeakron.journey_mode.client;
 
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.ICommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.CommandSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
@@ -24,11 +24,11 @@ public class CommandPacket {
         this.data = data;
     }
 
-    public void encode(PacketBuffer buf){
+    public void encode(FriendlyByteBuf buf){
         buf.writeUtf(data);
     }
 
-    public static CommandPacket decode(PacketBuffer buf) {
+    public static CommandPacket decode(FriendlyByteBuf buf) {
         return new CommandPacket(buf.readUtf());
     }
 
@@ -36,7 +36,7 @@ public class CommandPacket {
         String command = data;
         ServerLevel ServerLevel = context.get().getSender().getLevel();
         MinecraftServer server = context.get().getSender().getServer();
-        CommandSource source = new CommandSource(ICommandSource.NULL, Vector3d.atCenterOf(context.get().getSender().blockPosition()), Vector2f.ZERO, (ServerLevel) ServerLevel, 2, context.get().getSender().getName().getString(), context.get().getSender().getName(), server, (Entity) null);
+        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(context.get().getSender().blockPosition()), Vec2.ZERO, (ServerLevel) ServerLevel, 2, context.get().getSender().getName().getString(), context.get().getSender().getName(), server, (Entity) null);
         if (command.equals("dawn")) {
             server.getCommands().performCommand(source, "time set day");
         } else if (command.equals("noon")) {

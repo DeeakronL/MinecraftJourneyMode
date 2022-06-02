@@ -15,7 +15,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.*;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.util.NonNullList;
@@ -102,7 +102,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
         }
     }
 
-    public UnobtainiumAntikytheraContainer(int i, PlayerInventory playerInventory, PacketBuffer packetBuffer) {
+    public UnobtainiumAntikytheraContainer(int i, PlayerInventory playerInventory, FriendlyByteBuf packetBuffer) {
         this(i, playerInventory);
     }
 

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -20,7 +20,7 @@ public class StarforgeRecipeSerializer extends ForgeRegistryEntry<RecipeSerializ
     }
 
     @Override
-    public StarforgeRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+    public StarforgeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
         ItemStack output = buffer.readItem();
         Ingredient input = Ingredient.fromNetwork(buffer);
 
@@ -28,7 +28,7 @@ public class StarforgeRecipeSerializer extends ForgeRegistryEntry<RecipeSerializ
     }
 
     @Override
-    public void toNetwork(PacketBuffer buffer, StarforgeRecipe recipe) {
+    public void toNetwork(FriendlyByteBuf buffer, StarforgeRecipe recipe) {
         Ingredient input = recipe.getIngredients().get(0);
         input.toNetwork(buffer);
 

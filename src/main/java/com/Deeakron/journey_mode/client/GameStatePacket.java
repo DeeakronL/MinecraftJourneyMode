@@ -7,11 +7,11 @@ import com.Deeakron.journey_mode.client.event.MenuOpenEvent;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
@@ -50,7 +50,7 @@ public class GameStatePacket {
         this.keepInv = keepInv;
     }
 
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(this.data);
         buf.writeBoolean(this.freeze);
         buf.writeInt(this.tickSpeed);
@@ -60,7 +60,7 @@ public class GameStatePacket {
         buf.writeBoolean(this.keepInv);
     }
 
-    public static GameStatePacket decode(PacketBuffer buf) {
+    public static GameStatePacket decode(FriendlyByteBuf buf) {
         return new GameStatePacket(buf.readUtf(), buf.readBoolean(), buf.readInt(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean());
     }
 

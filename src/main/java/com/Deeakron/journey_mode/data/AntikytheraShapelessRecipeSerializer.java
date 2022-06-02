@@ -6,7 +6,7 @@ import com.google.gson.JsonParseException;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -41,7 +41,7 @@ public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.reg
         return nonnulllist;
     }
 
-    public AntikytheraShapelessRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+    public AntikytheraShapelessRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
         String s = buffer.readUtf(32767);
         int i = buffer.readVarInt();
         NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
@@ -54,7 +54,7 @@ public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.reg
         return new AntikytheraShapelessRecipe(recipeId, s, itemstack, nonnulllist);
     }
 
-    public void toNetwork(PacketBuffer buffer, AntikytheraShapelessRecipe recipe) {
+    public void toNetwork(FriendlyByteBuf buffer, AntikytheraShapelessRecipe recipe) {
         buffer.writeUtf(recipe.group);
         buffer.writeVarInt(recipe.recipeItems.size());
 

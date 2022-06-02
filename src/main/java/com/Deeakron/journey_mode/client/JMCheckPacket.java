@@ -30,12 +30,12 @@ public class JMCheckPacket {
         this.result = result;
     }
 
-    public void encode(PacketBuffer buf){
+    public void encode(FriendlyByteBuf buf){
         buf.writeUtf(data);
         buf.writeBoolean(result);
     }
 
-    public static JMCheckPacket decode(PacketBuffer buf) {
+    public static JMCheckPacket decode(FriendlyByteBuf buf) {
         return new JMCheckPacket(buf.readUtf(), buf.readBoolean());
     }
 

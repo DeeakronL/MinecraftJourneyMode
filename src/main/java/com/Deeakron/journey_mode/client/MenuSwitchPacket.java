@@ -12,8 +12,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.GameType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.GameType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -37,12 +37,12 @@ public class MenuSwitchPacket {
         this.menuType = menuType;
     }
 
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(data);
         buf.writeUtf(menuType);
     }
 
-    public static MenuSwitchPacket decode(PacketBuffer buf) {
+    public static MenuSwitchPacket decode(FriendlyByteBuf buf) {
         return new MenuSwitchPacket(buf.readUtf(), buf.readUtf());
     }
 
@@ -71,14 +71,14 @@ public class MenuSwitchPacket {
             journey_mode.hasRecipes = unlockRecipes;
             journey_mode.tempList = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getResearchList();
             boolean wasCreative;
-            if (player.abilities.instabuild) {
+            if (player.getAbilities().instabuild) {
                 wasCreative = true;
             } else {
                 wasCreative = false;
             }
-            player.setGameMode(GameType.CREATIVE);
+            ((ServerPlayer) player).setGameMode(GameType.CREATIVE);
             if(!wasCreative) {
-                player.abilities.instabuild = false;
+                player.getAbilities().instabuild = false;
             }
             boolean wasGodMode = player.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getGodMode();
             if (wasGodMode == false) {

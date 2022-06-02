@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +24,7 @@ public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.F
         return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
     }
 
-    public AntikytheraRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+    public AntikytheraRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
         int i = buffer.readVarInt();
         int j = buffer.readVarInt();
         String s = buffer.readUtf(32767);
@@ -38,7 +38,7 @@ public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.F
         return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
     }
 
-    public void toNetwork(PacketBuffer buffer, AntikytheraRecipe recipe) {
+    public void toNetwork(FriendlyByteBuf buffer, AntikytheraRecipe recipe) {
         buffer.writeVarInt(recipe.recipeWidth);
         buffer.writeVarInt(recipe.recipeHeight);
         buffer.writeUtf(recipe.group);
