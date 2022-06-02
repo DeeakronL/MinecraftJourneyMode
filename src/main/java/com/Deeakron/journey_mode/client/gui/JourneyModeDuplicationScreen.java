@@ -8,7 +8,7 @@ import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
@@ -16,8 +16,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.util.ISearchTree;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
@@ -518,16 +518,16 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         });
     }
 
-    protected void renderLabels(MatrixStack matrixStack, int x, int y) {
+    protected void renderLabels(PoseStack PoseStack, int x, int y) {
         ItemGroup itemgroup = itemGroupSmall[selectedTabIndex];
         if (itemgroup != null && itemgroup.showTitle()) {
             RenderSystem.disableBlend();
-            this.font.draw(matrixStack, itemgroup.getDisplayName(), 8.0F, 10.0F, itemgroup.getLabelColor());
+            this.font.draw(PoseStack, itemgroup.getDisplayName(), 8.0F, 10.0F, itemgroup.getLabelColor());
         }
 
         for(Widget widget : this.buttons) {
             if (widget.isHovered()) {
-                widget.renderToolTip(matrixStack, x - this.leftPos, y - this.topPos);
+                widget.renderToolTip(PoseStack, x - this.leftPos, y - this.topPos);
                 break;
             }
         }
@@ -701,11 +701,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(PoseStack);
+        super.render(PoseStack, mouseX, mouseY, partialTicks);
 
-        this.menu.render(matrixStack, this.topPos, this.leftPos, this.font);
+        this.menu.render(PoseStack, this.topPos, this.leftPos, this.font);
 
         int start = tabPage * 8;
         int end = Math.min(itemGroupSmall.length, ((tabPage + 1) * 8) + 2);
@@ -714,29 +714,29 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         for (int x = start; x < end; x++) {
             ItemGroup itemgroup = itemGroupSmall[x];
-            if (itemgroup != null && this.checkTabHovering(matrixStack, itemgroup, mouseX, mouseY)) {
+            if (itemgroup != null && this.checkTabHovering(PoseStack, itemgroup, mouseX, mouseY)) {
                 rendered = true;
                 break;
             }
         }
-        if (!rendered && !this.checkTabHovering(matrixStack, ItemGroup.TAB_SEARCH, mouseX, mouseY))
-            this.checkTabHovering(matrixStack, ItemGroup.TAB_INVENTORY, mouseX, mouseY);
+        if (!rendered && !this.checkTabHovering(PoseStack, ItemGroup.TAB_SEARCH, mouseX, mouseY))
+            this.checkTabHovering(PoseStack, ItemGroup.TAB_INVENTORY, mouseX, mouseY);
 
         if (maxPages != 0) {
             Component page = new TextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
             RenderSystem.disableLighting();
             this.setBlitOffset(300);
             this.itemRenderer.blitOffset = 300.0F;
-            font.drawShadow(matrixStack, page.getVisualOrderText(), leftPos + (imageWidth + 45) - (font.width(page) / 2), topPos +7, -1);
+            font.drawShadow(PoseStack, page.getVisualOrderText(), leftPos + (imageWidth + 45) - (font.width(page) / 2), topPos +7, -1);
             this.setBlitOffset(0);
             this.itemRenderer.blitOffset = 0.0F;
         }
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(PoseStack, mouseX, mouseY);
     }
 
-    protected void renderTooltip(MatrixStack matrixStack, ItemStack itemStack, int mouseX, int mouseY) {
+    protected void renderTooltip(PoseStack PoseStack, ItemStack itemStack, int mouseX, int mouseY) {
         if (selectedTabIndex == ItemGroup.TAB_SEARCH.getId()) {
             List<Component> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
             List<Component> list1 = Lists.newArrayList(list);
@@ -768,15 +768,15 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
             net.minecraft.client.gui.FontRenderer font = itemStack.getItem().getFontRenderer(itemStack);
             net.minecraftforge.fml.client.gui.GuiUtils.preItemToolTip(itemStack);
-            this.renderWrappedToolTip(matrixStack, list1, mouseX, mouseY, (font == null ? this.font : font));
+            this.renderWrappedToolTip(PoseStack, list1, mouseX, mouseY, (font == null ? this.font : font));
             net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();
         } else {
-            super.renderTooltip(matrixStack, itemStack, mouseX, mouseY);
+            super.renderTooltip(PoseStack, itemStack, mouseX, mouseY);
         }
 
     }
 
-    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    protected void renderBg(PoseStack PoseStack, float partialTicks, int x, int y) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         ItemGroup itemgroup = itemGroupSmall[selectedTabIndex];
 
@@ -796,14 +796,14 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             }
             if (itemgroup1 != null && index != selectedTabIndex && itemgroup1 != ItemGroup.TAB_HOTBAR && itemgroup1 != ItemGroup.TAB_INVENTORY) {
                 this.minecraft.getTextureManager().bind(DUPLICATION_INVENTORY_TABS);
-                this.renderTabButton(matrixStack, itemgroup1);
+                this.renderTabButton(PoseStack, itemgroup1);
             }
         }
 
         if (tabPage != 0) {
             if (itemgroup != ItemGroup.TAB_SEARCH  && itemgroup != ItemGroup.TAB_HOTBAR && itemgroup != ItemGroup.TAB_INVENTORY) {
                 this.minecraft.getTextureManager().bind(DUPLICATION_INVENTORY_TABS);
-                renderTabButton(matrixStack, ItemGroup.TAB_SEARCH);
+                renderTabButton(PoseStack, ItemGroup.TAB_SEARCH);
             }
             if (itemgroup != ItemGroup.TAB_INVENTORY && itemgroup != ItemGroup.TAB_HOTBAR) {
 
@@ -814,8 +814,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         } else {
             this.minecraft.getTextureManager().bind(this.BACKGROUND_SEARCH_TEXTURE);
         }
-        this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-        this.searchField.render(matrixStack, x, y, partialTicks);
+        this.blit(PoseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        this.searchField.render(PoseStack, x, y, partialTicks);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         int i = this.leftPos + 171;
         int j = this.topPos + 22;
@@ -823,13 +823,13 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         //looks like this is the current tab
         this.minecraft.getTextureManager().bind(DUPLICATION_INVENTORY_TABS);
         if (itemgroup.canScroll()) {
-            this.blit(matrixStack, i, j + (int)((float)(k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
+            this.blit(PoseStack, i, j + (int)((float)(k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
         }
 
         if ((itemgroup == null || itemgroup.getTabPage() != tabPage) && itemgroup != ItemGroup.TAB_SEARCH && itemgroup != ItemGroup.TAB_INVENTORY  && itemgroup != ItemGroup.TAB_HOTBAR)
             return;
 
-        this.renderTabButton(matrixStack, itemgroup);
+        this.renderTabButton(PoseStack, itemgroup);
         if (itemgroup == ItemGroup.TAB_INVENTORY) {
             InventoryScreen.renderEntityInInventory(this.leftPos + 88, this.topPos + 45, 20, (float)(this.leftPos + 88 - x), (float)(this.topPos + 45 - 30 - y), this.minecraft.player);
         }
@@ -856,7 +856,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         return p_195375_2_ >= (double)j && p_195375_2_ <= (double)(j + 28) && p_195375_4_ >= (double)k && p_195375_4_ <= (double)(k + 32);
     }
 
-    protected boolean checkTabHovering(MatrixStack p_238809_1_, ItemGroup p_238809_2_, int p_238809_3_, int p_238809_4_) {
+    protected boolean checkTabHovering(PoseStack p_238809_1_, ItemGroup p_238809_2_, int p_238809_3_, int p_238809_4_) {
         int i = p_238809_2_.getColumn();
         int j = 28 * i;
         int k = 0;
@@ -883,7 +883,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
     }
 
-    protected void renderTabButton(MatrixStack p_238808_1_, ItemGroup p_238808_2_) {
+    protected void renderTabButton(PoseStack p_238808_1_, ItemGroup p_238808_2_) {
         int index = p_238808_2_.getId();
         if (p_238808_2_.getId() >= hotbarIndex) {
             index = index - 1;
@@ -943,7 +943,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             super(x, y, 59, 21, TextComponent.EMPTY);
         }
 
-        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
             Minecraft.getInstance().getTextureManager().bind(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 228;
@@ -952,11 +952,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 j += 59;
             }
 
-            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.renderIcon(matrixStack);
+            this.blit(PoseStack, this.x, this.y, j, i, this.width, this.height);
+            this.renderIcon(PoseStack);
         }
 
-        protected abstract void renderIcon(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(PoseStack p_230454_1_);
 
         public boolean isSelected() {
             return this.selected;
@@ -982,7 +982,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.screen = screen;
         }
 
-        public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
             Minecraft.getInstance().getTextureManager().bind(JourneyModeDuplicationScreen.BACKGROUND_TEXTURE);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 221;
@@ -994,11 +994,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 j += 64;
             }
 
-            this.blit(matrixStack, this.x, this.y, j, i, this.width, this.height);
-            this.renderIcon(matrixStack);
+            this.blit(PoseStack, this.x, this.y, j, i, this.width, this.height);
+            this.renderIcon(PoseStack);
         }
 
-        protected abstract void renderIcon(MatrixStack p_230454_1_);
+        protected abstract void renderIcon(PoseStack p_230454_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -1018,7 +1018,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.v = v;
         }
 
-        protected void renderIcon(MatrixStack p_230454_1_) {
+        protected void renderIcon(PoseStack p_230454_1_) {
             this.blit(p_230454_1_, this.x + 7, this.y + 5, this.u, this.v, 18, 18);
         }
 
@@ -1041,8 +1041,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "powers"));
         }
 
-        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, POWERS_TAB, mouseX, mouseY);
+        public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, POWERS_TAB, mouseX, mouseY);
         }
     }
 
@@ -1059,8 +1059,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
         }
 
-        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RESEARCH_TAB, mouseX, mouseY);
+        public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, RESEARCH_TAB, mouseX, mouseY);
         }
     }
 
@@ -1075,8 +1075,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             //current tab, so nothing happens
         }
 
-        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, DUPLICATION_TAB, mouseX, mouseY);
+        public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, DUPLICATION_TAB, mouseX, mouseY);
         }
     }
 
@@ -1093,8 +1093,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "recipes"));
         }
 
-        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-            JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, RECIPES_TAB, mouseX, mouseY);
+        public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
+            JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, RECIPES_TAB, mouseX, mouseY);
         }
     }
 
@@ -1125,13 +1125,13 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             }
         }
 
-        public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+        public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
             if (this.filter == 0) {
-                JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_0, mouseX, mouseY);
+                JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, FILTER_TAB_0, mouseX, mouseY);
             } else if (this.filter == 1) {
-                JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_1, mouseX, mouseY);
+                JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, FILTER_TAB_1, mouseX, mouseY);
             } else if (this.filter == 2) {
-                JourneyModeDuplicationScreen.this.renderTooltip(matrixStack, FILTER_TAB_2, mouseX, mouseY);
+                JourneyModeDuplicationScreen.this.renderTooltip(PoseStack, FILTER_TAB_2, mouseX, mouseY);
             }
 
         }
@@ -1250,7 +1250,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         public boolean canDragTo(Slot slotIn) {return slotIn.container != JourneyModeDuplicationScreen.TMP_INVENTORY;}
 
-        public void render(MatrixStack matrix, int topX, int topY, FontRenderer font) {
+        public void render(PoseStack matrix, int topX, int topY, FontRenderer font) {
             int baseX = topX + 32;
             int baseY = topY + 8;
             matrix.translate(0, 0, 300);

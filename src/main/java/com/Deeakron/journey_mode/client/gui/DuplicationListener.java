@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.client.gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;
@@ -28,6 +29,11 @@ public class DuplicationListener implements ContainerListener {
      */
     public void slotChanged(AbstractContainerMenu containerToSend, int slotInd, ItemStack stack) {
         this.mc.gameMode.handleCreativeModeItemAdd(stack, slotInd);
+    }
+
+    @Override
+    public void dataChanged(AbstractContainerMenu p_150524_, int p_150525_, int p_150526_) {
+
     }
 
     /**
