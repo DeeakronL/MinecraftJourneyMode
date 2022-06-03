@@ -46,7 +46,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -378,7 +378,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                     ItemStack stack = itr.next();
                     boolean matches = false;
                     for (Component line : stack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL)) {
-                        if (TextFormatting.stripFormatting(line.getString()).toLowerCase(Locale.ROOT).contains(search)) {
+                        if (ChatFormatting.stripFormatting(line.getString()).toLowerCase(Locale.ROOT).contains(search)) {
                             matches = true;
                             break;
                         }
@@ -758,12 +758,12 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
             this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
                 if (p_214083_3_.contains(item)) {
-                    list1.add(1, (new TextComponent("#" + p_214083_2_)).withStyle(TextFormatting.DARK_PURPLE));
+                    list1.add(1, (new TextComponent("#" + p_214083_2_)).withStyle(ChatFormatting.DARK_PURPLE));
                 }
 
             });
             if (itemgroup != null && itemgroup != ItemGroup.TAB_INVENTORY) {
-                list1.add(1, itemgroup.getDisplayName().copy().withStyle(TextFormatting.BLUE));
+                list1.add(1, itemgroup.getDisplayName().copy().withStyle(ChatFormatting.BLUE));
             }
 
             net.minecraft.client.gui.FontRenderer font = itemStack.getItem().getFontRenderer(itemStack);
@@ -1263,12 +1263,12 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                         int diff = result[1] - result[0];
                         String string = Integer.toString(diff);
                         if (diff > 0) {
-                            font.drawShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
+                            font.drawShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), ChatFormatting.RED.getColor());
                         }
                     } catch (NullPointerException e) {
                         if (this.slots.get(i * 9 + j).hasItem()) {
                             String string = "  X  ";
-                            font.drawShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), TextFormatting.RED.getColor());
+                            font.drawShadow(matrix, string, (float)((baseY + (j * 18))/0.75), (float)((baseX + (i * 18))/0.75), ChatFormatting.RED.getColor());
                         }
                     }
 

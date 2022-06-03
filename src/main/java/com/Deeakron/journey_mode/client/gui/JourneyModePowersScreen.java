@@ -596,7 +596,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "research"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
@@ -612,7 +612,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "duplication"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "duplication"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
@@ -628,7 +628,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "recipes"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "recipes"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {

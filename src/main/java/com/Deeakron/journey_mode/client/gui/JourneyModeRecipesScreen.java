@@ -6,17 +6,16 @@ import com.Deeakron.journey_mode.journey_mode;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.inventory.container.ClickType;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -57,12 +56,12 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
 
     protected void init() {
         super.init();
-        this.addButton(new JourneyModeRecipesScreen.PowersTab(this.leftPos -29, this.topPos + 21));
-        this.addButton(new JourneyModeRecipesScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
-        this.addButton(new JourneyModeRecipesScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
-        this.addButton(new JourneyModeRecipesScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
-        this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 6, this.topPos + 73, false, this, 147, 234));
-        this.addButton(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 152, this.topPos + 73, true, this, 163, 234));
+        this.addWidget(new JourneyModeRecipesScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addWidget(new JourneyModeRecipesScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addWidget(new JourneyModeRecipesScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
+        this.addWidget(new JourneyModeRecipesScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
+        this.addWidget(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 6, this.topPos + 73, false, this, 147, 234));
+        this.addWidget(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 152, this.topPos + 73, true, this, 163, 234));
 
         //checking all antikythera recipes
         ResourceLocation[] locations = journey_mode.itemListHandler.getLocations();
@@ -98,7 +97,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
     }
 
     @Override
-    public void tick() {
+    public void containerTick() {
         super.tick();
         if (!this.initialized) {
             this.initialized = true;
@@ -209,32 +208,29 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         super.renderLabels(PoseStack, mouseX, mouseY);
         this.font.draw(PoseStack, this.title.getString(), 8.0f, 6.0f, 4210752);
 
-        for(Widget widget : this.buttons) {
-            if (widget.isHovered()) {
-                widget.renderToolTip(PoseStack, mouseX - this.leftPos, mouseY - this.topPos);
-                break;
+        for(Widget widget : this.renderables) {
+            if (widget instanceof Button) {
+                if (((Button) widget).isHovered()) {
+                    widget.render(PoseStack, mouseX - this.leftPos, mouseY - this.topPos, 0);
+                    break;
+                }
             }
         }
         if (!this.topShaped) {
-            this.font.draw(PoseStack, this.SHAPELESS_NOTIF.getString(), 90, 60, TextFormatting.DARK_RED.getColor());
+            this.font.draw(PoseStack, this.SHAPELESS_NOTIF.getString(), 90, 60, ChatFormatting.DARK_RED.getColor());
         }
         if (!this.bottomShaped) {
-            this.font.draw(PoseStack, this.SHAPELESS_NOTIF.getString(), 90, 138, TextFormatting.DARK_RED.getColor());
+            this.font.draw(PoseStack, this.SHAPELESS_NOTIF.getString(), 90, 138, ChatFormatting.DARK_RED.getColor());
         }
     }
 
     @Override
     protected void renderBg(PoseStack PoseStack, float partialTicks, int mouseX, int mouseY) {
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bind(BACKGROUND_TEXTURE);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
         this.blit(PoseStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
-    }
-
-    @Override
-    protected void slotClicked(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
-
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -248,8 +244,8 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShaderTexture(0, JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 228;
             int j = 77;
             if (this.pressed) {
@@ -269,6 +265,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         public void setSelected(boolean selectedIn) {
             this.selected = selectedIn;
         }
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -278,8 +275,8 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         protected Tab(int x, int y) { super(x, y, 32, 28, TextComponent.EMPTY);}
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShaderTexture(0, JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 221;
             int j = 0;
             if (!this.currentTab) {
@@ -291,6 +288,11 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         protected abstract void renderIcon(PoseStack p_230454_1_);
+
+        @Override
+        public void updateNarration(NarrationElementOutput p_169152_) {
+
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -306,8 +308,8 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
-            Minecraft.getInstance().getTextureManager().bind(JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShaderTexture(0, JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             int i = 184;
             int j = 0;
             if (this.isRight && this.screen.showRightButton) {
@@ -328,6 +330,11 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         protected abstract void renderIcon(PoseStack p_230454_1_);
+
+        @Override
+        public void updateNarration(NarrationElementOutput p_169152_) {
+
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -356,7 +363,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "powers"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "powers"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
@@ -410,7 +417,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "research"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
@@ -426,7 +433,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         }
 
         public void onPress() {
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "duplication"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "duplication"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
