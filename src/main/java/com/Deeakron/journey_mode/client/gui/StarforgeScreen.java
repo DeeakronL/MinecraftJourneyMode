@@ -24,8 +24,8 @@ public class StarforgeScreen  extends AbstractContainerScreen<StarforgeContainer
 
     @Override
     protected void renderBg(PoseStack PoseStack, float partialTicks, int x, int y) {
-        RenderSystem.color4f(1, 1, 1, 1);
-        this.minecraft.getTextureManager().bind(TEXTURE);
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.setShaderTexture(0, TEXTURE);
         this.blit(PoseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
         this.blit(PoseStack, this.leftPos + 79, this.topPos + 35, 176, 14, this.menu.getSmeltProgressionScaled(), 17);
@@ -36,7 +36,7 @@ public class StarforgeScreen  extends AbstractContainerScreen<StarforgeContainer
     @Override
     protected void renderLabels(PoseStack PoseStack, int mouseX, int mouseY) {
         this.font.draw(PoseStack, this.title.getString(), 8.0f, 1.0f, 15921906);
-        this.font.draw(PoseStack, this.inventory.getDisplayName().getString(), 89.0f, 69.0f, 15921906);
+        this.font.draw(PoseStack, this.playerInventoryTitle.getString(), 89.0f, 69.0f, 15921906);
     }
 
     @Override

@@ -24,8 +24,8 @@ public class ResearchToast implements Toast {
 
     @Override
     public Visibility render(PoseStack PoseStack, ToastComponent toastGui, long delta) {
-        toastGui.getMinecraft().getTextureManager().bind(TEXTURE);
-        RenderSystem.color4f(1,1,1,1);
+        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderColor(1,1,1,1);
         toastGui.blit(PoseStack, 0, 0, 0, 0,220,32);
         toastGui.getMinecraft().getItemRenderer().renderAndDecorateFakeItem(item, 5, 7);
         toastGui.getMinecraft().font.draw(PoseStack, title, 25, 5, 0xFFFFFF);
@@ -35,6 +35,6 @@ public class ResearchToast implements Toast {
 
     @Override
     public Object getToken() {
-        return IToast.super.getToken();
+        return Toast.super.getToken();
     }
 }

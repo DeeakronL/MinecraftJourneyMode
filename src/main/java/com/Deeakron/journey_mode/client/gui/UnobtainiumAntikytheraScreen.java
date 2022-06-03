@@ -8,8 +8,8 @@ import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.inventory.container.ClickType;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,8 +30,8 @@ public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<Unobta
         super.init();
         this.widthTooNarrow = this.width < 379;
         this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
-        this.leftPos = this.recipeBookGui.updateScreenPosition(this.widthTooNarrow, this.width, this.imageWidth);
-        this.children.add(this.recipeBookGui);
+        this.leftPos = this.recipeBookGui.updateScreenPosition(this.width, this.imageWidth);
+        //this.children.add(this.recipeBookGui);
         this.setInitialFocus(this.recipeBookGui);
         if(this.recipeBookGui.isVisible()) {
             this.recipeBookGui.toggleVisibility();
@@ -39,7 +39,8 @@ public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<Unobta
         this.titleLabelX = 29;
     }
 
-    public void tick() {
+    public void containerTick() {
+        //might need to replace these with containerTicks
         super.tick();
         this.recipeBookGui.tick();
     }
@@ -60,8 +61,8 @@ public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<Unobta
     }
 
     protected void renderBg(PoseStack PoseStack, float partialTicks, int x, int y) {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bind(ANTIKYTHERA_GUI_TEXTURES);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, ANTIKYTHERA_GUI_TEXTURES);
         int i = this.leftPos;
         int j = (this.height - this.imageHeight) / 2;
         this.blit(PoseStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
@@ -102,7 +103,7 @@ public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<Unobta
         super.removed();
     }
 
-    public RecipeBookGui getRecipeBookComponent() {
+    public RecipeBookComponent getRecipeBookComponent() {
         return this.recipeBookGui;
     }
 }
