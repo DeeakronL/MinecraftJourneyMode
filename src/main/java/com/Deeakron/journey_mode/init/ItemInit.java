@@ -3,7 +3,7 @@ package com.Deeakron.journey_mode.init;
 import com.Deeakron.journey_mode.item.ResearchGrinderItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -14,11 +14,11 @@ public class ItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
     public static final RegistryObject<BlockItem> WOODEN_RESEARCH_GRINDER = ITEMS.register("wooden_research_grinder",
-            () -> new ResearchGrinderItem(BlockInit.WOODEN_RESEARCH_GRINDER.get(), new Item.Properties().tab(ItemGroup.TAB_DECORATIONS)));
+            () -> new ResearchGrinderItem(BlockInit.WOODEN_RESEARCH_GRINDER.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
 
     public static final RegistryObject<BlockItem> IRON_RESEARCH_GRINDER = ITEMS.register("iron_research_grinder",
-            () -> new ResearchGrinderItem(BlockInit.IRON_RESEARCH_GRINDER.get(), new Item.Properties().tab(ItemGroup.TAB_DECORATIONS)));
+            () -> new ResearchGrinderItem(BlockInit.IRON_RESEARCH_GRINDER.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
 
     public static final RegistryObject<BlockItem> DIAMOND_RESEARCH_GRINDER = ITEMS.register("diamond_research_grinder",
-            () -> new ResearchGrinderItem(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), new Item.Properties().tab(ItemGroup.TAB_DECORATIONS)));
+            () -> new ResearchGrinderItem(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
 }

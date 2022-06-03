@@ -1,15 +1,15 @@
 package com.Deeakron.journey_mode.init;
 
 import com.Deeakron.journey_mode.journey_mode;
-import net.minecraft.entity.item.minecart.CommandBlockMinecartEntity;
-import net.minecraft.item.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.vehicle.MinecartCommandBlock;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.ItemStack;
 
 public class DuplicationInit {
@@ -36,7 +36,7 @@ public class DuplicationInit {
                 String check = string.substring(1, 10);
                 substring = string.substring(11, string.length() - 1);
                 if(check.equals("minecraft" )) {
-                    if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass() || item.getItem().getClass() == new OperatorOnlyItem(null, new Item.Properties()).getClass()) {
+                    if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass() || item.getItem().getClass() == new GameMasterBlockItem(null, new Item.Properties()).getClass()) {
                         DuplicationInit.ITEMS.register(substring, () -> new BlockItem(((BlockItem) (item.getItem())).getBlock(), new BlockItem.Properties().tab(unobtainableGroup)));
                     } else {
                         if(item.getItem().getClass() == new DebugStickItem(new Item.Properties()).getClass()){
@@ -48,7 +48,7 @@ public class DuplicationInit {
                         } else if (item.getItem().getClass() == new SuspiciousStewItem(new Item.Properties()).getClass()){
                             DuplicationInit.ITEMS.register(substring, () -> new SuspiciousStewItem(new Item.Properties().tab(unobtainableGroup)));
                         } else if (item.getItem().getClass() == new MinecartItem(null, new Item.Properties()).getClass()){
-                            DuplicationInit.ITEMS.register(substring, () -> new MinecartItem(new CommandBlockMinecartEntity(null, 0, 0, 0).getMinecartType(), new Item.Properties().tab(unobtainableGroup)));
+                            DuplicationInit.ITEMS.register(substring, () -> new MinecartItem(new MinecartCommandBlock(null, 0, 0, 0).getMinecartType(), new Item.Properties().tab(unobtainableGroup)));
                         } else {
                             DuplicationInit.ITEMS.register(substring, () -> new Item(new Item.Properties().tab(unobtainableGroup)));
                         }
