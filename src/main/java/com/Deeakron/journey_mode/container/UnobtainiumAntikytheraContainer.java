@@ -6,25 +6,21 @@ import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.ResultContainer;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.*;
+import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.*;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.play.server.SSetSlotPacket;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
-
-import net.minecraft.world.inventory.RecipeBookMenu;
 
 public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     private final CraftingContainer craftMatrix = new CraftingContainer(this, 3, 3);
@@ -38,18 +34,19 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
         this(id, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public UnobtainiumAntikytheraContainer(int id, PlayerInventory playerInventory, final ContainerLevelAccess p_i50090_3_) {
+    public UnobtainiumAntikytheraContainer(int id, Inventory playerInventory, final ContainerLevelAccess p_i50090_3_) {
         super(JMContainerTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
         this.worldPosCallable = p_i50090_3_;
         this.player = playerInventory.player;
 
-        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35) {
+        this.addSlot(new ResultSlot(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35) {
 
             public boolean mayPlace(ItemStack stack) {
                 return false;
             }
 
-            public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
+            //onTake originally returned item stack, seems that a change was needed?
+            public void onTake(Player thePlayer, ItemStack stack) {
                     if(!player.level.isClientSide){player.playNotifySound(JMSounds.ANTIKYTHERA_CRAFT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}
                 this.checkTakeAchievements(stack);
                 net.minecraftforge.common.ForgeHooks.setCraftingPlayer(thePlayer);
@@ -74,13 +71,11 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
                         } else if (ItemStack.isSame(itemstack, itemstack1) && ItemStack.tagMatches(itemstack, itemstack1)) {
                             itemstack1.grow(itemstack.getCount());
                             craftMatrix.setItem(i, itemstack1);
-                        } else if (!player.inventory.add(itemstack1)) {
+                        } else if (!player.getInventory().add(itemstack1)) {
                             player.drop(itemstack1, false);
                         }
                     }
                 }
-
-                return stack;
             }
 
         });
@@ -102,16 +97,16 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
         }
     }
 
-    public UnobtainiumAntikytheraContainer(int i, PlayerInventory playerInventory, FriendlyByteBuf packetBuffer) {
+    public UnobtainiumAntikytheraContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
         this(i, playerInventory);
     }
 
-    public boolean stillValid(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return stillValid(this.worldPosCallable, playerIn, UnobtainBlockInit.UNOBTAINIUM_ANTIKYTHERA.get());
     }
 
 
-    public void fillCraftSlotsStackedContents(RecipeItemHelper itemHelperIn) {
+    public void fillCraftSlotsStackedContents(StackedContents itemHelperIn) {
         this.craftMatrix.fillStackedContents(itemHelperIn);
     }
 
@@ -122,13 +117,13 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     }
 
 
-    public boolean recipeMatches(IRecipe recipeIn) {
+    public boolean recipeMatches(Recipe recipeIn) {
         return recipeIn.matches(this.craftMatrix, this.player.level);
     }
 
-    public void removed(PlayerEntity playerIn) {
+    public void removed(Player playerIn) {
         super.removed(playerIn);
-        this.clearContainer(playerIn, playerIn.level, this.craftMatrix);
+        this.clearContainer(playerIn, this.craftMatrix);
     }
 
 
@@ -152,24 +147,29 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     }
 
 
-    public RecipeBookCategory getRecipeBookType() {
-        return RecipeBookCategory.CRAFTING;
+    public RecipeBookType getRecipeBookType() {
+        return RecipeBookType.CRAFTING;
     }
 
-    public void slotsChanged(IInventory inventoryIn) {
+    @Override
+    public boolean shouldMoveToInventory(int p_150635_) {
+        return false;
+    }
+
+    public void slotsChanged(Inventory inventoryIn) {
             this.broadcastChanges();
             this.updateCraftingResult(this.containerId, this.player.level, this.player, this.craftMatrix, this.craftResult);
     }
 
 
-    public void updateCraftingResult(int id, Level world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
+    public void updateCraftingResult(int id, Level world, Player player, CraftingContainer inventory, ResultContainer inventoryResult) {
         if (!world.isClientSide) {
             ServerPlayer serverplayerentity = (ServerPlayer) player;
             ItemStack itemstack = ItemStack.EMPTY;
             Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipeFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA, inventory, world);
 
             if (optional.isPresent()) {
-                ICraftingRecipe icraftingrecipe = optional.get();
+                CraftingRecipe icraftingrecipe = optional.get();
                 if (inventoryResult.setRecipeUsed(world, serverplayerentity, icraftingrecipe)) {
                     itemstack = icraftingrecipe.assemble(inventory);
                     isShaped = true;
@@ -177,7 +177,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
             } else {
                 Optional<AntikytheraShapelessRecipe> optional2 = world.getServer().getRecipeManager().getRecipeFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS, inventory, world);
                 if (optional2.isPresent()) {
-                    ICraftingRecipe icraftingrecipe = optional2.get();
+                    CraftingRecipe icraftingrecipe = optional2.get();
                     if (inventoryResult.setRecipeUsed(world, serverplayerentity, icraftingrecipe)) {
                         itemstack = icraftingrecipe.assemble(inventory);
                         isShaped = false;
@@ -186,11 +186,11 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
             }
 
             inventoryResult.setItem(0, itemstack);
-            serverplayerentity.connection.send(new SSetSlotPacket(id, 0, itemstack));
+            serverplayerentity.connection.send(new ClientboundContainerSetSlotPacket(id, 0, 0, itemstack));
         }
     }
 
-    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
@@ -227,9 +227,9 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
                 return ItemStack.EMPTY;
             }
 
-            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
+            slot.onTake(playerIn, itemstack1);
             if (index == 0) {
-                playerIn.drop(itemstack2, false);
+                playerIn.drop(itemstack1, false);
             }
         }
         this.slotsChanged(this.craftMatrix);

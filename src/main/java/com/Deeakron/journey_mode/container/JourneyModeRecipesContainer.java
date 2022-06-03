@@ -53,10 +53,10 @@ public class JourneyModeRecipesContainer extends AbstractContainerMenu {
 
     public void removed(Player playerIn) {
         super.removed(playerIn);
-        this.clearContainer(playerIn, playerIn.level, this.recipeInputInventory);
-        this.clearContainer(playerIn, playerIn.level, this.recipeOutputInventory);
-        this.clearContainer(playerIn, playerIn.level, this.recipe2InputInventory);
-        this.clearContainer(playerIn, playerIn.level, this.recipe2OutputInventory);
+        this.clearContainer(playerIn, this.recipeInputInventory);
+        this.clearContainer(playerIn, this.recipeOutputInventory);
+        this.clearContainer(playerIn, this.recipe2InputInventory);
+        this.clearContainer(playerIn, this.recipe2OutputInventory);
     }
 
     public void insertItem(ItemStack[] items, int recipe) {

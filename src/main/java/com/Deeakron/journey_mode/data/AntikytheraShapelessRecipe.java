@@ -72,7 +72,7 @@ public class AntikytheraShapelessRecipe implements CraftingRecipe {
      * Used to check if a recipe matches current crafting inventory
      */
     public boolean matches(CraftingContainer inv, Level worldIn) {
-        StackedContents recipeitemhelper = new StackedContents();
+        StackedContents StackedContents = new StackedContents();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
@@ -81,18 +81,18 @@ public class AntikytheraShapelessRecipe implements CraftingRecipe {
             if (!itemstack.isEmpty()) {
                 ++i;
                 if (isSimple)
-                    recipeitemhelper.accountStack(itemstack, 1);
+                    StackedContents.accountStack(itemstack, 1);
                 else inputs.add(itemstack);
             }
         }
 
-        return i == this.recipeItems.size() && (isSimple ? recipeitemhelper.canCraft(this, (IntList)null) : net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs,  this.recipeItems) != null);
+        return i == this.recipeItems.size() && (isSimple ? StackedContents.canCraft(this, (IntList)null) : net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs,  this.recipeItems) != null);
     }
 
     /**
      * Returns an Item that is the result of this recipe
      */
-    public ItemStack assemble(CraftingInventory inv) {
+    public ItemStack assemble(CraftingContainer inv) {
         return this.recipeOutput.copy();
     }
 

@@ -72,6 +72,6 @@ public class JourneyModeResearchContainer extends AbstractContainerMenu {
 
     public void removed(Player playerIn) {
         super.removed(playerIn);
-        this.clearContainer(playerIn, playerIn.level, this.researchInventory);
+        this.clearContainer(playerIn, this.researchInventory);
     }
 }

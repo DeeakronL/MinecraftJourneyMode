@@ -13,7 +13,7 @@ public class StarforgeFuelSlot extends SlotItemHandler {
     }
 
     public boolean mayPlace(ItemStack stack) {
-        String item = "\"" + stack.getItem().getItem().getRegistryName() + "\"";
+        String item = "\"" + stack.getItem().getRegistryName() + "\"";
         String check = "\"minecraft:nether_star\"";
         return item.equals(check);
     }

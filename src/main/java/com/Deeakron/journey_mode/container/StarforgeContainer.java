@@ -56,11 +56,11 @@ public class StarforgeContainer extends AbstractContainerMenu {
         this.addDataSlot(currentFuelTime = new FunctionalIntReferenceHolder(() -> this.BlockEntity.currentFuelTime, value -> this.BlockEntity.currentFuelTime = value));
     }
 
-    public StarforgeContainer(final int windowID, final PlayerInventory playerInv, final FriendlyByteBuf data) {
+    public StarforgeContainer(final int windowID, final Inventory playerInv, final FriendlyByteBuf data) {
         this(windowID, playerInv, getBlockEntity(playerInv, data));
     }
 
-    private static UnobtainiumStarforgeBlockEntity getBlockEntity(final PlayerInventory playerInv, final FriendlyByteBuf data) {
+    private static UnobtainiumStarforgeBlockEntity getBlockEntity(final Inventory playerInv, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInv, "plyerInv cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());

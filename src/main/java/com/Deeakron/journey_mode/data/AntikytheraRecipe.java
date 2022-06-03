@@ -99,9 +99,9 @@ public class AntikytheraRecipe implements CraftingRecipe {
     /**
      * Checks if the region of a crafting inventory is match for the recipe.
      */
-    private boolean checkMatch(CraftingContainer craftingInventory, int width, int height, boolean p_77573_4_) {
-        for(int i = 0; i < craftingInventory.getWidth(); ++i) {
-            for(int j = 0; j < craftingInventory.getHeight(); ++j) {
+    private boolean checkMatch(CraftingContainer CraftingContainer, int width, int height, boolean p_77573_4_) {
+        for(int i = 0; i < CraftingContainer.getWidth(); ++i) {
+            for(int j = 0; j < CraftingContainer.getHeight(); ++j) {
                 int k = i - width;
                 int l = j - height;
                 Ingredient ingredient = Ingredient.EMPTY;
@@ -113,7 +113,7 @@ public class AntikytheraRecipe implements CraftingRecipe {
                     }
                 }
 
-                if (!ingredient.test(craftingInventory.getItem(i + j * craftingInventory.getWidth()))) {
+                if (!ingredient.test(CraftingContainer.getItem(i + j * CraftingContainer.getWidth()))) {
                     return false;
                 }
             }
@@ -125,7 +125,7 @@ public class AntikytheraRecipe implements CraftingRecipe {
     /**
      * Returns an Item that is the result of this recipe
      */
-    public ItemStack assemble(CraftingInventory inv) {
+    public ItemStack assemble(CraftingContainer inv) {
         return this.getResultItem().copy();
     }
 
