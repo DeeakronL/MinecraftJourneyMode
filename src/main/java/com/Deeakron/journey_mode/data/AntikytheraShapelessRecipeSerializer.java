@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.core.NonNullList;
@@ -17,13 +17,13 @@ public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.reg
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera_shapeless");
     public AntikytheraShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
         String s = GsonHelper.getAsString(json, "group", "");
-        NonNullList<Ingredient> nonnulllist = readIngredients(JSONUtils.getAsJsonArray(json, "ingredients"));
+        NonNullList<Ingredient> nonnulllist = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
         if (nonnulllist.isEmpty()) {
             throw new JsonParseException("No ingredients for shapeless recipe");
         } else if (nonnulllist.size() > AntikytheraRecipe.MAX_WIDTH * AntikytheraRecipe.MAX_HEIGHT) {
             throw new JsonParseException("Too many ingredients for shapeless recipe the max is " + (AntikytheraRecipe.MAX_WIDTH * AntikytheraRecipe.MAX_HEIGHT));
         } else {
-            ItemStack itemstack = AntikytheraRecipe.deserializeItem(JSONUtils.getAsJsonObject(json, "result"));
+            ItemStack itemstack = AntikytheraRecipe.deserializeItem(GsonHelper.getAsJsonObject(json, "result"));
             return new AntikytheraShapelessRecipe(recipeId, s, itemstack, nonnulllist);
         }
     }

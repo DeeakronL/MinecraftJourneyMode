@@ -2,8 +2,8 @@ package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -51,12 +51,12 @@ public class StarforgeRecipe implements IStarforgeRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return JMRecipeSerializerInit.STARFORGE_SERIALIZER.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return JMRecipeSerializerInit.RECIPE_TYPE;
     }
 

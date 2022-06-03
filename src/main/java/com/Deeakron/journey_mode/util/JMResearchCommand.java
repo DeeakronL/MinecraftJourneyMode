@@ -12,7 +12,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.command.arguments.ItemArgument;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class JMResearchCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {

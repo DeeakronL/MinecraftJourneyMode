@@ -3,7 +3,7 @@ package com.Deeakron.journey_mode.data;
 import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.core.NonNullList;
@@ -15,12 +15,12 @@ public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.F
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera");
     public AntikytheraRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
         String s = GsonHelper.getAsString(json, "group", "CRAFTING");
-        Map<String, Ingredient> map = AntikytheraRecipe.deserializeKey(JSONUtils.getAsJsonObject(json, "key"));
-        String[] astring = AntikytheraRecipe.shrink(AntikytheraRecipe.patternFromJson(JSONUtils.getAsJsonArray(json, "pattern")));
+        Map<String, Ingredient> map = AntikytheraRecipe.deserializeKey(GsonHelper.getAsJsonObject(json, "key"));
+        String[] astring = AntikytheraRecipe.shrink(AntikytheraRecipe.patternFromJson(GsonHelper.getAsJsonArray(json, "pattern")));
         int i = astring[0].length();
         int j = astring.length;
         NonNullList<Ingredient> nonnulllist = AntikytheraRecipe.deserializeIngredients(astring, map, i, j);
-        ItemStack itemstack = AntikytheraRecipe.deserializeItem(JSONUtils.getAsJsonObject(json, "result"));
+        ItemStack itemstack = AntikytheraRecipe.deserializeItem(GsonHelper.getAsJsonObject(json, "result"));
         return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
     }
 

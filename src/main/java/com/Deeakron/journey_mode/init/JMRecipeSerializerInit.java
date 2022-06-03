@@ -29,7 +29,8 @@ public class JMRecipeSerializerInit {
 
     public static final RegistryObject<AntikytheraShapelessRecipeSerializer> ANTIKYTHERA_SHAPELESS_SERIALIZER = RECIPE_SERIALIZERS.register("crafting_antikythera_shapeless", () -> ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER);
 
-    private static class RecipeType<T extends Recipe<?>> implements RecipeType<T> {
+    //This rename may cause trouble, keep an eye out for it
+    private static class JMRecipeType<T extends Recipe<?>> implements RecipeType<T> {
         @Override
         public String toString() {
             return Registry.RECIPE_TYPE.getKey(this).toString();
@@ -37,6 +38,6 @@ public class JMRecipeSerializerInit {
     }
 
     private static <T extends RecipeType> T registerType(ResourceLocation recipeTypeId) {
-        return (T) Registry.register(Registry.RECIPE_TYPE, recipeTypeId, new RecipeType<>());
+        return (T) Registry.register(Registry.RECIPE_TYPE, recipeTypeId, new JMRecipeType<>());
     }
 }
