@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -132,7 +132,7 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
     }
 
     private Component getDefaultName() {
-        return new TranslationTextComponent("container." + journey_mode.MODID + ".unobtainium_starforge");
+        return new TranslatableComponent("container." + journey_mode.MODID + ".unobtainium_starforge");
     }
 
     @Override
