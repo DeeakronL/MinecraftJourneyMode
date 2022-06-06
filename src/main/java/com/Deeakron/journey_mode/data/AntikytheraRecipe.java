@@ -12,7 +12,7 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;

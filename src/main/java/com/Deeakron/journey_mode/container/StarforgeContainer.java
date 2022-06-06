@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.init.JMContainerTypes;
+import com.Deeakron.journey_mode.init.JMMenuTypes;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.BlockEntity.UnobtainiumStarforgeBlockEntity;
 import com.Deeakron.journey_mode.util.FunctionalIntReferenceHolder;
@@ -27,7 +27,7 @@ public class StarforgeContainer extends AbstractContainerMenu {
     public FunctionalIntReferenceHolder currentFuelTime;
 
     public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeBlockEntity tile) {
-        super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
+        super(JMMenuTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
         this.canInteractWithCallable = ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos());
         this.BlockEntity = tile;
         final int slotSizePlus2 = 18;

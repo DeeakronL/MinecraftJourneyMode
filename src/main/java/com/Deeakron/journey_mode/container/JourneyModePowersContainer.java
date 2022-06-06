@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.init.JMContainerTypes;
+import com.Deeakron.journey_mode.init.JMMenuTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -9,8 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 
 public class JourneyModePowersContainer extends AbstractContainerMenu {
-    public JourneyModePowersContainer(final int windowId, final Inventory playerInventory) {
-        super(JMContainerTypes.JOURNEY_MODE_POWERS.get(), windowId);
+    public JourneyModePowersContainer(final int windowId, final Inventory Inventory) {
+        super(JMMenuTypes.JOURNEY_MODE_POWERS.get(), windowId);
 
         //Main Inventory
         int startX = 8;
@@ -21,14 +21,14 @@ public class JourneyModePowersContainer extends AbstractContainerMenu {
         int startPlayerInvY = startY * 5 + 12;
         for(int row = 0; row < 3; ++row) {
             for(int col = 0; col < 9; ++col) {
-                this.addSlot(new Slot(playerInventory, 9 + (row * 9) + col, startX + (col * slotSizePlus2), startPlayerInvY + (row * slotSizePlus2)));
+                this.addSlot(new Slot(Inventory, 9 + (row * 9) + col, startX + (col * slotSizePlus2), startPlayerInvY + (row * slotSizePlus2)));
             }
         }
 
         //Hotbar
         int hotbarY = startPlayerInvY + (startPlayerInvY/2) + 7;
         for(int col = 0; col < 9; ++col) {
-            this.addSlot(new Slot(playerInventory, col, startX + (col * slotSizePlus2), hotbarY));
+            this.addSlot(new Slot(Inventory, col, startX + (col * slotSizePlus2), hotbarY));
         }
 
     }
@@ -38,8 +38,8 @@ public class JourneyModePowersContainer extends AbstractContainerMenu {
         return true;
     }
 
-    public JourneyModePowersContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
-        this(windowId, playerInventory);
+    public JourneyModePowersContainer(final int windowId, final Inventory Inventory, final FriendlyByteBuf data) {
+        this(windowId, Inventory);
     }
 
     @Override

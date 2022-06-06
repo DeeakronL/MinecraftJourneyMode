@@ -12,38 +12,37 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.AbstractButton;
-import net.minecraft.client.util.ISearchTree;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
-import net.minecraft.client.util.SearchTreeManager;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.client.searchtree.SearchTree;
+import net.minecraft.world.item.TooltipFlag;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.searchtree.SearchRegistry;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.Container;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
 import net.minecraft.tags.Tag;
-import net.minecraft.tags.ITagCollection;
+import net.minecraft.tags.TagCollection;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.Mth;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
@@ -151,16 +150,16 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         boolean flag = type == ClickType.QUICK_MOVE;
         type = slotId == -999 && type == ClickType.PICKUP ? ClickType.THROW : type;
         if (slotIn == null &&  type != ClickType.QUICK_CRAFT) {
-            PlayerInventory playerInventory1 = this.minecraft.player.inventory;
-            if (!playerInventory1.getCarried().isEmpty() && this.hasClickedOutside) {
+            Inventory Inventory1 = this.minecraft.player.inventory;
+            if (!Inventory1.getCarried().isEmpty() && this.hasClickedOutside) {
                 if (mouseButton == 0) {
-                    this.minecraft.player.drop(playerInventory1.getCarried(), true);
-                    this.minecraft.gameMode.handleCreativeModeItemDrop(playerInventory1.getCarried());
-                    playerInventory1.setCarried(ItemStack.EMPTY);
+                    this.minecraft.player.drop(Inventory1.getCarried(), true);
+                    this.minecraft.gameMode.handleCreativeModeItemDrop(Inventory1.getCarried());
+                    Inventory1.setCarried(ItemStack.EMPTY);
                 }
 
                 if (mouseButton == 1) {
-                    ItemStack itemStack6 = playerInventory1.getCarried().split(1);
+                    ItemStack itemStack6 = Inventory1.getCarried().split(1);
                     this.minecraft.player.drop(itemStack6, true);
                     this.minecraft.gameMode.handleCreativeModeItemDrop(itemStack6);
                 }
@@ -175,8 +174,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                     this.minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, j);
                 }
             } else if (type != ClickType.QUICK_CRAFT && slotIn.container == TMP_INVENTORY) {
-                PlayerInventory playerInventory = this.minecraft.player.inventory;
-                ItemStack itemStack5 = playerInventory.getCarried();
+                Inventory Inventory = this.minecraft.player.inventory;
+                ItemStack itemStack5 = Inventory.getCarried();
                 ItemStack itemStack7 = slotIn.getItem();
                 if (type == ClickType.SWAP) {
                     return;
@@ -215,8 +214,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                     }
                     if (success) {
                         if (((LockedSlot) slotIn).remaining <= 0) {
-                            playerInventory.setCarried(itemStack7.copy());
-                            itemStack5 = playerInventory.getCarried();
+                            Inventory.setCarried(itemStack7.copy());
+                            itemStack5 = Inventory.getCarried();
                             if (flag) {
                                 itemStack5.setCount(itemStack5.getMaxStackSize());
                             }
@@ -224,9 +223,9 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                         }
                     }
                 } else if (mouseButton == 0) {
-                    playerInventory.setCarried(ItemStack.EMPTY);
+                    Inventory.setCarried(ItemStack.EMPTY);
                 } else {
-                    playerInventory.getCarried().shrink(1);
+                    Inventory.getCarried().shrink(1);
                 }
             } else if (this.menu != null && type != ClickType.CLONE && type != ClickType.SWAP && type != ClickType.THROW) {
                 ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.menu.getSlot(slotIn.index).getItem();
@@ -340,7 +339,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             }
         } else {
             boolean flag = !this.hasTmpInventory(this.hoveredSlot) || this.hoveredSlot.hasItem();
-            boolean flag1 = InputMappings.getKey(keyCode, scanCode).getNumericKeyValue().isPresent();
+            boolean flag1 = InputConstants.getKey(keyCode, scanCode).getNumericKeyValue().isPresent();
             if (flag && flag1 && this.checkHotbarKeyPressed(keyCode, scanCode)) {
                 this.ignoreTextInput = true;
                 return true;
@@ -377,7 +376,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 while (itr.hasNext()) {
                     ItemStack stack = itr.next();
                     boolean matches = false;
-                    for (Component line : stack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL)) {
+                    for (Component line : stack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? TooltipFlag.TooltipFlags.ADVANCED : TooltipFlag.TooltipFlags.NORMAL)) {
                         if (ChatFormatting.stripFormatting(line.getString()).toLowerCase(Locale.ROOT).contains(search)) {
                             matches = true;
                             break;
@@ -399,16 +398,16 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 item.fillItemCategory(ItemGroup.TAB_SEARCH, (this.menu).itemList);
             }
         } else {
-            ISearchTree<ItemStack> isearchtree;
+            SearchTree<ItemStack> SearchTree;
             if (s.startsWith("#")) {
                 s = s.substring(1);
-                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_TAGS);
+                SearchTree = this.minecraft.getSearchTree(SearchRegistry.CREATIVE_TAGS);
                 this.searchTags(s);
             } else {
-                isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_NAMES);
+                SearchTree = this.minecraft.getSearchTree(SearchRegistry.CREATIVE_NAMES);
             }
 
-            (this.menu).itemList.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
+            (this.menu).itemList.addAll(SearchTree.search(s.toLowerCase(Locale.ROOT)));
         }
 
         this.currentScroll = 0.0F;
@@ -438,16 +437,16 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                         item.fillItemCategory(ItemGroup.TAB_SEARCH, current_item_list);
                     }
                 } else {
-                    ISearchTree<ItemStack> isearchtree;
+                    SearchTree<ItemStack> SearchTree;
                     if (s.startsWith("#")) {
                         s = s.substring(1);
-                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_TAGS);
+                        SearchTree = this.minecraft.getSearchTree(SearchRegistry.CREATIVE_TAGS);
                         this.searchTags(s);
                     } else {
-                        isearchtree = this.minecraft.getSearchTree(SearchTreeManager.CREATIVE_NAMES);
+                        SearchTree = this.minecraft.getSearchTree(SearchRegistry.CREATIVE_NAMES);
                     }
 
-                    current_item_list.addAll(isearchtree.search(s.toLowerCase(Locale.ROOT)));
+                    current_item_list.addAll(SearchTree.search(s.toLowerCase(Locale.ROOT)));
                 }
             } else {
                 tab.fillItemList(current_item_list);
@@ -512,9 +511,9 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             };
         }
 
-        ITagCollection<Item> itagcollection = ItemTags.getAllTags();
-        itagcollection.getAvailableTags().stream().filter(predicate).forEach((p_214082_2_) -> {
-            ITag itag = this.tagSearchResults.put(p_214082_2_, itagcollection.getTag(p_214082_2_));
+        TagCollection<Item> TagCollection = ItemTags.getAllTags();
+        TagCollection.getAvailableTags().stream().filter(predicate).forEach((p_214082_2_) -> {
+            ITag itag = this.tagSearchResults.put(p_214082_2_, TagCollection.getTag(p_214082_2_));
         });
     }
 
@@ -666,7 +665,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         } else {
             int i = ((this.menu).itemList.size() + 9 - 1) / 9 - 5;
             this.currentScroll = (float)((double)this.currentScroll - delta / (double)i);
-            this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
+            this.currentScroll = Mth.clamp(this.currentScroll, 0.0F, 1.0F);
             this.menu.scrollTo(this.currentScroll);
             return true;
         }
@@ -693,7 +692,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             int i = this.topPos + 18;
             int j = i + 156;
             this.currentScroll = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
-            this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
+            this.currentScroll = Mth.clamp(this.currentScroll, 0.0F, 1.0F);
             this.menu.scrollTo(this.currentScroll);
             return true;
         } else {
@@ -738,7 +737,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
     protected void renderTooltip(PoseStack PoseStack, ItemStack itemStack, int mouseX, int mouseY) {
         if (selectedTabIndex == ItemGroup.TAB_SEARCH.getId()) {
-            List<Component> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+            List<Component> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? TooltipFlag.TooltipFlags.ADVANCED : TooltipFlag.TooltipFlags.NORMAL);
             List<Component> list1 = Lists.newArrayList(list);
             Item item = itemStack.getItem();
             ItemGroup itemgroup = item.getItemCategory();
@@ -766,7 +765,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 list1.add(1, itemgroup.getDisplayName().copy().withStyle(ChatFormatting.BLUE));
             }
 
-            net.minecraft.client.gui.FontRenderer font = itemStack.getItem().getFontRenderer(itemStack);
+            net.minecraft.client.gui.Font font = itemStack.getItem().getFont(itemStack);
             net.minecraftforge.fml.client.gui.GuiUtils.preItemToolTip(itemStack);
             this.renderWrappedToolTip(PoseStack, list1, mouseX, mouseY, (font == null ? this.font : font));
             net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();
@@ -1147,8 +1146,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public ResearchList research;
 
         public DuplicationContainer(Player player, ResearchList research) {
-            super((ContainerType<?>) null, 0);
-            PlayerInventory playerInventory = player.inventory;
+            super((MenuType<?>) null, 0);
+            Inventory Inventory = player.inventory;
             this.research = research;
 
             int startX = 8;
@@ -1168,14 +1167,14 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             int startPlayerInvY = startY * 5 + 12;
             for (int row = 0; row < 3; ++row) {
                 for (int col = 0; col < 9; ++col) {
-                    this.addSlot(new Slot(playerInventory, 9 + (row * 9) + col, startX + (col * slotSizePlus2), startPlayerInvY + (row * slotSizePlus2)));
+                    this.addSlot(new Slot(Inventory, 9 + (row * 9) + col, startX + (col * slotSizePlus2), startPlayerInvY + (row * slotSizePlus2)));
                 }
             }
 
             //Hotbar
             int hotbarY = startPlayerInvY + (startPlayerInvY / 2) + 7;
             for (int col = 0; col < 9; ++col) {
-                this.addSlot(new Slot(playerInventory, col, startX + (col * slotSizePlus2), hotbarY));
+                this.addSlot(new Slot(Inventory, col, startX + (col * slotSizePlus2), hotbarY));
             }
 
         }
@@ -1250,7 +1249,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         public boolean canDragTo(Slot slotIn) {return slotIn.container != JourneyModeDuplicationScreen.TMP_INVENTORY;}
 
-        public void render(PoseStack matrix, int topX, int topY, FontRenderer font) {
+        public void render(PoseStack matrix, int topX, int topY, Font font) {
             int baseX = topX + 32;
             int baseY = topY + 8;
             matrix.translate(0, 0, 300);
@@ -1333,7 +1332,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public boolean researched;
         public int remaining;
 
-        public LockedSlot(IInventory inventoryIn, int index, int xPosition, int yPosition, boolean research, int count) {
+        public LockedSlot(Container inventoryIn, int index, int xPosition, int yPosition, boolean research, int count) {
             super(inventoryIn, index, xPosition, yPosition);
             this.researched = research;
             this.remaining = count;

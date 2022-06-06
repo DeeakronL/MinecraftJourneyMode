@@ -2,7 +2,7 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
 import com.Deeakron.journey_mode.data.AntikytheraShapelessRecipe;
-import com.Deeakron.journey_mode.init.JMContainerTypes;
+import com.Deeakron.journey_mode.init.JMMenuTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
@@ -30,16 +30,16 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     private boolean isShaped;
     private long lastOnTake;
 
-    public UnobtainiumAntikytheraContainer(int id, Inventory playerInventory) {
-        this(id, playerInventory, ContainerLevelAccess.NULL);
+    public UnobtainiumAntikytheraContainer(int id, Inventory Inventory) {
+        this(id, Inventory, ContainerLevelAccess.NULL);
     }
 
-    public UnobtainiumAntikytheraContainer(int id, Inventory playerInventory, final ContainerLevelAccess p_i50090_3_) {
-        super(JMContainerTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
+    public UnobtainiumAntikytheraContainer(int id, Inventory Inventory, final ContainerLevelAccess p_i50090_3_) {
+        super(JMMenuTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
         this.worldPosCallable = p_i50090_3_;
-        this.player = playerInventory.player;
+        this.player = Inventory.player;
 
-        this.addSlot(new ResultSlot(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35) {
+        this.addSlot(new ResultSlot(Inventory.player, this.craftMatrix, this.craftResult, 0, 124, 35) {
 
             public boolean mayPlace(ItemStack stack) {
                 return false;
@@ -88,17 +88,17 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
 
         for(int k = 0; k < 3; ++k) {
             for(int i1 = 0; i1 < 9; ++i1) {
-                this.addSlot(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
+                this.addSlot(new Slot(Inventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
             }
         }
 
         for(int l = 0; l < 9; ++l) {
-            this.addSlot(new Slot(playerInventory, l, 8 + l * 18, 142));
+            this.addSlot(new Slot(Inventory, l, 8 + l * 18, 142));
         }
     }
 
-    public UnobtainiumAntikytheraContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
-        this(i, playerInventory);
+    public UnobtainiumAntikytheraContainer(int i, Inventory Inventory, FriendlyByteBuf packetBuffer) {
+        this(i, Inventory);
     }
 
     public boolean stillValid(Player playerIn) {
