@@ -13,6 +13,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.components.EditBox;
@@ -256,20 +257,20 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
     protected void init() {
         super.init();
-        this.addButton(new JourneyModeDuplicationScreen.PowersTab(this.leftPos -29, this.topPos + 21, this));
-        this.addButton(new JourneyModeDuplicationScreen.ResearchTab(this.leftPos -29, this.topPos + 50, this));
-        this.addButton(new JourneyModeDuplicationScreen.DuplicationTab(this.leftPos -29, this.topPos + 79, this));
+        this.addWidget(new JourneyModeDuplicationScreen.PowersTab(this.leftPos -29, this.topPos + 21, this));
+        this.addWidget(new JourneyModeDuplicationScreen.ResearchTab(this.leftPos -29, this.topPos + 50, this));
+        this.addWidget(new JourneyModeDuplicationScreen.DuplicationTab(this.leftPos -29, this.topPos + 79, this));
         if (this.hasRecipes) {
-            this.addButton(new JourneyModeDuplicationScreen.RecipesTab(this.leftPos -29, this.topPos + 108, this));
+            this.addWidget(new JourneyModeDuplicationScreen.RecipesTab(this.leftPos -29, this.topPos + 108, this));
         }
         this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.leftPos + imageWidth - 3, this.topPos + 79);
-        this.addButton(filterTab);
+        this.addWidget(filterTab);
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addButton(new net.minecraft.client.gui.widget.button.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addWidget(new net.minecraft.client.gui.widget.button.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addWidget(new net.minecraft.client.gui.widget.button.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
@@ -525,10 +526,12 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.font.draw(PoseStack, itemgroup.getDisplayName(), 8.0F, 10.0F, itemgroup.getLabelColor());
         }
 
-        for(Widget widget : this.buttons) {
-            if (widget.isHovered()) {
-                widget.renderToolTip(PoseStack, x - this.leftPos, y - this.topPos);
-                break;
+        for(Widget widget : this.renderables) {
+            if (widget instanceof JourneyModePowersScreen.Button) {
+                if (((JourneyModePowersScreen.Button) widget).isHovered()) {
+                    widget.render(PoseStack, x - this.leftPos, y - this.topPos, 0);
+                    break;
+                }
             }
         }
 
@@ -1027,6 +1030,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.u = u;
             this.v = v;
         }
+
+        @Override
+        public void updateNarration(NarrationElementOutput p_169152_) {
+
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -1039,7 +1047,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public void onPress() {
             this.screen.minecraft.player.drop(inventory.getCarried(), true);
             this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "powers"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "powers"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
@@ -1057,7 +1065,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public void onPress() {
             this.screen.minecraft.player.drop(inventory.getCarried(), true);
             this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "research"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "research"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
@@ -1091,7 +1099,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public void onPress() {
             this.screen.minecraft.player.drop(inventory.getCarried(), true);
             this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
-            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(inventory.player.getUUID().toString(), "recipes"));
+            MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "recipes"));
         }
 
         public void renderToolTip(PoseStack PoseStack, int mouseX, int mouseY) {
