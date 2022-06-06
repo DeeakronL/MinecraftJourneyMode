@@ -17,8 +17,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateBlockEntityPacket;
@@ -193,17 +193,17 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
         return null;
     };
 
-    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn, Level world) {
+    public static Set<IRecipe<?>> findRecipesByType(RecipeType<?> typeIn, Level world) {
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn) {
+    public static Set<IRecipe<?>> findRecipesByType(RecipeType<?> typeIn) {
         ClientWorld world = Minecraft.getInstance().level;
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
-    public static Set<ItemStack> getAllRecipeInputs(IRecipeType<?> typeIn, Level worldIn) {
+    public static Set<ItemStack> getAllRecipeInputs(RecipeType<?> typeIn, Level worldIn) {
         Set<ItemStack> inputs = new HashSet<ItemStack>();
         Set<IRecipe<?>> recipes = findRecipesByType(typeIn, worldIn);
         for (IRecipe<?> recipe : recipes) {

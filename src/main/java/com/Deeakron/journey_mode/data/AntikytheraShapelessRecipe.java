@@ -4,7 +4,6 @@ import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
