@@ -9,8 +9,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.command.arguments.ItemArgument;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 
@@ -42,7 +42,7 @@ public class JMResearchCommand {
         dispatcher.register(jMResearchCommand);
     }
 
-    static int grantResearch(CommandContext<CommandSource> commandContext) throws CommandSyntaxException {
+    static int grantResearch(CommandContext<CommandSourceStack> commandContext) throws CommandSyntaxException {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -57,7 +57,7 @@ public class JMResearchCommand {
         return 1;
     }
 
-    static int revokeResearch(CommandContext<CommandSource> commandContext){
+    static int revokeResearch(CommandContext<CommandSourceStack> commandContext){
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
@@ -72,7 +72,7 @@ public class JMResearchCommand {
         return 1;
     }
 
-    static int changeResearch(CommandContext<CommandSource> commandContext){
+    static int changeResearch(CommandContext<CommandSourceStack> commandContext){
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         int count = IntegerArgumentType.getInteger(commandContext, "count");
         if(commandContext.getSource().getEntity() instanceof ServerPlayer){

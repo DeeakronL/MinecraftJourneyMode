@@ -128,7 +128,7 @@ public class journey_mode
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
             JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
-            JMBlockEntityTypes.TILE_ENTITY_TYPES.register(bus);
+            JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
         } else {
             this.useUnobtain = false;
         }
@@ -138,6 +138,7 @@ public class journey_mode
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
+        bus.addListener(JMCapabilityProvider::register);
         if (UnobtainConfig.use_unobtainable.get()) {
             DuplicationInit.init();
             DuplicationInit.ITEMS.register(bus);
@@ -151,7 +152,8 @@ public class journey_mode
         //LOGGER.info("HELLO FROM PREINIT");
         //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
-        JMCapabilityProvider.register();
+        //Might need to change, currently at bus.addListener up above
+        //JMCapabilityProvider.register();
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
         JMTriggers.init();
