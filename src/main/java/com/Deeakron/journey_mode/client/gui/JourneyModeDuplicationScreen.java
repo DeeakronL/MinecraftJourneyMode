@@ -269,8 +269,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addWidget(new net.minecraft.client.gui.widget.button.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addWidget(new net.minecraft.client.gui.widget.button.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addWidget(new net.minecraft.client.gui.components.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addWidget(new net.minecraft.client.gui.components.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
