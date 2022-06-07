@@ -727,7 +727,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         if (maxPages != 0) {
             Component page = new TextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
-            RenderSystem.disableLighting();
+            //RenderSystem.disableLighting();
             this.setBlitOffset(300);
             this.itemRenderer.blitOffset = 300.0F;
             font.drawShadow(PoseStack, page.getVisualOrderText(), leftPos + (imageWidth + 45) - (font.width(page) / 2), topPos +7, -1);
@@ -769,10 +769,10 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 list1.add(1, itemgroup.getDisplayName().copy().withStyle(ChatFormatting.BLUE));
             }
 
-            net.minecraft.client.gui.Font font = itemStack.getItem().getFont(itemStack);
+            /*Font font = itemStack.getItem().getFont(itemStack);
             net.minecraftforge.fml.client.gui.GuiUtils.preItemToolTip(itemStack);
             this.renderWrappedToolTip(PoseStack, list1, mouseX, mouseY, (font == null ? this.font : font));
-            net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();
+            net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();*/
         } else {
             super.renderTooltip(PoseStack, itemStack, mouseX, mouseY);
         }
@@ -919,13 +919,13 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             i1 = i1 + (this.imageHeight - 4);
         }
 
-        RenderSystem.color3f(1F, 1F, 1F); //Forge: Reset color in case Items change it.
+        //RenderSystem.color3f(1F, 1F, 1F); //Forge: Reset color in case Items change it.
         RenderSystem.enableBlend(); //Forge: Make sure blend is enabled else tabs show a white border.
         this.blit(p_238808_1_, l, i1, j, k, 28, 32);
         this.itemRenderer.blitOffset = 100.0F;
         l = l + 6;
         i1 = i1 + 8 + (flag1 ? 1 : -1);
-        RenderSystem.enableRescaleNormal();
+        //RenderSystem.enableRescaleNormal();
         ItemStack itemstack = p_238808_2_.getIconItem();
         this.itemRenderer.renderAndDecorateItem(itemstack, l, i1);
         this.itemRenderer.renderGuiItemDecorations(this.font, itemstack, l, i1);
@@ -1045,8 +1045,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         public void onPress() {
-            this.screen.minecraft.player.drop(inventory.getCarried(), true);
-            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
+            this.screen.minecraft.player.drop(this.screen.minecraft.player.getInventory().getSelected(), true);
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.minecraft.player.getInventory().getSelected());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "powers"));
         }
 
@@ -1063,8 +1063,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         public void onPress() {
-            this.screen.minecraft.player.drop(inventory.getCarried(), true);
-            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
+            this.screen.minecraft.player.drop(this.screen.minecraft.player.getInventory().getSelected(), true);
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.minecraft.player.getInventory().getSelected());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "research"));
         }
 
@@ -1097,8 +1097,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         public void onPress() {
-            this.screen.minecraft.player.drop(inventory.getCarried(), true);
-            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(inventory.getCarried());
+            this.screen.minecraft.player.drop(this.screen.minecraft.player.getInventory().getSelected(), true);
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.minecraft.player.getInventory().getSelected());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "recipes"));
         }
 
@@ -1157,7 +1157,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         public DuplicationContainer(Player player, ResearchList research) {
             super((MenuType<?>) null, 0);
-            Inventory playerInventory = player.inventory;
+            Inventory playerInventory = player.getInventory();
             this.research = research;
 
             int startX = 8;
@@ -1297,8 +1297,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.slot = p_i229959_1_;
         }
 
-        public ItemStack onTake(Player thePlayer, ItemStack stack) {
-            return this.slot.onTake(thePlayer, stack);
+        public void onTake(Player thePlayer, ItemStack stack) {
+            this.slot.onTake(thePlayer, stack);
         }
 
         public boolean mayPlace(ItemStack stack) { return this.slot.mayPlace(stack);}

@@ -5,7 +5,7 @@ import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.particles.BlockParticleData;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundSource;
@@ -14,7 +14,10 @@ import net.minecraft.world.level.Level;
 
 import net.minecraft.world.item.Item.Properties;
 
+import java.util.Random;
+
 public class PaintBucketItem extends Item {
+    private final Random random = new Random();
     public PaintBucketItem(Properties properties) {
         super(properties);
     }
@@ -35,7 +38,7 @@ public class PaintBucketItem extends Item {
                 double d6 = (double)pos.getX()  + random.nextDouble();// * d0 - 0.5D;
                 double d7 = (double)pos.getY() + random.nextDouble();// * d1;
                 double d8 = (double)pos.getZ() + random.nextDouble();// * d0 - 0.5D;
-                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, UnobtainBlockInit.PAINTED_BARRIER.get().defaultBlockState()), d6, d7, d8, d2, d3, d4);
+                world.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, UnobtainBlockInit.PAINTED_BARRIER.get().defaultBlockState()), d6, d7, d8, d2, d3, d4);
             }
             context.getItemInHand().shrink(1);
             return InteractionResult.sidedSuccess(world.isClientSide);

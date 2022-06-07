@@ -22,8 +22,11 @@ import net.minecraft.core.FrontAndTop;
 
 import net.minecraft.world.item.Item.Properties;
 
+import java.util.Random;
+
 public class AetherialVoidDustItem extends Item {
     private boolean resultFlag = false;
+    private final Random random = new Random();
 
     public AetherialVoidDustItem(Properties properties) {
         super(properties);
