@@ -137,7 +137,7 @@ public class journey_mode
         this.dupeList = new DuplicationList(list);
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
-        JMMenuTypes.CONTAINER_TYPES.register(bus);
+        JMContainerTypes.CONTAINER_TYPES.register(bus);
         if (UnobtainConfig.use_unobtainable.get()) {
             DuplicationInit.init();
             DuplicationInit.ITEMS.register(bus);
@@ -153,7 +153,7 @@ public class journey_mode
         MinecraftForge.EVENT_BUS.register(RegisterCommandEvent.class);
         JMCapabilityProvider.register();
         EventHandler.registerPackets();
-        JMMenuTypes.registerScreens();
+        JMContainerTypes.registerScreens();
         JMTriggers.init();
 
     }

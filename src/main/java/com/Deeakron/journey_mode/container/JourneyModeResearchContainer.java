@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.init.JMMenuTypes;
+import com.Deeakron.journey_mode.init.JMContainerTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.Container;
@@ -13,7 +13,7 @@ import net.minecraft.network.FriendlyByteBuf;
 public class JourneyModeResearchContainer extends AbstractContainerMenu {
     private final Container researchInventory = new SimpleContainer(1);
     public JourneyModeResearchContainer(final int windowId, final Inventory Inventory) {
-        super(JMMenuTypes.JOURNEY_MODE_RESEARCH.get(), windowId);
+        super(JMContainerTypes.JOURNEY_MODE_RESEARCH.get(), windowId);
 
         //Main Inventory
         int startX = 8;

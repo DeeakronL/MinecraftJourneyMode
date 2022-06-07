@@ -2,7 +2,7 @@ package com.Deeakron.journey_mode.container;
 
 import com.Deeakron.journey_mode.data.AntikytheraRecipe;
 import com.Deeakron.journey_mode.data.AntikytheraShapelessRecipe;
-import com.Deeakron.journey_mode.init.JMMenuTypes;
+import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
@@ -35,7 +35,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
     }
 
     public UnobtainiumAntikytheraContainer(int id, Inventory Inventory, final ContainerLevelAccess p_i50090_3_) {
-        super(JMMenuTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
+        super(JMContainerTypes.UNOBTAINIUM_ANTIKYTHERA.get(), id);
         this.worldPosCallable = p_i50090_3_;
         this.player = Inventory.player;
 

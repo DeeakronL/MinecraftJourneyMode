@@ -36,7 +36,7 @@ public class StarforgeScreen  extends AbstractContainerScreen<StarforgeContainer
     @Override
     protected void renderLabels(PoseStack PoseStack, int mouseX, int mouseY) {
         this.font.draw(PoseStack, this.title.getString(), 8.0f, 1.0f, 15921906);
-        this.font.draw(PoseStack, this.InventoryTitle.getString(), 89.0f, 69.0f, 15921906);
+        this.font.draw(PoseStack, this.playerInventoryTitle.getString(), 89.0f, 69.0f, 15921906);
     }
 
     @Override

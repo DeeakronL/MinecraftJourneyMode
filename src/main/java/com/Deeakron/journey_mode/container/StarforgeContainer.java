@@ -1,8 +1,8 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.init.JMMenuTypes;
+import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
-import com.Deeakron.journey_mode.BlockEntity.UnobtainiumStarforgeBlockEntity;
+import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import com.Deeakron.journey_mode.util.FunctionalIntReferenceHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,13 +21,13 @@ import java.util.Objects;
 
 public class StarforgeContainer extends AbstractContainerMenu {
 
-    private UnobtainiumStarforgeBlockEntity BlockEntity;
+    private UnobtainiumStarforgeTileEntity BlockEntity;
     private ContainerLevelAccess canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
     public FunctionalIntReferenceHolder currentFuelTime;
 
-    public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeBlockEntity tile) {
-        super(JMMenuTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
+    public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
+        super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
         this.canInteractWithCallable = ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos());
         this.BlockEntity = tile;
         final int slotSizePlus2 = 18;
@@ -60,12 +60,12 @@ public class StarforgeContainer extends AbstractContainerMenu {
         this(windowID, playerInv, getBlockEntity(playerInv, data));
     }
 
-    private static UnobtainiumStarforgeBlockEntity getBlockEntity(final Inventory playerInv, final FriendlyByteBuf data) {
+    private static UnobtainiumStarforgeTileEntity getBlockEntity(final Inventory playerInv, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInv, "plyerInv cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof UnobtainiumStarforgeBlockEntity) {
-            return (UnobtainiumStarforgeBlockEntity) tileAtPos;
+        if (tileAtPos instanceof UnobtainiumStarforgeTileEntity) {
+            return (UnobtainiumStarforgeTileEntity) tileAtPos;
         }
         throw new IllegalStateException("BlockEntity is not correct " + tileAtPos);
     }

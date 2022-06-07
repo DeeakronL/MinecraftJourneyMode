@@ -1,28 +1,28 @@
-package com.Deeakron.journey_mode.BlockEntity;
+package com.Deeakron.journey_mode.tileentity;
 
 import com.Deeakron.journey_mode.block.UnobtainiumStarforgeBlock;
 import com.Deeakron.journey_mode.container.StarforgeContainer;
 import com.Deeakron.journey_mode.container.StarforgeItemHandler;
 import com.Deeakron.journey_mode.data.StarforgeRecipe;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
-import com.Deeakron.journey_mode.init.JMBlockEntityTypes;
+import com.Deeakron.journey_mode.init.JMTileEntityTypes;
 import com.Deeakron.journey_mode.journey_mode;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateBlockEntityPacket;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
@@ -45,7 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements TickableBlockEntity, MenuProvider {
+public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  MenuProvider {
 
     private Component customName;
     public int currentSmeltTime = 0;
@@ -54,14 +54,18 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
     public int currentFuelTime = 0;
     public final int maxFuelTime = 801;
 
-    public UnobtainiumStarforgeBlockEntity(BlockEntityType<?> BlockEntityTypeIn) {
-        super(BlockEntityTypeIn);
+    public UnobtainiumStarforgeTileEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state) {
+        super(blockEntityTypeIn, pos, state);
 
         this.inventory = new StarforgeItemHandler(3);
     }
 
-    public UnobtainiumStarforgeBlockEntity() {
-        this(JMBlockEntityTypes.UNOBTAINIUM_STARFORGE.get());
+    /*public UnobtainiumStarforgeTileEntity() {
+        this(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get());
+    }*/
+
+    public UnobtainiumStarforgeTileEntity(BlockPos pos, BlockState state) {
+        super(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get(), pos, state);
     }
 
     @Nullable
@@ -70,7 +74,7 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
         return new StarforgeContainer(windowId, playerInv, this);
     }
 
-    @Override
+
     public void tick() {
         boolean dirty = false;
         boolean itemCheck = false;
@@ -145,15 +149,14 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
         return this.customName;
     }
 
-    @Override
-    public void load(BlockState state, CompoundNBT compound) {
-        super.load(state, compound);
+    public void load(BlockState state, CompoundTag compound) {
+        super.load(compound);
         if(compound.contains("CustomName", Constants.NBT.TAG_STRING)) {
             this.customName = Component.Serializer.fromJson(compound.getString("CustomName"));
         }
 
         NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(this.inventory.getSlots(), ItemStack.EMPTY);
-        ItemStackHelper.loadAllItems(compound, inv);
+        ContainerHelper.loadAllItems(compound, inv);
         this.inventory.setNonNullList(inv);
 
         this.currentSmeltTime = compound.getInt("CurrentSmeltTime");
@@ -161,13 +164,13 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
+    public CompoundTag save(CompoundTag compound) {
         super.save(compound);
         if (this.customName != null) {
             compound.putString("CustomName", Component.Serializer.toJson(this.customName));
         }
 
-        ItemStackHelper.saveAllItems(compound, this.inventory.toNonNullList());
+        ContainerHelper.saveAllItems(compound, this.inventory.toNonNullList());
         compound.putInt("CurrentSmeltTime", this.currentSmeltTime);
         compound.putInt("CurrentFuelTime", this.currentFuelTime);
 
@@ -182,8 +185,8 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
             return null;
         }
 
-        Set<IRecipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.level);
-        for (IRecipe<?> iRecipe : recipes) {
+        Set<Recipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.level);
+        for (Recipe<?> iRecipe : recipes) {
             StarforgeRecipe recipe = (StarforgeRecipe) iRecipe;
             if (recipe.matches(new RecipeWrapper(this.inventory), this.level)) {
                 return recipe;
@@ -193,20 +196,20 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
         return null;
     };
 
-    public static Set<IRecipe<?>> findRecipesByType(RecipeType<?> typeIn, Level world) {
+    public static Set<Recipe<?>> findRecipesByType(RecipeType<?> typeIn, Level world) {
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static Set<IRecipe<?>> findRecipesByType(RecipeType<?> typeIn) {
-        ClientWorld world = Minecraft.getInstance().level;
+    public static Set<Recipe<?>> findRecipesByType(RecipeType<?> typeIn) {
+        ClientLevel world = Minecraft.getInstance().level;
         return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
     public static Set<ItemStack> getAllRecipeInputs(RecipeType<?> typeIn, Level worldIn) {
         Set<ItemStack> inputs = new HashSet<ItemStack>();
-        Set<IRecipe<?>> recipes = findRecipesByType(typeIn, worldIn);
-        for (IRecipe<?> recipe : recipes) {
+        Set<Recipe<?>> recipes = findRecipesByType(typeIn, worldIn);
+        for (Recipe<?> recipe : recipes) {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             ingredients.forEach(ingredient -> {
                 for(ItemStack stack : ingredient.getItems()) {
@@ -223,26 +226,25 @@ public class UnobtainiumStarforgeBlockEntity extends BlockEntity implements Tick
 
     @Nullable
     @Override
-    public SUpdateBlockEntityPacket getUpdatePacket() {
-        CompoundNBT nbt = new CompoundNBT();
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        CompoundTag nbt = new CompoundTag();
         this.save(nbt);
-        return new SUpdateBlockEntityPacket(this.worldPosition, 0, nbt);
+        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, nbt);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateBlockEntityPacket pkt) {
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         this.load(this.getBlockState(), pkt.getTag());
     }
 
     @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT nbt = new CompoundNBT();
+    public CompoundTag getUpdateTag() {
+        CompoundTag nbt = new CompoundTag();
         this.save(nbt);
         return nbt;
     }
 
-    @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
+    public void handleUpdateTag(BlockState state, CompoundTag nbt) {
         this.load(state, nbt);
     }
 

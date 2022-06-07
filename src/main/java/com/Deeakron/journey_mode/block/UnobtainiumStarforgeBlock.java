@@ -1,8 +1,8 @@
 package com.Deeakron.journey_mode.block;
 
-import com.Deeakron.journey_mode.init.JMBlockEntityTypes;
+import com.Deeakron.journey_mode.init.JMTileEntityTypes;
 import com.Deeakron.journey_mode.container.StarforgeItemHandler;
-import com.Deeakron.journey_mode.BlockEntity.UnobtainiumStarforgeBlockEntity;
+import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.block.Block;
@@ -49,9 +49,9 @@ public class UnobtainiumStarforgeBlock extends Block {
         return true;
     }
 
-    public BlockEntity createBlockEntity(BlockState state, BlockGetter world) {
-        return JMBlockEntityTypes.UNOBTAINIUM_STARFORGE.get().create();
-    }
+    /*public BlockEntity createBlockEntity(BlockState state, BlockGetter world) {
+        return JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get().create();
+    }*/
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -79,8 +79,8 @@ public class UnobtainiumStarforgeBlock extends Block {
         super.setPlacedBy(worldIn, pos, state, placer, stack);
         if(stack.hasCustomHoverName()) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
-            if(tile instanceof UnobtainiumStarforgeBlockEntity) {
-                ((UnobtainiumStarforgeBlockEntity) tile).setCustomName(stack.getHoverName());
+            if(tile instanceof UnobtainiumStarforgeTileEntity) {
+                ((UnobtainiumStarforgeTileEntity) tile).setCustomName(stack.getHoverName());
             }
         }
     }
@@ -98,7 +98,7 @@ public class UnobtainiumStarforgeBlock extends Block {
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn != null && !worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
-            if (tile instanceof UnobtainiumStarforgeBlockEntity) {
+            if (tile instanceof UnobtainiumStarforgeTileEntity) {
                 NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) tile, pos);
                 return InteractionResult.SUCCESS;
             }
@@ -111,8 +111,8 @@ public class UnobtainiumStarforgeBlock extends Block {
 
 
         BlockEntity tile = worldIn.getBlockEntity(pos);
-        if (tile instanceof UnobtainiumStarforgeBlockEntity && state.getBlock() != newState.getBlock()) {
-            UnobtainiumStarforgeBlockEntity starforge = (UnobtainiumStarforgeBlockEntity) tile;
+        if (tile instanceof UnobtainiumStarforgeTileEntity && state.getBlock() != newState.getBlock()) {
+            UnobtainiumStarforgeTileEntity starforge = (UnobtainiumStarforgeTileEntity) tile;
             ((StarforgeItemHandler) starforge.getInventory()).toNonNullList().forEach(item -> {
                 ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), item);
                 worldIn.addFreshEntity(itemEntity);

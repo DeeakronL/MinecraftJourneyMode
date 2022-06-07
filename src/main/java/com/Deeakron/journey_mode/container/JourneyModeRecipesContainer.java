@@ -1,6 +1,6 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.init.JMMenuTypes;
+import com.Deeakron.journey_mode.init.JMContainerTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.Container;
@@ -16,7 +16,7 @@ public class JourneyModeRecipesContainer extends AbstractContainerMenu {
     private Container recipe2InputInventory = new SimpleContainer(9);
     private Container recipe2OutputInventory = new SimpleContainer(1);
     public JourneyModeRecipesContainer(final int windowId) {
-        super(JMMenuTypes.JOURNEY_MODE_RECIPES.get(), windowId);
+        super(JMContainerTypes.JOURNEY_MODE_RECIPES.get(), windowId);
 
         //Recipe 1 input
         int startX = 30;
