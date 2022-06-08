@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -30,7 +29,7 @@ public class UnobtainBlockInit {
             .register("unobtainium_block",
                     () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.NETHERITE_BLOCK)
                             .requiresCorrectToolForDrops()));
 
@@ -38,7 +37,7 @@ public class UnobtainBlockInit {
             .register("raw_unobtainium_block",
                     () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.ANCIENT_DEBRIS)
                             .requiresCorrectToolForDrops()));
 
@@ -46,7 +45,7 @@ public class UnobtainBlockInit {
             .register("unobtainium_antikythera",
                     () -> new UnobtainiumAntikytheraBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.LODESTONE)
                             .requiresCorrectToolForDrops()));
 
@@ -54,7 +53,7 @@ public class UnobtainBlockInit {
             .register("unobtainium_starforge",
                     () -> new UnobtainiumStarforgeBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.LODESTONE)
                             .requiresCorrectToolForDrops()
                             .lightLevel(getLightValueLit(15))));
@@ -63,7 +62,7 @@ public class UnobtainBlockInit {
             .register("cracked_bedrock",
                     () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .requiresCorrectToolForDrops()));
 
@@ -71,7 +70,7 @@ public class UnobtainBlockInit {
             .register("inert_command_block",
                     () -> new InertCommandBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .requiresCorrectToolForDrops()));
 
@@ -79,7 +78,7 @@ public class UnobtainBlockInit {
             .register("inert_chain_command_block",
                     () -> new InertCommandBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .requiresCorrectToolForDrops()));
 
@@ -87,7 +86,7 @@ public class UnobtainBlockInit {
             .register("inert_repeating_command_block",
                     () -> new InertCommandBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .requiresCorrectToolForDrops()));
 
@@ -95,7 +94,7 @@ public class UnobtainBlockInit {
             .register("inert_structure_block",
                     () -> new InertStructureBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .requiresCorrectToolForDrops()));
 
@@ -103,7 +102,7 @@ public class UnobtainBlockInit {
             .register("inert_jigsaw_block",
                     () -> new InertJigsawBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .requiresCorrectToolForDrops()));
 
@@ -111,7 +110,7 @@ public class UnobtainBlockInit {
             .register("painted_barrier",
                     () -> new PaintedBarrierBlock(BlockBehaviour.Properties.of(Material.BARRIER)
                             .strength(50f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(4)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.LODESTONE)
                             .requiresCorrectToolForDrops()
                             .noOcclusion()));

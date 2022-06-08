@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,28 +19,28 @@ public class BlockInit {
             .register("wooden_research_grinder",
                     () -> new ResearchGrinderBlock(BlockBehaviour.Properties.of(Material.WOOD)
                     .strength(2f, 2f)
-                    .harvestTool(ToolType.AXE).harvestLevel(0)
+                    .requiresCorrectToolForDrops()
                     .sound(SoundType.WOOD)
                     .noOcclusion(), "wood"));
     public static final RegistryObject<Block>WOODEN_RESEARCH_GRINDER_PART_0 = BLOCKS
             .register("wooden_research_grinder_part_0",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.WOOD)
                             .strength(2f, 2f)
-                            .harvestTool(ToolType.AXE).harvestLevel(0)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.WOOD)
                             .noOcclusion(), 0, "wood"));
     public static final RegistryObject<Block>WOODEN_RESEARCH_GRINDER_PART_1 = BLOCKS
             .register("wooden_research_grinder_part_1",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.WOOD)
                             .strength(2f, 2f)
-                            .harvestTool(ToolType.AXE).harvestLevel(0)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.WOOD)
                             .noOcclusion(),1, "wood"));
     public static final RegistryObject<Block>WOODEN_RESEARCH_GRINDER_PART_2 = BLOCKS
             .register("wooden_research_grinder_part_2",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.WOOD)
                             .strength(2f, 2f)
-                            .harvestTool(ToolType.AXE).harvestLevel(0)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.WOOD)
                             .noOcclusion(),2, "wood"));
 
@@ -49,28 +48,28 @@ public class BlockInit {
             .register("iron_research_grinder",
                     () -> new ResearchGrinderBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(5f, 6f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .noOcclusion(), "iron"));
     public static final RegistryObject<Block>IRON_RESEARCH_GRINDER_PART_0 = BLOCKS
             .register("iron_research_grinder_part_0",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(5f, 6f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .noOcclusion(),0, "iron"));
     public static final RegistryObject<Block>IRON_RESEARCH_GRINDER_PART_1 = BLOCKS
             .register("iron_research_grinder_part_1",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(5f, 6f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .noOcclusion(),1, "iron"));
     public static final RegistryObject<Block>IRON_RESEARCH_GRINDER_PART_2 = BLOCKS
             .register("iron_research_grinder_part_2",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.METAL)
                             .strength(5f, 6f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(1)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)
                             .noOcclusion(),2, "iron"));
 
@@ -78,28 +77,28 @@ public class BlockInit {
             .register("diamond_research_grinder",
                     () -> new ResearchGrinderBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(5f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .noOcclusion(), "diamond"));
     public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER_PART_0 = BLOCKS
             .register("diamond_research_grinder_part_0",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(5f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .noOcclusion(),0, "diamond"));
     public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER_PART_1 = BLOCKS
             .register("diamond_research_grinder_part_1",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(5f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .noOcclusion(),1, "diamond"));
     public static final RegistryObject<Block>DIAMOND_RESEARCH_GRINDER_PART_2 = BLOCKS
             .register("diamond_research_grinder_part_2",
                     () -> new ResearchGrinderPartBlock(BlockBehaviour.Properties.of(Material.STONE)
                             .strength(5f, 1200f)
-                            .harvestTool(ToolType.PICKAXE).harvestLevel(3)
+                            .requiresCorrectToolForDrops()
                             .sound(SoundType.STONE)
                             .noOcclusion(),2, "diamond"));
 }

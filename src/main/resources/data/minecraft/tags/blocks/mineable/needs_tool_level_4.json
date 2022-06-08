@@ -11,14 +11,6 @@
     "journey_mode:inert_repeating_command_block",
     "journey_mode:inert_structure_block",
     "journey_mode:inert_jigsaw_block",
-    "journey_mode:painted_barrier",
-    "journey_mode:iron_research_grinder",
-    "journey_mode:iron_research_grinder_part_0",
-    "journey_mode:iron_research_grinder_part_1",
-    "journey_mode:iron_research_grinder_part_2",
-    "journey_mode:diamond_research_grinder",
-    "journey_mode:diamond_research_grinder_part_0",
-    "journey_mode:diamond_research_grinder_part_1",
-    "journey_mode:diamond_research_grinder_part_2"
+    "journey_mode:painted_barrier"
   ]
 }
