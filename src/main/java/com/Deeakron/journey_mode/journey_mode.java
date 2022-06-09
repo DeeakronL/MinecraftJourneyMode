@@ -186,9 +186,9 @@ public class journey_mode
         RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());/*
+        RenderTypeLookup.setRenderLayer(BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(), RenderType.cutout());*/
         if (UnobtainConfig.use_unobtainable.get()) {
-            RenderTypeLookup.setRenderLayer(UnobtainBlockInit.PAINTED_BARRIER.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(UnobtainBlockInit.PAINTED_BARRIER.get(), RenderType.cutout());
         }
     }
 
