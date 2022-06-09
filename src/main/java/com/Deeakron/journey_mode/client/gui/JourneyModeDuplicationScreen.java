@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.client.gui;
 
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
+import com.Deeakron.journey_mode.client.event.CloseDuplicationMenuEvent;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.client.event.MenuSwitchEvent;
 import com.Deeakron.journey_mode.journey_mode;
@@ -96,15 +97,15 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
     private CreativeModeTab[] itemGroupSmall = null;
     private int hotbarIndex;
     private int survivalInventoryIndex;
-    private ServerPlayer serverPlayerEntity;
+    //private ServerPlayer serverPlayerEntity;
     private static boolean hasRecipes;
 
-    public JourneyModeDuplicationScreen(Player player, boolean wasCreative, boolean wasGodMode, ServerPlayer serverPlayerEntity) {
+    public JourneyModeDuplicationScreen(Player player, boolean wasCreative, boolean wasGodMode) {
         super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.getInventory(), TextComponent.EMPTY);
         player.containerMenu = this.menu;
         this.wasCreative = wasCreative;
         this.wasGodMode = wasGodMode;
-        this.serverPlayerEntity = serverPlayerEntity;
+        //this.serverPlayerEntity = serverPlayerEntity;
         this.passEvents = true;
         this.imageWidth = 190;
         this.imageHeight = 183;
@@ -305,9 +306,9 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
         this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
         if (!this.wasCreative) {
-            this.serverPlayerEntity.setGameMode(GameType.SURVIVAL);
+            MinecraftForge.EVENT_BUS.post(new CloseDuplicationMenuEvent("creative", Minecraft.getInstance().player.getStringUUID()));
         }
-        this.serverPlayerEntity.getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(wasGodMode);
+        MinecraftForge.EVENT_BUS.post(new CloseDuplicationMenuEvent("godmode " + wasGodMode, Minecraft.getInstance().player.getStringUUID()));
     }
 
     public boolean charTyped(char codePoint, int modifiers) {

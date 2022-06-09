@@ -37,6 +37,7 @@ import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
 import net.minecraftforge.fmllegacy.network.NetworkRegistry;
 import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
@@ -192,6 +193,8 @@ public class EventHandler {
         INSTANCE.registerMessage(2, GameStatePacket.class, GameStatePacket::encode, GameStatePacket::decode,GameStatePacket::handle);
         INSTANCE.registerMessage(3, MenuSwitchPacket.class, MenuSwitchPacket::encode, MenuSwitchPacket::decode, MenuSwitchPacket::handle);
         INSTANCE.registerMessage(4, ResearchPacket.class, ResearchPacket::encode, ResearchPacket::decode, ResearchPacket::handle);
+        INSTANCE.registerMessage(5, DuplicationMenuPacket.class, DuplicationMenuPacket::encode, DuplicationMenuPacket::decode, DuplicationMenuPacket::handle);
+        INSTANCE.registerMessage(6, CloseDuplicationMenuPacket.class, CloseDuplicationMenuPacket::encode, CloseDuplicationMenuPacket::decode, CloseDuplicationMenuPacket::handle);
     }
 
     @SubscribeEvent
@@ -202,6 +205,11 @@ public class EventHandler {
     @SubscribeEvent
     public static void MenuSwitchEvent(final MenuSwitchEvent event) {
         INSTANCE.sendToServer(new MenuSwitchPacket(event.player, event.menuType));
+    }
+
+    @SubscribeEvent
+    public static void CloseDuplicationMenuEvent(final CloseDuplicationMenuEvent event) {
+        INSTANCE.sendToServer(new CloseDuplicationMenuPacket(event.mode, event.player));
     }
 
     @SubscribeEvent
@@ -348,4 +356,7 @@ public class EventHandler {
         }
     }
 
+    public static void duplicationMenuOpenEvent(Object msg, ServerPlayer player) {
+        INSTANCE.sendTo(msg, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+    }
 }

@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.client;
 
+import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.container.JourneyModePowersContainerProvider;
 import com.Deeakron.journey_mode.container.JourneyModeRecipesContainerProvider;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainerProvider;
@@ -48,8 +49,8 @@ public class MenuSwitchPacket {
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         UUID info = UUID.fromString(data);
-        ServerLevel ServerLevel = context.get().getSender().getLevel();
-        Player player = (Player) ServerLevel.getEntity(info);
+        ServerLevel serverLevel = context.get().getSender().getLevel();
+        Player player = (Player) serverLevel.getEntity(info);
         ServerPlayer serverPlayer = (ServerPlayer) player;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
@@ -105,7 +106,7 @@ public class MenuSwitchPacket {
     }
 
     public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, Player player) {
-
-        Minecraft.getInstance().setScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayer) player));
+        EventHandler.duplicationMenuOpenEvent(new DuplicationMenuPacket(wasCreative, wasGodMode, player.getStringUUID()), (ServerPlayer) player);
+        //Minecraft.getInstance().setScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayer) player));
     }
 }
