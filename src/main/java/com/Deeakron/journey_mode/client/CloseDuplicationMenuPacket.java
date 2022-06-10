@@ -40,7 +40,6 @@ public class CloseDuplicationMenuPacket {
     }
 
     public void handle(Supplier<NetworkEvent.Context> context) {
-        journey_mode.LOGGER.info("well this worked i guess?");
         UUID info = UUID.fromString(player);
         ServerLevel serverLevel = context.get().getSender().getLevel();
         Player player = (Player) serverLevel.getEntity(info);

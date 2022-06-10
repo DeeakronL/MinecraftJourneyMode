@@ -52,12 +52,12 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
 
     protected void init() {
         super.init();
-        this.addWidget(new JourneyModeResearchScreen.PowersTab(this.leftPos -29, this.topPos + 21));
-        this.addWidget(new JourneyModeResearchScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
-        this.addWidget(new JourneyModeResearchScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
-        this.addWidget(new JourneyModeResearchScreen.ResearchButton(this.leftPos + 58, this.topPos + 67, this));
+        this.addRenderableWidget(new JourneyModeResearchScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addRenderableWidget(new JourneyModeResearchScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addRenderableWidget(new JourneyModeResearchScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
+        this.addRenderableWidget(new JourneyModeResearchScreen.ResearchButton(this.leftPos + 58, this.topPos + 67, this));
         if (this.hasRecipes) {
-            this.addWidget(new JourneyModeResearchScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
+            this.addRenderableWidget(new JourneyModeResearchScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
         }
     }
 
@@ -74,9 +74,9 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
         this.font.draw(PoseStack, this.title.getString(), 8.0f, 6.0f, 4210752);
 
         for(Widget widget : this.renderables) {
-            if (widget instanceof JourneyModeRecipesScreen.Button) {
-                if (((JourneyModeRecipesScreen.Button) widget).isHovered()) {
-                    widget.render(PoseStack, mouseX - this.leftPos, mouseY - this.topPos, 0);
+            if (widget instanceof AbstractButton) {
+                if (((AbstractButton) widget).isHovered()) {
+                    ((AbstractButton) widget).renderToolTip(PoseStack, mouseX - this.leftPos, mouseY - this.topPos);
                     break;
                 }
             }

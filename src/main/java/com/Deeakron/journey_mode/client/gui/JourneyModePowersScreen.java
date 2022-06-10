@@ -76,27 +76,27 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
 
     protected void init() {
         super.init();
-        this.addWidget(new JourneyModePowersScreen.DawnButton(this.leftPos + 25, this.topPos + 17, this));
-        this.addWidget(new JourneyModePowersScreen.NoonButton(this.leftPos + 61, this.topPos + 17, this));
-        this.addWidget(new JourneyModePowersScreen.DuskButton(this.leftPos + 97, this.topPos + 17, this));
-        this.addWidget(new JourneyModePowersScreen.MidnightButton(this.leftPos + 133, this.topPos + 17, this));
-        this.addWidget(new JourneyModePowersScreen.FreezeButton(this.leftPos + 7, this.topPos + 35, this, this.freeze));
-        this.addWidget(new JourneyModePowersScreen.ClearButton(this.leftPos + 43, this.topPos + 35, this));
-        this.addWidget(new JourneyModePowersScreen.RainButton(this.leftPos + 79, this.topPos + 35, this));
-        this.addWidget(new JourneyModePowersScreen.StormButton(this.leftPos + 115, this.topPos + 35, this));
-        this.addWidget(new JourneyModePowersScreen.NormalButton(this.leftPos + 25, this.topPos + 53, this));
-        this.addWidget(new JourneyModePowersScreen.DoubleButton(this.leftPos + 61, this.topPos + 53, this));
-        this.addWidget(new JourneyModePowersScreen.QuadrupleButton(this.leftPos + 97, this.topPos + 53, this));
-        this.addWidget(new JourneyModePowersScreen.OctupleButton(this.leftPos + 133, this.topPos + 53, this));
-        this.addWidget(new JourneyModePowersScreen.MobSpawnButton(this.leftPos + 7, this.topPos + 71, this, this.mobSpawn));
-        this.addWidget(new JourneyModePowersScreen.MobGriefButton(this.leftPos + 43, this.topPos + 71, this, this.mobGrief));
-        this.addWidget(new JourneyModePowersScreen.GodModeButton(this.leftPos + 79, this.topPos + 71, this, this.godMode));
-        this.addWidget(new JourneyModePowersScreen.InventoryButton(this.leftPos + 115, this.topPos + 71, this, this.keepInv));
-        this.addWidget(new JourneyModePowersScreen.PowersTab(this.leftPos -29, this.topPos + 21));
-        this.addWidget(new JourneyModePowersScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
-        this.addWidget(new JourneyModePowersScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
+        this.addRenderableWidget(new JourneyModePowersScreen.DawnButton(this.leftPos + 25, this.topPos + 17, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.NoonButton(this.leftPos + 61, this.topPos + 17, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.DuskButton(this.leftPos + 97, this.topPos + 17, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.MidnightButton(this.leftPos + 133, this.topPos + 17, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.FreezeButton(this.leftPos + 7, this.topPos + 35, this, this.freeze));
+        this.addRenderableWidget(new JourneyModePowersScreen.ClearButton(this.leftPos + 43, this.topPos + 35, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.RainButton(this.leftPos + 79, this.topPos + 35, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.StormButton(this.leftPos + 115, this.topPos + 35, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.NormalButton(this.leftPos + 25, this.topPos + 53, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.DoubleButton(this.leftPos + 61, this.topPos + 53, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.QuadrupleButton(this.leftPos + 97, this.topPos + 53, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.OctupleButton(this.leftPos + 133, this.topPos + 53, this));
+        this.addRenderableWidget(new JourneyModePowersScreen.MobSpawnButton(this.leftPos + 7, this.topPos + 71, this, this.mobSpawn));
+        this.addRenderableWidget(new JourneyModePowersScreen.MobGriefButton(this.leftPos + 43, this.topPos + 71, this, this.mobGrief));
+        this.addRenderableWidget(new JourneyModePowersScreen.GodModeButton(this.leftPos + 79, this.topPos + 71, this, this.godMode));
+        this.addRenderableWidget(new JourneyModePowersScreen.InventoryButton(this.leftPos + 115, this.topPos + 71, this, this.keepInv));
+        this.addRenderableWidget(new JourneyModePowersScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addRenderableWidget(new JourneyModePowersScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addRenderableWidget(new JourneyModePowersScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
         if (this.hasRecipes) {
-            this.addWidget(new JourneyModePowersScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
+            this.addRenderableWidget(new JourneyModePowersScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
         }
     }
 
@@ -113,9 +113,10 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
         this.font.draw(PoseStack, this.title.getString(), 8.0f, 6.0f, 4210752);
         //might need to redo render?
         for(Widget widget : this.renderables) {
-            if (widget instanceof Button) {
-                if (((Button) widget).isHovered()) {
-                    widget.render(PoseStack, mouseX - this.leftPos, mouseY - this.topPos, 0);
+            if (widget instanceof AbstractButton) {
+                if (((AbstractButton) widget).isHovered()) {
+
+                    ((AbstractButton) widget).renderToolTip(PoseStack, mouseX - this.leftPos, mouseY - this.topPos);
                     break;
                 }
             }

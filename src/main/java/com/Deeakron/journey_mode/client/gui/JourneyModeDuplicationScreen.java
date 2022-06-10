@@ -258,20 +258,20 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
     protected void init() {
         super.init();
-        this.addWidget(new JourneyModeDuplicationScreen.PowersTab(this.leftPos -29, this.topPos + 21, this));
-        this.addWidget(new JourneyModeDuplicationScreen.ResearchTab(this.leftPos -29, this.topPos + 50, this));
-        this.addWidget(new JourneyModeDuplicationScreen.DuplicationTab(this.leftPos -29, this.topPos + 79, this));
+        this.addRenderableWidget(new JourneyModeDuplicationScreen.PowersTab(this.leftPos -29, this.topPos + 21, this));
+        this.addRenderableWidget(new JourneyModeDuplicationScreen.ResearchTab(this.leftPos -29, this.topPos + 50, this));
+        this.addRenderableWidget(new JourneyModeDuplicationScreen.DuplicationTab(this.leftPos -29, this.topPos + 79, this));
         if (this.hasRecipes) {
-            this.addWidget(new JourneyModeDuplicationScreen.RecipesTab(this.leftPos -29, this.topPos + 108, this));
+            this.addRenderableWidget(new JourneyModeDuplicationScreen.RecipesTab(this.leftPos -29, this.topPos + 108, this));
         }
         this.filterTab = new JourneyModeDuplicationScreen.FilterTab(this.leftPos + imageWidth - 3, this.topPos + 79);
-        this.addWidget(filterTab);
+        this.addRenderableWidget(filterTab);
         int tabCount = this.itemGroupSmall.length;
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addWidget(new net.minecraft.client.gui.components.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addWidget(new net.minecraft.client.gui.components.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addRenderableWidget(new net.minecraft.client.gui.components.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addRenderableWidget(new net.minecraft.client.gui.components.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
@@ -528,9 +528,9 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         for(Widget widget : this.renderables) {
-            if (widget instanceof JourneyModePowersScreen.Button) {
-                if (((JourneyModePowersScreen.Button) widget).isHovered()) {
-                    widget.render(PoseStack, x - this.leftPos, y - this.topPos, 0);
+            if (widget instanceof AbstractButton) {
+                if (((AbstractButton) widget).isHovered()) {
+                    ((AbstractButton) widget).renderToolTip(PoseStack, x - this.leftPos, y - this.topPos);
                     break;
                 }
             }

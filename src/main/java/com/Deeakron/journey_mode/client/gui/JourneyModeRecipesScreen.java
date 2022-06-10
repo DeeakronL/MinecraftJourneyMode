@@ -56,12 +56,12 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
 
     protected void init() {
         super.init();
-        this.addWidget(new JourneyModeRecipesScreen.PowersTab(this.leftPos -29, this.topPos + 21));
-        this.addWidget(new JourneyModeRecipesScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
-        this.addWidget(new JourneyModeRecipesScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
-        this.addWidget(new JourneyModeRecipesScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
-        this.addWidget(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 6, this.topPos + 73, false, this, 147, 234));
-        this.addWidget(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 152, this.topPos + 73, true, this, 163, 234));
+        this.addRenderableWidget(new JourneyModeRecipesScreen.PowersTab(this.leftPos -29, this.topPos + 21));
+        this.addRenderableWidget(new JourneyModeRecipesScreen.ResearchTab(this.leftPos -29, this.topPos + 50));
+        this.addRenderableWidget(new JourneyModeRecipesScreen.DuplicationTab(this.leftPos -29, this.topPos + 79));
+        this.addRenderableWidget(new JourneyModeRecipesScreen.RecipesTab(this.leftPos -29, this.topPos + 108));
+        this.addRenderableWidget(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 6, this.topPos + 73, false, this, 147, 234));
+        this.addRenderableWidget(new JourneyModeRecipesScreen.ActualArrowButton(this.leftPos + 152, this.topPos + 73, true, this, 163, 234));
 
         //checking all antikythera recipes
         ResourceLocation[] locations = journey_mode.itemListHandler.getLocations();
@@ -209,9 +209,9 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         this.font.draw(PoseStack, this.title.getString(), 8.0f, 6.0f, 4210752);
 
         for(Widget widget : this.renderables) {
-            if (widget instanceof Button) {
-                if (((Button) widget).isHovered()) {
-                    widget.render(PoseStack, mouseX - this.leftPos, mouseY - this.topPos, 0);
+            if (widget instanceof AbstractButton) {
+                if (((AbstractButton) widget).isHovered()) {
+                    ((AbstractButton) widget).renderToolTip(PoseStack, mouseX - this.leftPos, mouseY - this.topPos);
                     break;
                 }
             }
