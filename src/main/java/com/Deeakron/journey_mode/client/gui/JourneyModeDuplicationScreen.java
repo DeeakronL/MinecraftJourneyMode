@@ -152,16 +152,16 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         if (slotIn == null &&  type != ClickType.QUICK_CRAFT) {
             Inventory playerInventory1 = this.minecraft.player.getInventory();
             // .getSelected used to be .getCarried, might need testing for this
-            if (!playerInventory1.getSelected().isEmpty() && this.hasClickedOutside) {
+            if (!this.menu.getCarried().isEmpty() && this.hasClickedOutside) {
                 if (mouseButton == 0) {
-                    this.minecraft.player.drop(playerInventory1.getSelected(), true);
-                    this.minecraft.gameMode.handleCreativeModeItemDrop(playerInventory1.getSelected());
+                    this.minecraft.player.drop(this.menu.getCarried(), true);
+                    this.minecraft.gameMode.handleCreativeModeItemDrop(this.menu.getCarried());
                     // .setPickedItem used to be .setCarried, might need testing for this
-                    playerInventory1.setPickedItem(ItemStack.EMPTY);
+                    this.menu.setCarried(ItemStack.EMPTY);
                 }
 
                 if (mouseButton == 1) {
-                    ItemStack itemStack6 = playerInventory1.getSelected().split(1);
+                    ItemStack itemStack6 = this.menu.getCarried().split(1);
                     this.minecraft.player.drop(itemStack6, true);
                     this.minecraft.gameMode.handleCreativeModeItemDrop(itemStack6);
                 }
@@ -177,7 +177,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 }
             } else if (type != ClickType.QUICK_CRAFT && slotIn.container == TMP_INVENTORY) {
                 Inventory playerInventory = this.minecraft.player.getInventory();
-                ItemStack itemStack5 = playerInventory.getSelected();
+                ItemStack itemStack5 = this.menu.getCarried();
                 ItemStack itemStack7 = slotIn.getItem();
                 if (type == ClickType.SWAP) {
                     return;
@@ -216,8 +216,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                     }
                     if (success) {
                         if (((LockedSlot) slotIn).remaining <= 0) {
-                            playerInventory.setPickedItem(itemStack7.copy());
-                            itemStack5 = playerInventory.getSelected();
+                            this.menu.setCarried(itemStack7.copy());
+                            itemStack5 =this.menu.getCarried();
                             if (flag) {
                                 itemStack5.setCount(itemStack5.getMaxStackSize());
                             }
@@ -225,9 +225,9 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                         }
                     }
                 } else if (mouseButton == 0) {
-                    playerInventory.setPickedItem(ItemStack.EMPTY);
+                    this.menu.setCarried(ItemStack.EMPTY);
                 } else {
-                    playerInventory.getSelected().shrink(1);
+                    this.menu.getCarried().shrink(1);
                 }
             } else if (this.menu != null && type != ClickType.CLONE && type != ClickType.SWAP && type != ClickType.THROW) {
                 ItemStack itemStack3 = slotIn == null ? ItemStack.EMPTY : this.menu.getSlot(slotIn.index).getItem();
@@ -1046,8 +1046,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         public void onPress() {
-            this.screen.minecraft.player.drop(this.screen.minecraft.player.getInventory().getSelected(), true);
-            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.minecraft.player.getInventory().getSelected());
+            this.screen.menu.getCarried();
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.menu.getCarried());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "powers"));
         }
 
@@ -1064,8 +1064,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         public void onPress() {
-            this.screen.minecraft.player.drop(this.screen.minecraft.player.getInventory().getSelected(), true);
-            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.minecraft.player.getInventory().getSelected());
+            this.screen.menu.getCarried();
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.menu.getCarried());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "research"));
         }
 
@@ -1098,8 +1098,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         }
 
         public void onPress() {
-            this.screen.minecraft.player.drop(this.screen.minecraft.player.getInventory().getSelected(), true);
-            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.minecraft.player.getInventory().getSelected());
+            this.screen.menu.getCarried();
+            this.screen.minecraft.gameMode.handleCreativeModeItemDrop(this.screen.menu.getCarried());
             MinecraftForge.EVENT_BUS.post(new MenuSwitchEvent(Minecraft.getInstance().player.getStringUUID(), "recipes"));
         }
 
