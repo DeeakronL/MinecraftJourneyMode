@@ -5,8 +5,8 @@
       "conditions": {
         "item": {
             "items": [
-              "minecraft:raw_cod",
-              "minecraft:raw_salmon"
+              "minecraft:cod",
+              "minecraft:salmon"
               ]
           },
         "entity": {

@@ -17,6 +17,7 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
         generator.addProvider(new BlockTagProvider(generator, journey_mode.MODID, helper));
+        generator.addProvider(new AdvancementsProvider(generator, helper));
         journey_mode.LOGGER.info("added tags?");
     }
 }
