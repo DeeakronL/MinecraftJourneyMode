@@ -66,6 +66,7 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  Menu
 
     public UnobtainiumStarforgeTileEntity(BlockPos pos, BlockState state) {
         super(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get(), pos, state);
+        this.inventory = new StarforgeItemHandler(3);
     }
 
     @Nullable
