@@ -41,7 +41,7 @@ public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<Unobta
 
     public void containerTick() {
         //might need to replace these with containerTicks
-        super.tick();
+        super.containerTick();
         this.recipeBookGui.tick();
     }
 

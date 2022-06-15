@@ -98,7 +98,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
 
     @Override
     public void containerTick() {
-        super.tick();
+        super.containerTick();
         if (!this.initialized) {
             this.initialized = true;
             ResourceLocation[] loc1 = new ResourceLocation[10];

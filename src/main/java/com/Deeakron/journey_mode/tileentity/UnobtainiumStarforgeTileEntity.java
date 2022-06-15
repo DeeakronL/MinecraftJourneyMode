@@ -74,7 +74,6 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  Menu
         return new StarforgeContainer(windowId, playerInv, this);
     }
 
-
     public void tick() {
         boolean dirty = false;
         boolean itemCheck = false;

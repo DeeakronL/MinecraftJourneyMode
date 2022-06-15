@@ -5,9 +5,7 @@ import com.Deeakron.journey_mode.container.StarforgeItemHandler;
 import com.Deeakron.journey_mode.tileentity.UnobtainiumStarforgeTileEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -35,7 +33,9 @@ import java.util.Random;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-public class UnobtainiumStarforgeBlock extends Block {
+import javax.annotation.Nullable;
+
+public class UnobtainiumStarforgeBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
@@ -99,6 +99,7 @@ public class UnobtainiumStarforgeBlock extends Block {
         if (worldIn != null && !worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
             if (tile instanceof UnobtainiumStarforgeTileEntity) {
+
                 NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) tile, pos);
                 return InteractionResult.SUCCESS;
             }
@@ -129,5 +130,11 @@ public class UnobtainiumStarforgeBlock extends Block {
             worldIn.setBlock(pos, state.cycle(LIT), 2);
         }
 
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new UnobtainiumStarforgeTileEntity(pos, state);
     }
 }
