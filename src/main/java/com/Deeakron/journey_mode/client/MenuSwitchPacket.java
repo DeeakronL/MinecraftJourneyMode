@@ -54,7 +54,7 @@ public class MenuSwitchPacket {
         ServerPlayer serverPlayer = (ServerPlayer) player;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
-            Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+            Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:get_antikythera"));
 
 
             if (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone()) {

@@ -82,7 +82,7 @@ public class GameStatePacket {
         journey_mode.keepInv = this.keepInv;
         boolean unlockRecipes = false;
         if (journey_mode.useUnobtain) {
-            Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:journey_mode/get_antikythera"));
+            Advancement advancement = player.getServer().getAdvancements().getAdvancement(new ResourceLocation("journey_mode:get_antikythera"));
             ServerPlayer serverPlayer = (ServerPlayer) player;
 
             if (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone()) {

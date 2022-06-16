@@ -171,7 +171,7 @@ public class AdvancementsProvider extends AdvancementProvider {
                 .addCriterion("inert_jigsaw", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_JIGSAW_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
                 .save(consumer, "journey_mode:get_inert_jigsaw");
 
-        Advancement painted_barrier  = Advancement.Builder.advancement().parent(aetherial_dust).display(
+        Advancement painted_barrier  = Advancement.Builder.advancement().parent(paint).display(
                         UnobtainItemInit.PAINTED_BARRIER.get(),
                         new TranslatableComponent("advancement.journey_mode.get_painted_barrier.title"),
                         new TranslatableComponent("advancement.journey_mode.get_painted_barrier.description"),
