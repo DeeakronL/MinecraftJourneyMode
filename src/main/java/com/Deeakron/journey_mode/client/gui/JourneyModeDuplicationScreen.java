@@ -741,7 +741,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
     }
 
     protected void renderTooltip(PoseStack PoseStack, ItemStack itemStack, int mouseX, int mouseY) {
-        if (selectedTabIndex == CreativeModeTab.TAB_SEARCH.getId()) {
+        if (selectedTabIndex == CreativeModeTab.TAB_SEARCH.getId() - 1) {
+            journey_mode.LOGGER.info("yes");
             List<Component> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL);
             List<Component> list1 = Lists.newArrayList(list);
             Item item = itemStack.getItem();
@@ -774,6 +775,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             net.minecraftforge.fml.client.gui.GuiUtils.preItemToolTip(itemStack);
             this.renderWrappedToolTip(PoseStack, list1, mouseX, mouseY, (font == null ? this.font : font));
             net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();*/
+            super.renderTooltip(PoseStack, itemStack, mouseX, mouseY);
         } else {
             super.renderTooltip(PoseStack, itemStack, mouseX, mouseY);
         }
@@ -880,6 +882,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             if (p_238809_2_ == CreativeModeTab.TAB_INVENTORY) {
                 return false;
             }
+
             this.renderTooltip(p_238809_1_, p_238809_2_.getDisplayName(), p_238809_3_, p_238809_4_);
             return true;
         } else {
