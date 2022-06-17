@@ -54,11 +54,11 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundNBT
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return jMOptional.cast();
+        return cap == INSTANCE ? jMOptional.cast() : LazyOptional.empty();
     }
 
     public static void register() {
-        CapabilityManager.INSTANCE.register(IEntityJourneyMode.class, new Storage(), EntityJourneyMode::new);
+        CapabilityManager.INSTANCE.register(IEntityJourneyMode.class, new Storage(), () -> new EntityJourneyMode());
     }
 
     public static class Storage implements  Capability.IStorage<IEntityJourneyMode> {
