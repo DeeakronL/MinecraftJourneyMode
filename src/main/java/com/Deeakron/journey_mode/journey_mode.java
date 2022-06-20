@@ -91,7 +91,10 @@ public class journey_mode
 
         this.lastMenuOpened = new Date();
 
-
+        String[] oldNames = new String[]{"\"minecraft:raw_cod\"", "\"minecraft:raw_salmon\"", "\"minecraft:grass_path\""};
+        String[] newNames = new String[]{"\"minecraft:cod\"", "\"minecraft:salmon\"", "\"minecraft:dirt_path\""};
+        this.replacementList = new ReplacementList(oldNames, newNames);
+        this.doReplace = true;
 
         try{
             this.list = new ItemList("data/journey_mode/duplication_menu/base_minecraft.json", true);
@@ -106,13 +109,14 @@ public class journey_mode
                 this.list.updateList(changeList);
             }
             if (NewFilesConfig.use_replacements.get()) {
-                this.replacementList = new ReplacementList(FMLPaths.CONFIGDIR.get().resolve("replacements.json").toString(), false);
-                this.doReplace = true;
+                ReplacementList configChanges = new ReplacementList(FMLPaths.CONFIGDIR.get().resolve("replacements.json").toString(), false);
+                this.replacementList.UpdateList(configChanges);
             }
             if (NewFilesConfig.use_removals.get()) {
                 ItemList removeList = new ItemList(FMLPaths.CONFIGDIR.get().resolve("removals.json").toString(), false);
                 this.list.removeItem(removeList.getItems());
             }
+
         } catch (IOException e) {
 
         };

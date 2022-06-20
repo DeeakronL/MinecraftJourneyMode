@@ -22,7 +22,7 @@
       "category": "Unobtainable"
     },
     {
-      "item": "minecraft:grass_path",
+      "item": "minecraft:dirt_path",
       "count": 128,
       "category": "Unobtainable"
     },
@@ -534,6 +534,46 @@
     {
       "item": "journey_mode:paint_bucket",
       "count": 64,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:budding_amethyst",
+      "count" : 128,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:infested_deepslate",
+      "count" : 128,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:axolotl_spawn_egg",
+      "count" : 64,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:glow_squid_spawn_egg",
+      "count" : 64,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:goat_spawn_egg",
+      "count" : 64,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:light",
+      "count" : 128,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:sculk_sensor",
+      "count" : 128,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "minecraft:bundle",
+      "count" : 1,
       "category": "Unobtainable"
     }
   ]

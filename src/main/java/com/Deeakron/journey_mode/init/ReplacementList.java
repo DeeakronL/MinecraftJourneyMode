@@ -36,6 +36,11 @@ public class ReplacementList {
         }
     }
 
+    public ReplacementList(String[] originals, String[] replacements) {
+        this.originals = originals;
+        this.replacements = replacements;
+    }
+
     public void UpdateList(ReplacementList list) {
         String[] newOriginals = list.getOriginals();
         String[] newReplacements = list.getReplacements();

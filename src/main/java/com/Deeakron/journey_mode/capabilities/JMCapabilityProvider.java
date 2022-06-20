@@ -55,6 +55,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
         int[] counts = new int[items.length];
         for (int i = 0; i < items.length; i++) {
             if (journey_mode.doReplace) {
+                journey_mode.LOGGER.info("hey!");
                 boolean wasReplaced = false;
                 for (int j = 0; j < journey_mode.replacementList.getReplacements().length; j++) {
                     if (items[i].equals(journey_mode.replacementList.getReplacements()[j])) {

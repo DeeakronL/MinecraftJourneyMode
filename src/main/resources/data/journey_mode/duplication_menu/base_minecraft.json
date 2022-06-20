@@ -4435,6 +4435,566 @@
       "item" : "minecraft:phantom_membrane",
       "count" : 64,
       "category": "Brewing"
+    },
+    {
+      "item" : "minecraft:deepslate",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cobbled_deepslate",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:polished_deepslate",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:calcite",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:tuff",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:dripstone_block",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:rooted_dirt",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_coal_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_iron_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_copper_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_gold_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_redstone_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_emerald_ore",
+      "count" : 16,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_lapis_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_diamond_ore",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:copper_ore",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:raw_iron_block",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:raw_gold_block",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:raw_copper_block",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:amethyst_block",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:copper_block",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:exposed_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:weathered_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:oxidized_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cut_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:exposed_cut_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:weathered_cut_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:oxidized_cut_copper",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cut_copper_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:exposed_cut_copper_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:weathered_cut_copper_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:oxidized_cut_copper_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cut_copper_slab",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:exposed_cut_copper_slab",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:weathered_cut_copper_slab",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:oxidized_cut_copper_slab",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_copper_block",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_exposed_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_weathered_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_oxidized_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_cut_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_exposed_cut_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_weathered_cut_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_oxidized_cut_copper",
+      "count" : 64,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_cut_copper_stairs",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_exposed_cut_copper_stairs",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_weathered_cut_copper_stairs",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_oxidized_cut_copper_stairs",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_cut_copper_slab",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_exposed_cut_copper_slab",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_weathered_cut_copper_slab",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:waxed_oxidized_cut_copper_slab",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:tinted_glass",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:smooth_basalt",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_bricks",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cracked_deepslate_bricks",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_tiles",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cracked_deepslate_tiles",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:chiseled_deepslate",
+      "count" : 128,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:cobbled_deepslate_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:polished_deepslate_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_brick_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_tile_stairs",
+      "count" : 256,
+      "category": "Building Blocks"
+    },
+    {
+      "item" : "minecraft:azalea_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:flowering_azalea_leaves",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:azalea",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:flowering_azalea",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:spore_blossom",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:moss_carpet",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:moss_block",
+      "count" : 128,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:hanging_roots",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:big_dripleaf",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:small_dripleaf",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:glow_lichen",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cobbled_deepslate_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:polished_deepslate_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_brick_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:deepslate_tile_wall",
+      "count" : 256,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:glow_item_frame",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:white_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:orange_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:magenta_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_blue_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:yellow_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lime_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pink_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:gray_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:light_gray_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:cyan_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:purple_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:blue_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:brown_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:green_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:red_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:black_candle",
+      "count" : 1,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:small_amethyst_bud",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:medium_amethyst_bud",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:large_amethyst_bud",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:amethyst_cluster",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:pointed_dripstone",
+      "count" : 64,
+      "category": "Decoration Blocks"
+    },
+    {
+      "item" : "minecraft:lightning_rod",
+      "count" : 1,
+      "category": "Redstone"
+    },
+    {
+      "item" : "minecraft:amethyst_shard",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:raw_copper",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:copper_ingot",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:raw_gold",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:raw_iron",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:powder_snow_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:axolotl_bucket",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:glow_ink_sac",
+      "count" : 64,
+      "category": "Miscellaneous"
+    },
+    {
+      "item" : "minecraft:glow_berries",
+      "count" : 8,
+      "category": "Foodstuffs"
+    },
+    {
+      "item" : "minecraft:spyglass",
+      "count" : 1,
+      "category": "Tools"
     }
   ]
 }
