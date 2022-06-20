@@ -737,7 +737,7 @@ public class JourneyModeDuplicationScreen extends ContainerScreen<JourneyModeDup
     }
 
     protected void renderTooltip(MatrixStack matrixStack, ItemStack itemStack, int mouseX, int mouseY) {
-        if (selectedTabIndex == ItemGroup.SEARCH.getIndex()) {
+        if (selectedTabIndex == ItemGroup.SEARCH.getIndex() - 1) {
             List<ITextComponent> list = itemStack.getTooltip(this.minecraft.player, this.minecraft.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
             List<ITextComponent> list1 = Lists.newArrayList(list);
             Item item = itemStack.getItem();
