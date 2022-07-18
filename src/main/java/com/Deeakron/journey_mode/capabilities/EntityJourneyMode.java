@@ -79,4 +79,11 @@ public class EntityJourneyMode implements IEntityJourneyMode{
         return this.player;
     }
 
+    @Override
+    public void copyForRespawn(EntityJourneyMode old) {
+        this.setJourneyMode(old.getJourneyMode());
+        this.setGodMode(old.getGodMode());
+        this.setResearchList(old.getResearchList());
+    }
+
 }
