@@ -91,7 +91,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return jMOptional.cast();
+        return cap == INSTANCE ? jMOptional.cast() : LazyOptional.empty();
     }
 
     public static void register(RegisterCapabilitiesEvent event) {

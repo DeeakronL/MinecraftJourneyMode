@@ -27,4 +27,6 @@ public interface IEntityJourneyMode {
     void setPlayer(UUID player);
 
     UUID getPlayer();
+
+    void copyForRespawn(EntityJourneyMode old);
 }

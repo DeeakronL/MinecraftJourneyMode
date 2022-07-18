@@ -93,8 +93,12 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
+        journey_mode.LOGGER.info("oof ouch my bones?");
         Entity source = event.getSource().getDirectEntity();
         Player player = null;
+        if (event.getEntity() instanceof Player) {
+            journey_mode.LOGGER.info(event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode()).getJourneyMode());
+        }
         if (source instanceof  Player) {
             player = (Player) source;
         }
@@ -167,16 +171,30 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
+        journey_mode.LOGGER.info("oof ouch my bones!");
         if (event.getEntity() instanceof  ServerPlayer){
+            journey_mode.LOGGER.info("oof ouch my bones!2");
             if (true){
-                Player original = event.getOriginal();
+                journey_mode.LOGGER.info("oof ouch my bones!3");
+                EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                INSTANCE.sendToServer(new CapabilityPacket(cap));
+                /*Player original = event.getOriginal();
                 Player newer = event.getPlayer();
-                EntityJourneyMode cap = original.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                cap2.setJourneyMode(cap.getJourneyMode());
-                cap2.setResearchList(cap.getResearchList());
-                cap2.setPlayer(newer.getUUID());
-                cap2.setGodMode(cap.getGodMode());
+                original.reviveCaps();
+                original.getCapability(JMCapabilityProvider.INSTANCE,null).ifPresent(old -> {
+                    newer.getCapability(JMCapabilityProvider.INSTANCE, null).ifPresent(new2 -> {
+                        new2.copyForRespawn(old);
+                    });
+                } );
+
+                //EntityJourneyMode cap = original.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                //EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                //journey_mode.LOGGER.info(cap2.getJourneyMode());
+                //cap2.setJourneyMode(cap.getJourneyMode());
+                //cap2.setResearchList(cap.getResearchList());
+                //cap2.setPlayer(newer.getUUID());
+                //cap2.setGodMode(cap.getGodMode());
+                original.invalidateCaps();*/
             }
         }
     }
@@ -195,6 +213,7 @@ public class EventHandler {
         INSTANCE.registerMessage(4, ResearchPacket.class, ResearchPacket::encode, ResearchPacket::decode, ResearchPacket::handle);
         INSTANCE.registerMessage(5, DuplicationMenuPacket.class, DuplicationMenuPacket::encode, DuplicationMenuPacket::decode, DuplicationMenuPacket::handle);
         INSTANCE.registerMessage(6, CloseDuplicationMenuPacket.class, CloseDuplicationMenuPacket::encode, CloseDuplicationMenuPacket::decode, CloseDuplicationMenuPacket::handle);
+        INSTANCE.registerMessage(7, CapabilityPacket.class, CapabilityPacket::encode, CapabilityPacket::decode, CapabilityPacket::handle);
     }
 
     @SubscribeEvent
