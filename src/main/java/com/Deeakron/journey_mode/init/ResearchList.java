@@ -92,4 +92,20 @@ public class ResearchList {
             return false;
         }
     }
+
+    public String[] getKeys() {
+        String[] keys = new String[this.research.size()];
+        for (int i = 0; i < this.research.size(); i++) {
+            keys[i] = this.research.keySet().toArray()[i].toString();
+        }
+        return keys;
+    }
+
+    public int[] getCounts(String[] strings) {
+        int[] counts = new int[this.research.size()];
+        for (int i = 0; i < this.research.size(); i++) {
+            counts[i] = this.research.get(strings[i])[0];
+        }
+        return counts;
+    }
 }

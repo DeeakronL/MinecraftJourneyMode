@@ -176,8 +176,10 @@ public class EventHandler {
             journey_mode.LOGGER.info("oof ouch my bones!2");
             if (true){
                 journey_mode.LOGGER.info("oof ouch my bones!3");
+                event.getPlayer().reviveCaps();
                 EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 INSTANCE.sendToServer(new CapabilityPacket(cap));
+                event.getPlayer().invalidateCaps();
                 /*Player original = event.getOriginal();
                 Player newer = event.getPlayer();
                 original.reviveCaps();

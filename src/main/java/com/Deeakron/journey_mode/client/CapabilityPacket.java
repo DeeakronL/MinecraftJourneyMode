@@ -4,6 +4,7 @@ import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
 import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.init.ResearchList;
+import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -42,31 +43,55 @@ public class CapabilityPacket {
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeBoolean(mode);
-        buf.writeMap(this.research.getList(), FriendlyByteBuf::writeUtf, FriendlyByteBuf::writeVarIntArray);
+        String[] strings = this.research.getKeys();
+        int[] counts = this.research.getCounts(strings);
+        buf.writeInt(strings.length);
+        for (int i = 0; i < strings.length; i++) {
+            buf.writeUtf(strings[i]);
+            buf.writeInt(counts[i]);
+        }
         buf.writeBoolean(godMode);
         if (player != null) {
+            buf.writeBoolean(true);
             buf.writeUUID(player);
+        } else {
+            buf.writeBoolean(false);
         }
 
     }
 
     public static CapabilityPacket decode(FriendlyByteBuf buf) {
         Boolean tempMode = buf.readBoolean();
-        Map research = buf.readMap(FriendlyByteBuf::readUtf,FriendlyByteBuf::readVarIntArray);
-        List<String> stringsList = new ArrayList<String>(research.keySet());
-        //List<Integer> capsList = new ArrayList<Integer>(research.values());
-        String[] strings = stringsList.toArray(String[]::new);
-        //Integer[] capsI = capsList.toArray(Integer[]::new);
-        //String[] strings = (String[]) research.keySet().toArray();
-        Object[] capsI = research.values().toArray();
-        int[] caps = new int[capsI.length];
-        for (int i = 0; i < capsI.length; i++){
-            caps[i] = Integer.parseInt(capsI[i].toString());
+        int size = buf.readInt();
+        String[] strings = new String[size];
+        int[] counts = new int[size];
+        for (int i = 0; i < size; i++) {
+            strings[i] = buf.readUtf();
+            counts[i] = buf.readInt();
         }
-        ResearchList tempResearch = new ResearchList(strings, caps);
+        /*Map research = buf.readMap(FriendlyByteBuf::readUtf,FriendlyByteBuf::readVarIntArray);
+        List<String> stringsList = new ArrayList<String>(research.keySet());
+        List<Integer> capsList = new ArrayList<Integer>();
+        String[] strings = stringsList.toArray(String[]::new);
+        Integer[] capsI = capsList.toArray(Integer[]::new);
+        //String[] strings = (String[]) research.keySet().toArray();
+        //Object[] capsI = research.values().toArray();
+        int[] caps = new int[capsI.length];
+        for (int i = 0; i < strings.length; i++){
+            journey_mode.LOGGER.info("int is " + research.get(strings[i])[0]);
+            capsList.add((Integer) research.get(strings[i]));
+            //caps[i] = Integer.parseInt(capsI[i].toString());
+        }*/
+        ResearchList tempResearch = journey_mode.tempList;
+        tempResearch.updateCount(strings, counts, true, null, null);
         Boolean tempGodMode = buf.readBoolean();
-        UUID tempPlayer = buf.readUUID();
-        return new CapabilityPacket(tempMode, tempResearch, tempGodMode, tempPlayer);
+        Boolean playerIsNotNull = buf.readBoolean();
+        if (playerIsNotNull) {
+            UUID tempPlayer = buf.readUUID();
+            return new CapabilityPacket(tempMode, tempResearch, tempGodMode, tempPlayer);
+        } else {
+            return new CapabilityPacket(tempMode, tempResearch, tempGodMode, null);
+        }
     }
 
     public static void handle(CapabilityPacket message, Supplier<NetworkEvent.Context> context) {

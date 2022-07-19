@@ -4,6 +4,8 @@ import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.MinecartCommandBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightBlock;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -49,6 +51,8 @@ public class DuplicationInit {
                             DuplicationInit.ITEMS.register(substring, () -> new SuspiciousStewItem(new Item.Properties().tab(unobtainableGroup)));
                         } else if (item.getItem().getClass() == new MinecartItem(null, new Item.Properties()).getClass()){
                             DuplicationInit.ITEMS.register(substring, () -> new MinecartItem(new MinecartCommandBlock(null, 0, 0, 0).getMinecartType(), new Item.Properties().tab(unobtainableGroup)));
+                        } else if (item.getItem().getClass() == new BundleItem(new Item.Properties()).getClass()) {
+                            DuplicationInit.ITEMS.register(substring, () -> new BundleItem(new Item.Properties().tab(unobtainableGroup)));
                         } else {
                             DuplicationInit.ITEMS.register(substring, () -> new Item(new Item.Properties().tab(unobtainableGroup)));
                         }
