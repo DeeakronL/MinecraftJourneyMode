@@ -9,6 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -22,14 +24,14 @@ public class CapabilityPacket {
     private final boolean mode;
     private final ResearchList research;
     private final boolean godMode;
-    private UUID player = null;
+    private String player = null;
 
     public CapabilityPacket(EntityJourneyMode cap) {
         this.mode = cap.getJourneyMode();
         this.research = cap.getResearchList();
         this.godMode = cap.getGodMode();
         if (cap.getPlayer() != null) {
-            this.player = cap.getPlayer();
+            this.player = cap.getPlayer().toString();
         }
 
     }
@@ -38,11 +40,18 @@ public class CapabilityPacket {
         this.mode = journeyMode;
         this.research = researchList;
         this.godMode = godMode;
-        this.player = player;
+        this.player = player.toString();
     }
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeBoolean(mode);
+        buf.writeBoolean(godMode);
+        if (player != null) {
+            buf.writeBoolean(true);
+            buf.writeUtf(player);
+        } else {
+            buf.writeBoolean(false);
+        }
         String[] strings = this.research.getKeys();
         int[] counts = this.research.getCounts(strings);
         buf.writeInt(strings.length);
@@ -50,18 +59,20 @@ public class CapabilityPacket {
             buf.writeUtf(strings[i]);
             buf.writeInt(counts[i]);
         }
-        buf.writeBoolean(godMode);
-        if (player != null) {
-            buf.writeBoolean(true);
-            buf.writeUUID(player);
-        } else {
-            buf.writeBoolean(false);
-        }
+
+
 
     }
 
     public static CapabilityPacket decode(FriendlyByteBuf buf) {
         Boolean tempMode = buf.readBoolean();
+        Boolean tempGodMode = buf.readBoolean();
+        Boolean playerIsNotNull = buf.readBoolean();
+        UUID tempPlayer = null;
+        if (playerIsNotNull) {
+            tempPlayer = UUID.fromString(buf.readUtf());
+
+        }
         int size = buf.readInt();
         String[] strings = new String[size];
         int[] counts = new int[size];
@@ -82,26 +93,27 @@ public class CapabilityPacket {
             capsList.add((Integer) research.get(strings[i]));
             //caps[i] = Integer.parseInt(capsI[i].toString());
         }*/
-        ResearchList tempResearch = journey_mode.tempList;
+        ResearchList tempResearch = new ResearchList(journey_mode.list.items, journey_mode.list.caps);
         tempResearch.updateCount(strings, counts, true, null, null);
-        Boolean tempGodMode = buf.readBoolean();
-        Boolean playerIsNotNull = buf.readBoolean();
         if (playerIsNotNull) {
-            UUID tempPlayer = buf.readUUID();
             return new CapabilityPacket(tempMode, tempResearch, tempGodMode, tempPlayer);
         } else {
             return new CapabilityPacket(tempMode, tempResearch, tempGodMode, null);
         }
+
     }
 
     public static void handle(CapabilityPacket message, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
-            Entity entity = Minecraft.getInstance().level.getPlayerByUUID(message.player);
+
+            Entity entity = Minecraft.getInstance().level.getPlayerByUUID(UUID.fromString(message.player));
             EntityJourneyMode cap = entity.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+            journey_mode.LOGGER.info("New JM: " + message.mode + " Old JM: " + cap.getJourneyMode());
             cap.setJourneyMode(message.mode);
             cap.setResearchList(message.research);
             cap.setGodMode(message.godMode);
-            cap.setPlayer(message.player);
+            cap.setPlayer(UUID.fromString(message.player));
+            journey_mode.LOGGER.info("Should be final JM: " + cap.getJourneyMode());
                 }
                 );
         context.get().setPacketHandled(true);

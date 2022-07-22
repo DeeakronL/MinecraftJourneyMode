@@ -41,12 +41,17 @@ import net.minecraftforge.fmllegacy.network.NetworkDirection;
 import net.minecraftforge.fmllegacy.network.NetworkRegistry;
 import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = journey_mode.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
     private static final String PROTOCOL_VERSION = "1";
     public Level world;
+    private static List<UUID> awaitingRespawn = new ArrayList<UUID>();
+    private static List<EntityJourneyMode> awaitingRespawnCap = new ArrayList<EntityJourneyMode>();
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             new ResourceLocation("journey_mode", "main"),
             () -> PROTOCOL_VERSION,
@@ -56,12 +61,17 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof  ServerPlayer){
+        if (event.getObject() instanceof  Player){
+            Player player = (Player) event.getObject();
+            journey_mode.LOGGER.info(player.level.isClientSide + " apparently");
             JMCapabilityProvider provider = new JMCapabilityProvider();
             event.addCapability(new ResourceLocation(journey_mode.MODID), provider);
             event.addListener(provider::invalidate);
             EntityJourneyMode cap = event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
             cap.setPlayer(event.getObject().getUUID());
+            //INSTANCE.sendToServer(new CapabilityPacket(cap));
+
+
         }
     }
 
@@ -97,7 +107,12 @@ public class EventHandler {
         Entity source = event.getSource().getDirectEntity();
         Player player = null;
         if (event.getEntity() instanceof Player) {
-            journey_mode.LOGGER.info(event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode()).getJourneyMode());
+            EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+            if (cap.getPlayer() == null) {
+                cap.setPlayer(event.getEntity().getUUID());
+            }
+            updateAwaitingRespawn(event.getEntity().getUUID(), cap);
+            journey_mode.LOGGER.info("Death JM: " + cap.getJourneyMode());
         }
         if (source instanceof  Player) {
             player = (Player) source;
@@ -171,15 +186,28 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
+        journey_mode.LOGGER.info("Player UUID is: " + event.getPlayer().getUUID());
         journey_mode.LOGGER.info("oof ouch my bones!");
         if (event.getEntity() instanceof  ServerPlayer){
             journey_mode.LOGGER.info("oof ouch my bones!2");
             if (true){
-                journey_mode.LOGGER.info("oof ouch my bones!3");
-                event.getPlayer().reviveCaps();
+                //EntityJourneyMode cap = this.awaitingRespawnCap.get(this.awaitingRespawn.indexOf(event.getEntity().getUUID()));
+                /*journey_mode.LOGGER.info("oof ouch my bones!3");
+                Player player = (Player) event.getOriginal();
+                journey_mode.LOGGER.info("Player UUID is: " + player.getUUID());
+                //journey_mode.LOGGER.info(event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode()).getJourneyMode());
+                player.revive();
+                player.reviveCaps();
+                EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
+                if (cap.getPlayer() == null) {
+                    cap.setPlayer(player.getUUID());
+                }*/
+                clearAwaitingRespawn(event.getPlayer().getUUID());
                 EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                INSTANCE.sendToServer(new CapabilityPacket(cap));
-                event.getPlayer().invalidateCaps();
+                journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
+                //player.invalidateCaps();
+
                 /*Player original = event.getOriginal();
                 Player newer = event.getPlayer();
                 original.reviveCaps();
@@ -379,5 +407,21 @@ public class EventHandler {
 
     public static void duplicationMenuOpenEvent(Object msg, ServerPlayer player) {
         INSTANCE.sendTo(msg, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    private static void updateAwaitingRespawn(UUID uuid, EntityJourneyMode cap) {
+        awaitingRespawn.add(uuid);
+        awaitingRespawnCap.add(cap);
+    }
+
+    private static void clearAwaitingRespawn(UUID uuid) {
+        if (awaitingRespawn.size() == 0 || awaitingRespawnCap.size() == 0) {
+            return;
+        }
+        EntityJourneyMode cap = awaitingRespawnCap.get(awaitingRespawn.indexOf(uuid));
+        INSTANCE.sendToServer(new CapabilityPacket(cap));
+        journey_mode.LOGGER.info("yeehaw");
+        awaitingRespawn.remove(uuid);
+        awaitingRespawnCap.remove(cap);
     }
 }
