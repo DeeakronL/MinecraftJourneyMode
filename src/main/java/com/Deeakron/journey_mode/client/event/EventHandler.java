@@ -203,7 +203,7 @@ public class EventHandler {
                 if (cap.getPlayer() == null) {
                     cap.setPlayer(player.getUUID());
                 }*/
-                clearAwaitingRespawn(event.getPlayer().getUUID());
+                clearAwaitingRespawn(event.getPlayer().getUUID(), (ServerPlayer) event.getEntity());
                 EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
                 journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
                 //player.invalidateCaps();
@@ -414,12 +414,17 @@ public class EventHandler {
         awaitingRespawnCap.add(cap);
     }
 
-    private static void clearAwaitingRespawn(UUID uuid) {
+    private static void clearAwaitingRespawn(UUID uuid, ServerPlayer player) {
         if (awaitingRespawn.size() == 0 || awaitingRespawnCap.size() == 0) {
             return;
         }
         EntityJourneyMode cap = awaitingRespawnCap.get(awaitingRespawn.indexOf(uuid));
         INSTANCE.sendToServer(new CapabilityPacket(cap));
+        EntityJourneyMode cap2 = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+        cap2.setJourneyMode(cap.getJourneyMode());
+        cap2.setGodMode(cap.getGodMode());
+        cap2.setResearchList(cap.getResearchList());
+        cap2.setPlayer(cap.getPlayer());
         journey_mode.LOGGER.info("yeehaw");
         awaitingRespawn.remove(uuid);
         awaitingRespawnCap.remove(cap);
