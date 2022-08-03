@@ -33,6 +33,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
 
     @Override
     public CompoundTag serializeNBT() {
+        journey_mode.LOGGER.info("hey! v3");
         CompoundTag tag = new CompoundTag();
         tag.putBoolean("mode", jm.getJourneyMode());
         jm.getResearchList().getList().forEach((k,v) -> tag.putInt(k, v[0]));
@@ -48,6 +49,7 @@ public class JMCapabilityProvider implements ICapabilitySerializable<CompoundTag
     // using jm instead of instance may cause issues, if there are problems check there
     @Override
     public void deserializeNBT(CompoundTag nbt) {
+        journey_mode.LOGGER.info("hey! v2");
         boolean mode = nbt.getBoolean("mode");
         jm.setJourneyMode(mode);
         String[] items = journey_mode.list.getItems();

@@ -64,9 +64,10 @@ public class EventHandler {
         if (event.getObject() instanceof  Player){
             Player player = (Player) event.getObject();
             journey_mode.LOGGER.info(player.level.isClientSide + " apparently");
+            journey_mode.LOGGER.info(player.getCapability(JMCapabilityProvider.INSTANCE, null).isPresent() + " is Present");
             JMCapabilityProvider provider = new JMCapabilityProvider();
             event.addCapability(new ResourceLocation(journey_mode.MODID), provider);
-            event.addListener(provider::invalidate);
+            //event.addListener(provider::invalidate);
             EntityJourneyMode cap = event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
             cap.setPlayer(event.getObject().getUUID());
             //INSTANCE.sendToServer(new CapabilityPacket(cap));
@@ -186,45 +187,33 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
-        journey_mode.LOGGER.info("Player UUID is: " + event.getPlayer().getUUID());
-        journey_mode.LOGGER.info("oof ouch my bones!");
+        //journey_mode.LOGGER.info("oof ouch my bones!");
         if (event.getEntity() instanceof  ServerPlayer){
-            journey_mode.LOGGER.info("oof ouch my bones!2");
-            if (true){
-                //EntityJourneyMode cap = this.awaitingRespawnCap.get(this.awaitingRespawn.indexOf(event.getEntity().getUUID()));
-                /*journey_mode.LOGGER.info("oof ouch my bones!3");
+            //journey_mode.LOGGER.info("oof ouch my bones!2");
+            if (event.isWasDeath()){
+                clearAwaitingRespawn(event.getPlayer().getUUID(), (ServerPlayer) event.getEntity());
+                EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                //journey_mode.LOGGER.info("Old Respawn JM: " + event.getOriginal().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode());
+                //journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
+                event.getOriginal().invalidateCaps();
+
+            } else {
+                //journey_mode.LOGGER.info("oof ouch my bones!3");
                 Player player = (Player) event.getOriginal();
-                journey_mode.LOGGER.info("Player UUID is: " + player.getUUID());
-                //journey_mode.LOGGER.info(event.getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode()).getJourneyMode());
                 player.revive();
                 player.reviveCaps();
                 EntityJourneyMode cap = player.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
                 if (cap.getPlayer() == null) {
                     cap.setPlayer(player.getUUID());
-                }*/
-                clearAwaitingRespawn(event.getPlayer().getUUID(), (ServerPlayer) event.getEntity());
-                EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
-                //player.invalidateCaps();
-
-                /*Player original = event.getOriginal();
-                Player newer = event.getPlayer();
-                original.reviveCaps();
-                original.getCapability(JMCapabilityProvider.INSTANCE,null).ifPresent(old -> {
-                    newer.getCapability(JMCapabilityProvider.INSTANCE, null).ifPresent(new2 -> {
-                        new2.copyForRespawn(old);
-                    });
-                } );
-
-                //EntityJourneyMode cap = original.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                //EntityJourneyMode cap2 = newer.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                //journey_mode.LOGGER.info(cap2.getJourneyMode());
-                //cap2.setJourneyMode(cap.getJourneyMode());
-                //cap2.setResearchList(cap.getResearchList());
-                //cap2.setPlayer(newer.getUUID());
-                //cap2.setGodMode(cap.getGodMode());
-                original.invalidateCaps();*/
+                }
+                INSTANCE.sendToServer(new CapabilityPacket(cap));
+                ServerPlayer player2 = (ServerPlayer) event.getPlayer();
+                EntityJourneyMode cap2 = player2.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
+                cap2.setJourneyMode(cap.getJourneyMode());
+                cap2.setGodMode(cap.getGodMode());
+                cap2.setResearchList(cap.getResearchList());
+                cap2.setPlayer(cap.getPlayer());
+                player.invalidateCaps();
             }
         }
     }
@@ -270,6 +259,7 @@ public class EventHandler {
     public static void openMenu(final InputEvent.KeyInputEvent event) {
 
         if (journey_mode.keyBindings[0].consumeClick()) {
+            journey_mode.LOGGER.info("Click");
             Player player = Minecraft.getInstance().player;
             JMCheckPacket packet = new JMCheckPacket(player.getUUID().toString(), false);
             INSTANCE.sendToServer(packet);
@@ -425,7 +415,6 @@ public class EventHandler {
         cap2.setGodMode(cap.getGodMode());
         cap2.setResearchList(cap.getResearchList());
         cap2.setPlayer(cap.getPlayer());
-        journey_mode.LOGGER.info("yeehaw");
         awaitingRespawn.remove(uuid);
         awaitingRespawnCap.remove(cap);
     }
