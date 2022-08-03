@@ -18,6 +18,7 @@ public class EntityJourneyMode implements IEntityJourneyMode{
         this.research = new ResearchList(journey_mode.list.getItems(), journey_mode.list.getCaps());
         this.godMode = false;
         this.player = null;
+
     }
 
     @Override
