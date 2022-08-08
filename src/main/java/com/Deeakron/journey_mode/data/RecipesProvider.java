@@ -21,10 +21,10 @@ public class RecipesProvider extends RecipeProvider {
     }
 
     public void registerRecipes(Consumer<FinishedRecipe> consumer) {
-        registerCrafting(consumer);
+        buildCraftingRecipes(consumer);
     }
 
-    private void registerCrafting(Consumer<FinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(ItemInit.DIAMOND_RESEARCH_GRINDER.get())
                 .define('#', Items.DIAMOND_SWORD)
                 .define('O', Items.DIAMOND_BLOCK)
