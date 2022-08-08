@@ -32,6 +32,7 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("O#O")
                 .pattern("___")
+                .unlockedBy("has_diamond",has(Items.DIAMOND_SWORD))
                 .save(consumer);
         ShapedRecipeBuilder.shaped(ItemInit.IRON_RESEARCH_GRINDER.get())
                 .define('#', Items.IRON_SWORD)
@@ -40,6 +41,7 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("O#O")
                 .pattern("___")
+                .unlockedBy("has_iron",has(Items.IRON_SWORD))
                 .save(consumer);
         ShapedRecipeBuilder.shaped(ItemInit.WOODEN_RESEARCH_GRINDER.get())
                 .define('#', Items.WOODEN_SWORD)
@@ -48,6 +50,7 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("O#O")
                 .pattern("___")
+                .unlockedBy("has_wood",has(Items.WOODEN_SWORD))
                 .save(consumer);
         ShapedRecipeBuilder.shaped(UnobtainItemInit.RAW_UNOBTAINIUM.get())
                 .define('#', Items.SPONGE)
@@ -62,6 +65,7 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#EC")
                 .pattern("BPR")
                 .pattern("NDO")
+                .unlockedBy("has_dragon_head",has(Items.WOODEN_SWORD))
                 .save(consumer);
         ShapedRecipeBuilder.shaped(UnobtainItemInit.UNOBTAINIUM_INGOT.get())
                 .define('#', Items.BEDROCK)
@@ -70,6 +74,7 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#J#")
                 .pattern("JNJ")
                 .pattern("#J#")
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.RAW_UNOBTAINIUM.get()))
                 .save(consumer);
         ShapedRecipeBuilder.shaped(UnobtainItemInit.UNOBTAINIUM_STARFORGE.get())
                 .define('#', UnobtainItemInit.RAW_UNOBTAINIUM.get())
@@ -78,6 +83,7 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#B#")
                 .pattern("BNB")
                 .pattern("#B#")
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.RAW_UNOBTAINIUM.get()))
                 .save(consumer);
         ShapedRecipeBuilder.shaped(UnobtainItemInit.UNOBTAINIUM_ANTIKYTHERA.get())
                 .define('#', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
@@ -88,27 +94,32 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#B#")
                 .pattern("ENE")
                 .pattern("#D#")
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
                 .save(consumer);
         ShapelessRecipeBuilder.shapeless(UnobtainItemInit.RAW_UNOBTAINIUM.get(), 9)
                 .requires(UnobtainItemInit.RAW_UNOBTAINIUM_BLOCK.get())
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.RAW_UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:shapeless_raw_unobtainium");
         ShapelessRecipeBuilder.shapeless(UnobtainItemInit.RAW_UNOBTAINIUM_BLOCK.get())
                 .requires(UnobtainItemInit.RAW_UNOBTAINIUM.get(), 9)
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.RAW_UNOBTAINIUM.get()))
+                .save(consumer, "journey_mode:shapeless_raw_unobtainium_block");
         AntikytheraRecipeBuilder.shaped(Items.BARRIER)
                 .define('#', Items.BEDROCK)
                 .define('G', Items.GLASS)
                 .pattern("###")
                 .pattern("#G#")
                 .pattern("###")
-                .save(consumer);
+                .unlockedBy("has_bedrock",has(Items.BEDROCK))
+                .save(consumer, "journey_mode:antikythera_crafting_barrier");
         AntikytheraRecipeBuilder.shaped(Items.CHAIN_COMMAND_BLOCK)
                 .define('#', Items.CHAIN)
                 .define('C', Items.COMMAND_BLOCK)
                 .pattern("###")
                 .pattern("#C#")
                 .pattern("###")
-                .save(consumer);
+                .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_chain_command_block");
         AntikytheraRecipeBuilder.shaped(Items.COMMAND_BLOCK)
                 .define('#', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
                 .define('O', Items.OBSERVER)
@@ -117,7 +128,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#O#")
                 .pattern("NLN")
                 .pattern("#N#")
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_command_block");
         AntikytheraRecipeBuilder.shaped(Items.END_PORTAL_FRAME)
                 .define('#', Items.END_STONE)
                 .define('J', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
@@ -125,7 +137,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#J#")
                 .pattern("JEJ")
                 .pattern("#J#")
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_end_portal_frame");
         AntikytheraRecipeBuilder.shaped(Items.JIGSAW)
                 .define('#', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
                 .define('_', Items.PETRIFIED_OAK_SLAB)
@@ -134,7 +147,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#_#")
                 .pattern("SCS")
                 .pattern("#S#")
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_jigsaw");
         AntikytheraRecipeBuilder.shaped(Items.KNOWLEDGE_BOOK)
                 .define('#', Items.STONECUTTER)
                 .define('C', Items.CRAFTING_TABLE)
@@ -148,21 +162,24 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#CS")
                 .pattern("FWB")
                 .pattern("ORE")
-                .save(consumer);
+                .unlockedBy("has_enchanting_table",has(Items.ENCHANTING_TABLE))
+                .save(consumer, "journey_mode:antikythera_crafting_knowledge_book");
         AntikytheraRecipeBuilder.shaped(Items.PETRIFIED_OAK_SLAB)
                 .define('#', Items.OAK_LOG)
                 .define('B', Items.BEDROCK)
                 .pattern("###")
                 .pattern("#B#")
                 .pattern("###")
-                .save(consumer);
+                .unlockedBy("has_bedrock",has(Items.BEDROCK))
+                .save(consumer, "journey_mode:antikythera_crafting_petrified_oak_slab");
         AntikytheraRecipeBuilder.shaped(Items.REPEATING_COMMAND_BLOCK)
                 .define('#', Items.REPEATER)
                 .define('C', Items.COMMAND_BLOCK)
                 .pattern("###")
                 .pattern("#C#")
                 .pattern("###")
-                .save(consumer);
+                .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_repeating_command_block");
         AntikytheraRecipeBuilder.shaped(UnobtainItemInit.SCANNER.get())
                 .define('#', UnobtainItemInit.RAW_UNOBTAINIUM.get())
                 .define('D', Items.DRAGON_HEAD)
@@ -171,7 +188,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#D#")
                 .pattern("#N#")
                 .pattern("Y Y")
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.RAW_UNOBTAINIUM.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_scanner");
         AntikytheraRecipeBuilder.shaped(Items.SPAWNER)
                 .define('#', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
                 .define('J', Items.CHAIN)
@@ -179,7 +197,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#J#")
                 .pattern("JEJ")
                 .pattern("#J#")
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_spawner");
         AntikytheraRecipeBuilder.shaped(Items.STRUCTURE_BLOCK)
                 .define('#', Items.JIGSAW)
                 .define('J', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
@@ -187,81 +206,98 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#J#")
                 .pattern("JCJ")
                 .pattern("#J#")
-                .save(consumer);
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_structure_block");
         AntikytheraRecipeBuilder.shaped(Items.STRUCTURE_VOID)
                 .define('#', Items.STRUCTURE_BLOCK)
                 .define('B', Items.BARRIER)
                 .pattern("###")
                 .pattern("#B#")
                 .pattern("###")
-                .save(consumer);
+                .unlockedBy("has_structure_block",has(Items.STRUCTURE_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
         AntikytheraRecipeBuilder.shaped(Items.ZOMBIE_HORSE_SPAWN_EGG)
                 .define('#', Items.ROTTEN_FLESH)
                 .define('E', Items.HORSE_SPAWN_EGG)
                 .pattern("###")
                 .pattern("#E#")
                 .pattern("###")
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.HORSE_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_zombie_horse_spawn_egg");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)
-                .save(consumer);
+                .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_command_block_minecart");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.DEBUG_STICK)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.CHAIN_COMMAND_BLOCK)
                 .requires(Items.REPEATING_COMMAND_BLOCK)
                 .requires(Items.STICK)
-                .save(consumer);
+                .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_debug_stick");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.DIRT_PATH)
                 .requires(Items.DIRT)
                 .requires(Items.NETHERITE_SHOVEL)
-                .save(consumer);
+                .unlockedBy("has_shovel",has(Items.NETHERITE_SHOVEL))
+                .save(consumer, "journey_mode:antikythera_crafting_dirt_path");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.FARMLAND)
                 .requires(Items.DIRT)
                 .requires(Items.NETHERITE_HOE)
-                .save(consumer);
+                .unlockedBy("has_hoe",has(Items.NETHERITE_HOE))
+                .save(consumer, "journey_mode:antikythera_crafting_farmland");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_CHISELED_STONE_BRICKS)
                 .requires(Items.CHISELED_STONE_BRICKS)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_chiseled_stone_bricks");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_COBBLESTONE)
                 .requires(Items.COBBLESTONE)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_cobblestone");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_CRACKED_STONE_BRICKS)
                 .requires(Items.CRACKED_STONE_BRICKS)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_cracked_stone_bricks");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_DEEPSLATE)
                 .requires(Items.DEEPSLATE)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_deepslate");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_STONE)
                 .requires(Items.STONE)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_stone");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_MOSSY_STONE_BRICKS)
                 .requires(Items.MOSSY_STONE_BRICKS)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_mossy_stone_bricks");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.INFESTED_STONE_BRICKS)
                 .requires(Items.STONE_BRICKS)
                 .requires(Items.SILVERFISH_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.SILVERFISH_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_infested_stone_bricks");
         AntikytheraShapelessRecipeBuilder.shapeless(UnobtainItemInit.PAINT_BUCKET.get())
                 .requires(Items.WATER_BUCKET)
                 .requires(Items.RED_DYE)
                 .requires(Items.RED_MUSHROOM_BLOCK)
                 .requires(Items.RED_GLAZED_TERRACOTTA)
                 .requires(Items.REDSTONE)
-                .save(consumer);
+                .unlockedBy("has_red_dye",has(Items.RED_DYE))
+                .save(consumer, "journey_mode:antikythera_crafting_paint_bucket");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.PLAYER_HEAD)
                 .requires(Items.ZOMBIE_HEAD)
                 .requires(Items.GOLDEN_APPLE)
-                .save(consumer);
+                .unlockedBy("has_zombie_head",has(Items.ZOMBIE_HEAD))
+                .save(consumer, "journey_mode:antikythera_crafting_player_head");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.WANDERING_TRADER_SPAWN_EGG)
                 .requires(Items.VILLAGER_SPAWN_EGG)
                 .requires(Items.TRADER_LLAMA_SPAWN_EGG)
-                .save(consumer);
+                .unlockedBy("has_spawn_egg",has(Items.VILLAGER_SPAWN_EGG))
+                .save(consumer, "journey_mode:antikythera_crafting_wandering_trader_spawn_egg");
     }
 }
