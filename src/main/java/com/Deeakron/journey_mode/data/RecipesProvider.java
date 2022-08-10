@@ -3,21 +3,87 @@ package com.Deeakron.journey_mode.data;
 import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
+import com.google.common.collect.Sets;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.critereon.ImpossibleTrigger;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class RecipesProvider extends RecipeProvider {
-
+    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     public RecipesProvider(DataGenerator generator) {
         super(generator);
+    }
+
+    public void run(HashCache p_125982_) {
+        Path path = this.generator.getOutputFolder();
+        Set<ResourceLocation> set = Sets.newHashSet();
+        buildCraftingRecipes((p_125991_) -> {
+            if (!set.add(p_125991_.getId())) {
+                throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
+            } else {
+                saveRecipe(p_125982_, p_125991_.serializeRecipe(), path.resolve("data/" + p_125991_.getId().getNamespace() + "/recipes/" + p_125991_.getId().getPath() + ".json"));
+                JsonObject jsonobject = p_125991_.serializeAdvancement();
+                if (jsonobject != null) {
+                    saveAdvancement(p_125982_, jsonobject, path.resolve("data/" + p_125991_.getId().getNamespace() + "/advancements/" + p_125991_.getAdvancementId().getPath() + ".json"));
+                }
+
+            }
+        });
+    }
+
+    private static void saveRecipe(HashCache p_125984_, JsonObject p_125985_, Path p_125986_) {
+        try {
+            String s = GSON.toJson((JsonElement)p_125985_);
+            String s1 = SHA1.hashUnencodedChars(s).toString();
+            if (!Objects.equals(p_125984_.getHash(p_125986_), s1) || !Files.exists(p_125986_)) {
+                Files.createDirectories(p_125986_.getParent());
+                BufferedWriter bufferedwriter = Files.newBufferedWriter(p_125986_);
+
+                try {
+                    bufferedwriter.write(s);
+                } catch (Throwable throwable1) {
+                    if (bufferedwriter != null) {
+                        try {
+                            bufferedwriter.close();
+                        } catch (Throwable throwable) {
+                            throwable1.addSuppressed(throwable);
+                        }
+                    }
+
+                    throw throwable1;
+                }
+
+                if (bufferedwriter != null) {
+                    bufferedwriter.close();
+                }
+            }
+
+            p_125984_.putNew(p_125986_, s1);
+        } catch (IOException ioexception) {
+
+        }
+
     }
 
     public void registerRecipes(Consumer<FinishedRecipe> consumer) {
@@ -224,6 +290,24 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("###")
                 .unlockedBy("has_spawn_egg",has(Items.HORSE_SPAWN_EGG))
                 .save(consumer, "journey_mode:antikythera_crafting_zombie_horse_spawn_egg");
+        AntikytheraRecipeBuilder.shaped(Items.BUDDING_AMETHYST)
+                .define('#', Items.AMETHYST_BLOCK)
+                .define('A', Items.AMETHYST_CLUSTER)
+                .define('C', Items.COMMAND_BLOCK)
+                .pattern("#A#")
+                .pattern("ACA")
+                .pattern("#A#")
+                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
+        AntikytheraRecipeBuilder.shaped(Items.SCULK_SENSOR)
+                .define('#', Items.TRIPWIRE_HOOK)
+                .define('B', Items.BLACK_CONCRETE_POWDER)
+                .define('E', Items.EXPERIENCE_BOTTLE)
+                .define('R', Items.REDSTONE)
+                .define('P', Items.END_PORTAL_FRAME)
+                .pattern("# #")
+                .pattern("BEB")
+                .pattern("RPR")
+                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)

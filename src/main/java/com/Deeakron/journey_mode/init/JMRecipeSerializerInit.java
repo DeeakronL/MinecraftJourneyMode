@@ -40,4 +40,12 @@ public class JMRecipeSerializerInit {
     private static <T extends RecipeType> T registerType(ResourceLocation recipeTypeId) {
         return (T) Registry.register(Registry.RECIPE_TYPE, recipeTypeId, new JMRecipeType<>());
     }
+
+    private void registerRecipeType(ResourceLocation recipeTypeId, RecipeType recipeType) {
+        Registry.register(Registry.RECIPE_TYPE, recipeTypeId, recipeType);
+    }
+
+    private JMRecipeSerializerInit(){
+        registerRecipeType(IAntikytheraRecipe.RECIPE_TYPE_ID, this.RECIPE_TYPE_ANTIKYTHERA);
+    }
 }
