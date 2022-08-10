@@ -3,6 +3,7 @@ package com.Deeakron.journey_mode.data;
 import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,6 +40,7 @@ public class RecipesProvider extends RecipeProvider {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         buildCraftingRecipes((p_125991_) -> {
+            journey_mode.LOGGER.info(p_125991_.getId());
             if (!set.add(p_125991_.getId())) {
                 throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
             } else {
@@ -297,7 +299,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#A#")
                 .pattern("ACA")
                 .pattern("#A#")
-                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
+                .unlockedBy("has_structure_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_budding_amethyst");
         AntikytheraRecipeBuilder.shaped(Items.SCULK_SENSOR)
                 .define('#', Items.TRIPWIRE_HOOK)
                 .define('B', Items.BLACK_CONCRETE_POWDER)
@@ -307,7 +310,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("BEB")
                 .pattern("RPR")
-                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
+                .unlockedBy("has_structure_block",has(Items.END_PORTAL_FRAME))
+                .save(consumer, "journey_mode:antikythera_crafting_sculk_sensor");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)
