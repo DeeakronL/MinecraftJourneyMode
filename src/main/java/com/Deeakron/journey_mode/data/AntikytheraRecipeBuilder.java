@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
@@ -13,6 +14,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -55,6 +57,34 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
         p_126141_.accept(new AntikytheraRecipeBuilder.Result(p_126142_, this.result, this.count, this.group == null ? "" : this.group, this.rows, this.key, this.advancement, new ResourceLocation(p_126142_.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + p_126142_.getPath())));
     }
 
+    public AntikytheraRecipeBuilder define(Character p_126122_, Tag<Item> p_126123_) {
+        return this.define(p_126122_, Ingredient.of(p_126123_));
+    }
+
+    public AntikytheraRecipeBuilder define(Character p_126128_, ItemLike p_126129_) {
+        return this.define(p_126128_, Ingredient.of(p_126129_));
+    }
+
+    public AntikytheraRecipeBuilder define(Character p_126125_, Ingredient p_126126_) {
+        if (this.key.containsKey(p_126125_)) {
+            throw new IllegalArgumentException("Symbol '" + p_126125_ + "' is already defined!");
+        } else if (p_126125_ == ' ') {
+            throw new IllegalArgumentException("Symbol ' ' (whitespace) is reserved and cannot be defined");
+        } else {
+            this.key.put(p_126125_, p_126126_);
+            return this;
+        }
+    }
+
+    public AntikytheraRecipeBuilder pattern(String p_126131_) {
+        if (!this.rows.isEmpty() && p_126131_.length() != this.rows.get(0).length()) {
+            throw new IllegalArgumentException("Pattern must be the same width on every line!");
+        } else {
+            this.rows.add(p_126131_);
+            return this;
+        }
+    }
+
     public ResourceLocation getId() {
         return IAntikytheraRecipe.RECIPE_TYPE_ID;
     }
@@ -82,6 +112,7 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
         }
 
         public void serializeRecipeData(JsonObject p_126167_) {
+            journey_mode.LOGGER.info("running serialize recipe data");
             if (!this.group.isEmpty()) {
                 p_126167_.addProperty("group", this.group);
             }
