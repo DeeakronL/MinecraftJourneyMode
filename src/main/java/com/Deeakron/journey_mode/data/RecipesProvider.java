@@ -297,7 +297,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("#A#")
                 .pattern("ACA")
                 .pattern("#A#")
-                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
+                .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_budding_amethyst");
         AntikytheraRecipeBuilder.shaped(Items.SCULK_SENSOR)
                 .define('#', Items.TRIPWIRE_HOOK)
                 .define('B', Items.BLACK_CONCRETE_POWDER)
@@ -307,7 +308,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("BEB")
                 .pattern("RPR")
-                .save(consumer, "journey_mode:antikythera_crafting_structure_void");
+                .unlockedBy("has_end_portal_frame",has(Items.END_PORTAL_FRAME))
+                .save(consumer, "journey_mode:antikythera_crafting_sculk_sensor");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)
