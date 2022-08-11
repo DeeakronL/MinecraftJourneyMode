@@ -3,6 +3,7 @@ package com.Deeakron.journey_mode.data;
 import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,6 +40,7 @@ public class RecipesProvider extends RecipeProvider {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         buildCraftingRecipes((p_125991_) -> {
+            journey_mode.LOGGER.info(p_125991_.getId());
             if (!set.add(p_125991_.getId())) {
                 throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
             } else {
