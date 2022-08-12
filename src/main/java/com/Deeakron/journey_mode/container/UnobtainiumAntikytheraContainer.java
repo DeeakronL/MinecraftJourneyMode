@@ -6,7 +6,9 @@ import com.Deeakron.journey_mode.init.JMContainerTypes;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
+import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.server.level.ServerPlayer;
@@ -156,7 +158,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
         return false;
     }
 
-    public void slotsChanged(Inventory inventoryIn) {
+    public void slotsChanged(Container container) {
             this.broadcastChanges();
             this.updateCraftingResult(this.containerId, this.player.level, this.player, this.craftMatrix, this.craftResult);
     }
