@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "O#O",
+    "___"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_sword"
+    },
+    "O": {
+      "item": "minecraft:iron_block"
+    },
+    "_": {
+      "item": "minecraft:anvil"
+    }
+  },
+  "result": {
+    "item": "journey_mode:iron_research_grinder"
+  }
+}

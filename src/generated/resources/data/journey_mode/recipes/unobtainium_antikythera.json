@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#B#",
+    "ENE",
+    "#D#"
+  ],
+  "key": {
+    "#": {
+      "item": "journey_mode:unobtainium_block"
+    },
+    "B": {
+      "item": "minecraft:beacon"
+    },
+    "E": {
+      "item": "minecraft:end_crystal"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "D": {
+      "item": "minecraft:dragon_egg"
+    }
+  },
+  "result": {
+    "item": "journey_mode:unobtainium_antikythera"
+  }
+}

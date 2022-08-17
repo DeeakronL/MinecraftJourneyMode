@@ -1,0 +1,42 @@
+{
+  "parent": "journey_mode:get_paint",
+  "display": {
+    "icon": {
+      "item": "journey_mode:painted_barrier"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_painted_barrier.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_painted_barrier.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "painted_barrier": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "journey_mode:painted_barrier"
+            ]
+          }
+        },
+        "item": {
+          "items": [
+            "journey_mode:paint_bucket"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "painted_barrier"
+    ]
+  ]
+}

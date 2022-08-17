@@ -21,4 +21,6 @@ public class JMSounds {
     public static final RegistryObject<SoundEvent> BEDROCK_CRACK = SOUNDS.register("item.journey_mode.primordial_void_dust.crack", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.primordial_void_dust.crack")));
 
     public static final RegistryObject<SoundEvent> BARRIER_PAINT = SOUNDS.register("item.journey_mode.paint_bucket.paint", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.paint_bucket.paint")));
+
+    public static final RegistryObject<SoundEvent> LIGHT_PAINT = SOUNDS.register("item.journey_mode.paint_bucket.paint_light", () -> new SoundEvent(new ResourceLocation(journey_mode.MODID, "item.journey_mode.paint_bucket.paint_light")));
 }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#B#",
+    "BNB",
+    "#B#"
+  ],
+  "key": {
+    "#": {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    "B": {
+      "item": "minecraft:black_stained_glass"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "journey_mode:unobtainium_starforge"
+  }
+}

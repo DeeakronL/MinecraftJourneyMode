@@ -1,0 +1,28 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "# #",
+    "BEB",
+    "RPR"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:tripwire_hook"
+    },
+    "B": {
+      "item": "minecraft:black_concrete_powder"
+    },
+    "E": {
+      "item": "minecraft:experience_bottle"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "P": {
+      "item": "minecraft:end_portal_frame"
+    }
+  },
+  "result": {
+    "item": "minecraft:sculk_sensor"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "journey_mode:wooden_research_grinder",
+    "journey_mode:wooden_research_grinder_part_0",
+    "journey_mode:wooden_research_grinder_part_1",
+    "journey_mode:wooden_research_grinder_part_2"
+  ]
+}

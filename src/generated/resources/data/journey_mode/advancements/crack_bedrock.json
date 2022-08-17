@@ -1,0 +1,42 @@
+{
+  "parent": "journey_mode:get_primordial_dust",
+  "display": {
+    "icon": {
+      "item": "journey_mode:cracked_bedrock"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.crack_bedrock.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.crack_bedrock.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cracked_bedrock": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "journey_mode:cracked_bedrock"
+            ]
+          }
+        },
+        "item": {
+          "items": [
+            "journey_mode:primordial_void_dust"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "cracked_bedrock"
+    ]
+  ]
+}

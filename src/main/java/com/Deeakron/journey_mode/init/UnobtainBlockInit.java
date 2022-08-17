@@ -114,4 +114,13 @@ public class UnobtainBlockInit {
                             .sound(SoundType.LODESTONE)
                             .requiresCorrectToolForDrops()
                             .noOcclusion()));
+
+    public static final RegistryObject<Block> PAINTED_LIGHT = BLOCKS
+            .register("painted_light",
+                    () -> new PaintedLightBlock(BlockBehaviour.Properties.of(Material.BARRIER)
+                            .strength(50f, 1200f)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.GLASS)
+                            .requiresCorrectToolForDrops()
+                            .noOcclusion()));
 }

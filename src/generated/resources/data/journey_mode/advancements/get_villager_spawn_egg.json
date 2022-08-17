@@ -1,0 +1,37 @@
+{
+  "parent": "journey_mode:get_scanner",
+  "display": {
+    "icon": {
+      "item": "minecraft:villager_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_villager_spawn_egg.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_villager_spawn_egg.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:villager_spawn_egg"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "spawn_egg"
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "journey_mode:unobtainium_block"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.root.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "journey_mode:textures/gui/advancements/background/raw_unobtainium_block.png"
+  },
+  "criteria": {
+    "unobtainium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:raw_unobtainium"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unobtainium"
+    ]
+  ]
+}

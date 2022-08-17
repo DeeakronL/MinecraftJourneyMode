@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#J#",
+    "JNJ",
+    "#J#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:bedrock"
+    },
+    "J": {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    "N": {
+      "item": "journey_mode:primordial_void_dust"
+    }
+  },
+  "result": {
+    "item": "journey_mode:unobtainium_ingot"
+  }
+}

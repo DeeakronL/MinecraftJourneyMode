@@ -68,5 +68,8 @@ public class UnobtainItemInit {
     public static final RegistryObject<BlockItem> PAINTED_BARRIER = ITEMS.register("painted_barrier",
             () -> new BlockItem(UnobtainBlockInit.PAINTED_BARRIER.get(), new Item.Properties().tab(unobtainableGroup)));
 
+    public static final RegistryObject<BlockItem> PAINTED_LIGHT = ITEMS.register("painted_light",
+            () -> new BlockItem(UnobtainBlockInit.PAINTED_LIGHT.get(), new Item.Properties().tab(unobtainableGroup)));
+
 
 }
