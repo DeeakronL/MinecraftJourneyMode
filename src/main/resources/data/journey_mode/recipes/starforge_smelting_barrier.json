@@ -1,9 +1,0 @@
-{
-  "type": "journey_mode:starforge",
-  "output": {
-    "item": "minecraft:barrier"
-  },
-  "input": {
-    "item": "journey_mode:painted_barrier"
-  }
-}
