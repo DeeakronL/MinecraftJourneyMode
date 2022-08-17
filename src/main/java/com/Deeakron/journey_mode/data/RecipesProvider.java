@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.ItemInit;
+import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Sets;
@@ -20,6 +21,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.io.BufferedWriter;
@@ -172,6 +174,14 @@ public class RecipesProvider extends RecipeProvider {
                 .requires(UnobtainItemInit.RAW_UNOBTAINIUM.get(), 9)
                 .unlockedBy("has_unobtainium",has(UnobtainItemInit.RAW_UNOBTAINIUM.get()))
                 .save(consumer, "journey_mode:shapeless_raw_unobtainium_block");
+        ShapelessRecipeBuilder.shapeless(UnobtainItemInit.UNOBTAINIUM_INGOT.get(), 9)
+                .requires(UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:shapeless_unobtainium_ingot");
+        ShapelessRecipeBuilder.shapeless(UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
+                .requires(UnobtainItemInit.UNOBTAINIUM_INGOT.get(), 9)
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_INGOT.get()))
+                .save(consumer, "journey_mode:shapeless_unobtainium_block");
         AntikytheraRecipeBuilder.shaped(Items.BARRIER)
                 .define('#', Items.BEDROCK)
                 .define('G', Items.GLASS)
@@ -312,6 +322,18 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("RPR")
                 .unlockedBy("has_end_portal_frame",has(Items.END_PORTAL_FRAME))
                 .save(consumer, "journey_mode:antikythera_crafting_sculk_sensor");
+        AntikytheraRecipeBuilder.shaped(Items.LIGHT)
+                .define('G', Items.GLOWSTONE)
+                .define('B', Items.BARRIER)
+                .define('R', Items.REDSTONE_LAMP)
+                .define('C', Items.COMMAND_BLOCK)
+                .define('S', Items.SEA_LANTERN)
+                .define('H', Items.SHROOMLIGHT)
+                .pattern("GBR")
+                .pattern("BCB")
+                .pattern("SBH")
+                .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
+                .save(consumer, "journey_mode:antikythera_crafting_light");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)
@@ -387,5 +409,8 @@ public class RecipesProvider extends RecipeProvider {
                 .requires(Items.TRADER_LLAMA_SPAWN_EGG)
                 .unlockedBy("has_spawn_egg",has(Items.VILLAGER_SPAWN_EGG))
                 .save(consumer, "journey_mode:antikythera_crafting_wandering_trader_spawn_egg");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.PAINTED_BARRIER.get()), Items.BARRIER, 0.3f, 100, JMRecipeSerializerInit.STARFORGE_RECIPE_SERIALIZER)
+                .unlockedBy("has_barrier", has(Items.BARRIER))
+                .save(consumer, "journey_mode:starforge_smelting_barrier");
     }
 }
