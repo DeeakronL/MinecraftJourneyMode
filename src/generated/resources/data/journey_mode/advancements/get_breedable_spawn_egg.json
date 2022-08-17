@@ -1,0 +1,284 @@
+{
+  "parent": "journey_mode:get_scanner",
+  "display": {
+    "icon": {
+      "item": "minecraft:cow_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_breedable_spawn_egg.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_breedable_spawn_egg.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "axolotl_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:axolotl_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "cat_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:cat_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "chicken_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chicken_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "cow_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:cow_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "donkey_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:donkey_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "fox_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:fox_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "horse_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:horse_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "mooshroom_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:mooshroom_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "mule_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:mule_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "ocelot_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:ocelot_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "pig_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:pig_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "rabbit_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:rabbit_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "sheep_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:sheep_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "strider_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:strider_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "bee_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bee_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "goat_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:goat_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "llama_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:llama_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "panda_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:panda_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "trader_llama_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:trader_llama_spawn_egg"
+            ]
+          }
+        ]
+      }
+    },
+    "wolf_spawn_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:wolf_spawn_egg"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "axolotl_spawn_egg",
+      "cat_spawn_egg",
+      "chicken_spawn_egg",
+      "cow_spawn_egg",
+      "donkey_spawn_egg",
+      "fox_spawn_egg",
+      "horse_spawn_egg",
+      "mooshroom_spawn_egg",
+      "mule_spawn_egg",
+      "ocelot_spawn_egg",
+      "pig_spawn_egg",
+      "rabbit_spawn_egg",
+      "sheep_spawn_egg",
+      "strider_spawn_egg",
+      "bee_spawn_egg",
+      "goat_spawn_egg",
+      "llama_spawn_egg",
+      "panda_spawn_egg",
+      "trader_llama_spawn_egg",
+      "wolf_spawn_egg"
+    ]
+  ]
+}

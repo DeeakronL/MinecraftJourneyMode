@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "journey_mode:raw_unobtainium_block"
+    }
+  ],
+  "result": {
+    "item": "journey_mode:raw_unobtainium",
+    "count": 9
+  }
+}

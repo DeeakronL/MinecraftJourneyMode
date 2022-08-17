@@ -1,0 +1,19 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:repeater"
+    },
+    "C": {
+      "item": "minecraft:command_block"
+    }
+  },
+  "result": {
+    "item": "minecraft:repeating_command_block"
+  }
+}

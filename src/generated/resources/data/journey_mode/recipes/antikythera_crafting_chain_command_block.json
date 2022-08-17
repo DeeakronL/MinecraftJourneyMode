@@ -1,0 +1,19 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:chain"
+    },
+    "C": {
+      "item": "minecraft:command_block"
+    }
+  },
+  "result": {
+    "item": "minecraft:chain_command_block"
+  }
+}

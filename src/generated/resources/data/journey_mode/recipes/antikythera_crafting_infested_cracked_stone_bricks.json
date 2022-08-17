@@ -1,0 +1,14 @@
+{
+  "type": "journey_mode:crafting_antikythera_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:cracked_stone_bricks"
+    },
+    {
+      "item": "minecraft:silverfish_spawn_egg"
+    }
+  ],
+  "result": {
+    "item": "minecraft:infested_cracked_stone_bricks"
+  }
+}

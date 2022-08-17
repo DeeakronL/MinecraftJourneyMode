@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    },
+    {
+      "item": "journey_mode:raw_unobtainium"
+    }
+  ],
+  "result": {
+    "item": "journey_mode:raw_unobtainium_block"
+  }
+}

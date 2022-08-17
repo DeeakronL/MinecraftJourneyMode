@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "journey_mode:painted_barrier",
+    "journey_mode:unobtainium_block",
+    "journey_mode:inert_command_block",
+    "journey_mode:inert_chain_command_block",
+    "journey_mode:cracked_bedrock",
+    "journey_mode:inert_jigsaw_block",
+    "journey_mode:inert_repeating_command_block",
+    "journey_mode:inert_structure_block",
+    "journey_mode:raw_unobtainium_block",
+    "journey_mode:unobtainium_antikythera",
+    "journey_mode:unobtainium_starforge"
+  ]
+}

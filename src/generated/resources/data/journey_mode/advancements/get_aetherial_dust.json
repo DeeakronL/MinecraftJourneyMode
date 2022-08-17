@@ -1,0 +1,37 @@
+{
+  "parent": "journey_mode:get_antikythera",
+  "display": {
+    "icon": {
+      "item": "journey_mode:aetherial_void_dust"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_aetherial_dust.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_aetherial_dust.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "aetherial_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:aetherial_void_dust"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "aetherial_dust"
+    ]
+  ]
+}
