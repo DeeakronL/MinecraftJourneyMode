@@ -409,7 +409,7 @@ public class RecipesProvider extends RecipeProvider {
                 .requires(Items.TRADER_LLAMA_SPAWN_EGG)
                 .unlockedBy("has_spawn_egg",has(Items.VILLAGER_SPAWN_EGG))
                 .save(consumer, "journey_mode:antikythera_crafting_wandering_trader_spawn_egg");
-        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.PAINTED_BARRIER.get()), Items.BARRIER, 0.3f, 100)
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.PAINTED_BARRIER.get()), Items.BARRIER, 0.3f, 100, JMRecipeSerializerInit.STARFORGE_RECIPE_SERIALIZER)
                 .unlockedBy("has_barrier", has(Items.BARRIER))
                 .save(consumer, "journey_mode:starforge_smelting_barrier");
     }
