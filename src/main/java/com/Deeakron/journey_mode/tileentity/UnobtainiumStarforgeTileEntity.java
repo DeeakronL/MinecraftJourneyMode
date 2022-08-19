@@ -6,6 +6,7 @@ import com.Deeakron.journey_mode.container.StarforgeItemHandler;
 import com.Deeakron.journey_mode.data.StarforgeRecipe;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMTileEntityTypes;
+import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -13,6 +14,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -45,7 +47,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  MenuProvider {
+public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity implements  MenuProvider {
 
     private Component customName;
     public int currentSmeltTime = 0;
@@ -56,7 +58,7 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  Menu
 
     public UnobtainiumStarforgeTileEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state) {
         super(blockEntityTypeIn, pos, state);
-
+        journey_mode.LOGGER.info("hey tile entity is real");
         this.inventory = new StarforgeItemHandler(3);
     }
 
@@ -66,18 +68,20 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  Menu
 
     public UnobtainiumStarforgeTileEntity(BlockPos pos, BlockState state) {
         super(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get(), pos, state);
+        journey_mode.LOGGER.info("hey tile entity is real?");
         this.inventory = new StarforgeItemHandler(3);
     }
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(final int windowId, final Inventory playerInv, final Player playerIn) {
+    public AbstractContainerMenu createMenu(final int windowId, final Inventory playerInv) {
         return new StarforgeContainer(windowId, playerInv, this);
     }
 
-    public void tick() {
+    public void serverTick() {
         boolean dirty = false;
         boolean itemCheck = false;
+        journey_mode.LOGGER.info("i guess it really does tick the server");
         try {
             itemCheck = (this.inventory.getStackInSlot(1).isEmpty() || this.inventory.getStackInSlot(1).getItem().getRegistryName().equals(this.getRecipe(this.inventory.getStackInSlot(0)).getResultItem().getItem().getRegistryName()));
         } catch (NullPointerException e) {
@@ -135,7 +139,7 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  Menu
         return this.customName != null ? this.customName : this.getDefaultName();
     }
 
-    private Component getDefaultName() {
+    public Component getDefaultName() {
         return new TranslatableComponent("container." + journey_mode.MODID + ".unobtainium_starforge");
     }
 
@@ -251,5 +255,47 @@ public class UnobtainiumStarforgeTileEntity extends BlockEntity implements  Menu
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
         return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, LazyOptional.of(() -> this.inventory));
+    }
+
+    @Override
+    public int getContainerSize() {
+        return this.inventory.getSlots();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.inventory.isEmpty();
+    }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        return this.inventory.getStackInSlot(slot);
+    }
+
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        return this.inventory.extractItem(slot, amount, true);
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        ItemStack itemStack = this.inventory.getStackInSlot(slot);
+        this.inventory.removeStackFromSlot(slot);
+        return itemStack;
+    }
+
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+        this.inventory.setStackInSlot(slot, stack);
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return stillValid(player);
+    }
+
+    @Override
+    public void clearContent() {
+
     }
 }
