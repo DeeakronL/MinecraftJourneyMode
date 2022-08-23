@@ -52,5 +52,27 @@
         "type": "event"
       }
     ]
+  },
+  "item.journey_mode.unobtainium_hammer.break_light": {
+    "category": "item",
+    "subtitle":  "subtitles.journey_mode.item.unobtainium_hammer.break_light_subtitle",
+    "sounds": [
+      {
+        "name": "minecraft:block.glass.break",
+        "stream": true,
+        "type": "event"
+      }
+    ]
+  },
+  "item.journey_mode.unobtainium_hammer.use": {
+    "category": "item",
+    "subtitle":  "subtitles.journey_mode.item.unobtainium_hammer.use_subtitle",
+    "sounds": [
+      {
+        "name": "minecraft:block.anvil.land",
+        "stream": true,
+        "type": "event"
+      }
+    ]
   }
 }

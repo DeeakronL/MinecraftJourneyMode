@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "journey_mode:painted_light"
+          "name": "journey_mode:broken_light"
         }
       ],
       "conditions": [
