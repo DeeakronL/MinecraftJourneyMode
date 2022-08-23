@@ -11,8 +11,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
@@ -26,6 +32,7 @@ public class StarforgeContainer extends AbstractContainerMenu {
     private ContainerLevelAccess canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
     public FunctionalIntReferenceHolder currentFuelTime;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
         super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
@@ -69,6 +76,10 @@ public class StarforgeContainer extends AbstractContainerMenu {
             return (UnobtainiumStarforgeTileEntity) tileAtPos;
         }
         throw new IllegalStateException("BlockEntity is not correct " + tileAtPos);
+    }
+
+    public RenderShape getRenderShape(BlockState p_48727_) {
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -127,6 +138,10 @@ public class StarforgeContainer extends AbstractContainerMenu {
     @OnlyIn(Dist.CLIENT)
     public int getSmeltProgressionScaled() {
         return this.currentSmeltTime.get() != 0 && this.BlockEntity.maxSmeltTime != 0 ? this.currentSmeltTime.get() * 24 / this.BlockEntity.maxSmeltTime : 0;
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_48725_) {
+        p_48725_.add(LIT);
     }
 
     @OnlyIn(Dist.CLIENT)

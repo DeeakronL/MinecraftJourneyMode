@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 import javax.annotation.Nullable;
 
-public class UnobtainiumStarforgeBlock extends BaseEntityBlock {
+public class UnobtainiumStarforgeBlock extends BaseEntityBlock implements EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
@@ -132,7 +132,7 @@ public class UnobtainiumStarforgeBlock extends BaseEntityBlock {
         if (state.getValue(LIT)) {
             worldIn.setBlock(pos, state.cycle(LIT), 2);
         }
-
+        BlockEntity tile = worldIn.getBlockEntity(pos);
     }
 
     @Nullable
@@ -141,8 +141,14 @@ public class UnobtainiumStarforgeBlock extends BaseEntityBlock {
         return new UnobtainiumStarforgeTileEntity(pos, state);
     }
 
+    @Override
     @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState       state, BlockEntityType<T> type) {
+        return level.isClientSide() ? null : createTickerHelper(type, JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get(), UnobtainiumStarforgeTileEntity::serverTick);
+    }
+
+    /*@Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> createStarforgeTicker(Level p_151988_, BlockEntityType<T> p_151989_, BlockEntityType<? extends UnobtainiumStarforgeTileEntity> p_151990_) {
         return p_151988_.isClientSide ? null : createTickerHelper(p_151989_, p_151990_, UnobtainiumStarforgeTileEntity::serverTick);
-    }
+    }*/
 }

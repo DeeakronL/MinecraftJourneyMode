@@ -78,56 +78,55 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
         return new StarforgeContainer(windowId, playerInv, this);
     }
 
-    public void serverTick() {
+    public static void serverTick(Level level, BlockPos pos, BlockState state, UnobtainiumStarforgeTileEntity tile) {
         boolean dirty = false;
         boolean itemCheck = false;
-        journey_mode.LOGGER.info("i guess it really does tick the server");
         try {
-            itemCheck = (this.inventory.getStackInSlot(1).isEmpty() || this.inventory.getStackInSlot(1).getItem().getRegistryName().equals(this.getRecipe(this.inventory.getStackInSlot(0)).getResultItem().getItem().getRegistryName()));
+            itemCheck = (tile.inventory.getStackInSlot(1).isEmpty() || tile.inventory.getStackInSlot(1).getItem().getRegistryName().equals(tile.getRecipe(tile.inventory.getStackInSlot(0)).getResultItem().getItem().getRegistryName()));
         } catch (NullPointerException e) {
 
         }
 
-        if (this.level != null && !this.level.isClientSide) {
-            if (this.currentFuelTime <= 0) {
-                if (!this.getInventory().getStackInSlot(2).isEmpty() && this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
-                    this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(UnobtainiumStarforgeBlock.LIT, true));
-                    this.inventory.decrStackSize(2, 1);
-                    this.currentFuelTime = maxFuelTime;
+        if (tile.level != null && !tile.level.isClientSide) {
+            if (tile.currentFuelTime <= 0) {
+                if (!tile.getInventory().getStackInSlot(2).isEmpty() && tile.getRecipe(tile.inventory.getStackInSlot(0)) != null) {
+                    tile.level.setBlockAndUpdate(tile.getBlockPos(), tile.getBlockState().setValue(UnobtainiumStarforgeBlock.LIT, true));
+                    tile.inventory.decrStackSize(2, 1);
+                    tile.currentFuelTime = tile.maxFuelTime;
                 } else {
-                    this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(UnobtainiumStarforgeBlock.LIT, false));
-                    if(this.currentSmeltTime > 0) {
-                        this.currentSmeltTime--;
+                    tile.level.setBlockAndUpdate(tile.getBlockPos(), tile.getBlockState().setValue(UnobtainiumStarforgeBlock.LIT, false));
+                    if(tile.currentSmeltTime > 0) {
+                        tile.currentSmeltTime--;
                     }
                 }
                 dirty = true;
             } else {
-                if (this.getRecipe(this.inventory.getStackInSlot(0)) != null && itemCheck) {
-                    if (this.currentSmeltTime < this.maxSmeltTime) {
-                        this.currentSmeltTime++;
-                        this.currentFuelTime--;
+                if (tile.getRecipe(tile.inventory.getStackInSlot(0)) != null && itemCheck) {
+                    if (tile.currentSmeltTime < tile.maxSmeltTime) {
+                        tile.currentSmeltTime++;
+                        tile.currentFuelTime--;
                         dirty = true;
                     } else {
-                        this.currentSmeltTime = 1;
-                        this.currentFuelTime--;
-                        ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getResultItem();
-                        this.inventory.insertItem(1, output.copy(), false);
-                        this.inventory.decrStackSize(0, 1);
+                        tile.currentSmeltTime = 1;
+                        tile.currentFuelTime--;
+                        ItemStack output = tile.getRecipe(tile.inventory.getStackInSlot(0)).getResultItem();
+                        tile.inventory.insertItem(1, output.copy(), false);
+                        tile.inventory.decrStackSize(0, 1);
                         dirty = true;
                     }
                 } else {
-                    if (this.currentSmeltTime > 0) {
-                        this.currentSmeltTime = 0;
+                    if (tile.currentSmeltTime > 0) {
+                        tile.currentSmeltTime = 0;
                     }
-                    this.currentFuelTime--;
+                    tile.currentFuelTime--;
                     dirty = true;
                 }
             }
         }
 
         if (dirty) {
-            this.setChanged();
-            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
+            tile.setChanged();
+            tile.level.sendBlockUpdated(tile.getBlockPos(), tile.getBlockState(), tile.getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
         }
     }
 
@@ -153,7 +152,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
         return this.customName;
     }
 
-    public void load(BlockState state, CompoundTag compound) {
+    public void load(CompoundTag compound) {
         super.load(compound);
         if(compound.contains("CustomName", Constants.NBT.TAG_STRING)) {
             this.customName = Component.Serializer.fromJson(compound.getString("CustomName"));
@@ -238,7 +237,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.load(this.getBlockState(), pkt.getTag());
+        this.load(pkt.getTag());
     }
 
     @Override
@@ -249,7 +248,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
     }
 
     public void handleUpdateTag(BlockState state, CompoundTag nbt) {
-        this.load(state, nbt);
+        this.load(nbt);
     }
 
     @Override
