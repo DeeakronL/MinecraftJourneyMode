@@ -115,9 +115,9 @@ public class UnobtainBlockInit {
                             .requiresCorrectToolForDrops()
                             .noOcclusion()));
 
-    public static final RegistryObject<Block> PAINTED_LIGHT = BLOCKS
-            .register("painted_light",
-                    () -> new PaintedLightBlock(BlockBehaviour.Properties.of(Material.BARRIER)
+    public static final RegistryObject<Block> BROKEN_LIGHT = BLOCKS
+            .register("broken_light",
+                    () -> new BrokenLightBlock(BlockBehaviour.Properties.of(Material.BARRIER)
                             .strength(50f, 1200f)
                             .requiresCorrectToolForDrops()
                             .sound(SoundType.GLASS)

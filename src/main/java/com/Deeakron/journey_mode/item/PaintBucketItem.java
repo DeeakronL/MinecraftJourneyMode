@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.item;
 
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
+import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -25,6 +26,7 @@ public class PaintBucketItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
+        journey_mode.LOGGER.info(world.getBlockState(pos).getBlock() + " blocky");
         if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.BARRIER)) {
             world.setBlockAndUpdate(pos, UnobtainBlockInit.PAINTED_BARRIER.get().defaultBlockState());
             if(!world.isClientSide){context.getPlayer().playNotifySound(JMSounds.BARRIER_PAINT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}
@@ -39,24 +41,6 @@ public class PaintBucketItem extends Item {
                 double d7 = (double)pos.getY() + random.nextDouble();// * d1;
                 double d8 = (double)pos.getZ() + random.nextDouble();// * d0 - 0.5D;
                 world.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, UnobtainBlockInit.PAINTED_BARRIER.get().defaultBlockState()), d6, d7, d8, d2, d3, d4);
-            }
-            context.getItemInHand().shrink(1);
-            return InteractionResult.sidedSuccess(world.isClientSide);
-        }
-        if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.LIGHT)) {
-            world.setBlockAndUpdate(pos, UnobtainBlockInit.PAINTED_LIGHT.get().defaultBlockState());
-            if(!world.isClientSide){context.getPlayer().playNotifySound(JMSounds.LIGHT_PAINT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}
-            for (int i = 0; i < 50; i++) {
-                double d0 = 3.0D;
-                double d1 = 1.0D;
-                double d2 = random.nextGaussian() * 0.02D;
-                double d3 = random.nextGaussian() * 0.02D;
-                double d4 = random.nextGaussian() * 0.02D;
-                double d5 = 0.5D - d0;
-                double d6 = (double)pos.getX()  + random.nextDouble();// * d0 - 0.5D;
-                double d7 = (double)pos.getY() + random.nextDouble();// * d1;
-                double d8 = (double)pos.getZ() + random.nextDouble();// * d0 - 0.5D;
-                world.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, UnobtainBlockInit.PAINTED_LIGHT.get().defaultBlockState()), d6, d7, d8, d2, d3, d4);
             }
             context.getItemInHand().shrink(1);
             return InteractionResult.sidedSuccess(world.isClientSide);

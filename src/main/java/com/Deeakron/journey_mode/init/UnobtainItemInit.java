@@ -1,9 +1,6 @@
 package com.Deeakron.journey_mode.init;
 
-import com.Deeakron.journey_mode.item.AetherialVoidDustItem;
-import com.Deeakron.journey_mode.item.PaintBucketItem;
-import com.Deeakron.journey_mode.item.PrimordialVoidDustItem;
-import com.Deeakron.journey_mode.item.ScannerItem;
+import com.Deeakron.journey_mode.item.*;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
@@ -30,6 +27,9 @@ public class UnobtainItemInit {
 
     public static final RegistryObject<Item> PAINT_BUCKET = ITEMS.register("paint_bucket",
             () -> new PaintBucketItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+
+    public static final RegistryObject<Item> UNOBTAINIUM_HAMMER = ITEMS.register("unobtainium_hammer",
+            () -> new UnobtainiumHammerItem(new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
             () -> new ScannerItem(JMArmorMaterial.ARMOR_SCANNER, EquipmentSlot.HEAD, (new Item.Properties()).tab(CreativeModeTab.TAB_COMBAT)));
@@ -68,8 +68,8 @@ public class UnobtainItemInit {
     public static final RegistryObject<BlockItem> PAINTED_BARRIER = ITEMS.register("painted_barrier",
             () -> new BlockItem(UnobtainBlockInit.PAINTED_BARRIER.get(), new Item.Properties().tab(unobtainableGroup)));
 
-    public static final RegistryObject<BlockItem> PAINTED_LIGHT = ITEMS.register("painted_light",
-            () -> new BlockItem(UnobtainBlockInit.PAINTED_LIGHT.get(), new Item.Properties().tab(unobtainableGroup)));
+    public static final RegistryObject<BlockItem> BROKEN_LIGHT = ITEMS.register("broken_light",
+            () -> new BlockItem(UnobtainBlockInit.BROKEN_LIGHT.get(), new Item.Properties().tab(unobtainableGroup)));
 
 
 }

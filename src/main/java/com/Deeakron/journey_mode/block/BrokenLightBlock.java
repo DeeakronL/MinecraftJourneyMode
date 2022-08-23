@@ -17,8 +17,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 import java.util.Random;
 
-public class PaintedLightBlock extends Block {
-    public PaintedLightBlock(Properties properties) {
+public class BrokenLightBlock extends Block {
+    public BrokenLightBlock(Properties properties) {
         super(properties);
     }
     public RenderShape getRenderShape(BlockState state) {
