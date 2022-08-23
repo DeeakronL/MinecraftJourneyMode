@@ -147,6 +147,10 @@ public class UnobtainiumStarforgeBlock extends BaseEntityBlock implements Entity
         return level.isClientSide() ? null : createTickerHelper(type, JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get(), UnobtainiumStarforgeTileEntity::serverTick);
     }
 
+    public RenderShape getRenderShape(BlockState p_48727_) {
+        return RenderShape.MODEL;
+    }
+
     /*@Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> createStarforgeTicker(Level p_151988_, BlockEntityType<T> p_151989_, BlockEntityType<? extends UnobtainiumStarforgeTileEntity> p_151990_) {
         return p_151988_.isClientSide ? null : createTickerHelper(p_151989_, p_151990_, UnobtainiumStarforgeTileEntity::serverTick);

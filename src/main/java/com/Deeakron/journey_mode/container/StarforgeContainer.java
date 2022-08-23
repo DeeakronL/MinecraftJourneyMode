@@ -32,7 +32,6 @@ public class StarforgeContainer extends AbstractContainerMenu {
     private ContainerLevelAccess canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
     public FunctionalIntReferenceHolder currentFuelTime;
-    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public StarforgeContainer(final int windowID, final Inventory playerInv, final UnobtainiumStarforgeTileEntity tile) {
         super(JMContainerTypes.UNOBTAINIUM_STARFORGE.get(), windowID);
@@ -138,10 +137,6 @@ public class StarforgeContainer extends AbstractContainerMenu {
     @OnlyIn(Dist.CLIENT)
     public int getSmeltProgressionScaled() {
         return this.currentSmeltTime.get() != 0 && this.BlockEntity.maxSmeltTime != 0 ? this.currentSmeltTime.get() * 24 / this.BlockEntity.maxSmeltTime : 0;
-    }
-
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_48725_) {
-        p_48725_.add(LIT);
     }
 
     @OnlyIn(Dist.CLIENT)
