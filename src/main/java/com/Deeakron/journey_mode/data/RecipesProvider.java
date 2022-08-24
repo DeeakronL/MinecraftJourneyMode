@@ -334,6 +334,17 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("SBH")
                 .unlockedBy("has_command_block",has(Items.COMMAND_BLOCK))
                 .save(consumer, "journey_mode:antikythera_crafting_light");
+        AntikytheraRecipeBuilder.shaped(UnobtainItemInit.UNOBTAINIUM_HAMMER.get())
+                .define('I', UnobtainItemInit.UNOBTAINIUM_INGOT.get())
+                .define('B', UnobtainItemInit.UNOBTAINIUM_BLOCK.get())
+                .define('R', UnobtainItemInit.RAW_UNOBTAINIUM.get())
+                .define('P', UnobtainItemInit.PRIMORDIAL_VOID_DUST.get())
+                .define('A', UnobtainItemInit.AETHERIAL_VOID_DUST.get())
+                .pattern("IBR")
+                .pattern(" P ")
+                .pattern(" A ")
+                .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_unobtainium_hammer");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)

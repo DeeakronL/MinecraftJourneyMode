@@ -11,6 +11,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
@@ -92,7 +94,11 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         if (recipeCount < 3) {
             this.showRightButton = false;
         } else {
-            this.showRightButton = true;
+            if (this.currentRecipe + 2 >= this.numRecipes) {
+                this.showRightButton = false;
+            } else {
+                this.showRightButton = true;
+            }
         }
     }
 
@@ -231,6 +237,11 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
         this.blit(PoseStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
+    }
+
+    @Override
+    protected void slotClicked(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
+
     }
 
     @OnlyIn(Dist.CLIENT)
