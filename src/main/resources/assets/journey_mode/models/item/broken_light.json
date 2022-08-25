@@ -1,3 +1,6 @@
 {
-  "parent": "journey_mode:block/broken_light"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "journey_mode:item/broken_light"
+  }
 }

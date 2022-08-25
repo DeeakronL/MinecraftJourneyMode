@@ -1,5 +1,7 @@
 package com.Deeakron.journey_mode.block;
 
+import com.Deeakron.journey_mode.init.JMParticleTypes;
+import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -31,17 +33,17 @@ public class BrokenLightBlock extends Block {
         List<? extends Player> players = worldIn.players();
         for (Player player :players) {
             if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof BlockItem) {
-                if (((BlockItem) player.getItemBySlot(EquipmentSlot.MAINHAND).getItem()).getBlock() == Blocks.LIGHT){
+                if (((BlockItem) player.getItemBySlot(EquipmentSlot.MAINHAND).getItem()).getBlock() == UnobtainBlockInit.BROKEN_LIGHT.get()){
                     int i = pos.getX();
                     int j = pos.getY();
                     int k = pos.getZ();
-                    worldIn.addParticle(ParticleTypes.LIGHT, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
+                    worldIn.addParticle(JMParticleTypes.BROKEN_LIGHT.get(), (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
                 }
-            } else if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()){
+            } else if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() == UnobtainItemInit.UNOBTAINIUM_HAMMER.get()){
                 int i = pos.getX();
                 int j = pos.getY();
                 int k = pos.getZ();
-                worldIn.addParticle(ParticleTypes.LIGHT, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
+                worldIn.addParticle(JMParticleTypes.BROKEN_LIGHT.get(), (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
             }
         }
         super.animateTick(state, worldIn, pos, random);
