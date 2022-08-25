@@ -1,5 +1,6 @@
 package com.Deeakron.journey_mode.data;
 
+import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
@@ -54,6 +55,21 @@ public class RecipesProvider extends RecipeProvider {
 
             }
         });
+        if (journey_mode.useUnobtain) {
+            buildUnobtainableCraftingRecipes((p_125991_) -> {
+                journey_mode.LOGGER.info(p_125991_.getId());
+                if (!set.add(p_125991_.getId())) {
+                    throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
+                } else {
+                    saveRecipe(p_125982_, p_125991_.serializeRecipe(), path.resolve("data/" + p_125991_.getId().getNamespace() + "/recipes/" + p_125991_.getId().getPath() + ".json"));
+                    JsonObject jsonobject = p_125991_.serializeAdvancement();
+                    if (jsonobject != null) {
+                        saveAdvancement(p_125982_, jsonobject, path.resolve("data/" + p_125991_.getId().getNamespace() + "/advancements/" + p_125991_.getAdvancementId().getPath() + ".json"));
+                    }
+
+                }
+            });
+        }
     }
 
     private static void saveRecipe(HashCache p_125984_, JsonObject p_125985_, Path p_125986_) {
@@ -122,6 +138,9 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("___")
                 .unlockedBy("has_wood",has(Items.WOODEN_SWORD))
                 .save(consumer);
+    }
+
+    protected void buildUnobtainableCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(UnobtainItemInit.RAW_UNOBTAINIUM.get())
                 .define('#', Items.SPONGE)
                 .define('E', Items.END_CRYSTAL)
@@ -345,6 +364,14 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern(" A ")
                 .unlockedBy("has_unobtainium",has(UnobtainItemInit.UNOBTAINIUM_BLOCK.get()))
                 .save(consumer, "journey_mode:antikythera_crafting_unobtainium_hammer");
+        AntikytheraRecipeBuilder.shaped(Items.BUNDLE)
+                .define('S', Items.STRING)
+                .define('R', Items.RABBIT_HIDE)
+                .pattern("SRS")
+                .pattern("R R")
+                .pattern("RRR")
+                .unlockedBy("has_antikythera",has(UnobtainItemInit.UNOBTAINIUM_ANTIKYTHERA.get()))
+                .save(consumer, "journey_mode:antikythera_crafting_bundle");
         AntikytheraShapelessRecipeBuilder.shapeless(Items.COMMAND_BLOCK_MINECART)
                 .requires(Items.COMMAND_BLOCK)
                 .requires(Items.MINECART)
