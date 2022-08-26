@@ -29,7 +29,10 @@ public class JMParticleTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerFactories(ParticleFactoryRegisterEvent event) {
-        ParticleEngine particleEngine = Minecraft.getInstance().particleEngine;
-        particleEngine.register(JMParticleTypes.BROKEN_LIGHT.get(), new BrokenLightParticle.BrokenLightProvider());
+        if (journey_mode.useUnobtain) {
+            ParticleEngine particleEngine = Minecraft.getInstance().particleEngine;
+            particleEngine.register(JMParticleTypes.BROKEN_LIGHT.get(), new BrokenLightParticle.BrokenLightProvider());
+        }
+
     }
 }
