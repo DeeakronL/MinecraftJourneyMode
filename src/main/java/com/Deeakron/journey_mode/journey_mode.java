@@ -126,7 +126,7 @@ public class journey_mode
 
         keyBindings[0] = new KeyMapping("key.journey_mode.menu", GLFW.GLFW_KEY_O, "key.categories.journey_mode");
 
-        //ClientRegistry.registerKeyBinding(keyBindings[0]);
+        ClientRegistry.registerKeyBinding(keyBindings[0]);
 
 
 

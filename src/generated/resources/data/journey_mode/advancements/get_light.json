@@ -1,0 +1,37 @@
+{
+  "parent": "journey_mode:get_aetherial_dust",
+  "display": {
+    "icon": {
+      "item": "minecraft:light"
+    },
+    "title": {
+      "translate": "advancement.journey_mode.get_light.title"
+    },
+    "description": {
+      "translate": "advancement.journey_mode.get_light.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "light": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:light"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "light"
+    ]
+  ]
+}

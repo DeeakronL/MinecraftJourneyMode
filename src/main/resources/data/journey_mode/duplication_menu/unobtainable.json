@@ -575,6 +575,16 @@
       "item" : "minecraft:bundle",
       "count" : 1,
       "category": "Unobtainable"
+    },
+    {
+      "item" : "journey_mode:broken_light",
+      "count" : 128,
+      "category": "Unobtainable"
+    },
+    {
+      "item" : "journey_mode:unobtainium_hammer",
+      "count" : 1,
+      "category": "Tools"
     }
   ]
 }

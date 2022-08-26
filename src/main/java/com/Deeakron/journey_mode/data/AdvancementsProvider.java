@@ -270,5 +270,25 @@ public class AdvancementsProvider extends AdvancementProvider {
                         true,true,false)
                 .addCriterion("spawn_egg", InventoryChangeTrigger.TriggerInstance.hasItems(Items.ZOMBIE_HORSE_SPAWN_EGG.asItem()))
                 .save(consumer, "journey_mode:get_zombie_horse_spawn_egg");
+
+        Advancement light  = Advancement.Builder.advancement().parent(aetherial_dust).display(
+                Items.LIGHT.asItem(),
+                new TranslatableComponent("advancement.journey_mode.get_light.title"),
+                new TranslatableComponent("advancement.journey_mode.get_light.description"),
+                null,
+                FrameType.TASK,
+                true,true,false)
+                .addCriterion("light", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LIGHT.asItem()))
+                .save(consumer, "journey_mode:get_light");
+
+        Advancement broken_light  = Advancement.Builder.advancement().parent(light).display(
+                UnobtainItemInit.BROKEN_LIGHT.get(),
+                new TranslatableComponent("advancement.journey_mode.get_broken_light.title"),
+                new TranslatableComponent("advancement.journey_mode.get_broken_light.description"),
+                null,
+                FrameType.TASK,
+                true,true,false)
+                .addCriterion("broken_light", InventoryChangeTrigger.TriggerInstance.hasItems(UnobtainItemInit.BROKEN_LIGHT.get()))
+                .save(consumer, "journey_mode:get_broken_light");
     }
 }
