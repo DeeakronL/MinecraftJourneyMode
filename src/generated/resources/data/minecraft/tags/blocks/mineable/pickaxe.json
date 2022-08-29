@@ -19,6 +19,7 @@
     "journey_mode:inert_structure_block",
     "journey_mode:raw_unobtainium_block",
     "journey_mode:unobtainium_antikythera",
-    "journey_mode:unobtainium_starforge"
+    "journey_mode:unobtainium_starforge",
+    "journey_mode:broken_light"
   ]
 }

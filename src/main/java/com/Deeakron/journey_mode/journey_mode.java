@@ -140,6 +140,7 @@ public class journey_mode
             JMParticleTypes.PARTICLE_TYPES.register(bus);
         } else {
             this.useUnobtain = false;
+            UnobtainBlockInit.BLOCKS.register(bus);
         }
 
         JMSounds.SOUNDS.register(bus);

@@ -17,13 +17,13 @@ public class BlockTagProvider extends BlockTagsProvider {
     }
 
     protected void addTags() {
+
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(BlockInit.WOODEN_RESEARCH_GRINDER.get(),BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(),BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(),BlockInit.WOODEN_RESEARCH_GRINDER_PART_2.get());
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(BlockInit.IRON_RESEARCH_GRINDER.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_2.get(),BlockInit.DIAMOND_RESEARCH_GRINDER.get(),
                         BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(),BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(),BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get());
-
         if (journey_mode.useUnobtain) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE)
                     .add(UnobtainBlockInit.PAINTED_BARRIER.get(),UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(),
