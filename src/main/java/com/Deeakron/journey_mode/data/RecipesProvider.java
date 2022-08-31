@@ -450,5 +450,38 @@ public class RecipesProvider extends RecipeProvider {
         StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.PAINTED_BARRIER.get()), Items.BARRIER, 0.3f, 100)
                 .unlockedBy("has_barrier", has(Items.BARRIER))
                 .save(consumer, "journey_mode:starforge_smelting_barrier");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.UNOBTAINIUM_ANTIKYTHERA.get()), UnobtainItemInit.AETHERIAL_VOID_DUST.get(), 0.3f, 100)
+                .unlockedBy("has_antikythera", has(UnobtainItemInit.UNOBTAINIUM_ANTIKYTHERA.get()))
+                .save(consumer, "journey_mode:starforge_smelting_aetherial_void_dust");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.CRACKED_BEDROCK.get()), Items.BEDROCK, 0.3f, 100)
+                .unlockedBy("has_cracked_bedrock", has(UnobtainItemInit.CRACKED_BEDROCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_bedrock");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.INERT_CHAIN_COMMAND_BLOCK.get()), Items.CHAIN_COMMAND_BLOCK, 0.3f, 100)
+                .unlockedBy("has_inert_command_block", has(UnobtainItemInit.INERT_CHAIN_COMMAND_BLOCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_chain_command_block");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(Items.CHORUS_FLOWER), Items.CHORUS_FRUIT, 0.3f, 100)
+                .unlockedBy("has_chorus_flower", has(Items.CHORUS_FLOWER))
+                .save(consumer, "journey_mode:starforge_smelting_chorus_fruit");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.INERT_COMMAND_BLOCK.get()), Items.COMMAND_BLOCK, 0.3f, 100)
+                .unlockedBy("has_inert_command_block", has(UnobtainItemInit.INERT_COMMAND_BLOCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_command_block");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.INERT_JIGSAW_BLOCK.get()), Items.JIGSAW, 0.3f, 100)
+                .unlockedBy("has_inert_jigsaw_block", has(UnobtainItemInit.INERT_JIGSAW_BLOCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_jigsaw_block");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.RAW_UNOBTAINIUM_BLOCK.get()), UnobtainItemInit.PRIMORDIAL_VOID_DUST.get(), 0.3f, 100)
+                .unlockedBy("has_raw_unobtainium", has(UnobtainItemInit.RAW_UNOBTAINIUM_BLOCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_primordial_void_dust");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.INERT_REPEATING_COMMAND_BLOCK.get()), Items.REPEATING_COMMAND_BLOCK, 0.3f, 100)
+                .unlockedBy("has_inert_command_block", has(UnobtainItemInit.INERT_REPEATING_COMMAND_BLOCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_repeating_command_block");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.INERT_STRUCTURE_BLOCK.get()), Items.STRUCTURE_BLOCK, 0.3f, 100)
+                .unlockedBy("has_inert_structure_block", has(UnobtainItemInit.INERT_STRUCTURE_BLOCK.get()))
+                .save(consumer, "journey_mode:starforge_smelting_structure_block");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(Items.TURTLE_EGG), Items.TURTLE_SPAWN_EGG, 0.3f, 100)
+                .unlockedBy("has_turtle_egg", has(Items.TURTLE_EGG))
+                .save(consumer, "journey_mode:starforge_smelting_turtle_spawn_egg");
+        StarforgeRecipeBuilder.cooking(Ingredient.of(UnobtainItemInit.BROKEN_LIGHT.get()), Items.LIGHT, 0.3f, 100)
+                .unlockedBy("has_broken_light", has(UnobtainItemInit.BROKEN_LIGHT.get()))
+                .save(consumer, "journey_mode:starforge_smelting_light");
     }
 }

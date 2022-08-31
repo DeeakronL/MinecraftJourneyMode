@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "journey_mode:starforge_smelting_bedrock"
+    ]
+  },
+  "criteria": {
+    "has_cracked_bedrock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:cracked_bedrock"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:starforge_smelting_bedrock"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_bedrock",
+      "has_the_recipe"
+    ]
+  ]
+}

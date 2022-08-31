@@ -1,0 +1,9 @@
+{
+  "type": "journey_mode:starforge",
+  "input": {
+    "item": "journey_mode:broken_light"
+  },
+  "output": {
+    "item": "minecraft:light"
+  }
+}

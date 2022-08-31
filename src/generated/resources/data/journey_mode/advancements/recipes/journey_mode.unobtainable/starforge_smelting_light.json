@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "journey_mode:starforge_smelting_light"
+    ]
+  },
+  "criteria": {
+    "has_broken_light": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:broken_light"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:starforge_smelting_light"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_broken_light",
+      "has_the_recipe"
+    ]
+  ]
+}
