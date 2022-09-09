@@ -23,10 +23,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(BlockInit.IRON_RESEARCH_GRINDER.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_2.get(),BlockInit.DIAMOND_RESEARCH_GRINDER.get(),
-                        BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(),BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(),BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get());
-        if (journey_mode.useUnobtain) {
-            tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                    .add(UnobtainBlockInit.PAINTED_BARRIER.get(),UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(),
+                        BlockInit.DIAMOND_RESEARCH_GRINDER_PART_0.get(),BlockInit.DIAMOND_RESEARCH_GRINDER_PART_1.get(),BlockInit.DIAMOND_RESEARCH_GRINDER_PART_2.get(),UnobtainBlockInit.PAINTED_BARRIER.get(),UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(),
                         UnobtainBlockInit.INERT_COMMAND_BLOCK.get(),UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get(),UnobtainBlockInit.CRACKED_BEDROCK.get(),UnobtainBlockInit.INERT_JIGSAW_BLOCK.get(),UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get(),
                         UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get(),UnobtainBlockInit.RAW_UNOBTAINIUM_BLOCK.get(),UnobtainBlockInit.UNOBTAINIUM_ANTIKYTHERA.get(),UnobtainBlockInit.UNOBTAINIUM_STARFORGE.get(),UnobtainBlockInit.BROKEN_LIGHT.get());
 
@@ -34,7 +31,7 @@ public class BlockTagProvider extends BlockTagsProvider {
                     .add(UnobtainBlockInit.PAINTED_BARRIER.get(),UnobtainBlockInit.UNOBTAINIUM_BLOCK.get(),UnobtainBlockInit.INERT_COMMAND_BLOCK.get(),UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get(),
                             UnobtainBlockInit.CRACKED_BEDROCK.get(),UnobtainBlockInit.INERT_JIGSAW_BLOCK.get(),UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get(),UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get(),
                             UnobtainBlockInit.RAW_UNOBTAINIUM_BLOCK.get(),UnobtainBlockInit.UNOBTAINIUM_ANTIKYTHERA.get(),UnobtainBlockInit.UNOBTAINIUM_STARFORGE.get());
-        }
+        //}
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlockInit.IRON_RESEARCH_GRINDER.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_0.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_1.get(),BlockInit.IRON_RESEARCH_GRINDER_PART_2.get());
