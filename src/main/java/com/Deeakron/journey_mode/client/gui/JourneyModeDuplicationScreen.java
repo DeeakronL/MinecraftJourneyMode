@@ -97,7 +97,6 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
     private CreativeModeTab[] itemGroupSmall = null;
     private int hotbarIndex;
     private int survivalInventoryIndex;
-    //private ServerPlayer serverPlayerEntity;
     private static boolean hasRecipes;
 
     public JourneyModeDuplicationScreen(Player player, boolean wasCreative, boolean wasGodMode) {
@@ -105,7 +104,6 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         player.containerMenu = this.menu;
         this.wasCreative = wasCreative;
         this.wasGodMode = wasGodMode;
-        //this.serverPlayerEntity = serverPlayerEntity;
         this.passEvents = true;
         this.imageWidth = 190;
         this.imageHeight = 183;
@@ -281,7 +279,6 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         this.searchField.setBordered(false);
         this.searchField.setVisible(false);
         this.searchField.setTextColor(16777215);
-        //this.children.add(this.searchField);
         int i = selectedTabIndex;
         selectedTabIndex = -1;
         this.setCurrentDuplicationTab(itemGroupSmall[i], i);
@@ -728,7 +725,6 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         if (maxPages != 0) {
             Component page = new TextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
-            //RenderSystem.disableLighting();
             this.setBlitOffset(300);
             this.itemRenderer.blitOffset = 300.0F;
             font.drawShadow(PoseStack, page.getVisualOrderText(), leftPos + (imageWidth + 45) - (font.width(page) / 2), topPos +7, -1);
@@ -742,7 +738,6 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
     protected void renderTooltip(PoseStack poseStack, ItemStack itemStack, int mouseX, int mouseY) {
         if (selectedTabIndex == CreativeModeTab.TAB_SEARCH.getId() - 1) {
-            journey_mode.LOGGER.info("yes");
             List<Component> list = itemStack.getTooltipLines(this.minecraft.player, this.minecraft.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL);
             List<Component> list1 = Lists.newArrayList(list);
             Item item = itemStack.getItem();
@@ -770,11 +765,6 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             if (itemgroup != null && itemgroup != CreativeModeTab.TAB_INVENTORY) {
                 list1.add(1, itemgroup.getDisplayName().copy().withStyle(ChatFormatting.BLUE));
             }
-
-            /*Font font = itemStack.getItem().getFont(itemStack);
-            net.minecraftforge.fml.client.gui.GuiUtils.preItemToolTip(itemStack);
-            this.renderWrappedToolTip(PoseStack, list1, mouseX, mouseY, (font == null ? this.font : font));
-            net.minecraftforge.fml.client.gui.GuiUtils.postItemToolTip();*/
             this.renderTooltip(poseStack, list1, itemStack.getTooltipImage(), mouseX, mouseY, itemStack);
         } else {
             super.renderTooltip(poseStack, itemStack, mouseX, mouseY);
@@ -923,13 +913,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             i1 = i1 + (this.imageHeight - 4);
         }
 
-        //RenderSystem.color3f(1F, 1F, 1F); //Forge: Reset color in case Items change it.
         RenderSystem.enableBlend(); //Forge: Make sure blend is enabled else tabs show a white border.
         this.blit(p_238808_1_, l, i1, j, k, 28, 32);
         this.itemRenderer.blitOffset = 100.0F;
         l = l + 6;
         i1 = i1 + 8 + (flag1 ? 1 : -1);
-        //RenderSystem.enableRescaleNormal();
         ItemStack itemstack = p_238808_2_.getIconItem();
         this.itemRenderer.renderAndDecorateItem(itemstack, l, i1);
         this.itemRenderer.renderGuiItemDecorations(this.font, itemstack, l, i1);

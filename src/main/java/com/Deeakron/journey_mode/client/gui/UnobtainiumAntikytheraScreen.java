@@ -31,7 +31,6 @@ public class UnobtainiumAntikytheraScreen extends AbstractContainerScreen<Unobta
         this.widthTooNarrow = this.width < 379;
         this.recipeBookGui.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
         this.leftPos = this.recipeBookGui.updateScreenPosition(this.width, this.imageWidth);
-        //this.children.add(this.recipeBookGui);
         this.setInitialFocus(this.recipeBookGui);
         if(this.recipeBookGui.isVisible()) {
             this.recipeBookGui.toggleVisibility();

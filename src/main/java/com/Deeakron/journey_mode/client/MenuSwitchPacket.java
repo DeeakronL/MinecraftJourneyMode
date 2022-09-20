@@ -6,10 +6,8 @@ import com.Deeakron.journey_mode.container.JourneyModeRecipesContainerProvider;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainerProvider;
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
-import com.Deeakron.journey_mode.client.gui.JourneyModeDuplicationScreen;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
@@ -108,6 +106,5 @@ public class MenuSwitchPacket {
 
     public void handleOnClient(final MenuSwitchPacket msg, boolean wasCreative, boolean wasGodMode, Player player) {
         EventHandler.duplicationMenuOpenEvent(new DuplicationMenuPacket(wasCreative, wasGodMode, player.getStringUUID()), (ServerPlayer) player);
-        //Minecraft.getInstance().setScreen(new JourneyModeDuplicationScreen(Minecraft.getInstance().player, wasCreative, wasGodMode, (ServerPlayer) player));
     }
 }

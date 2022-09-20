@@ -15,8 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.advancements.CriterionTrigger.Listener;
-
 public class CustomTrigger implements CriterionTrigger<CustomTrigger.Instance> {
     private final ResourceLocation location = new ResourceLocation("journey_mode:item_researched");
     private final Map<PlayerAdvancements, CustomTrigger.Listeners> listeners = Maps.newHashMap();

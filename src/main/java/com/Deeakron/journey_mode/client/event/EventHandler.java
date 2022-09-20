@@ -63,14 +63,10 @@ public class EventHandler {
     public static void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof  Player){
             Player player = (Player) event.getObject();
-            journey_mode.LOGGER.info(player.level.isClientSide + " apparently");
-            journey_mode.LOGGER.info(player.getCapability(JMCapabilityProvider.INSTANCE, null).isPresent() + " is Present");
             JMCapabilityProvider provider = new JMCapabilityProvider();
             event.addCapability(new ResourceLocation(journey_mode.MODID), provider);
-            //event.addListener(provider::invalidate);
             EntityJourneyMode cap = event.getObject().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
             cap.setPlayer(event.getObject().getUUID());
-            //INSTANCE.sendToServer(new CapabilityPacket(cap));
 
 
         }
@@ -104,7 +100,6 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
-        journey_mode.LOGGER.info("oof ouch my bones?");
         Entity source = event.getSource().getDirectEntity();
         Player player = null;
         if (event.getEntity() instanceof Player) {
@@ -113,7 +108,6 @@ public class EventHandler {
                 cap.setPlayer(event.getEntity().getUUID());
             }
             updateAwaitingRespawn(event.getEntity().getUUID(), cap);
-            journey_mode.LOGGER.info("Death JM: " + cap.getJourneyMode());
         }
         if (source instanceof  Player) {
             player = (Player) source;
@@ -187,18 +181,13 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void  onPlayerClone(final PlayerEvent.Clone event) {
-        //journey_mode.LOGGER.info("oof ouch my bones!");
         if (event.getEntity() instanceof  ServerPlayer){
-            //journey_mode.LOGGER.info("oof ouch my bones!2");
             if (event.isWasDeath()){
                 clearAwaitingRespawn(event.getPlayer().getUUID(), (ServerPlayer) event.getEntity());
                 EntityJourneyMode cap = event.getPlayer().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-                //journey_mode.LOGGER.info("Old Respawn JM: " + event.getOriginal().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).getJourneyMode());
-                //journey_mode.LOGGER.info("Respawn JM: " + cap.getJourneyMode());
                 event.getOriginal().invalidateCaps();
 
             } else {
-                //journey_mode.LOGGER.info("oof ouch my bones!3");
                 Player player = (Player) event.getOriginal();
                 player.revive();
                 player.reviveCaps();
@@ -259,7 +248,6 @@ public class EventHandler {
     public static void openMenu(final InputEvent.KeyInputEvent event) {
 
         if (journey_mode.keyBindings[0].consumeClick()) {
-            journey_mode.LOGGER.info("Click");
             Player player = Minecraft.getInstance().player;
             JMCheckPacket packet = new JMCheckPacket(player.getUUID().toString(), false);
             INSTANCE.sendToServer(packet);

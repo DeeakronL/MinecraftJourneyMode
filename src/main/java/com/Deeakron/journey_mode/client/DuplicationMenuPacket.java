@@ -3,8 +3,6 @@ package com.Deeakron.journey_mode.client;
 import com.Deeakron.journey_mode.client.gui.JourneyModeDuplicationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
