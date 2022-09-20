@@ -1,7 +1,6 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
-import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
@@ -112,7 +111,6 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
         }
 
         public void serializeRecipeData(JsonObject p_126167_) {
-            journey_mode.LOGGER.info("running serialize recipe data");
             if (!this.group.isEmpty()) {
                 p_126167_.addProperty("group", this.group);
             }

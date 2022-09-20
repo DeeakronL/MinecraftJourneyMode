@@ -20,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.FrontAndTop;
 
-import net.minecraft.world.item.Item.Properties;
 
 import java.util.Random;
 

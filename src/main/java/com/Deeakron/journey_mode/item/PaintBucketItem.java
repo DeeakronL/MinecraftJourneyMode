@@ -2,7 +2,6 @@ package com.Deeakron.journey_mode.item;
 
 import com.Deeakron.journey_mode.init.JMSounds;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -12,8 +11,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-
-import net.minecraft.world.item.Item.Properties;
 
 import java.util.Random;
 
@@ -26,7 +23,6 @@ public class PaintBucketItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        journey_mode.LOGGER.info(world.getBlockState(pos).getBlock() + " blocky");
         if (world.getBlockState(pos).getBlock().defaultBlockState().is(Blocks.BARRIER)) {
             world.setBlockAndUpdate(pos, UnobtainBlockInit.PAINTED_BARRIER.get().defaultBlockState());
             if(!world.isClientSide){context.getPlayer().playNotifySound(JMSounds.BARRIER_PAINT.get(), SoundSource.BLOCKS, 1.0F, 1.0F);}

@@ -2,7 +2,6 @@ package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.BlockInit;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;

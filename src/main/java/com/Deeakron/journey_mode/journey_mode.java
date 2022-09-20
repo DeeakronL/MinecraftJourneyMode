@@ -8,20 +8,15 @@ import com.Deeakron.journey_mode.config.Config;
 import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
-import com.Deeakron.journey_mode.data.BlockTagProvider;
 import com.Deeakron.journey_mode.init.*;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -33,14 +28,12 @@ import net.minecraftforge.fmlclient.registry.ClientRegistry;
 import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("journey_mode")

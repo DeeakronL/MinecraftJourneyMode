@@ -4,8 +4,6 @@ import com.Deeakron.journey_mode.data.BrokenLightParticle;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.StationaryItemParticle;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;

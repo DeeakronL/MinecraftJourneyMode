@@ -7,17 +7,12 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCookingSerializer;
-import net.minecraft.world.level.ItemLike;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -98,9 +93,6 @@ public class StarforgeRecipeBuilder implements RecipeBuilder {
 
             p_126297_.add("input", this.input.toJson());
             p_126297_.add("output", this.output.toJson());
-            //p_126297_.addProperty("output", Registry.ITEM.getKey(this.output).toString());
-            //p_126297_.addProperty("experience", this.experience);
-            //p_126297_.addProperty("cookingtime", this.cookingTime);
         }
 
         public RecipeSerializer<?> getType() {

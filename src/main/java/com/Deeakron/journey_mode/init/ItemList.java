@@ -1,10 +1,8 @@
 package com.Deeakron.journey_mode.init;
 
-import com.Deeakron.journey_mode.journey_mode;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

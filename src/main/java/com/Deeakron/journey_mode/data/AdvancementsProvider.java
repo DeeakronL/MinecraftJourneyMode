@@ -1,6 +1,5 @@
 package com.Deeakron.journey_mode.data;
 
-import com.Deeakron.journey_mode.init.ItemInit;
 import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
@@ -13,7 +12,6 @@ import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.function.Consumer;

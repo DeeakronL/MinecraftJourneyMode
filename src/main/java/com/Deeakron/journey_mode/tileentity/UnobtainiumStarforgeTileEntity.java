@@ -6,7 +6,6 @@ import com.Deeakron.journey_mode.container.StarforgeItemHandler;
 import com.Deeakron.journey_mode.data.StarforgeRecipe;
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
 import com.Deeakron.journey_mode.init.JMTileEntityTypes;
-import com.Deeakron.journey_mode.init.UnobtainBlockInit;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -25,7 +24,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -58,17 +56,11 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
 
     public UnobtainiumStarforgeTileEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state) {
         super(blockEntityTypeIn, pos, state);
-        journey_mode.LOGGER.info("hey tile entity is real");
         this.inventory = new StarforgeItemHandler(3);
     }
 
-    /*public UnobtainiumStarforgeTileEntity() {
-        this(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get());
-    }*/
-
     public UnobtainiumStarforgeTileEntity(BlockPos pos, BlockState state) {
         super(JMTileEntityTypes.UNOBTAINIUM_STARFORGE.get(), pos, state);
-        journey_mode.LOGGER.info("hey tile entity is real?");
         this.inventory = new StarforgeItemHandler(3);
     }
 

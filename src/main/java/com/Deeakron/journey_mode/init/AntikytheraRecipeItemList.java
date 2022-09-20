@@ -1,6 +1,5 @@
 package com.Deeakron.journey_mode.init;
 
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.resources.ResourceLocation;

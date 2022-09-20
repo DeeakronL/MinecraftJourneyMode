@@ -1,18 +1,14 @@
 package com.Deeakron.journey_mode.container;
 
-import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.NonNullList;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nonnull;
-
 public class StarforgeItemHandler extends ItemStackHandler {
 
     public StarforgeItemHandler(int size, ItemStack... stacks) {
         super(size);
-        journey_mode.LOGGER.info("item handler");
         for(int index = 0; index < stacks.length; index++) {
             this.stacks.set(index, stacks[index]);
         }

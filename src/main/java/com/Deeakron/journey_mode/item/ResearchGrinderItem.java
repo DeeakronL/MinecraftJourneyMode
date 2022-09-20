@@ -7,8 +7,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class ResearchGrinderItem extends BlockItem {
     public ResearchGrinderItem(Block blockIn, Properties builder) {super(blockIn, builder);}
 
