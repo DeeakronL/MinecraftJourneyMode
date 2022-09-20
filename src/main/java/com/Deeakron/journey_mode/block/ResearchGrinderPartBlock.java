@@ -32,8 +32,6 @@ import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 import java.util.UUID;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class ResearchGrinderPartBlock extends HorizontalDirectionalBlock {
     private final int part;
     protected static final VoxelShape BASE_SLAB = Block.box(0.0D,0.0D,0.0D,16.0D,7.0D,16.0D);

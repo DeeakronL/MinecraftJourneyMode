@@ -2,19 +2,11 @@ package com.Deeakron.journey_mode.client;
 
 import com.Deeakron.journey_mode.capabilities.EntityJourneyMode;
 import com.Deeakron.journey_mode.capabilities.JMCapabilityProvider;
-import com.Deeakron.journey_mode.client.event.EventHandler;
 import com.Deeakron.journey_mode.init.ResearchList;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.*;
@@ -80,19 +72,6 @@ public class CapabilityPacket {
             strings[i] = buf.readUtf();
             counts[i] = buf.readInt();
         }
-        /*Map research = buf.readMap(FriendlyByteBuf::readUtf,FriendlyByteBuf::readVarIntArray);
-        List<String> stringsList = new ArrayList<String>(research.keySet());
-        List<Integer> capsList = new ArrayList<Integer>();
-        String[] strings = stringsList.toArray(String[]::new);
-        Integer[] capsI = capsList.toArray(Integer[]::new);
-        //String[] strings = (String[]) research.keySet().toArray();
-        //Object[] capsI = research.values().toArray();
-        int[] caps = new int[capsI.length];
-        for (int i = 0; i < strings.length; i++){
-            journey_mode.LOGGER.info("int is " + research.get(strings[i])[0]);
-            capsList.add((Integer) research.get(strings[i]));
-            //caps[i] = Integer.parseInt(capsI[i].toString());
-        }*/
         ResearchList tempResearch = new ResearchList(journey_mode.list.items, journey_mode.list.caps);
         tempResearch.updateCount(strings, counts, true, null, null);
         if (playerIsNotNull) {
@@ -108,12 +87,10 @@ public class CapabilityPacket {
 
             Entity entity = Minecraft.getInstance().level.getPlayerByUUID(UUID.fromString(message.player));
             EntityJourneyMode cap = entity.getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            journey_mode.LOGGER.info("New JM: " + message.mode + " Old JM: " + cap.getJourneyMode());
             cap.setJourneyMode(message.mode);
             cap.setResearchList(message.research);
             cap.setGodMode(message.godMode);
             cap.setPlayer(UUID.fromString(message.player));
-            journey_mode.LOGGER.info("Should be final JM: " + cap.getJourneyMode());
                 }
                 );
         context.get().setPacketHandled(true);

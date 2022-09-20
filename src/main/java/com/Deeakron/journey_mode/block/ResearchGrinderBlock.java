@@ -35,8 +35,6 @@ import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 
