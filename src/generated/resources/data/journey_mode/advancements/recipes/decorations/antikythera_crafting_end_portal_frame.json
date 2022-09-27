@@ -6,6 +6,18 @@
     ]
   },
   "criteria": {
+    "has_unobtainium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:unobtainium_block"
+            ]
+          }
+        ]
+      }
+    },
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
@@ -15,6 +27,7 @@
   },
   "requirements": [
     [
+      "has_unobtainium",
       "has_the_recipe"
     ]
   ]

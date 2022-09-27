@@ -6,6 +6,18 @@
     ]
   },
   "criteria": {
+    "has_enchanting_table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:enchanting_table"
+            ]
+          }
+        ]
+      }
+    },
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
@@ -15,6 +27,7 @@
   },
   "requirements": [
     [
+      "has_enchanting_table",
       "has_the_recipe"
     ]
   ]

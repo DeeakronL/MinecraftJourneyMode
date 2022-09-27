@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
@@ -82,6 +83,11 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
             this.rows.add(p_126131_);
             return this;
         }
+    }
+
+    public ShapedRecipeBuilder unlockedBy(String p_126133_, CriterionTriggerInstance p_126134_) {
+        this.advancement.addCriterion(p_126133_, p_126134_);
+        return this;
     }
 
     public ResourceLocation getId() {

@@ -6,6 +6,18 @@
     ]
   },
   "criteria": {
+    "has_bedrock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bedrock"
+            ]
+          }
+        ]
+      }
+    },
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
@@ -15,6 +27,7 @@
   },
   "requirements": [
     [
+      "has_bedrock",
       "has_the_recipe"
     ]
   ]

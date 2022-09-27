@@ -6,6 +6,18 @@
     ]
   },
   "criteria": {
+    "has_antikythera": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:unobtainium_antikythera"
+            ]
+          }
+        ]
+      }
+    },
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
@@ -15,6 +27,7 @@
   },
   "requirements": [
     [
+      "has_antikythera",
       "has_the_recipe"
     ]
   ]
