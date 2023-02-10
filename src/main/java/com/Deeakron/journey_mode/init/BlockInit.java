@@ -6,16 +6,17 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
 
 import static com.Deeakron.journey_mode.journey_mode.MODID;
 
 public class BlockInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
-    public static final RegistryObject<Block>WOODEN_RESEARCH_GRINDER = BLOCKS
+    public static final RegistryObject<Block> WOODEN_RESEARCH_GRINDER = BLOCKS
             .register("wooden_research_grinder",
                     () -> new ResearchGrinderBlock(BlockBehaviour.Properties.of(Material.WOOD)
                     .strength(2f, 2f)
