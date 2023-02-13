@@ -21,6 +21,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.searchtree.SearchTree;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.TooltipFlag;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -37,7 +38,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.tags.Tag;
-import net.minecraft.tags.TagCollection;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -98,6 +98,8 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
     private int hotbarIndex;
     private int survivalInventoryIndex;
     private static boolean hasRecipes;
+
+    private final Set<TagKey<Item>> visibleTags = new HashSet<>();
 
     public JourneyModeDuplicationScreen(Player player, boolean wasCreative, boolean wasGodMode) {
         super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.getInventory(), TextComponent.EMPTY);
@@ -511,10 +513,9 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             };
         }
 
-        TagCollection<Item> tagCollection = ItemTags.getAllTags();
-        tagCollection.getAvailableTags().stream().filter(predicate).forEach((p_214082_2_) -> {
-            Tag itag = this.tagSearchResults.put(p_214082_2_, tagCollection.getTag(p_214082_2_));
-        });
+        Registry.ITEM.getTagNames().filter((p_205410_) -> {
+            return predicate.test(p_205410_.location());
+        }).forEach(this.visibleTags::add);
     }
 
     protected void renderLabels(PoseStack PoseStack, int x, int y) {
@@ -526,7 +527,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
         for(Widget widget : this.renderables) {
             if (widget instanceof AbstractButton) {
-                if (((AbstractButton) widget).isHovered()) {
+                if (((AbstractButton) widget).isHoveredOrFocused()) {
                     ((AbstractButton) widget).renderToolTip(PoseStack, x - this.leftPos, y - this.topPos);
                     break;
                 }
@@ -757,7 +758,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             }
 
             this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
-                if (p_214083_3_.contains(item)) {
+                if (p_214083_3_.getValues().contains(item)) {
                     list1.add(1, (new TextComponent("#" + p_214083_2_)).withStyle(ChatFormatting.DARK_PURPLE));
                 }
 
