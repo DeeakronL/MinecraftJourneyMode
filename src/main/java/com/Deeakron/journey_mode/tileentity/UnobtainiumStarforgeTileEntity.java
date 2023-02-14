@@ -9,10 +9,14 @@ import com.Deeakron.journey_mode.init.JMTileEntityTypes;
 import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
@@ -33,7 +37,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -118,7 +121,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
 
         if (dirty) {
             tile.setChanged();
-            tile.level.sendBlockUpdated(tile.getBlockPos(), tile.getBlockState(), tile.getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
+            tile.level.sendBlockUpdated(tile.getBlockPos(), tile.getBlockState(), tile.getBlockState(), Block.UPDATE_CLIENTS);
         }
     }
 
@@ -146,7 +149,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
 
     public void load(CompoundTag compound) {
         super.load(compound);
-        if(compound.contains("CustomName", Constants.NBT.TAG_STRING)) {
+        if(compound.contains("CustomName", Tag.TAG_STRING)) {
             this.customName = Component.Serializer.fromJson(compound.getString("CustomName"));
         }
 
@@ -158,9 +161,8 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
         this.currentFuelTime = compound.getInt("CurrentFuelTime");
     }
 
-    @Override
     public CompoundTag save(CompoundTag compound) {
-        super.save(compound);
+        super.saveAdditional(compound);
         if (this.customName != null) {
             compound.putString("CustomName", Component.Serializer.toJson(this.customName));
         }
@@ -219,12 +221,11 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
         return this.inventory;
     }
 
+    //review this later in case it breaks
     @Nullable
     @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        CompoundTag nbt = new CompoundTag();
-        this.save(nbt);
-        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, nbt);
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
