@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.block;
 
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.entity.player.Player;
@@ -37,13 +38,13 @@ public class PaintedBarrierBlock extends Block {
                     int i = pos.getX();
                     int j = pos.getY();
                     int k = pos.getZ();
-                    worldIn.addParticle(ParticleTypes.BARRIER, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
+                    worldIn.addParticle((ParticleOptions) ParticleTypes.BLOCK_MARKER, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
                 }
             } else if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() == UnobtainItemInit.PAINT_BUCKET.get()){
                 int i = pos.getX();
                 int j = pos.getY();
                 int k = pos.getZ();
-                worldIn.addParticle(ParticleTypes.BARRIER, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
+                worldIn.addParticle((ParticleOptions) ParticleTypes.BLOCK_MARKER, (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, 0.0D, 0.0D, 0.0D);
             }
         }
         super.animateTick(state, worldIn, pos, random);

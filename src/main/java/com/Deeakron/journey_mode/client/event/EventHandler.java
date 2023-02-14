@@ -8,6 +8,7 @@ import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import com.Deeakron.journey_mode.journey_mode;
 import com.Deeakron.journey_mode.util.JMDamageSources;
 import net.minecraft.advancements.*;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.block.Blocks;
@@ -372,7 +373,7 @@ public class EventHandler {
                     for (int j = -5; j < 6; j++) {
                         for (int k = -5; k < 6; k++) {
                             if (world.getBlockState(new BlockPos(pos.getX() + i, pos.getY() + j, pos.getZ() + k)).is(Blocks.BARRIER)) {
-                                world.addParticle(ParticleTypes.BARRIER, pos.getX() + (double) i + 0.5D, pos.getY() + (double) j + 0.5D, pos.getZ() + (double) k + 0.5D, 0.0D, 0.0D, 0.0D);
+                                world.addParticle((ParticleOptions) ParticleTypes.BLOCK_MARKER, pos.getX() + (double) i + 0.5D, pos.getY() + (double) j + 0.5D, pos.getZ() + (double) k + 0.5D, 0.0D, 0.0D, 0.0D);
                             }
                         }
                     }
