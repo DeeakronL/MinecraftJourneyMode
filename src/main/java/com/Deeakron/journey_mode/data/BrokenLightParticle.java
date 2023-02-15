@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -14,7 +15,7 @@ public class BrokenLightParticle extends TextureSheetParticle {
 
     public BrokenLightParticle(ClientLevel p_172356_, double p_172357_, double p_172358_, double p_172359_, ItemLike p_172360_) {
         super(p_172356_, p_172357_, p_172358_, p_172359_);
-        this.setSprite(Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(p_172360_));
+        this.setSprite(Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel((Item) p_172360_).getParticleIcon());
         this.gravity = 0.0F;
         this.lifetime = 80;
         this.hasPhysics = false;

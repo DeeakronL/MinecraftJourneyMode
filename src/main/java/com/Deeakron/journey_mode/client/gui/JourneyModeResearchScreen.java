@@ -75,7 +75,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
 
         for(Widget widget : this.renderables) {
             if (widget instanceof AbstractButton) {
-                if (((AbstractButton) widget).isHovered()) {
+                if (((AbstractButton) widget).isHoveredOrFocused()) {
                     ((AbstractButton) widget).renderToolTip(PoseStack, mouseX - this.leftPos, mouseY - this.topPos);
                     break;
                 }

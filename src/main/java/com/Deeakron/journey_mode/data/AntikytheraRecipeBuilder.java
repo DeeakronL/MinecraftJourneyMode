@@ -15,6 +15,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -57,7 +58,7 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
         p_126141_.accept(new AntikytheraRecipeBuilder.Result(p_126142_, this.result, this.count, this.group == null ? "" : this.group, this.rows, this.key, this.advancement, new ResourceLocation(p_126142_.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + p_126142_.getPath())));
     }
 
-    public AntikytheraRecipeBuilder define(Character p_126122_, Tag<Item> p_126123_) {
+    public AntikytheraRecipeBuilder define(Character p_126122_, TagKey<Item> p_126123_) {
         return this.define(p_126122_, Ingredient.of(p_126123_));
     }
 

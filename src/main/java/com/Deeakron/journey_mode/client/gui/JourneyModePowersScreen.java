@@ -114,7 +114,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
         //might need to redo render?
         for(Widget widget : this.renderables) {
             if (widget instanceof AbstractButton) {
-                if (((AbstractButton) widget).isHovered()) {
+                if (((AbstractButton) widget).isHoveredOrFocused()) {
 
                     ((AbstractButton) widget).renderToolTip(PoseStack, mouseX - this.leftPos, mouseY - this.topPos);
                     break;
@@ -156,7 +156,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
                 j += 18;
             } else if (this.selected) {
                 j += 0;
-            } else if (this.isHovered()) {
+            } else if (this.isHovered) {
                 i += 18;
                 j += 0;
             }

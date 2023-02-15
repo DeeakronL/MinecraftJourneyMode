@@ -13,6 +13,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -49,7 +50,7 @@ public class AntikytheraShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         return new AntikytheraShapelessRecipeBuilder(p_126119_, p_126120_);
     }
 
-    public AntikytheraShapelessRecipeBuilder requires(Tag<Item> p_126183_) {
+    public AntikytheraShapelessRecipeBuilder requires(TagKey<Item> p_126183_) {
         return this.requires(Ingredient.of(p_126183_));
     }
 
