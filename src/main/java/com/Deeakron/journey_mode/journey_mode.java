@@ -120,7 +120,7 @@ public class journey_mode
 
         keyBindings[0] = new KeyMapping("key.journey_mode.menu", GLFW.GLFW_KEY_O, "key.categories.journey_mode");
 
-        ClientRegistry.registerKeyBinding(keyBindings[0]);
+        //ClientRegistry.registerKeyBinding(keyBindings[0]);
 
 
 
@@ -129,7 +129,7 @@ public class journey_mode
             this.useUnobtain = true;
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
-            JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
+
             JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
             JMParticleTypes.PARTICLE_TYPES.register(bus);
         } else {
@@ -141,13 +141,19 @@ public class journey_mode
         this.dupeList = new DuplicationList(list);
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
+
+
+    }
+
+    private void register(RegistryEvent.Register event) {
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
         bus.addListener(JMCapabilityProvider::register);
         if (UnobtainConfig.use_unobtainable.get()) {
             DuplicationInit.init();
             DuplicationInit.ITEMS.register(bus);
         }
-
     }
 
     private void setup(final FMLCommonSetupEvent event)
