@@ -22,7 +22,9 @@ public class JMRecipeSerializerInit {
     public static final AntikytheraShapelessRecipeSerializer ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER = new AntikytheraShapelessRecipeSerializer();
     public static final RecipeType<AntikytheraShapelessRecipe> RECIPE_TYPE_ANTIKYTHERA_SHAPELESS = registerType(IAntikytheraShapelessRecipe.RECIPE_TYPE_ID);
 
-
+    public static final RecipeSerializer<AntikytheraRecipe> ANTIKYTHERA_RECIPE = register("crafting_antikythera", new AntikytheraRecipeSerializer());
+    public static final RecipeSerializer<AntikytheraShapelessRecipe> ANTIKYTHERA_SHAPELESS_RECIPE = register("crafting_antikythera_shapeless", new AntikytheraShapelessRecipeSerializer());
+    public static final RecipeSerializer<StarforgeRecipe> STARFORGE_RECIPE = register("starforge", new StarforgeRecipeSerializer());
 
     public static final RegistryObject<StarforgeRecipeSerializer> STARFORGE_SERIALIZER = RECIPE_SERIALIZERS.register("starforge", () -> STARFORGE_RECIPE_SERIALIZER);
 
@@ -34,12 +36,18 @@ public class JMRecipeSerializerInit {
     private static class JMRecipeType<T extends Recipe<?>> implements RecipeType<T> {
         @Override
         public String toString() {
+            journey_mode.LOGGER.info("tgesugeuhsu");
             return Registry.RECIPE_TYPE.getKey(this).toString();
         }
+
     }
 
     private static <T extends RecipeType> T registerType(ResourceLocation recipeTypeId) {
         return (T) Registry.register(Registry.RECIPE_TYPE, recipeTypeId, new JMRecipeType<>());
+    }
+
+    static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String p_44099_, S p_44100_) {
+        return Registry.register(Registry.RECIPE_SERIALIZER, p_44099_, p_44100_);
     }
 
     private void registerRecipeType(ResourceLocation recipeTypeId, RecipeType recipeType) {

@@ -44,7 +44,7 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
     }
 
     public RecipeSerializer<?> getType() {
-        return JMRecipeSerializerInit.ANTIKYTHERA_RECIPE_SERIALIZER;
+        return JMRecipeSerializerInit.ANTIKYTHERA_RECIPE;
     }
 
     public static AntikytheraRecipeBuilder shaped(ItemLike p_126117_) {
@@ -155,7 +155,7 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
         }
 
         public RecipeSerializer<?> getType() {
-            return JMRecipeSerializerInit.ANTIKYTHERA_RECIPE_SERIALIZER;
+            return JMRecipeSerializerInit.ANTIKYTHERA_RECIPE;
         }
 
         public ResourceLocation getId() {
