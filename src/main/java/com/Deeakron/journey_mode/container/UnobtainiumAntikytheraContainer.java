@@ -53,9 +53,9 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
                 net.minecraftforge.common.ForgeHooks.setCraftingPlayer(thePlayer);
                 NonNullList<ItemStack> nonnulllist;
                 if (isShaped) {
-                    nonnulllist = thePlayer.level.getRecipeManager().getRemainingItemsFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA, craftMatrix, thePlayer.level);
+                    nonnulllist = thePlayer.level.getRecipeManager().getRemainingItemsFor(AntikytheraRecipe.Type.INSTANCE, craftMatrix, thePlayer.level);
                 } else {
-                    nonnulllist = thePlayer.level.getRecipeManager().getRemainingItemsFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS, craftMatrix, thePlayer.level);
+                    nonnulllist = thePlayer.level.getRecipeManager().getRemainingItemsFor(AntikytheraShapelessRecipe.Type.INSTANCE, craftMatrix, thePlayer.level);
                 }
                 net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
                 for(int i = 0; i < nonnulllist.size(); ++i) {
@@ -167,7 +167,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
         if (!world.isClientSide) {
             ServerPlayer serverplayerentity = (ServerPlayer) player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipeFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA, inventory, world);
+            Optional<AntikytheraRecipe> optional = world.getServer().getRecipeManager().getRecipeFor(AntikytheraRecipe.Type.INSTANCE, inventory, world);
 
             if (optional.isPresent()) {
                 CraftingRecipe icraftingrecipe = optional.get();
@@ -176,7 +176,7 @@ public class UnobtainiumAntikytheraContainer extends RecipeBookMenu {
                     isShaped = true;
                 }
             } else {
-                Optional<AntikytheraShapelessRecipe> optional2 = world.getServer().getRecipeManager().getRecipeFor(JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS, inventory, world);
+                Optional<AntikytheraShapelessRecipe> optional2 = world.getServer().getRecipeManager().getRecipeFor(AntikytheraShapelessRecipe.Type.INSTANCE, inventory, world);
                 if (optional2.isPresent()) {
                     CraftingRecipe icraftingrecipe = optional2.get();
                     if (inventoryResult.setRecipeUsed(world, serverplayerentity, icraftingrecipe)) {

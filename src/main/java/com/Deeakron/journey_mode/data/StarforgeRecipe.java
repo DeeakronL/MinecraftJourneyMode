@@ -64,7 +64,7 @@ public class StarforgeRecipe implements IStarforgeRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return JMRecipeSerializerInit.RECIPE_TYPE;
+        return Type.INSTANCE;
     }
 
     public Ingredient getInput() {
@@ -74,6 +74,12 @@ public class StarforgeRecipe implements IStarforgeRecipe {
 
     public NonNullList<Ingredient> getIngredients() {
         return NonNullList.of(null, this.input);
+    }
+
+    public static class Type implements RecipeType<StarforgeRecipe> {
+        private Type() { }
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "starforge";
     }
 
     public static class Serializer implements RecipeSerializer<StarforgeRecipe> {

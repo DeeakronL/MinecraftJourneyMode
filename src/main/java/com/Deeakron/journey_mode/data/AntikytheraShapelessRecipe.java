@@ -47,7 +47,7 @@ public class AntikytheraShapelessRecipe implements CraftingRecipe {
     @Nonnull
     @Override
     public RecipeType<?> getType() {
-        return JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA_SHAPELESS;
+        return Type.INSTANCE;
     }
 
     @Override
@@ -107,6 +107,12 @@ public class AntikytheraShapelessRecipe implements CraftingRecipe {
      */
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= this.recipeItems.size();
+    }
+
+    public static class Type implements RecipeType<AntikytheraShapelessRecipe> {
+        private Type() { }
+        public static final AntikytheraShapelessRecipe.Type INSTANCE = new AntikytheraShapelessRecipe.Type();
+        public static final String ID = "crafting_antikythera_shapeless";
     }
 
     public static class Serializer implements RecipeSerializer<AntikytheraShapelessRecipe> {

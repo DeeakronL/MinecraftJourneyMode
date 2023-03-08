@@ -182,7 +182,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
             return null;
         }
 
-        Set<Recipe<?>> recipes = findRecipesByType(JMRecipeSerializerInit.RECIPE_TYPE, this.level);
+        Set<Recipe<?>> recipes = findRecipesByType(StarforgeRecipe.Type.INSTANCE, this.level);
         for (Recipe<?> iRecipe : recipes) {
             StarforgeRecipe recipe = (StarforgeRecipe) iRecipe;
             if (recipe.matches(new RecipeWrapper(this.inventory), this.level)) {

@@ -156,7 +156,6 @@ public class journey_mode
         LOGGER.info("well at least this ran");
         //IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus bus = journey_mode.eventBus;
-        JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
         bus.addListener(JMCapabilityProvider::register);
         if (UnobtainConfig.use_unobtainable.get()) {
