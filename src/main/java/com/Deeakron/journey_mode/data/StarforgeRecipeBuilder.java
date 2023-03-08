@@ -96,7 +96,7 @@ public class StarforgeRecipeBuilder implements RecipeBuilder {
         }
 
         public RecipeSerializer<?> getType() {
-            return JMRecipeSerializerInit.STARFORGE_RECIPE_SERIALIZER;
+            return StarforgeRecipe.Serializer.INSTANCE;
         }
 
         public ResourceLocation getId() {

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "journey_mode:antikythera_crafting_bundle"
+    ]
+  },
+  "criteria": {
+    "has_antikythera": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "journey_mode:unobtainium_antikythera"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "journey_mode:antikythera_crafting_bundle"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_antikythera",
+      "has_the_recipe"
+    ]
+  ]
+}

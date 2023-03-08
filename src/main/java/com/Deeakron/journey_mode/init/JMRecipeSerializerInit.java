@@ -20,9 +20,9 @@ public class JMRecipeSerializerInit {
     public static final RegistryObject<RecipeSerializer<AntikytheraRecipe>> ANTIKYTHERA_SERIALIZER = RECIPE_SERIALIZERS.register("crafting_antikythera", () -> AntikytheraRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<AntikytheraShapelessRecipe>> ANTIKYTHERA_SHAPELESS_SERIALIZER = RECIPE_SERIALIZERS.register("crafting_antikythera_shapeless", () -> AntikytheraShapelessRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<StarforgeRecipe>> STARFORGE_SERIALIZER = RECIPE_SERIALIZERS.register("starforge", () -> StarforgeRecipe.Serializer.INSTANCE);
-    public static final StarforgeRecipeSerializer STARFORGE_RECIPE_SERIALIZER = new StarforgeRecipeSerializer();
-    public static final AntikytheraRecipeSerializer ANTIKYTHERA_RECIPE_SERIALIZER = new AntikytheraRecipeSerializer();
-    public static final AntikytheraShapelessRecipeSerializer ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER = new AntikytheraShapelessRecipeSerializer();
+    //public static final StarforgeRecipeSerializer STARFORGE_RECIPE_SERIALIZER = new StarforgeRecipeSerializer();
+    //public static final AntikytheraRecipeSerializer ANTIKYTHERA_RECIPE_SERIALIZER = new AntikytheraRecipeSerializer();
+    //public static final AntikytheraShapelessRecipeSerializer ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER = new AntikytheraShapelessRecipeSerializer();
 
     //public static final RecipeSerializer<AntikytheraRecipe> ANTIKYTHERA_RECIPE = register("crafting_antikythera", new AntikytheraRecipeSerializer());
     //public static final RecipeSerializer<AntikytheraShapelessRecipe> ANTIKYTHERA_SHAPELESS_RECIPE = register("crafting_antikythera_shapeless", new AntikytheraShapelessRecipeSerializer());

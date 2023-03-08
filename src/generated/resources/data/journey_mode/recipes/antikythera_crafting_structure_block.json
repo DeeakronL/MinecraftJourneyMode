@@ -1,0 +1,22 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "#J#",
+    "JCJ",
+    "#J#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:jigsaw"
+    },
+    "J": {
+      "item": "journey_mode:unobtainium_block"
+    },
+    "C": {
+      "item": "minecraft:command_block"
+    }
+  },
+  "result": {
+    "item": "minecraft:structure_block"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "journey_mode:crafting_antikythera",
+  "pattern": [
+    "#_#",
+    "SCS",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "journey_mode:unobtainium_block"
+    },
+    "_": {
+      "item": "minecraft:petrified_oak_slab"
+    },
+    "S": {
+      "item": "minecraft:spectral_arrow"
+    },
+    "C": {
+      "item": "minecraft:command_block"
+    }
+  },
+  "result": {
+    "item": "minecraft:jigsaw"
+  }
+}

@@ -39,7 +39,7 @@ public class AntikytheraShapelessRecipeBuilder extends ShapelessRecipeBuilder {
     }
 
     public RecipeSerializer<?> getType() {
-        return JMRecipeSerializerInit.ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER;
+        return AntikytheraShapelessRecipe.Serializer.INSTANCE;
     }
 
     public static AntikytheraShapelessRecipeBuilder shapeless(ItemLike p_126117_) {
@@ -125,7 +125,7 @@ public class AntikytheraShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         }
 
         public RecipeSerializer<?> getType() {
-            return JMRecipeSerializerInit.ANTIKYTHERA_SHAPELESS_RECIPE_SERIALIZER;
+            return AntikytheraShapelessRecipe.Serializer.INSTANCE;
         }
 
         public ResourceLocation getId() {
