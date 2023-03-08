@@ -9,6 +9,7 @@ import com.Deeakron.journey_mode.config.NewFilesConfig;
 import com.Deeakron.journey_mode.config.UnobtainConfig;
 import com.Deeakron.journey_mode.container.JourneyModeResearchContainer;
 import com.Deeakron.journey_mode.init.*;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;
@@ -29,6 +30,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -64,6 +66,8 @@ public class journey_mode
     public static AntikytheraRecipeItemList itemListHandler;
     public static boolean useUnobtain;
 
+    public static IEventBus eventBus;
+
     public journey_mode() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -73,6 +77,7 @@ public class journey_mode
         //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        this.eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.server_config);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.client_config);
@@ -141,12 +146,16 @@ public class journey_mode
         this.dupeList = new DuplicationList(list);
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
+        JMRecipeSerializerInit.register(bus);
 
 
     }
 
-    private void register(RegistryEvent.Register event) {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    @SubscribeEvent
+    public static void register(GatherDataEvent event) {
+        LOGGER.info("well at least this ran");
+        //IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus bus = journey_mode.eventBus;
         JMRecipeSerializerInit.RECIPE_SERIALIZERS.register(bus);
         JMContainerTypes.CONTAINER_TYPES.register(bus);
         bus.addListener(JMCapabilityProvider::register);
@@ -167,12 +176,12 @@ public class journey_mode
         EventHandler.registerPackets();
         JMContainerTypes.registerScreens();
         JMTriggers.init();
-
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+
         ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_0.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(BlockInit.WOODEN_RESEARCH_GRINDER_PART_1.get(), RenderType.cutout());
@@ -230,6 +239,7 @@ public class journey_mode
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here

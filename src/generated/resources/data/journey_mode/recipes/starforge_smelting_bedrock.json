@@ -1,9 +1,0 @@
-{
-  "type": "journey_mode:starforge",
-  "input": {
-    "item": "journey_mode:cracked_bedrock"
-  },
-  "output": {
-    "item": "minecraft:bedrock"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "type": "journey_mode:starforge",
-  "input": {
-    "item": "journey_mode:inert_repeating_command_block"
-  },
-  "output": {
-    "item": "minecraft:repeating_command_block"
-  }
-}

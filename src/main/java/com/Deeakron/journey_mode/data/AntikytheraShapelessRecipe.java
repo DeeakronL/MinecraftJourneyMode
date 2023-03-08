@@ -1,7 +1,13 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
+import com.Deeakron.journey_mode.journey_mode;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.NonNullList;
@@ -9,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 
 import net.minecraft.world.entity.player.StackedContents;
@@ -100,6 +107,85 @@ public class AntikytheraShapelessRecipe implements CraftingRecipe {
      */
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= this.recipeItems.size();
+    }
+
+    public static class Serializer implements RecipeSerializer<AntikytheraShapelessRecipe> {
+        public static final AntikytheraShapelessRecipe.Serializer INSTANCE = new AntikytheraShapelessRecipe.Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(journey_mode.MODID, "crafting_antikythera_shapeless");
+
+        @Override
+        public AntikytheraShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            String s = GsonHelper.getAsString(json, "group", "");
+            NonNullList<Ingredient> nonnulllist = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
+            if (nonnulllist.isEmpty()) {
+                throw new JsonParseException("No ingredients for shapeless recipe");
+            } else if (nonnulllist.size() > AntikytheraRecipe.MAX_WIDTH * AntikytheraRecipe.MAX_HEIGHT) {
+                throw new JsonParseException("Too many ingredients for shapeless recipe the max is " + (AntikytheraRecipe.MAX_WIDTH * AntikytheraRecipe.MAX_HEIGHT));
+            } else {
+                ItemStack itemstack = AntikytheraRecipe.deserializeItem(GsonHelper.getAsJsonObject(json, "result"));
+                return new AntikytheraShapelessRecipe(recipeId, s, itemstack, nonnulllist);
+            }
+        }
+
+        private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
+            NonNullList<Ingredient> nonnulllist = NonNullList.create();
+
+            for(int i = 0; i < ingredientArray.size(); ++i) {
+                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
+                if (!ingredient.isEmpty()) {
+                    nonnulllist.add(ingredient);
+                }
+            }
+
+            return nonnulllist;
+        }
+
+        @Override
+        public AntikytheraShapelessRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            String s = buffer.readUtf(32767);
+            int i = buffer.readVarInt();
+            NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
+
+            for(int j = 0; j < nonnulllist.size(); ++j) {
+                nonnulllist.set(j, Ingredient.fromNetwork(buffer));
+            }
+
+            ItemStack itemstack = buffer.readItem();
+            return new AntikytheraShapelessRecipe(recipeId, s, itemstack, nonnulllist);
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buffer, AntikytheraShapelessRecipe recipe) {
+            buffer.writeUtf(recipe.group);
+            buffer.writeVarInt(recipe.recipeItems.size());
+
+            for(Ingredient ingredient : recipe.recipeItems) {
+                ingredient.toNetwork(buffer);
+            }
+
+            buffer.writeItem(recipe.recipeOutput);
+        }
+
+        @Override
+        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+            return INSTANCE;
+        }
+
+        @Nullable
+        @Override
+        public ResourceLocation getRegistryName() {
+            return ID;
+        }
+
+        @Override
+        public Class<RecipeSerializer<?>> getRegistryType() {
+            return AntikytheraShapelessRecipe.Serializer.castClass(RecipeSerializer.class);
+        }
+
+        @SuppressWarnings("unchecked")
+        private static <G> Class<G> castClass(Class<?> cls) {
+            return (Class<G>)cls;
+        }
     }
 
 }

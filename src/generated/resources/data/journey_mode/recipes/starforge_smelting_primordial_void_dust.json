@@ -1,9 +1,0 @@
-{
-  "type": "journey_mode:starforge",
-  "input": {
-    "item": "journey_mode:raw_unobtainium_block"
-  },
-  "output": {
-    "item": "journey_mode:primordial_void_dust"
-  }
-}

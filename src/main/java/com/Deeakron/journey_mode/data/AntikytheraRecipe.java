@@ -1,11 +1,13 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
 import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,6 +49,12 @@ public class AntikytheraRecipe implements CraftingRecipe {
         this.recipeHeight = recipeHeightIn;
         this.recipeItems = recipeItemsIn;
         this.recipeOutput = recipeOutputIn;
+    }
+
+    public static class Type implements RecipeType<AntikytheraRecipe> {
+        private Type() { }
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "crafting_antikythera";
     }
 
     public ResourceLocation getId() {
@@ -133,7 +142,7 @@ public class AntikytheraRecipe implements CraftingRecipe {
     @Nonnull
     @Override
     public RecipeType<?> getType() {
-        return JMRecipeSerializerInit.RECIPE_TYPE_ANTIKYTHERA;
+        return Type.INSTANCE;
     }
 
 
@@ -288,6 +297,72 @@ public class AntikytheraRecipe implements CraftingRecipe {
             }
 
             return astring;
+        }
+    }
+
+    public static class Serializer implements RecipeSerializer<AntikytheraRecipe> {
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID  = new ResourceLocation(journey_mode.MODID, "crafting_antikythera");
+
+        @Override
+        public AntikytheraRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            String s = GsonHelper.getAsString(json, "group", "CRAFTING");
+            Map<String, Ingredient> map = AntikytheraRecipe.deserializeKey(GsonHelper.getAsJsonObject(json, "key"));
+            String[] astring = AntikytheraRecipe.shrink(AntikytheraRecipe.patternFromJson(GsonHelper.getAsJsonArray(json, "pattern")));
+            int i = astring[0].length();
+            int j = astring.length;
+            NonNullList<Ingredient> nonnulllist = AntikytheraRecipe.deserializeIngredients(astring, map, i, j);
+            ItemStack itemstack = AntikytheraRecipe.deserializeItem(GsonHelper.getAsJsonObject(json, "result"));
+            return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
+        }
+
+        @Override
+        public AntikytheraRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            int i = buffer.readVarInt();
+            int j = buffer.readVarInt();
+            String s = buffer.readUtf(32767);
+            NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i * j, Ingredient.EMPTY);
+
+            for(int k = 0; k < nonnulllist.size(); ++k) {
+                nonnulllist.set(k, Ingredient.fromNetwork(buffer));
+            }
+
+            ItemStack itemstack = buffer.readItem();
+            return new AntikytheraRecipe(recipeId, s, i, j, nonnulllist, itemstack);
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buffer, AntikytheraRecipe recipe) {
+            buffer.writeVarInt(recipe.recipeWidth);
+            buffer.writeVarInt(recipe.recipeHeight);
+            buffer.writeUtf(recipe.group);
+
+            for(Ingredient ingredient : recipe.recipeItems) {
+                ingredient.toNetwork(buffer);
+            }
+
+            buffer.writeItem(recipe.recipeOutput);
+        }
+
+        @Override
+        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+            return INSTANCE;
+        }
+
+        @Nullable
+        @Override
+        public ResourceLocation getRegistryName() {
+            return ID;
+        }
+
+        @Override
+        public Class<RecipeSerializer<?>> getRegistryType() {
+            return Serializer.castClass(RecipeSerializer.class);
+        }
+
+        @SuppressWarnings("unchecked")
+        private static <G> Class<G> castClass(Class<?> cls) {
+            return (Class<G>)cls;
         }
     }
 }

@@ -8,11 +8,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.Map;
 
 public class AntikytheraRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>>  implements RecipeSerializer<AntikytheraRecipe> {
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera");
+    public static final AntikytheraRecipeSerializer INSTANCE = new AntikytheraRecipeSerializer();
     public AntikytheraRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
         String s = GsonHelper.getAsString(json, "group", "CRAFTING");
         Map<String, Ingredient> map = AntikytheraRecipe.deserializeKey(GsonHelper.getAsJsonObject(json, "key"));
