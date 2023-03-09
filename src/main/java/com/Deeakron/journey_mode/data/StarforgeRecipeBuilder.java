@@ -55,8 +55,14 @@ public class StarforgeRecipeBuilder implements RecipeBuilder {
 
     public void save(Consumer<FinishedRecipe> p_126263_, ResourceLocation p_126264_) {
         this.ensureValid(p_126264_);
+        String folderName = "";
+        try {
+            folderName = this.outputResult.getItemCategory().getRecipeFolderName();
+        } catch (NullPointerException e) {
+            folderName = "journey_mode.unobtainable";
+        }
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(p_126264_)).rewards(AdvancementRewards.Builder.recipe(p_126264_)).requirements(RequirementsStrategy.OR);
-        p_126263_.accept(new StarforgeRecipeBuilder.Result(p_126264_, this.group == null ? "" : this.group, this.input, this.output, this.experience, this.cookingTime, this.advancement, new ResourceLocation(p_126264_.getNamespace(), "recipes/" + this.outputResult.getItemCategory().getRecipeFolderName() + "/" + p_126264_.getPath())));
+        p_126263_.accept(new StarforgeRecipeBuilder.Result(p_126264_, this.group == null ? "" : this.group, this.input, this.output, this.experience, this.cookingTime, this.advancement, new ResourceLocation(p_126264_.getNamespace(), "recipes/" + folderName + "/" + p_126264_.getPath())));
     }
 
     private void ensureValid(ResourceLocation p_126266_) {

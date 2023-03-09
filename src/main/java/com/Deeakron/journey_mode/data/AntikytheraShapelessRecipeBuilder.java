@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.data;
 
 import com.Deeakron.journey_mode.init.JMRecipeSerializerInit;
+import com.Deeakron.journey_mode.journey_mode;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -79,8 +80,15 @@ public class AntikytheraShapelessRecipeBuilder extends ShapelessRecipeBuilder {
     }
 
     public void save(Consumer<FinishedRecipe> p_126205_, ResourceLocation p_126206_) {
+        String folderName = "";
+        try {
+            folderName = this.result.getItemCategory().getRecipeFolderName();
+        } catch (NullPointerException e) {
+            folderName = "journey_mode.unobtainable";
+        }
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(p_126206_)).rewards(AdvancementRewards.Builder.recipe(p_126206_)).requirements(RequirementsStrategy.OR);
-        p_126205_.accept(new AntikytheraShapelessRecipeBuilder.Result(p_126206_, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancement, new ResourceLocation(p_126206_.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + p_126206_.getPath())));
+        //journey_mode.LOGGER.info("recipe result is " + this.result.toString() + " of category " + this.result.getItemCategory().toString());
+        p_126205_.accept(new AntikytheraShapelessRecipeBuilder.Result(p_126206_, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancement, new ResourceLocation(p_126206_.getNamespace(), "recipes/" + folderName + "/" + p_126206_.getPath())));
     }
 
     //slightly adjusted vanilla version
