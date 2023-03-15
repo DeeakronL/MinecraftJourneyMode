@@ -30,7 +30,7 @@ public class JMContainerTypes {
             .register("starforge", () -> IForgeMenuType.create(StarforgeContainer::new));
 
     @OnlyIn(Dist.CLIENT)
-    public static void registerScreens() {
+    public static void renderScreens() {
         MenuScreens.register(JOURNEY_MODE_POWERS.get(), JourneyModePowersScreen::new);
         MenuScreens.register(JOURNEY_MODE_RESEARCH.get(), JourneyModeResearchScreen::new);
         MenuScreens.register(JOURNEY_MODE_RECIPES.get(), JourneyModeRecipesScreen::new);

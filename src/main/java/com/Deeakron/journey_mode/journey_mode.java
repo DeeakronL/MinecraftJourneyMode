@@ -147,6 +147,7 @@ public class journey_mode
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
         JMRecipeSerializerInit.register(bus);
+        JMContainerTypes.CONTAINER_TYPES.register(bus);
 
 
     }
@@ -156,7 +157,6 @@ public class journey_mode
         LOGGER.info("well at least this ran");
         //IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus bus = journey_mode.eventBus;
-        JMContainerTypes.CONTAINER_TYPES.register(bus);
         bus.addListener(JMCapabilityProvider::register);
         if (UnobtainConfig.use_unobtainable.get()) {
             DuplicationInit.init();
@@ -173,7 +173,7 @@ public class journey_mode
         //Might need to change, currently at bus.addListener up above
         //JMCapabilityProvider.register();
         EventHandler.registerPackets();
-        JMContainerTypes.registerScreens();
+        //JMContainerTypes.registerScreens();
         JMTriggers.init();
     }
 
@@ -209,6 +209,7 @@ public class journey_mode
             ItemBlockRenderTypes.setRenderLayer(UnobtainBlockInit.PAINTED_BARRIER.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(UnobtainBlockInit.BROKEN_LIGHT.get(), RenderType.cutout());
         }
+        JMContainerTypes.renderScreens();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
