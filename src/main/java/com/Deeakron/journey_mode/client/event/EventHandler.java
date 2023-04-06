@@ -130,7 +130,7 @@ public class EventHandler {
             }
         }
 
-        if (player instanceof Player){
+        if (player instanceof Player && journey_mode.useUnobtain){
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             if (SpawnEggItem.byId(event.getEntity().getType()) != null && helmet.getItem() == UnobtainItemInit.SCANNER.get()) {
                 String item = "\"" + SpawnEggItem.byId(event.getEntity().getType()).getRegistryName() + "\"";
