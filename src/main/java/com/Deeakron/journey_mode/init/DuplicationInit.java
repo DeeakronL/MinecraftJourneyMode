@@ -4,6 +4,7 @@ import com.Deeakron.journey_mode.journey_mode;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.MinecartCommandBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -33,7 +34,7 @@ public class DuplicationInit {
             try {
                 ForgeRegistries.ITEMS.getValue(loc).getItemCategory().getDisplayName().getString();
             } catch (NullPointerException e) {
-                String check = string.substring(1, 10);
+                /*String check = string.substring(1, 10);
                 substring = string.substring(11, string.length() - 1);
                 if(check.equals("minecraft" )) {
                     if (item.getItem().getClass() == new BlockItem(null, new BlockItem.Properties()).getClass() || item.getItem().getClass() == new GameMasterBlockItem(null, new Item.Properties()).getClass()) {
@@ -57,7 +58,7 @@ public class DuplicationInit {
                     }
 
                     items.add(item);
-                }
+                }*/
             }
         }
         return items;

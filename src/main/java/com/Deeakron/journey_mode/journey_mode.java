@@ -134,12 +134,13 @@ public class journey_mode
             this.useUnobtain = true;
             UnobtainBlockInit.BLOCKS.register(bus);
             UnobtainItemInit.ITEMS.register(bus);
-
+            UnobtainItemInit.MC_ITEMS.register(bus);
             JMTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
             JMParticleTypes.PARTICLE_TYPES.register(bus);
         } else {
             this.useUnobtain = false;
             UnobtainBlockInit.BLOCKS.register(bus);
+            DuplicationInit.ITEMS.register(bus);
         }
 
         JMSounds.SOUNDS.register(bus);

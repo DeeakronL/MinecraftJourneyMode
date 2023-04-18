@@ -3777,6 +3777,11 @@
       "category": "Miscellaneous"
     },
     {
+      "item" : "minecraft:music_disc_otherside",
+      "count" : 1,
+      "category": "Miscellaneous"
+    },
+    {
       "item" : "minecraft:nautilus_shell",
       "count" : 16,
       "category": "Miscellaneous"
