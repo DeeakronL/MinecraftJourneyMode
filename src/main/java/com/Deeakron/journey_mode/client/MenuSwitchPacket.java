@@ -90,7 +90,6 @@ public class MenuSwitchPacket {
             int recipeCount = 0;
             for (int i = 0; i < locations.length; i++) {
                 Advancement recipeAdvancement = player.getServer().getAdvancements().getAdvancement(locations[i]);
-                journey_mode.LOGGER.info("checking advancement number " + i);
                 if (serverPlayer.getAdvancements().getOrStartProgress(recipeAdvancement).isDone()) {
                     achieved[i] = true;
                     recipeCount += 1;

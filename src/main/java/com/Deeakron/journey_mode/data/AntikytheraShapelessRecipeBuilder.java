@@ -87,7 +87,6 @@ public class AntikytheraShapelessRecipeBuilder extends ShapelessRecipeBuilder {
             folderName = "journey_mode.unobtainable";
         }
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(p_126206_)).rewards(AdvancementRewards.Builder.recipe(p_126206_)).requirements(RequirementsStrategy.OR);
-        //journey_mode.LOGGER.info("recipe result is " + this.result.toString() + " of category " + this.result.getItemCategory().toString());
         p_126205_.accept(new AntikytheraShapelessRecipeBuilder.Result(p_126206_, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancement, new ResourceLocation(p_126206_.getNamespace(), "recipes/" + folderName + "/" + p_126206_.getPath())));
     }
 

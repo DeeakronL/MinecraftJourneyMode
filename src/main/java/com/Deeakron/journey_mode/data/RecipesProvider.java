@@ -54,7 +54,6 @@ public class RecipesProvider extends RecipeProvider {
                 if (!set.add(p_125991_.getId())) {
                     throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
                 } else {
-                    journey_mode.LOGGER.info("testing 2 " + Registry.RECIPE_SERIALIZER.getKey(p_125991_.getType()));
                     saveRecipe(p_125982_, p_125991_.serializeRecipe(), path.resolve("data/" + p_125991_.getId().getNamespace() + "/recipes/" + p_125991_.getId().getPath() + ".json"));
                     JsonObject jsonobject = p_125991_.serializeAdvancement();
                     if (jsonobject != null) {

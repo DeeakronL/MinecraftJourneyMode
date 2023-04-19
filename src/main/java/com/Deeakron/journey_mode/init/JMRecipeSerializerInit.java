@@ -38,7 +38,6 @@ public class JMRecipeSerializerInit {
     private static class JMRecipeType<T extends Recipe<?>> implements RecipeType<T> {
         @Override
         public String toString() {
-            journey_mode.LOGGER.info("tgesugeuhsu");
             return Registry.RECIPE_TYPE.getKey(this).toString();
         }
 

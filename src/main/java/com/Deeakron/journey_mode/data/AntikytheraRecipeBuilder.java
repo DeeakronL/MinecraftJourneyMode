@@ -62,7 +62,6 @@ public class AntikytheraRecipeBuilder extends ShapedRecipeBuilder {
         } catch (NullPointerException e) {
             folderName = "journey_mode.unobtainable";
         }
-        journey_mode.LOGGER.info("testing " + folderName);
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(p_126142_)).rewards(AdvancementRewards.Builder.recipe(p_126142_)).requirements(RequirementsStrategy.OR);
         p_126141_.accept(new AntikytheraRecipeBuilder.Result(p_126142_, this.result, this.count, this.group == null ? "" : this.group, this.rows, this.key, this.advancement, new ResourceLocation(p_126142_.getNamespace(), "recipes/" + folderName + "/" + p_126142_.getPath())));
     }

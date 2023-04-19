@@ -140,7 +140,7 @@ public class journey_mode
         } else {
             this.useUnobtain = false;
             UnobtainBlockInit.BLOCKS.register(bus);
-            DuplicationInit.ITEMS.register(bus);
+            //DuplicationInit.ITEMS.register(bus);
         }
 
         JMSounds.SOUNDS.register(bus);
@@ -155,8 +155,6 @@ public class journey_mode
 
     @SubscribeEvent
     public static void register(GatherDataEvent event) {
-        LOGGER.info("well at least this ran");
-        //IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus bus = journey_mode.eventBus;
         bus.addListener(JMCapabilityProvider::register);
         if (UnobtainConfig.use_unobtainable.get()) {
