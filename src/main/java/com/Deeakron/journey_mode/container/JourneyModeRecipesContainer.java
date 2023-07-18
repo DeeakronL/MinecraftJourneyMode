@@ -51,6 +51,11 @@ public class JourneyModeRecipesContainer extends AbstractContainerMenu {
         this(windowId);
     }
 
+    @Override
+    public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
+        return ItemStack.EMPTY;
+    }
+
     public void removed(Player playerIn) {
         super.removed(playerIn);
         this.clearContainer(playerIn, this.recipeInputInventory);
