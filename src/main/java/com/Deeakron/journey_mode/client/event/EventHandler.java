@@ -82,7 +82,7 @@ public class EventHandler {
     //This event is just for easy testing purposes with research, uncomment to reuse
 
     public static void pickupItem(EntityItemPickupEvent event) {
-        String item = "\"" + event.getItem().getItem().getItem().getRegistryName() + "\"";
+        String item = "\"" + ForgeRegistries.ITEMS.getKey(event.getItem().getItem().getItem()) + "\"";
         int count = event.getItem().getItem().getCount();
         EntityJourneyMode cap = event.getEntity().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode());
         cap.updateResearch(new String[]{item}, new int[]{count});

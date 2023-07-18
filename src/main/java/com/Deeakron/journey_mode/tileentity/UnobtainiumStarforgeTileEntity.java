@@ -40,6 +40,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -76,7 +77,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
         boolean dirty = false;
         boolean itemCheck = false;
         try {
-            itemCheck = (tile.inventory.getStackInSlot(1).isEmpty() || tile.inventory.getStackInSlot(1).getItem().getRegistryName().equals(tile.getRecipe(tile.inventory.getStackInSlot(0)).getResultItem().getItem().getRegistryName()));
+            itemCheck = (tile.inventory.getStackInSlot(1).isEmpty() || ForgeRegistries.ITEMS.getKey(tile.inventory.getStackInSlot(1).getItem()).equals(ForgeRegistries.ITEMS.getKey(tile.getRecipe(tile.inventory.getStackInSlot(0)).getResultItem().getItem())));
         } catch (NullPointerException e) {
 
         }

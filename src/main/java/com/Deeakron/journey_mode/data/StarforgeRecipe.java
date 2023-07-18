@@ -109,18 +109,16 @@ public class StarforgeRecipe implements IStarforgeRecipe {
             buffer.writeItemStack(recipe.getResultItem(), false);
         }
 
-        @Override
+
         public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
             return INSTANCE;
         }
 
         @Nullable
-        @Override
         public ResourceLocation getRegistryName() {
             return ID;
         }
 
-        @Override
         public Class<RecipeSerializer<?>> getRegistryType() {
             return StarforgeRecipe.Serializer.castClass(RecipeSerializer.class);
         }

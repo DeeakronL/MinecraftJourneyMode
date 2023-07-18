@@ -13,6 +13,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class JMResearchCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -46,10 +47,10 @@ public class JMResearchCommand {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
+            int[] values = cap.getResearch("\"" + ForgeRegistries.ITEMS.getKey(item).toString() + "\"");
             int remaining = values[1];
             String[] name = new String[1];
-            name[0] = "\"" + item.getRegistryName().toString() + "\"";
+            name[0] = "\"" + ForgeRegistries.ITEMS.getKey(item).toString() + "\"";
             int[] num = new int[1];
             num[0] = remaining;
             cap.updateResearch(name, num, false, cap.getPlayer(), ItemArgument.getItem(commandContext, "item").createItemStack(1,false));
@@ -61,10 +62,10 @@ public class JMResearchCommand {
         Item item = ItemArgument.getItem(commandContext, "item").getItem();
         if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
+            int[] values = cap.getResearch("\"" + ForgeRegistries.ITEMS.getKey(item).toString() + "\"");
             int progress = values[0];
             String[] name = new String[1];
-            name[0] = "\"" + item.getRegistryName().toString() + "\"";
+            name[0] = "\"" + ForgeRegistries.ITEMS.getKey(item).toString() + "\"";
             int[] num = new int[1];
             num[0] = 0 - progress;
             cap.updateResearch(name, num, false, cap.getPlayer(), null);
@@ -77,7 +78,7 @@ public class JMResearchCommand {
         int count = IntegerArgumentType.getInteger(commandContext, "count");
         if(commandContext.getSource().getEntity() instanceof ServerPlayer){
             EntityJourneyMode cap = commandContext.getSource().getEntity().getCapability(JMCapabilityProvider.INSTANCE, null).orElse(new EntityJourneyMode());
-            int[] values = cap.getResearch("\"" + item.getRegistryName().toString() + "\"");
+            int[] values = cap.getResearch("\"" + ForgeRegistries.ITEMS.getKey(item).toString() + "\"");
             if (count < 0){
                 count = 0;
             } else if (count > values[1]) {
@@ -85,7 +86,7 @@ public class JMResearchCommand {
             }
             int change = count - values[0];
             String[] name = new String[1];
-            name[0] = "\"" + item.getRegistryName().toString() + "\"";
+            name[0] = "\"" + ForgeRegistries.ITEMS.getKey(item).toString() + "\"";
             int[] num = new int[1];
             num[0] = change;
             cap.updateResearch(name, num, false, cap.getPlayer(), null);

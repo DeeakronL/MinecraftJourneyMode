@@ -3,6 +3,7 @@ package com.Deeakron.journey_mode.container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class StarforgeFuelSlot extends SlotItemHandler {
     private final IItemHandlerModifiable handler;
@@ -13,7 +14,7 @@ public class StarforgeFuelSlot extends SlotItemHandler {
     }
 
     public boolean mayPlace(ItemStack stack) {
-        String item = "\"" + stack.getItem().getRegistryName() + "\"";
+        String item = "\"" + ForgeRegistries.ITEMS.getKey(stack.getItem()) + "\"";
         String check = "\"minecraft:nether_star\"";
         return item.equals(check);
     }

@@ -344,18 +344,15 @@ public class AntikytheraRecipe implements CraftingRecipe {
             buffer.writeItem(recipe.recipeOutput);
         }
 
-        @Override
         public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
             return INSTANCE;
         }
 
         @Nullable
-        @Override
         public ResourceLocation getRegistryName() {
             return ID;
         }
 
-        @Override
         public Class<RecipeSerializer<?>> getRegistryType() {
             return Serializer.castClass(RecipeSerializer.class);
         }

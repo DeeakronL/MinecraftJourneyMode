@@ -21,6 +21,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(Dist.CLIENT)
 public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyModeResearchContainer> {
@@ -80,7 +81,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
             }
         }
         if (!this.menu.getItems().get(0).isEmpty()) {
-            String key = "\"" + this.menu.getItems().get(0).getItem().getRegistryName().toString() + "\"";
+            String key = "\"" + ForgeRegistries.ITEMS.getKey(this.menu.getItems().get(0).getItem()).toString() + "\"";
             if (this.list.hasItem(key)) {
                 String info1 = this.menu.getItems().get(0).getItem().getDescription().getString();
                 String info2 = this.list.get(key)[0] + "/" + this.list.get(key)[1] + " " + this.RESEARCH_INFO.getString();
@@ -221,7 +222,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
         }
 
         public void onPress() {
-            String key = "\"" + this.screen.menu.getItems().get(0).getItem().getRegistryName().toString() + "\"";
+            String key = "\"" + ForgeRegistries.ITEMS.getKey(this.screen.menu.getItems().get(0).getItem()).toString() + "\"";
             int count = this.screen.menu.getItems().get(0).getCount();
             if (this.screen.list.hasItem(key)) {
                 if (this.screen.list.reachCap(key)) {

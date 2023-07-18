@@ -49,6 +49,7 @@ import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -202,7 +203,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                 } else if (!itemStack7.isEmpty() && itemStack5.isEmpty()) {
                     boolean success = false;
                     try {
-                        String item = "\"" +slotIn.getItem().getItem().getRegistryName() + "\"";
+                        String item = "\"" + ForgeRegistries.ITEMS.getKey(slotIn.getItem().getItem()) + "\"";
                         int[] result = this.playerList.get(item);
                         if (result[0] == result[1]) {
                             success = true;
@@ -458,7 +459,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
                     boolean success = false;
                     try {
-                        String item = "\"" + stack.getItem().getRegistryName() + "\"";
+                        String item = "\"" + ForgeRegistries.ITEMS.getKey(stack.getItem()) + "\"";
                         if (filter == 1) {
                             if (this.menu.research.reachCap(item)) {
                                     itr.remove();
@@ -1197,7 +1198,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                         boolean success = false;
                         try {
                             LockedSlot slot = (LockedSlot) this.slots.get(l + k * 9);
-                            String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
+                            String item = "\"" + ForgeRegistries.ITEMS.getKey(itemList.get(i * 9 + j).getItem()) + "\"";
                             int[] result = this.research.get(item);
                             success = true;
                         } catch (ClassCastException e) {
@@ -1211,7 +1212,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                         }
                         if (success) {
                             LockedSlot slot = (LockedSlot) this.slots.get(l + k * 9);
-                            String item = "\"" + itemList.get(i * 9 + j).getItem().getRegistryName() + "\"";
+                            String item = "\"" + ForgeRegistries.ITEMS.getKey(itemList.get(i * 9 + j).getItem()) + "\"";
 
                             int[] result = this.research.get(item);
                             boolean wasResearched = false;
@@ -1258,7 +1259,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 9; j++) {
                     try {
-                        String item = "\"" + this.slots.get(i * 9 + j).getItem().getItem().getRegistryName() + "\"";
+                        String item = "\"" + ForgeRegistries.ITEMS.getKey(this.slots.get(i * 9 + j).getItem().getItem()) + "\"";
                         int[] result = this.research.get(item);
                         int diff = result[1] - result[0];
                         String string = Integer.toString(diff);
