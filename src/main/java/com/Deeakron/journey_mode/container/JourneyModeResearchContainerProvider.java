@@ -6,16 +6,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 
 public class JourneyModeResearchContainerProvider implements MenuProvider {
     @Override
     public Component getDisplayName() {
-        Component title = new TranslatableComponent("journey_mode.gui.name");
-        return new TextComponent(title.getString());
+        Component title = Component.translatable("journey_mode.gui.name");
+        return Component.literal(title.getString());
     }
 
     @Nullable

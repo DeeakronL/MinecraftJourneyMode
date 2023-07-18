@@ -5,16 +5,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 
 public class UnobtainiumAntikytheraContainerProvider implements MenuProvider {
     @Override
     public Component getDisplayName() {
-        Component title = new TranslatableComponent("container.journey_mode.unobtainium_antikythera");
-        return new TextComponent(title.getString());
+        Component title = Component.translatable("container.journey_mode.unobtainium_antikythera");
+        return Component.literal(title.getString());
     }
 
     @Nullable

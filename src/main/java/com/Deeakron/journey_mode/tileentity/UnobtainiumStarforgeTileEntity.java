@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -134,7 +133,7 @@ public class UnobtainiumStarforgeTileEntity extends BaseContainerBlockEntity imp
     }
 
     public Component getDefaultName() {
-        return new TranslatableComponent("container." + journey_mode.MODID + ".unobtainium_starforge");
+        return Component.translatable("container." + journey_mode.MODID + ".unobtainium_starforge");
     }
 
     @Override

@@ -17,9 +17,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,14 +26,14 @@ import net.minecraftforge.common.MinecraftForge;
 public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyModeResearchContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_research.png");
-    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
-    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
-    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
-    public static final Component RESEARCH_DESC = new TranslatableComponent("journey_mode.gui.research");
-    public static final Component RESEARCH_INFO = new TranslatableComponent("journey_mode.gui.researched");
+    public static final Component POWERS_TAB = Component.translatable("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = Component.translatable("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = Component.translatable("journey_mode.gui.tabs.duplication");
+    public static final Component RESEARCH_DESC = Component.translatable("journey_mode.gui.research");
+    public static final Component RESEARCH_INFO = Component.translatable("journey_mode.gui.researched");
     private static ResearchList list;
     private static JourneyModeResearchContainer serverContain;
-    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
+    public static final Component RECIPES_TAB = Component.translatable("journey_mode.gui.tabs.recipes");
     public static boolean hasRecipes;
 
     public JourneyModeResearchScreen(JourneyModeResearchContainer container, Inventory inv, Component titleIn) {
@@ -113,7 +111,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
         public boolean pressed = false;
 
         protected Button(int x, int y) {
-            super(x, y, 59, 21, TextComponent.EMPTY);
+            super(x, y, 59, 21, Component.empty());
         }
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
@@ -144,7 +142,7 @@ public class JourneyModeResearchScreen extends AbstractContainerScreen<JourneyMo
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
 
-        protected Tab(int x, int y) { super(x, y, 32, 28, TextComponent.EMPTY);}
+        protected Tab(int x, int y) { super(x, y, 32, 28, Component.empty());}
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
             RenderSystem.setShaderTexture(0, JourneyModeResearchScreen.BACKGROUND_TEXTURE);

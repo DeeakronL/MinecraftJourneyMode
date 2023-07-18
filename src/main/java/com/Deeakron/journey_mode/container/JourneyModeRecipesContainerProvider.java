@@ -13,8 +13,8 @@ import javax.annotation.Nullable;
 public class JourneyModeRecipesContainerProvider implements MenuProvider {
     @Override
     public Component getDisplayName() {
-        Component title = new TranslatableComponent("journey_mode.gui.tabs.recipes");
-        return new TextComponent(title.getString());
+        Component title = Component.translatable("journey_mode.gui.tabs.recipes");
+        return Component.literal(title.getString());
     }
 
     @Nullable

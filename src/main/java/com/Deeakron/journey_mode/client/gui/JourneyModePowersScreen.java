@@ -24,31 +24,31 @@ import net.minecraftforge.common.MinecraftForge;
 public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyModePowersContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_powers.png");
-    public static final Component DAWN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.dawn");
-    public static final Component NOON_BUTTON = new TranslatableComponent("journey_mode.gui.powers.noon");
-    public static final Component DUSK_BUTTON = new TranslatableComponent("journey_mode.gui.powers.dusk");
-    public static final Component MIDNIGHT_BUTTON = new TranslatableComponent("journey_mode.gui.powers.midnight");
-    public static final Component FREEZE_TIME_BUTTON = new TranslatableComponent("journey_mode.gui.powers.freeze");
-    public static final Component UNFREEZE_TIME_BUTTON = new TranslatableComponent("journey_mode.gui.powers.unfreeze");
-    public static final Component CLEAR_BUTTON = new TranslatableComponent("journey_mode.gui.powers.clear");
-    public static final Component RAIN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.rain");
-    public static final Component STORM_BUTTON = new TranslatableComponent("journey_mode.gui.powers.storm");
-    public static final Component NORMAL_BUTTON = new TranslatableComponent("journey_mode.gui.powers.normal");
-    public static final Component DOUBLE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.double");
-    public static final Component QUADRUPLE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.quadruple");
-    public static final Component OCTUPLE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.octuple");
-    public static final Component ENABLE_MOB_SPAWN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.enable_spawn");
-    public static final Component DISABLE_MOB_SPAWN_BUTTON = new TranslatableComponent("journey_mode.gui.powers.disable_spawn");
-    public static final Component ENABLE_MOB_GRIEFING_BUTTON = new TranslatableComponent("journey_mode.gui.powers.enable_grief");
-    public static final Component DISABLE_MOB_GRIEFING_BUTTON = new TranslatableComponent("journey_mode.gui.powers.disable_grief");
-    public static final Component ENABLE_GOD_MODE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.enable_god_mode");
-    public static final Component DISABLE_GOD_MODE_BUTTON = new TranslatableComponent("journey_mode.gui.powers.disable_god_mode");
-    public static final Component LOSE_INVENTORY_BUTTON = new TranslatableComponent("journey_mode.gui.powers.lose_inv");
-    public static final Component KEEP_INVENTORY_BUTTON = new TranslatableComponent("journey_mode.gui.powers.keep_inv");
-    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
-    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
-    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
-    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
+    public static final Component DAWN_BUTTON = Component.translatable("journey_mode.gui.powers.dawn");
+    public static final Component NOON_BUTTON = Component.translatable("journey_mode.gui.powers.noon");
+    public static final Component DUSK_BUTTON = Component.translatable("journey_mode.gui.powers.dusk");
+    public static final Component MIDNIGHT_BUTTON = Component.translatable("journey_mode.gui.powers.midnight");
+    public static final Component FREEZE_TIME_BUTTON = Component.translatable("journey_mode.gui.powers.freeze");
+    public static final Component UNFREEZE_TIME_BUTTON = Component.translatable("journey_mode.gui.powers.unfreeze");
+    public static final Component CLEAR_BUTTON = Component.translatable("journey_mode.gui.powers.clear");
+    public static final Component RAIN_BUTTON = Component.translatable("journey_mode.gui.powers.rain");
+    public static final Component STORM_BUTTON = Component.translatable("journey_mode.gui.powers.storm");
+    public static final Component NORMAL_BUTTON = Component.translatable("journey_mode.gui.powers.normal");
+    public static final Component DOUBLE_BUTTON = Component.translatable("journey_mode.gui.powers.double");
+    public static final Component QUADRUPLE_BUTTON = Component.translatable("journey_mode.gui.powers.quadruple");
+    public static final Component OCTUPLE_BUTTON = Component.translatable("journey_mode.gui.powers.octuple");
+    public static final Component ENABLE_MOB_SPAWN_BUTTON = Component.translatable("journey_mode.gui.powers.enable_spawn");
+    public static final Component DISABLE_MOB_SPAWN_BUTTON = Component.translatable("journey_mode.gui.powers.disable_spawn");
+    public static final Component ENABLE_MOB_GRIEFING_BUTTON = Component.translatable("journey_mode.gui.powers.enable_grief");
+    public static final Component DISABLE_MOB_GRIEFING_BUTTON = Component.translatable("journey_mode.gui.powers.disable_grief");
+    public static final Component ENABLE_GOD_MODE_BUTTON = Component.translatable("journey_mode.gui.powers.enable_god_mode");
+    public static final Component DISABLE_GOD_MODE_BUTTON = Component.translatable("journey_mode.gui.powers.disable_god_mode");
+    public static final Component LOSE_INVENTORY_BUTTON = Component.translatable("journey_mode.gui.powers.lose_inv");
+    public static final Component KEEP_INVENTORY_BUTTON = Component.translatable("journey_mode.gui.powers.keep_inv");
+    public static final Component POWERS_TAB = Component.translatable("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = Component.translatable("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = Component.translatable("journey_mode.gui.tabs.duplication");
+    public static final Component RECIPES_TAB = Component.translatable("journey_mode.gui.tabs.recipes");
 
     private static boolean freeze;
     private int tickSpeed;
@@ -142,7 +142,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
         public int speed = 0;
 
         protected Button(int x, int y) {
-            super(x, y, 18, 18, TextComponent.EMPTY);
+            super(x, y, 18, 18, Component.empty());
         }
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
@@ -180,7 +180,7 @@ public class JourneyModePowersScreen extends AbstractContainerScreen<JourneyMode
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
 
-        protected Tab(int x, int y) { super(x, y, 32, 28, TextComponent.EMPTY);}
+        protected Tab(int x, int y) { super(x, y, 32, 28, Component.empty());}
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
             RenderSystem.setShaderTexture(0, JourneyModePowersScreen.BACKGROUND_TEXTURE);

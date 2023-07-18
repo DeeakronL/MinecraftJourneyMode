@@ -16,9 +16,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,11 +27,11 @@ import javax.annotation.Nullable;
 public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyModeRecipesContainer> {
 
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_antikythera_recipes.png");
-    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
-    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
-    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
-    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
-    public static final Component SHAPELESS_NOTIF = new TranslatableComponent("journey_mode.gui.recipes.shapeless");
+    public static final Component POWERS_TAB = Component.translatable("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = Component.translatable("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = Component.translatable("journey_mode.gui.tabs.duplication");
+    public static final Component RECIPES_TAB = Component.translatable("journey_mode.gui.tabs.recipes");
+    public static final Component SHAPELESS_NOTIF = Component.translatable("journey_mode.gui.recipes.shapeless");
     private boolean initialized;
     private int currentRecipe = 0;
     private int numRecipes;
@@ -251,7 +249,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         public boolean pressed = false;
 
         protected Button(int x, int y) {
-            super(x, y, 59, 21, TextComponent.EMPTY);
+            super(x, y, 59, 21, Component.empty());
         }
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
@@ -283,7 +281,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
     abstract static class Tab extends AbstractButton {
         public boolean currentTab = false;
 
-        protected Tab(int x, int y) { super(x, y, 32, 28, TextComponent.EMPTY);}
+        protected Tab(int x, int y) { super(x, y, 32, 28, Component.empty());}
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
             RenderSystem.setShaderTexture(0, JourneyModeRecipesScreen.BACKGROUND_TEXTURE);
@@ -313,7 +311,7 @@ public class JourneyModeRecipesScreen extends AbstractContainerScreen<JourneyMod
         public JourneyModeRecipesScreen screen;
 
         protected ArrowButton(int x, int y, boolean isRight, JourneyModeRecipesScreen screen) {
-            super(x, y, 18, 18, TextComponent.EMPTY);
+            super(x, y, 18, 18, Component.empty());
             this.isRight = isRight;
             this.screen = screen;
         }

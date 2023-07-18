@@ -9,7 +9,7 @@ import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -27,8 +27,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement root = Advancement.Builder.advancement().display(
                 UnobtainItemInit.UNOBTAINIUM_BLOCK.get(),
-                new TranslatableComponent("advancement.journey_mode.root.title"),
-                new TranslatableComponent("advancement.journey_mode.root.description"),
+                Component.translatable("advancement.journey_mode.root.title"),
+                Component.translatable("advancement.journey_mode.root.description"),
                 new ResourceLocation(journey_mode.MODID, "textures/gui/advancements/background/raw_unobtainium_block.png"),
                 FrameType.TASK,
                 true,true,false)
@@ -38,8 +38,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement starforge  = Advancement.Builder.advancement().parent(root).display(
                 UnobtainItemInit.UNOBTAINIUM_STARFORGE.get(),
-                new TranslatableComponent("advancement.journey_mode.get_starforge.title"),
-                new TranslatableComponent("advancement.journey_mode.get_starforge.description"),
+                Component.translatable("advancement.journey_mode.get_starforge.title"),
+                Component.translatable("advancement.journey_mode.get_starforge.description"),
                 null,
                 FrameType.TASK,
                 true,true,false)
@@ -48,8 +48,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement primordial_dust  = Advancement.Builder.advancement().parent(starforge).display(
                         UnobtainItemInit.PRIMORDIAL_VOID_DUST.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_primordial_dust.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_primordial_dust.description"),
+                        Component.translatable("advancement.journey_mode.get_primordial_dust.title"),
+                        Component.translatable("advancement.journey_mode.get_primordial_dust.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -58,8 +58,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement turtle_spawn_egg  = Advancement.Builder.advancement().parent(starforge).display(
                 Items.TURTLE_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_turtle_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_turtle_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_turtle_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_turtle_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -68,8 +68,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement chorus_plant  = Advancement.Builder.advancement().parent(starforge).display(
                         Items.CHORUS_PLANT.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_chorus_plant.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_chorus_plant.description"),
+                        Component.translatable("advancement.journey_mode.get_chorus_plant.title"),
+                        Component.translatable("advancement.journey_mode.get_chorus_plant.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -78,8 +78,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement crack_bedrock  = Advancement.Builder.advancement().parent(primordial_dust).display(
                         UnobtainItemInit.CRACKED_BEDROCK.get(),
-                        new TranslatableComponent("advancement.journey_mode.crack_bedrock.title"),
-                        new TranslatableComponent("advancement.journey_mode.crack_bedrock.description"),
+                        Component.translatable("advancement.journey_mode.crack_bedrock.title"),
+                        Component.translatable("advancement.journey_mode.crack_bedrock.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -88,8 +88,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement unobtainium  = Advancement.Builder.advancement().parent(crack_bedrock).display(
                         UnobtainItemInit.UNOBTAINIUM_INGOT.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_unobtainium.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_unobtainium.description"),
+                        Component.translatable("advancement.journey_mode.get_unobtainium.title"),
+                        Component.translatable("advancement.journey_mode.get_unobtainium.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -98,8 +98,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement antikythera  = Advancement.Builder.advancement().parent(unobtainium).display(
                         UnobtainItemInit.UNOBTAINIUM_ANTIKYTHERA.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_antikythera.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_antikythera.description"),
+                        Component.translatable("advancement.journey_mode.get_antikythera.title"),
+                        Component.translatable("advancement.journey_mode.get_antikythera.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -108,8 +108,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement aetherial_dust  = Advancement.Builder.advancement().parent(antikythera).display(
                         UnobtainItemInit.AETHERIAL_VOID_DUST.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_aetherial_dust.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_aetherial_dust.description"),
+                        Component.translatable("advancement.journey_mode.get_aetherial_dust.title"),
+                        Component.translatable("advancement.journey_mode.get_aetherial_dust.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -118,8 +118,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement paint  = Advancement.Builder.advancement().parent(antikythera).display(
                         UnobtainItemInit.PAINT_BUCKET.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_paint.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_paint.description"),
+                        Component.translatable("advancement.journey_mode.get_paint.title"),
+                        Component.translatable("advancement.journey_mode.get_paint.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -128,8 +128,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement scanner  = Advancement.Builder.advancement().parent(antikythera).display(
                         UnobtainItemInit.SCANNER.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_scanner.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_scanner.description"),
+                        Component.translatable("advancement.journey_mode.get_scanner.title"),
+                        Component.translatable("advancement.journey_mode.get_scanner.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -138,8 +138,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement inert_structure  = Advancement.Builder.advancement().parent(aetherial_dust).display(
                         UnobtainItemInit.INERT_STRUCTURE_BLOCK.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_inert_structure.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_inert_structure.description"),
+                        Component.translatable("advancement.journey_mode.get_inert_structure.title"),
+                        Component.translatable("advancement.journey_mode.get_inert_structure.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -148,8 +148,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement inert_command  = Advancement.Builder.advancement().parent(aetherial_dust).display(
                         UnobtainItemInit.INERT_COMMAND_BLOCK.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_inert_command.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_inert_command.description"),
+                        Component.translatable("advancement.journey_mode.get_inert_command.title"),
+                        Component.translatable("advancement.journey_mode.get_inert_command.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -161,8 +161,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement inert_jigsaw  = Advancement.Builder.advancement().parent(aetherial_dust).display(
                         UnobtainItemInit.INERT_JIGSAW_BLOCK.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_inert_jigsaw.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_inert_jigsaw.description"),
+                        Component.translatable("advancement.journey_mode.get_inert_jigsaw.title"),
+                        Component.translatable("advancement.journey_mode.get_inert_jigsaw.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -171,8 +171,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement painted_barrier  = Advancement.Builder.advancement().parent(paint).display(
                         UnobtainItemInit.PAINTED_BARRIER.get(),
-                        new TranslatableComponent("advancement.journey_mode.get_painted_barrier.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_painted_barrier.description"),
+                        Component.translatable("advancement.journey_mode.get_painted_barrier.title"),
+                        Component.translatable("advancement.journey_mode.get_painted_barrier.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -181,8 +181,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement villager_spawn_egg  = Advancement.Builder.advancement().parent(scanner).display(
                         Items.VILLAGER_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_villager_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_villager_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_villager_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_villager_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -191,8 +191,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement spawn_egg  = Advancement.Builder.advancement().parent(scanner).display(
                         Items.ZOMBIE_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -201,8 +201,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement parrot_spawn_egg  = Advancement.Builder.advancement().parent(scanner).display(
                         Items.PARROT_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_parrot_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_parrot_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_parrot_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_parrot_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -211,8 +211,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement dolphin_spawn_egg  = Advancement.Builder.advancement().parent(scanner).display(
                         Items.DOLPHIN_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_dolphin_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_dolphin_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_dolphin_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_dolphin_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -221,8 +221,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement breedable_spawn_egg  = Advancement.Builder.advancement().parent(scanner).display(
                         Items.COW_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_breedable_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_breedable_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_breedable_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_breedable_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -251,8 +251,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement wandering_trader_spawn_egg  = Advancement.Builder.advancement().parent(villager_spawn_egg).display(
                         Items.WANDERING_TRADER_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_wandering_trader_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_wandering_trader_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_wandering_trader_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_wandering_trader_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -261,8 +261,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement zombie_horse_spawn_egg  = Advancement.Builder.advancement().parent(breedable_spawn_egg).display(
                         Items.ZOMBIE_HORSE_SPAWN_EGG.asItem(),
-                        new TranslatableComponent("advancement.journey_mode.get_zombie_horse_spawn_egg.title"),
-                        new TranslatableComponent("advancement.journey_mode.get_zombie_horse_spawn_egg.description"),
+                        Component.translatable("advancement.journey_mode.get_zombie_horse_spawn_egg.title"),
+                        Component.translatable("advancement.journey_mode.get_zombie_horse_spawn_egg.description"),
                         null,
                         FrameType.TASK,
                         true,true,false)
@@ -271,8 +271,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement light  = Advancement.Builder.advancement().parent(aetherial_dust).display(
                 Items.LIGHT.asItem(),
-                new TranslatableComponent("advancement.journey_mode.get_light.title"),
-                new TranslatableComponent("advancement.journey_mode.get_light.description"),
+                Component.translatable("advancement.journey_mode.get_light.title"),
+                Component.translatable("advancement.journey_mode.get_light.description"),
                 null,
                 FrameType.TASK,
                 true,true,false)
@@ -281,8 +281,8 @@ public class AdvancementsProvider extends AdvancementProvider {
 
         Advancement broken_light  = Advancement.Builder.advancement().parent(light).display(
                 UnobtainItemInit.BROKEN_LIGHT.get(),
-                new TranslatableComponent("advancement.journey_mode.get_broken_light.title"),
-                new TranslatableComponent("advancement.journey_mode.get_broken_light.description"),
+                Component.translatable("advancement.journey_mode.get_broken_light.title"),
+                Component.translatable("advancement.journey_mode.get_broken_light.description"),
                 null,
                 FrameType.TASK,
                 true,true,false)

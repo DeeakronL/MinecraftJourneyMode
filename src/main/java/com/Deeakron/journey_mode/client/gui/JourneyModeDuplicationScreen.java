@@ -44,9 +44,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -60,15 +58,15 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
     private static final ResourceLocation DUPLICATION_INVENTORY_TABS = new ResourceLocation(journey_mode.MODID,"textures/gui/jm_duplication_tabs.png");
     private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication.png");
     private static final ResourceLocation BACKGROUND_SEARCH_TEXTURE = new ResourceLocation(journey_mode.MODID, "textures/gui/jm_duplication_search.png");
-    public static final Component POWERS_TAB = new TranslatableComponent("journey_mode.gui.tabs.powers");
-    public static final Component RESEARCH_TAB = new TranslatableComponent("journey_mode.gui.tabs.research");
-    public static final Component DUPLICATION_TAB = new TranslatableComponent("journey_mode.gui.tabs.duplication");
-    public static final Component RECIPES_TAB = new TranslatableComponent("journey_mode.gui.tabs.recipes");
-    public static final Component FILTER_TAB_0 = new TranslatableComponent("journey_mode.gui.tabs.filters_0");
-    public static final Component FILTER_TAB_1 = new TranslatableComponent("journey_mode.gui.tabs.filters_1");
-    public static final Component FILTER_TAB_2 = new TranslatableComponent("journey_mode.gui.tabs.filters_2");
+    public static final Component POWERS_TAB = Component.translatable("journey_mode.gui.tabs.powers");
+    public static final Component RESEARCH_TAB = Component.translatable("journey_mode.gui.tabs.research");
+    public static final Component DUPLICATION_TAB = Component.translatable("journey_mode.gui.tabs.duplication");
+    public static final Component RECIPES_TAB = Component.translatable("journey_mode.gui.tabs.recipes");
+    public static final Component FILTER_TAB_0 = Component.translatable("journey_mode.gui.tabs.filters_0");
+    public static final Component FILTER_TAB_1 = Component.translatable("journey_mode.gui.tabs.filters_1");
+    public static final Component FILTER_TAB_2 = Component.translatable("journey_mode.gui.tabs.filters_2");
     private static final SimpleContainer TMP_INVENTORY = new SimpleContainer(45);
-    private static final Component TRASH_SLOT_TOOLTIP = new TranslatableComponent("inventory.binSlot");
+    private static final Component TRASH_SLOT_TOOLTIP = Component.translatable("inventory.binSlot");
     private boolean wasCreative;
     private boolean wasGodMode;
     private boolean filter = false;
@@ -102,7 +100,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
     private final Set<TagKey<Item>> visibleTags = new HashSet<>();
 
     public JourneyModeDuplicationScreen(Player player, boolean wasCreative, boolean wasGodMode) {
-        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.getInventory(), TextComponent.EMPTY);
+        super (new JourneyModeDuplicationScreen.DuplicationContainer(player, journey_mode.tempList), player.getInventory(), Component.empty());
         player.containerMenu = this.menu;
         this.wasCreative = wasCreative;
         this.wasGodMode = wasGodMode;
@@ -270,13 +268,13 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         if (tabCount > 10) {
             //add new tab buttons
             maxPages = (int) Math.ceil((tabCount - 10) / 10D);
-            addRenderableWidget(new net.minecraft.client.gui.components.Button(leftPos -25,              topPos, 20, 20, new TextComponent("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
-            addRenderableWidget(new net.minecraft.client.gui.components.Button(leftPos + imageWidth +5, topPos, 20, 20, new TextComponent(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
+            addRenderableWidget(new net.minecraft.client.gui.components.Button(leftPos -25,              topPos, 20, 20, Component.literal("<"), b -> tabPage = Math.max(tabPage - 1, 0       )));
+            addRenderableWidget(new net.minecraft.client.gui.components.Button(leftPos + imageWidth +5, topPos, 20, 20, Component.literal(">"), b -> tabPage = Math.min(tabPage + 1, maxPages)));
 
         }
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
         // might need to change itemGroup.search
-        this.searchField = new EditBox(this.font, this.leftPos + 81, this.topPos + 9, 80, 9, new TranslatableComponent("itemGroup.search"));
+        this.searchField = new EditBox(this.font, this.leftPos + 81, this.topPos + 9, 80, 9, Component.translatable("itemGroup.search"));
         this.searchField.setMaxLength(50);
         this.searchField.setBordered(false);
         this.searchField.setVisible(false);
@@ -725,7 +723,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
             this.checkTabHovering(PoseStack, CreativeModeTab.TAB_INVENTORY, mouseX, mouseY);
 
         if (maxPages != 0) {
-            Component page = new TextComponent(String.format("%d / %d", tabPage + 1, maxPages + 1));
+            Component page = Component.literal(String.format("%d / %d", tabPage + 1, maxPages + 1));
             this.setBlitOffset(300);
             this.itemRenderer.blitOffset = 300.0F;
             font.drawShadow(PoseStack, page.getVisualOrderText(), leftPos + (imageWidth + 45) - (font.width(page) / 2), topPos +7, -1);
@@ -759,7 +757,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
 
             this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
                 if (p_214083_3_.getValues().contains(item)) {
-                    list1.add(1, (new TextComponent("#" + p_214083_2_)).withStyle(ChatFormatting.DARK_PURPLE));
+                    list1.add(1, (Component.literal("#" + p_214083_2_)).withStyle(ChatFormatting.DARK_PURPLE));
                 }
 
             });
@@ -936,7 +934,7 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public boolean pressed = false;
 
         protected Button(int x, int y) {
-            super(x, y, 59, 21, TextComponent.EMPTY);
+            super(x, y, 59, 21, Component.empty());
         }
 
         public void renderButton(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
@@ -971,11 +969,11 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
         public JourneyModeDuplicationScreen screen;
 
         protected Tab(int x, int y) {
-            super(x, y, 32, 28, TextComponent.EMPTY);
+            super(x, y, 32, 28, Component.empty());
         }
 
         protected Tab(int x, int y, JourneyModeDuplicationScreen screen) {
-            super(x, y, 32, 28, TextComponent.EMPTY);
+            super(x, y, 32, 28, Component.empty());
             this.screen = screen;
         }
 

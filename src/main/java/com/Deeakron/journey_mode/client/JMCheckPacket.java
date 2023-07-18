@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -53,7 +52,7 @@ public class JMCheckPacket {
         Boolean result = msg.getResult();
         if (result) {
             int window = Minecraft.getInstance().player.containerMenu.containerId;
-            Component title = new TextComponent("Journey Mode Menu");
+            Component title = Component.literal("Journey Mode Menu");
             EventHandler.INSTANCE.sendToServer(new GameStatePacket(this.data, false, 1, false, false, false, false));
         }
     }

@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public class ResearchToast implements Toast {
 
@@ -15,8 +14,8 @@ public class ResearchToast implements Toast {
     private final ItemStack item;
 
     public ResearchToast(ItemStack item) {
-        this.title = new TranslatableComponent("gui.journey_mode.research_toast.title");
-        this.subtitle = new TranslatableComponent("gui.journey_mode.research_toast.subtitle");
+        this.title = Component.translatable("gui.journey_mode.research_toast.title");
+        this.subtitle = Component.translatable("gui.journey_mode.research_toast.subtitle");
         this.item = item;
     }
 

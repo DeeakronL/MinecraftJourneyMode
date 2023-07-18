@@ -27,7 +27,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -259,7 +258,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void openMenuActual(final MenuOpenEvent event) {
         if (new Date().getTime() - journey_mode.lastMenuOpened.getTime() >= 400) {
-            Component title = new TextComponent("Journey Mode Menu");
+            Component title = Component.literal("Journey Mode Menu");
             journey_mode.lastMenuOpened = new Date();
         }
     }
