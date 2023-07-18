@@ -2,6 +2,7 @@ package com.Deeakron.journey_mode.block;
 
 import com.Deeakron.journey_mode.init.UnobtainItemInit;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +31,7 @@ public class PaintedBarrierBlock extends Block {
 
 
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState state, Level worldIn, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level worldIn, BlockPos pos, RandomSource random) {
         List<? extends Player> players = worldIn.players();
         for (Player player :players) {
             if (player.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof BlockItem) {
