@@ -1,6 +1,7 @@
 package com.Deeakron.journey_mode.client.sound;
 
 import com.Deeakron.journey_mode.init.JMSounds;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -14,7 +15,7 @@ public class ResearchGrinderSound extends SimpleSoundInstance implements Tickabl
 
 
     public ResearchGrinderSound(HorizontalDirectionalBlock researchGrinder, BlockPos pos) {
-        super(JMSounds.RESEARCH_GRIND.get(), SoundSource.BLOCKS, 0.1f, 1.0f, pos);
+        super(JMSounds.RESEARCH_GRIND.get(), SoundSource.BLOCKS, 0.1f, 1.0f, SoundInstance.createUnseededRandom(), pos);
         this.grinder = researchGrinder;
         this.looping = false;
         this.delay = 1;
