@@ -12,7 +12,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 
 
-public class AntikytheraShapelessRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AntikytheraShapelessRecipe> {
+public class AntikytheraShapelessRecipeSerializer implements RecipeSerializer<AntikytheraShapelessRecipe> {
 
     private static final ResourceLocation NAME = new ResourceLocation("journey_mode", "crafting_antikythera_shapeless");
     public AntikytheraShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

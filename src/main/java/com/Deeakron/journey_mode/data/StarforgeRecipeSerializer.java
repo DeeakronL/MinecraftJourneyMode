@@ -8,9 +8,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class StarforgeRecipeSerializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<StarforgeRecipe> {
+public class StarforgeRecipeSerializer implements RecipeSerializer<StarforgeRecipe> {
 
     @Override
     public StarforgeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
