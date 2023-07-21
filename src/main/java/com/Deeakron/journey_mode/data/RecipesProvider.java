@@ -9,7 +9,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -34,17 +36,19 @@ public class RecipesProvider extends RecipeProvider {
         super(generator);
     }
 
-    public void run(HashCache p_125982_) {
-        Path path = this.generator.getOutputFolder();
+    public void run(CachedOutput p_125982_) {
+        //Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         buildCraftingRecipes((p_125991_) -> {
             if (!set.add(p_125991_.getId())) {
                 throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
             } else {
-                saveRecipe(p_125982_, p_125991_.serializeRecipe(), path.resolve("data/" + p_125991_.getId().getNamespace() + "/recipes/" + p_125991_.getId().getPath() + ".json"));
+                //saveRecipe(p_125982_, p_125991_.serializeRecipe(), path.resolve("data/" + p_125991_.getId().getNamespace() + "/recipes/" + p_125991_.getId().getPath() + ".json"));
+                saveRecipe(p_125982_, p_125991_.serializeRecipe(),this.recipePathProvider.json(p_125991_.getId()));
                 JsonObject jsonobject = p_125991_.serializeAdvancement();
                 if (jsonobject != null) {
-                    saveAdvancement(p_125982_, jsonobject, path.resolve("data/" + p_125991_.getId().getNamespace() + "/advancements/" + p_125991_.getAdvancementId().getPath() + ".json"));
+                    //saveAdvancement(p_125982_, jsonobject, path.resolve("data/" + p_125991_.getId().getNamespace() + "/advancements/" + p_125991_.getAdvancementId().getPath() + ".json"));
+                    saveAdvancement(p_125982_, jsonobject, this.advancementPathProvider.json(p_125991_.getId()));
                 }
 
             }
@@ -54,10 +58,10 @@ public class RecipesProvider extends RecipeProvider {
                 if (!set.add(p_125991_.getId())) {
                     throw new IllegalStateException("Duplicate recipe " + p_125991_.getId());
                 } else {
-                    saveRecipe(p_125982_, p_125991_.serializeRecipe(), path.resolve("data/" + p_125991_.getId().getNamespace() + "/recipes/" + p_125991_.getId().getPath() + ".json"));
+                    saveRecipe(p_125982_, p_125991_.serializeRecipe(), this.recipePathProvider.json(p_125991_.getId()));
                     JsonObject jsonobject = p_125991_.serializeAdvancement();
                     if (jsonobject != null) {
-                        saveAdvancement(p_125982_, jsonobject, path.resolve("data/" + p_125991_.getId().getNamespace() + "/advancements/" + p_125991_.getAdvancementId().getPath() + ".json"));
+                        saveAdvancement(p_125982_, jsonobject, this.advancementPathProvider.json(p_125991_.getId()));
                     }
 
                 }
@@ -65,9 +69,9 @@ public class RecipesProvider extends RecipeProvider {
         }
     }
 
-    private static void saveRecipe(HashCache p_125984_, JsonObject p_125985_, Path p_125986_) {
+    private static void saveRecipe(CachedOutput p_125984_, JsonObject p_125985_, Path p_125986_) {
         try {
-            String s = GSON.toJson((JsonElement)p_125985_);
+            /*String s = GSON.toJson((JsonElement)p_125985_);
             String s1 = SHA1.hashUnencodedChars(s).toString();
             if (!Objects.equals(p_125984_.getHash(p_125986_), s1) || !Files.exists(p_125986_)) {
                 Files.createDirectories(p_125986_.getParent());
@@ -92,7 +96,8 @@ public class RecipesProvider extends RecipeProvider {
                 }
             }
 
-            p_125984_.putNew(p_125986_, s1);
+            p_125984_.putNew(p_125986_, s1);*/
+            DataProvider.saveStable(p_125984_, p_125985_, p_125986_);
         } catch (IOException ioexception) {
 
         }

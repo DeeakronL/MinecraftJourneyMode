@@ -756,13 +756,17 @@ public class JourneyModeDuplicationScreen extends AbstractContainerScreen<Journe
                     }
                 }
             }
-
-            this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
+            this.visibleTags.forEach((tag) -> {
+                if (itemStack.is(tag)) {
+                    list1.add(1, (Component.literal("#" + tag)).withStyle(ChatFormatting.DARK_PURPLE));
+                }
+            });
+            /*this.tagSearchResults.forEach((p_214083_2_, p_214083_3_) -> {
                 if (p_214083_3_.getValues().contains(item)) {
                     list1.add(1, (Component.literal("#" + p_214083_2_)).withStyle(ChatFormatting.DARK_PURPLE));
                 }
 
-            });
+            });*/
             if (itemgroup != null && itemgroup != CreativeModeTab.TAB_INVENTORY) {
                 list1.add(1, itemgroup.getDisplayName().copy().withStyle(ChatFormatting.BLUE));
             }

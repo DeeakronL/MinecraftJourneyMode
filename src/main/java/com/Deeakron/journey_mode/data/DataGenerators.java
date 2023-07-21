@@ -16,9 +16,9 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
-        generator.addProvider(new BlockTagProvider(generator, journey_mode.MODID, helper));
-        generator.addProvider(new AdvancementsProvider(generator, helper));
+        generator.addProvider(true, new BlockTagProvider(generator, journey_mode.MODID, helper));
+        generator.addProvider(true, new AdvancementsProvider(generator, helper));
         journey_mode.register(event);
-        generator.addProvider(new RecipesProvider(generator));
+        generator.addProvider(true, new RecipesProvider(generator));
     }
 }
