@@ -38,39 +38,39 @@ public class CommandPacket {
         MinecraftServer server = context.get().getSender().getServer();
         CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(context.get().getSender().blockPosition()), Vec2.ZERO, (ServerLevel) ServerLevel, 2, context.get().getSender().getName().getString(), context.get().getSender().getName(), server, (Entity) null);
         if (command.equals("dawn")) {
-            server.getCommands().performCommand(source, "time set day");
+            server.getCommands().performPrefixedCommand(source, "time set day");
         } else if (command.equals("noon")) {
-            server.getCommands().performCommand(source, "time set noon");
+            server.getCommands().performPrefixedCommand(source, "time set noon");
         } else if (command.equals("dusk")) {
-            server.getCommands().performCommand(source, "time set night");
+            server.getCommands().performPrefixedCommand(source, "time set night");
         } else if (command.equals("midnight")) {
-            server.getCommands().performCommand(source, "time set midnight");
+            server.getCommands().performPrefixedCommand(source, "time set midnight");
         } else if (command.equals("freeze")) {
-            server.getCommands().performCommand(source, "gamerule doDaylightCycle false");
+            server.getCommands().performPrefixedCommand(source, "gamerule doDaylightCycle false");
         } else if (command.equals("unfreeze")) {
-            server.getCommands().performCommand(source, "gamerule doDaylightCycle true");
+            server.getCommands().performPrefixedCommand(source, "gamerule doDaylightCycle true");
         } else if (command.equals("clear")) {
-            server.getCommands().performCommand(source, "weather clear 1800");
+            server.getCommands().performPrefixedCommand(source, "weather clear 1800");
         } else if (command.equals("rain")) {
-            server.getCommands().performCommand(source, "weather rain 1800");
+            server.getCommands().performPrefixedCommand(source, "weather rain 1800");
         } else if (command.equals("storm")) {
-            server.getCommands().performCommand(source, "weather thunder 1800");
+            server.getCommands().performPrefixedCommand(source, "weather thunder 1800");
         } else if (command.equals("normal_speed")) {
-            server.getCommands().performCommand(source, "gamerule randomTickSpeed 3");
+            server.getCommands().performPrefixedCommand(source, "gamerule randomTickSpeed 3");
         } else if (command.equals("double_speed")) {
-            server.getCommands().performCommand(source, "gamerule randomTickSpeed 60");
+            server.getCommands().performPrefixedCommand(source, "gamerule randomTickSpeed 60");
         } else if (command.equals("quadruple_speed")) {
-            server.getCommands().performCommand(source, "gamerule randomTickSpeed 120");
+            server.getCommands().performPrefixedCommand(source, "gamerule randomTickSpeed 120");
         } else if (command.equals("octuple_speed")) {
-            server.getCommands().performCommand(source, "gamerule randomTickSpeed 240");
+            server.getCommands().performPrefixedCommand(source, "gamerule randomTickSpeed 240");
         } else if (command.equals("enable_spawn")) {
-            server.getCommands().performCommand(source, "gamerule doMobSpawning true");
+            server.getCommands().performPrefixedCommand(source, "gamerule doMobSpawning true");
         } else if (command.equals("disable_spawn")) {
-            server.getCommands().performCommand(source, "gamerule doMobSpawning false");
+            server.getCommands().performPrefixedCommand(source, "gamerule doMobSpawning false");
         } else if (command.equals("enable_grief")) {
-            server.getCommands().performCommand(source, "gamerule mobGriefing true");
+            server.getCommands().performPrefixedCommand(source, "gamerule mobGriefing true");
         } else if (command.equals("disable_grief")) {
-            server.getCommands().performCommand(source, "gamerule mobGriefing false");
+            server.getCommands().performPrefixedCommand(source, "gamerule mobGriefing false");
         } else if (command.equals("enable_god_mode")) {
             context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setPlayer(context.get().getSender().getUUID());
             context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(true);
@@ -78,9 +78,9 @@ public class CommandPacket {
             context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setPlayer(context.get().getSender().getUUID());
             context.get().getSender().getCapability(JMCapabilityProvider.INSTANCE,null).orElse(new EntityJourneyMode()).setGodMode(false);
         } else if (command.equals("lose_inv")) {
-            server.getCommands().performCommand(source, "gamerule keepInventory false");
+            server.getCommands().performPrefixedCommand(source, "gamerule keepInventory false");
         } else if (command.equals("keep_inv")) {
-            server.getCommands().performCommand(source, "gamerule keepInventory true");
+            server.getCommands().performPrefixedCommand(source, "gamerule keepInventory true");
         }
         context.get().setPacketHandled(true);
     }
