@@ -83,7 +83,7 @@ public class AdvancementsProvider extends AdvancementProvider {
                         null,
                         FrameType.TASK,
                         true,true,false)
-                .addCriterion("cracked_bedrock", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.CRACKED_BEDROCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.PRIMORDIAL_VOID_DUST.get())))
+                .addCriterion("cracked_bedrock", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.CRACKED_BEDROCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.PRIMORDIAL_VOID_DUST.get())))
                 .save(consumer, "journey_mode:crack_bedrock");
 
         Advancement unobtainium  = Advancement.Builder.advancement().parent(crack_bedrock).display(
@@ -143,7 +143,7 @@ public class AdvancementsProvider extends AdvancementProvider {
                         null,
                         FrameType.TASK,
                         true,true,false)
-                .addCriterion("inert_structure", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
+                .addCriterion("inert_structure", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_STRUCTURE_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
                 .save(consumer, "journey_mode:get_inert_structure");
 
         Advancement inert_command  = Advancement.Builder.advancement().parent(aetherial_dust).display(
@@ -154,9 +154,9 @@ public class AdvancementsProvider extends AdvancementProvider {
                         FrameType.TASK,
                         true,true,false)
                 .requirements(RequirementsStrategy.OR)
-                .addCriterion("inert_command", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_COMMAND_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
-                .addCriterion("inert_chain", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
-                .addCriterion("inert_repeating", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
+                .addCriterion("inert_command", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_COMMAND_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
+                .addCriterion("inert_chain", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_CHAIN_COMMAND_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
+                .addCriterion("inert_repeating", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_REPEATING_COMMAND_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
                 .save(consumer, "journey_mode:get_inert_command");
 
         Advancement inert_jigsaw  = Advancement.Builder.advancement().parent(aetherial_dust).display(
@@ -166,7 +166,7 @@ public class AdvancementsProvider extends AdvancementProvider {
                         null,
                         FrameType.TASK,
                         true,true,false)
-                .addCriterion("inert_jigsaw", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_JIGSAW_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
+                .addCriterion("inert_jigsaw", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.INERT_JIGSAW_BLOCK.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.AETHERIAL_VOID_DUST.get())))
                 .save(consumer, "journey_mode:get_inert_jigsaw");
 
         Advancement painted_barrier  = Advancement.Builder.advancement().parent(paint).display(
@@ -176,7 +176,7 @@ public class AdvancementsProvider extends AdvancementProvider {
                         null,
                         FrameType.TASK,
                         true,true,false)
-                .addCriterion("painted_barrier", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.PAINTED_BARRIER.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.PAINT_BUCKET.get())))
+                .addCriterion("painted_barrier", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(UnobtainBlockInit.PAINTED_BARRIER.get()).build()), ItemPredicate.Builder.item().of(UnobtainItemInit.PAINT_BUCKET.get())))
                 .save(consumer, "journey_mode:get_painted_barrier");
 
         Advancement villager_spawn_egg  = Advancement.Builder.advancement().parent(scanner).display(
